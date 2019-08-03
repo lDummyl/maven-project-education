@@ -1,70 +1,82 @@
 package task2;
-import java.util.stream.IntStream;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-import java.io.*;
-import java.util.*;
+
+
+
+
 
 public class Office {
 
-	/*
 	Secretary secretary;
+	Director director = new Director(this);
+	Hr hr = new Hr("Аделаида Марковна");
 
-	Director director;
-
-	Hr hr;
-	*/
-
-	//претенденты идут по одному, когда их достаточно,
-	// то диретор принимает решение и берет одного в штат
-
-//	Director director = new Director();
-// 	Hr hr = new Hr();
-
-	ArrayList<Object> incoming = new ArrayList<Object>();
-
-	int countSecr = 0;
-
-	void invitePeaople(Object human){      //претенденты приходят по одному
-
-		incoming.add(human);
-		System.out.println("Секретарь " + ++countSecr + " " + human);
-	}
-
-	ArrayList<Object> getInvitePeaople(){
-		return incoming;
+	void invitePeople(Object human) {      //претенденты приходят по одному
+		if (human instanceof WantAWork) {
+			List<WantAWork> currentCandidates = hr.considerCandidate((WantAWork) human);
+			secretary = director.chooseSecretary(currentCandidates);
+		}
 	}
 }
 
-class Secretary {
+class Secretary implements WantAWork {
+
+	String name;
+
+	public Secretary(String name) {
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Секретарь " + name;
+	}
+
+	@Override
+	public boolean passInterview() {
+		return true;
+	}
 }
 
-class Director  {
-	ArrayList<Object> incomingDir;
-	Random choice = new Random();
-	int randomIndex=0;
 
-	public void directorsChoice(ArrayList<Object> incomingDir){  //дир выбрирает секретаря
+class Director {
 
-		this.incomingDir = incomingDir;
-		randomIndex =  choice.nextInt(this.incomingDir.size());
+	final Office myOffice;
+	final int enoughCandidatesToDecide = 4;
+	Random random = new Random();
+
+	public Director(Office myOffice) {
+		this.myOffice = myOffice;
 	}
 
-	public Object directorsDecision()  {        //озвучивает решение
-		return incomingDir.get(randomIndex);
+	public Secretary chooseSecretary(List<WantAWork> currentCandidates) {
+		if (currentCandidates.size() < enoughCandidatesToDecide) return null;
+		WantAWork wantAWork = currentCandidates.get(random.nextInt(currentCandidates.size()));
+		if (wantAWork instanceof Secretary) {
+			return (Secretary) wantAWork;
+		} else {
+			throw new RuntimeException("Что это вы, "+ myOffice.hr.name +",  мне подсовываете " + wantAWork.getClass() + " вместо " + Secretary.class);
+		}
 	}
 }
 
-class Hr {
-	ArrayList<Object> listJobSeekers;
+class Hr{
 
-	void setJobSeekers(ArrayList<Object> listJobSeekers){    //Hr принял секретарей
+	List<WantAWork> listJobSeekers = new ArrayList<>();
 
-        this.listJobSeekers = listJobSeekers;
-		IntStream.range(0,10).forEach(i ->this.listJobSeekers.add(new Secretary()));  //познакомился
+	String name;
+
+	public Hr(String name) {
+		this.name = name;
 	}
 
-	ArrayList<Object> getJobSeeker(){    //отправил список
+	public List<WantAWork> considerCandidate(WantAWork candidate) {
+		if (candidate.passInterview()) {
+			listJobSeekers.add(candidate);
+		}
 		return listJobSeekers;
 	}
 }
