@@ -6,6 +6,13 @@ package task2;
 
 public class Main {
 	public static void main(String[] args) {
-		
+		Office office = new Office();
+		String[] names = {"Zina", "Masha"};
+		Secraetary zina = new Secraetary("Zina");
+		for (String name : names) {
+			System.out.println(name);
+		}
+		office.invitePeaople(zina);
+
 	}
 }
