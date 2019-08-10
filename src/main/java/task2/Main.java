@@ -14,9 +14,12 @@ public class Main {
 		secretaries.add(new Secretary("Oleg"));
 		secretaries.add(new Secretary("Zina"));
 		secretaries.add(new Secretary("Ivan"));
+        secretaries.add(new Secretary("Boris"));
 
 		for (Secretary candidate : secretaries) {
 			office.invitePeaople(candidate);
 		}
+
+		office.offerCandidates();
 	}
 }

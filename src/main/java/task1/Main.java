@@ -4,11 +4,10 @@ package task1;
 //задание вывести на печать Hello World 10 раз в одну строчку
 // hint: use stream Api
 
+import java.util.stream.IntStream;
+
 public class Main {
     public static void main(String[] args) {
-        for (int i = 0; i < 10; i++) {
-            System.out.println("Hello world!");
-        }
-
+        IntStream.range(1, 10).forEach(i -> System.out.println("Hello World!"));
     }
 }
