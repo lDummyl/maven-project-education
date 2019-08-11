@@ -43,10 +43,12 @@ public class Director {
         }
 
         // возможно, я немного тут намудрил
+        // Да, правильно, намудрил. Это все потому что ты слишком активно нагружаешь директора, на нем все держится и в нем все происходит, подкинь больше работы HR и в офис. Метод который что-то возвращет лучше void. Сделай так чтобы HR отсортировал по спискам кандидатов.
         List<Accountant> accountants = office.getAccountants();
         choseSomeCandidates(accountants, candidates, accountantsOnStaff, Accountant.class);
     }
 
+    // установи в idea плагин sonar и используй его периодически, он будет говорить что не так, в частности с этим методом. С его точки зрения это critical issue
     private void choseSomeCandidates(List<? extends Object> list, List<WantAJob> candidates, int maxCount, Class<? extends Object> objectClass) {
         int countWorks = list.size();
 
@@ -56,7 +58,7 @@ public class Director {
                 Object candidate = choseCandidate(candidates, objectClass);
                 if (candidate == null) {
                     i--;
-                    continue;
+                    continue;  // это ругательное слово в java
                 }
 
                 if (countWorks > 0) {
@@ -65,7 +67,7 @@ public class Director {
                         if (candidate.equals(works)) {
                             noMatches = false;
                             i--;
-                            break;
+                            break; // это тоже хоть и более мягкое
                         }
                     }
 

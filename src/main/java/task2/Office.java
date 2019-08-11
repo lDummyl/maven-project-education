@@ -15,7 +15,7 @@ public class Office {
 
 	// чтож пора нанять еще людей по тому же принципу, пусть будут еще 2 бухгалтера, охранник и юрист. Эх, добавится работы ХРу ну и директору.
 
-	private Director director = new Director(this);
+	private Director director = new Director(this); // 5 баллов, если не подглядывал, если подглядел все равно зачет.
 	private Hr hr = new Hr();
 
 	//претенденты идут по одному, когда их достаточно,

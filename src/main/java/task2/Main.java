@@ -16,6 +16,9 @@ public class Main {
 	public static void main(String[] args) {
 		Office office = new Office();
 
+		// добавим еще веселья, пусть офисов будет 3, а кандидаты не могут рабоать одновременно в нескольких. Рынок труда общий для всех.
+		// и теперь то что мы берем кандидата еще не значит, что он к нам пойдет, мы делаем оффер, а он уже должен решить да или нет и только после этого устроится.
+
 		ArrayList<Object> labourMarket = new ArrayList<>();
 		labourMarket.add(new Secretary("Oleg"));
 		labourMarket.add(new Secretary("Zina"));
