@@ -31,10 +31,13 @@ public class Main {
         secretaries.add(new Sluggard("Kolya"));
         secretaries.add(new Sluggard("Viktor Ivanovich"));
 
-		for (Object candidate : secretaries) {
-			office.invitePeaople(candidate);
-		}
+		office.invitePeaople(secretaries);
 
-		office.offerCandidates();
+		System.out.println(office.getDirectorSecretary()); // есть один нюанс, который пока я не знаю как лучше решить
+														   // получается что собеседуются объекты разных классов
+														   // и у Sluggard может не быть name.
+														   // как лучше это реализовать, чтобы при обращении к имени из вне не получить ошибку?
+														   // пока что в голову пришло только одно решение: в интерфейс добавить метод Boolean haveName(), на который можно будет ориентироваться
+														   // но мне кажется что это костыль)
 	}
 }

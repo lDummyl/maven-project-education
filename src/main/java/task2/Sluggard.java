@@ -8,9 +8,20 @@ public class Sluggard implements WantAJob {
 		this.name = name;
 	}
 
+	public String getName() {
+		return name;
+	}
+
 	@Override
 	public Boolean passInterview() {
 
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Sluggard{" +
+				"name='" + name + '\'' +
+				'}';
 	}
 }
