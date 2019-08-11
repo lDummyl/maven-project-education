@@ -1,15 +1,11 @@
 package task2;
 
-public class Secretary implements WantAJob {
+public class Accountant implements WantAJob {
 
     private final String name;
 
-    public Secretary(String name) {
+    public Accountant(String name) {
         this.name = name;
-    }
-
-    public Coffee getCoffee(String sort) {
-        return new Coffee(sort);
     }
 
     public String getName() {
@@ -23,7 +19,7 @@ public class Secretary implements WantAJob {
 
     @Override
     public String toString() {
-        return "Secretary{" +
+        return "Accountant{" +
                 "name='" + name + '\'' +
                 '}';
     }

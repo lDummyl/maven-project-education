@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Office {
-	Secretary secretary; // ??? Пока не знаю что он тут делает // работает конечно, у диретора конечно может быть личный секретарь, но пока всеже это будет скорее офис-менеджер.
+	private Secretary secretary; // ??? Пока не знаю что он тут делает // работает конечно, у диретора конечно может быть личный секретарь, но пока всеже это будет скорее офис-менеджер.
 	// тут немного не понял. с учетом нововведений, что собеседоваться могут еще и бездельники
 	// и при это они тоже проходят, получается что у директора не Secretary должен быть, а Object или WantAJob?
+	// понял
 
-	List<Accountant> accountants;
-	SecurityOfficer security;
-	Lawer lawer;
+	private List<Accountant> accountants = new ArrayList<>();
+	private SecurityOfficer security;
+	private Lawyer lawyer;
 
 	// чтож пора нанять еще людей по тому же принципу, пусть будут еще 2 бухгалтера, охранник и юрист. Эх, добавится работы ХРу ну и директору.
 
-	private Director director = new Director();
+	private Director director = new Director(this);
 	private Hr hr = new Hr();
 
 	//претенденты идут по одному, когда их достаточно,
@@ -28,21 +29,49 @@ public class Office {
 		}
 
 		List<WantAJob> candidates = hr.getCandidates();
-		boolean offerCandidates = candidates.size() > 1; // лучше пусть директор рещает а не Офис.
-		if (offerCandidates) {
-			director.makeDecision(candidates);
-		}
+		//boolean offerCandidates = candidates.size() > 1; // лучше пусть директор рещает а не Офис.
+		//if (offerCandidates) {
+        director.makeDecision(candidates);
+		//}
 	}
 
-	// убрал этот метод, но пока до конца не уверен что окончательно
+    public Secretary getSecretary() {
+        return secretary;
+    }
+
+    public void setSecretary(Secretary secretary) {
+        this.secretary = secretary;
+    }
+
+    public List<Accountant> getAccountants() {
+        return accountants;
+    }
+
+	public void setAccountants(List<Accountant> accountants) {
+		this.accountants = accountants;
+	}
+
+	public SecurityOfficer getSecurity() {
+		return security;
+	}
+
+	public void setSecurity(SecurityOfficer security) {
+		this.security = security;
+	}
+
+	public Lawyer getLawyer() {
+		return lawyer;
+	}
+
+	public void setLawyer(Lawyer lawyer) {
+		this.lawyer = lawyer;
+	}
+
+	// оставил закомменченым для информации
 	//private void offerCandidates() {
 	//    List<WantAJob> candidates = hr.getCandidates();
 	//    if (candidates.size() > 1) // это называется magic number лучше завести константу или просто поле, которое будет означать что она из себя представляет
 	//        director.makeDecision(candidates);
 	//    System.out.println(director.getSecretary()); // лучше проверку вынести см. комментарии в Main
 	//}
-
-	public WantAJob getDirectorSecretary() {
-		return director.getSecretary();
-	}
 }

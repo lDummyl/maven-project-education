@@ -14,7 +14,6 @@ public class Sluggard implements WantAJob {
 
 	@Override
 	public Boolean passInterview() {
-
 		return true;
 	}
 
