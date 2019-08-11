@@ -9,13 +9,13 @@ public class Director {
 
     public void makeDecision(List<WantAJob> candidates) {
         if (secretary == null) {
-            Random random = new Random();
+            Random random = new Random(); // при каждом вызове этого метода будет создаваться новый Рандом это нехорошо (будет не очень рандомно :), лучше создать его однажды в поле и потом вызывать.
             //++ Debug
-            int size = candidates.size() - 1;
+            int size = candidates.size() - 1; // не путай так человека, который будет читать если вычитаешь из size 1 то переменную назови lastIndex
             int index = random.nextInt(size);
             System.out.println(index + " " + size + " ");
             //--
-            secretary = (Secretary) candidates.get(index);
+            secretary = (Secretary) candidates.get(index); // а вот тут тебя ждет ClassCastException
         }
     }
 

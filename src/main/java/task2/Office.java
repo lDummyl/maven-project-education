@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Office {
 
-    //Secretary secretary; // ??? Пока не знаю что он тут делает
+    //Secretary secretary; // ??? Пока не знаю что он тут делает // работает конечно, у диретора конечно может быть личный секретарь, но пока всеже это будет скорее офис-менеджер.
     private Director director = new Director();
     private Hr hr = new Hr();
 
@@ -21,8 +21,8 @@ public class Office {
 
     public void offerCandidates() {
         List<WantAJob> candidates = hr.getCandidates();
-        if (candidates.size() > 1)
+        if (candidates.size() > 1) // это называется magic number лучше завести константу или просто поле, которое будет означать что она из себя представляет
             director.makeDecision(candidates);
-        System.out.println(director.getSecretary());
+        System.out.println(director.getSecretary()); // лучше проверку вынести см. комментарии в Main
     }
 }
