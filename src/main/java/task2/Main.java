@@ -16,22 +16,23 @@ public class Main {
 	public static void main(String[] args) {
 		Office office = new Office();
 
-		ArrayList<Object> secretaries = new ArrayList<>();
-		secretaries.add(new Secretary("Oleg"));
-		secretaries.add(new Secretary("Zina"));
-		secretaries.add(new Secretary("Ivan"));
-        secretaries.add(new Secretary("Boris"));
-        secretaries.add(new Sluggard("Fedor"));
-        secretaries.add(new Sluggard("Pyotr"));
-        secretaries.add(new Sluggard("Frol"));
-        secretaries.add(new Sluggard("Segey"));
-        secretaries.add(new Sluggard("Tanya"));
-        secretaries.add(new Sluggard("Grisha"));
-        secretaries.add(new Sluggard("Alevtina"));
-        secretaries.add(new Sluggard("Kolya"));
-        secretaries.add(new Sluggard("Viktor Ivanovich"));
+		ArrayList<Object> labourMarket = new ArrayList<>();
+		labourMarket.add(new Secretary("Oleg"));
+		labourMarket.add(new Secretary("Zina"));
+		labourMarket.add(new Secretary("Ivan"));
+        labourMarket.add(new Secretary("Boris"));
+        labourMarket.add(new Sluggard("Fedor"));
+        labourMarket.add(new Sluggard("Pyotr"));
+        labourMarket.add(new Sluggard("Frol"));
+        labourMarket.add(new Sluggard("Segey"));
+        labourMarket.add(new Sluggard("Tanya"));
+        labourMarket.add(new Sluggard("Grisha"));
+        labourMarket.add(new Sluggard("Alevtina"));
+        labourMarket.add(new Sluggard("Kolya"));
+        labourMarket.add(new Sluggard("Viktor Ivanovich"));
 
-		office.invitePeaople(secretaries);
+
+		office.invitePeaople(labourMarket);
 
 		System.out.println(office.getDirectorSecretary()); // есть один нюанс, который пока я не знаю как лучше решить
 														   // получается что собеседуются объекты разных классов
@@ -39,5 +40,7 @@ public class Main {
 														   // как лучше это реализовать, чтобы при обращении к имени из вне не получить ошибку?
 														   // пока что в голову пришло только одно решение: в интерфейс добавить метод Boolean haveName(), на который можно будет ориентироваться
 														   // но мне кажется что это костыль)
+
+		// любой объект можно кастовать в класс, прежде чем обращаться с ним как с объектом этого класса, но можно делать провеки преде этим, instanceof например или не делать и полагаться на случай.
 	}
 }

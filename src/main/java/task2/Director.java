@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Random;
 
 public class Director {
-    private WantAJob secretary;
+    private WantAJob secretary; // решение не плохое, но как-то секретарь должен еще что-то помимо прохождения интервью уметь. Я бы всеже вынес его в Офис отсюда совсем. И при назначании проводил финальную проверку через instanceof
     private Random random = new Random();
+
+    private final int enoughCandidatesToDecide = 3; // теперь это не magic number, и не стоит выбирать из одного кандидата
+
 
     public void makeDecision(List<WantAJob> candidates) {
         if (secretary == null) {
@@ -23,4 +26,9 @@ public class Director {
     public WantAJob getSecretary() {
         return secretary;
     }
+
+    private void makeSomeCoffee(){
+//        secretary.????
+    }
+
 }
