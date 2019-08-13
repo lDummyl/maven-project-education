@@ -12,6 +12,15 @@ public class Hr {
         }
     }
 
+    public List<Object> selectCandidates(Class<? extends Object> clazz) {
+        List<Object> pertain = new ArrayList<>();
+        for (WantAJob candidate : candidates) {
+            if (clazz.isInstance(candidate))
+                pertain.add(candidate);
+        }
+        return pertain;
+    }
+
     public List<WantAJob> getCandidates() {
         return candidates;
     }

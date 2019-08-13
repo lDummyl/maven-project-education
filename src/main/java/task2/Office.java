@@ -16,6 +16,7 @@ public class Office {
 	// чтож пора нанять еще людей по тому же принципу, пусть будут еще 2 бухгалтера, охранник и юрист. Эх, добавится работы ХРу ну и директору.
 
 	private Director director = new Director(this); // 5 баллов, если не подглядывал, если подглядел все равно зачет.
+														   // делаю сам. подглядывать не собираюсь, т.к. хочу иметь понимание всего что делается в задаче
 	private Hr hr = new Hr();
 
 	//претенденты идут по одному, когда их достаточно,
@@ -28,12 +29,37 @@ public class Office {
 			}
 		}
 
-		List<WantAJob> candidates = hr.getCandidates();
 		//boolean offerCandidates = candidates.size() > 1; // лучше пусть директор рещает а не Офис.
 		//if (offerCandidates) {
-        director.makeDecision(candidates);
-		//}
-	}
+        //}
+
+        List<Object> candidates;
+
+        candidates = hr.selectCandidates(Secretary.class);
+        secretary = (Secretary) director.choseCandidate(candidates);
+
+        candidates = hr.selectCandidates(SecurityOfficer.class);
+        security = (SecurityOfficer) director.choseCandidate(candidates);
+
+        candidates = hr.selectCandidates(Lawyer.class);
+        lawyer = (Lawyer) director.choseCandidate(candidates);
+
+        // лист побороть пока не смог. не могу сообразить универсальный метод, который сможет обработать кандидата (проверить на дубликаты) и добавить в лист (в любой, котрый укажу)
+        int accountantsOnStaff = director.getAccountantsOnStaff();
+        candidates = hr.selectCandidates(Accountant.class);
+        for (int i = 1; i <= accountantsOnStaff; i++) {
+            Accountant candidate = (Accountant) director.choseCandidate(candidates);
+            if (accountants.size() > 0) {
+                if (director.checkDuplicates(candidate, accountants)) {
+                    i--;
+                } else {
+                    accountants.add(candidate);
+                }
+            } else {
+                accountants.add(candidate);
+            }
+        }
+    }
 
     public Secretary getSecretary() {
         return secretary;

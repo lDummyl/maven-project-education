@@ -18,7 +18,7 @@ public class Director {
         this.office = office;
     }
 
-    public void makeDecision(List<WantAJob> candidates) {
+    public Object makeDecision(List<Object> candidates, int maxCount) {
             //Random random = new Random(); // при каждом вызове этого метода будет создаваться новый Рандом это нехорошо (будет не очень рандомно :), лучше создать его однажды в поле и потом вызывать.
             //int lastIndex = candidates.size() - 1; // не путай так человека, который будет читать если вычитаешь из size 1 то переменную назови lastIndex
                                                    // согласен, с названиями переменных у меня не всегда все ясно и просто
@@ -27,38 +27,41 @@ public class Director {
             //if (candidate instanceof Secretary) // не знал что это работает в обратную сторону
             //    office.setSecretary((Secretary) candidate); // исправил // а вот тут тебя ждет ClassCastException
 
-        if (office.getSecretary() == null) {
-            Secretary secretary = (Secretary) choseCandidate(candidates, Secretary.class);
-            office.setSecretary(secretary);
-        }
-
-        if (office.getSecurity() == null) {
-            SecurityOfficer security = (SecurityOfficer) choseCandidate(candidates, SecurityOfficer.class);
-            office.setSecurity(security);
-        }
-
-        if (office.getLawyer() == null) {
-            Lawyer lawyer = (Lawyer) choseCandidate(candidates, Lawyer.class);
-            office.setLawyer(lawyer);
-        }
-
         // возможно, я немного тут намудрил
         // Да, правильно, намудрил. Это все потому что ты слишком активно нагружаешь директора, на нем все держится и в нем все происходит, подкинь больше работы HR и в офис. Метод который что-то возвращет лучше void. Сделай так чтобы HR отсортировал по спискам кандидатов.
-        List<Accountant> accountants = office.getAccountants();
-        choseSomeCandidates(accountants, candidates, accountantsOnStaff, Accountant.class);
+        //List<Accountant> accountants = office.getAccountants();
+        //choseSomeCandidates(accountants, candidates, accountantsOnStaff, Accountant.class);
+
+        return null; // с этим методом не получилось, разбил на два метода
+    }
+
+    public Object choseCandidate(List<Object> candidates) {
+        if (candidates.size() >= enoughCandidatesToDecide) {
+            int lastIndex = candidates.size() - 1;
+            return candidates.get(random.nextInt(lastIndex));
+        }
+        return null;
+    }
+
+    public Boolean checkDuplicates(Object checking, List<? extends Object> list) {
+        for (Object object : list) {
+            if (checking.equals(object))
+                return true;
+        }
+        return false;
     }
 
     // установи в idea плагин sonar и используй его периодически, он будет говорить что не так, в частности с этим методом. С его точки зрения это critical issue
-    private void choseSomeCandidates(List<? extends Object> list, List<WantAJob> candidates, int maxCount, Class<? extends Object> objectClass) {
+    private void choseSomeCandidates(List<Object> list, List<Object> candidates, int maxCount) {
         int countWorks = list.size();
 
         if (countWorks < maxCount) {
             int chose = maxCount - countWorks;
             for (int i = 0; i < chose; i++) {
-                Object candidate = choseCandidate(candidates, objectClass);
+                Object candidate = choseCandidate(candidates);
                 if (candidate == null) {
                     i--;
-                    continue;  // это ругательное слово в java
+                    continue;  // понял // это ругательное слово в java
                 }
 
                 if (countWorks > 0) {
@@ -83,24 +86,14 @@ public class Director {
         }
     }
 
-    private Object choseCandidate(List<WantAJob> candidates, Class<? extends Object> objectClass) {
-        List<Object> pertain = new ArrayList<>();
-        for (Object candidate : candidates) {
-            if (objectClass.isInstance(candidate))
-                pertain.add(candidate);
-        }
-
-        if (pertain.size() >= enoughCandidatesToDecide) {
-            int lastIndex = pertain.size() - 1;
-            return pertain.get(random.nextInt(lastIndex));
-        }
-        return null;
-    }
-
     private Coffee makeSomeCoffee(String sort) {
         Secretary secretary = office.getSecretary();
         if (secretary != null)
             return secretary.getCoffee(sort);
         return null;
+    }
+
+    public int getAccountantsOnStaff() {
+        return accountantsOnStaff;
     }
 }
