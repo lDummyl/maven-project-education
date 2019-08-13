@@ -1,8 +1,5 @@
 package task2;
 
-import sun.util.resources.cldr.ja.LocaleNames_ja;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
