@@ -15,6 +15,7 @@ public class Director {
         this.office = office;
     }
 
+    // TODO: 8/14/19 привыкай избавлться от кода в коммитах, он сохраняется в контроле версий так что не потеряется
     public Object makeDecision(List<Object> candidates, int maxCount) {
             //Random random = new Random(); // при каждом вызове этого метода будет создаваться новый Рандом это нехорошо (будет не очень рандомно :), лучше создать его однажды в поле и потом вызывать.
             //int lastIndex = candidates.size() - 1; // не путай так человека, который будет читать если вычитаешь из size 1 то переменную назови lastIndex

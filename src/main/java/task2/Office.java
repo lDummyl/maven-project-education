@@ -33,9 +33,9 @@ public class Office {
 		//if (offerCandidates) {
         //}
 
-        List<Object> candidates;
+		List<Object> candidates;
 
-        candidates = hr.selectCandidates(Secretary.class);
+		candidates = hr.selectCandidates(Secretary.class);
         secretary = (Secretary) director.choseCandidate(candidates);
 
         candidates = hr.selectCandidates(SecurityOfficer.class);
