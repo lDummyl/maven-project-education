@@ -14,7 +14,9 @@ public class Main {
 	// соответсвующим образом, и тогда все встанет на свои места, пропадет "рука бога", которая и приглашает и
 	// предлагает кандидатов, это должно быть инкапсулировано в офисе.
 	public static void main(String[] args) {
-		Office office = new Office();
+		Office danone = new Office();
+		Office heinz = new Office();
+		Office umalat = new Office();
 
 		// TODO: 8/14/19 не забудь про это условие, чтобы не пропустить пользуейся историей гита, он показывет что добавлено за коммит.
 		// добавим еще веселья, пусть офисов будет 3, а кандидаты не могут рабоать одновременно в нескольких. Рынок труда общий для всех.
@@ -25,6 +27,7 @@ public class Main {
 		labourMarket.add(new Secretary("Zina"));
 		labourMarket.add(new Secretary("Ivan"));
         labourMarket.add(new Secretary("Boris"));
+        labourMarket.add(new Secretary("Igor"));
 
         labourMarket.add(new Sluggard("Fedor"));
         labourMarket.add(new Sluggard("Pyotr"));
@@ -52,9 +55,8 @@ public class Main {
         labourMarket.add(new Accountant("Inna"));
         labourMarket.add(new Accountant("Valeriya"));
 
-		office.invitePeaople(labourMarket);
-
-		System.out.println(office.getSecretary()); // есть один нюанс, который пока я не знаю как лучше решить
+		danone.invitePeaople(labourMarket);
+		System.out.println(danone.getSecretary()); // есть один нюанс, который пока я не знаю как лучше решить
                                                    // получается что собеседуются объекты разных классов
 												   // и у Sluggard может не быть name.
 												   // как лучше это реализовать, чтобы при обращении к имени из вне не получить ошибку?
@@ -63,8 +65,24 @@ public class Main {
 
 		// любой объект можно кастовать в класс, прежде чем обращаться с ним как с объектом этого класса, но можно делать провеки преде этим, instanceof например или не делать и полагаться на случай.
 
-        System.out.println(office.getSecurity());
-        System.out.println(office.getLawyer());
-        System.out.println(office.getAccountants());
+        System.out.println(danone.getSecurity());
+        System.out.println(danone.getLawyer());
+        System.out.println(danone.getAccountants());
+
+        System.out.println("--------------------");
+
+        heinz.invitePeaople(labourMarket);
+        System.out.println(heinz.getSecretary());
+        System.out.println(heinz.getSecurity());
+        System.out.println(heinz.getLawyer());
+        System.out.println(heinz.getAccountants());
+
+        System.out.println("--------------------");
+
+        umalat.invitePeaople(labourMarket);
+        System.out.println(umalat.getSecretary());
+        System.out.println(umalat.getSecurity());
+        System.out.println(umalat.getLawyer());
+        System.out.println(umalat.getAccountants());
 	}
 }

@@ -1,10 +1,11 @@
 package task2;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Director {
-    //private WantAJob secretary; // решение не плохое, но как-то секретарь должен еще что-то помимо прохождения интервью уметь. Я бы всеже вынес его в Офис отсюда совсем. И при назначании проводил финальную проверку через instanceof
+
     private final Office office;
     private Random random = new Random();
 
@@ -15,73 +16,74 @@ public class Director {
         this.office = office;
     }
 
-    // TODO: 8/14/19 привыкай избавлться от кода в коммитах, он сохраняется в контроле версий так что не потеряется
-    public Object makeDecision(List<Object> candidates, int maxCount) {
-            //Random random = new Random(); // при каждом вызове этого метода будет создаваться новый Рандом это нехорошо (будет не очень рандомно :), лучше создать его однажды в поле и потом вызывать.
-            //int lastIndex = candidates.size() - 1; // не путай так человека, который будет читать если вычитаешь из size 1 то переменную назови lastIndex
-                                                   // согласен, с названиями переменных у меня не всегда все ясно и просто
-            //int index = random.nextInt(lastIndex);
-            //WantAJob candidate = candidates.get(index);
-            //if (candidate instanceof Secretary) // не знал что это работает в обратную сторону
-            //    office.setSecretary((Secretary) candidate); // исправил // а вот тут тебя ждет ClassCastException
+    public void makeDecision() {
+        Hr hr = office.getHr();
 
-        // возможно, я немного тут намудрил
-        // Да, правильно, намудрил. Это все потому что ты слишком активно нагружаешь директора, на нем все держится и в нем все происходит, подкинь больше работы HR и в офис. Метод который что-то возвращет лучше void. Сделай так чтобы HR отсортировал по спискам кандидатов.
-        //List<Accountant> accountants = office.getAccountants();
-        //choseSomeCandidates(accountants, candidates, accountantsOnStaff, Accountant.class);
+        Secretary secretary = choseCandidate(hr.getSecretaries());
+        if (secretary != null) {
+            secretary.setEmployed(true);
+            office.setSecretary(secretary);
+        }
 
-        return null; // с этим методом не получилось, разбил на два метода
+        SecurityOfficer security = choseCandidate(hr.getSecurities());
+        if (security != null) {
+            security.setEmployed(true);
+            office.setSecurity(security);
+        }
+
+        Lawyer lawyer = choseCandidate(hr.getLawyers());
+        if (lawyer != null) {
+            lawyer.setEmployed(true);
+            office.setLawyer(lawyer);
+        }
+
+        List<Accountant> accountants = choseSomeCandidates(hr.getAccountants(), accountantsOnStaff);
+        for (Accountant accountant : accountants) {
+            accountant.setEmployed(true);
+        }
+        office.setAccountants(accountants);
+
     }
 
-    public Object choseCandidate(List<Object> candidates) {
+    private <T extends WantAJob> T choseCandidate(List<T> candidates) {
         if (candidates.size() >= enoughCandidatesToDecide) {
             int lastIndex = candidates.size() - 1;
-            return candidates.get(random.nextInt(lastIndex));
+            T candidate = candidates.get(random.nextInt(lastIndex));
+            if (candidate.makeDecision())
+                return candidate;
         }
         return null;
     }
 
-    public Boolean checkDuplicates(Object checking, List<? extends Object> list) {
-        for (Object object : list) {
+    private <T extends WantAJob> List<T> choseSomeCandidates(List<T> candidates, int maxCount) {
+        List<T> list = new ArrayList<>();
+        if (candidates.size() >= enoughCandidatesToDecide) { // не уверен, что это нормальное решение, но без него я на 3-м офисе ловлю зацикливание
+            for (int i = 0; i < maxCount; i++) {
+                T candidate = choseCandidate(candidates);
+                if (candidate != null) {
+                    if (list.size() > 0) {
+                        if (checkDuplicates(candidate, list)) {
+                            i--;
+                        } else {
+                            list.add(candidate);
+                        }
+                    } else {
+                        list.add(candidate);
+                    }
+                } else {
+                    i--;
+                }
+            }
+        }
+        return list;
+    }
+
+    private Boolean checkDuplicates(WantAJob checking, List<? extends WantAJob> list) {
+        for (WantAJob object : list) {
             if (checking.equals(object))
                 return true;
         }
         return false;
-    }
-
-    // установи в idea плагин sonar и используй его периодически, он будет говорить что не так, в частности с этим методом. С его точки зрения это critical issue
-    private void choseSomeCandidates(List<Object> list, List<Object> candidates, int maxCount) {
-        int countWorks = list.size();
-
-        if (countWorks < maxCount) {
-            int chose = maxCount - countWorks;
-            for (int i = 0; i < chose; i++) {
-                Object candidate = choseCandidate(candidates);
-                if (candidate == null) {
-                    i--;
-                    continue;  // понял // это ругательное слово в java
-                }
-
-                if (countWorks > 0) {
-                    boolean noMatches = true;
-                    for (Object works : list) {
-                        if (candidate.equals(works)) {
-                            noMatches = false;
-                            i--;
-                            break; // это тоже хоть и более мягкое
-                        }
-                    }
-
-                    if (noMatches) {
-                        //list.add(objectClass.cast(candidate)); // тут у меня ступор пока что
-                        countWorks = list.size();
-                    }
-                } else {
-                    //list.add(objectClass.cast(candidate));
-                    countWorks = list.size();
-                }
-            }
-        }
     }
 
     private Coffee makeSomeCoffee(String sort) {
@@ -89,9 +91,5 @@ public class Director {
         if (secretary != null)
             return secretary.getCoffee(sort);
         return null;
-    }
-
-    public int getAccountantsOnStaff() {
-        return accountantsOnStaff;
     }
 }
