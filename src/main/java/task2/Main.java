@@ -27,20 +27,40 @@ import java.util.ArrayList;
 
 
 public class Main {
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
         ArrayList<Object> secretaries = new ArrayList<>();
-		secretaries.add(new Secretary("Маша"));
-		secretaries.add(new Secretary("Алла"));
-		secretaries.add(new Secretary("Анжелла"));
-		secretaries.add(new Secretary("Зина"));
-		secretaries.add(new Secretary("Марина"));
-		secretaries.add(new Secretary("Лера"));
+       secretaries.add(new Secretary("Маша"));    //создаем секретарей
+        secretaries.add(new Secretary("Алла"));
+        secretaries.add(new Secretary("Анжелла"));
+        secretaries.add(new Secretary("Зина"));
+        secretaries.add(new Secretary("Марина"));
+        secretaries.add(new Secretary("Лера"));
+
+   /*      for(int i=0; i<6; i++)                       //создаем 6 кандидатов жилающих работать, но е совсем секретарей
+        secretaries.add(new WantAWork() {
+            @Override
+            public boolean passInterview() {
+                return true;                         //возвращаем положительный результат прохождения интерьвью у Hr
+            }
+        });
+*/
 
         Office office = new Office();
-        secretaries.forEach(office::invitePeople);
 
-		System.out.println(office.secretary);
+   //     for (Object secretary : secretaries) {
+   //         System.out.println(secretary);
+   //     }
 
-	}
+//        secretaries.forEach(i -> System.out.println(i));    //прогоняем весь список секреторей, с помощью forEach вызывая в нем метод invitePeople (использум лямбда выражение)
+//        secretaries.forEach(secret -> System.out.print((secret));    //прогоняем весь список секреторей, с помощью forEach вызывая в нем метод invitePeople (использум лямбда выражение)
+//        secretaries.forEach(secret -> System.out.printF((secret));    //прогоняем весь список секреторей, с помощью forEach вызывая в нем метод invitePeople (использум лямбда выражение)
+//        secretaries.forEach(secret -> System.out.print4((secret));    //прогоняем весь список секреторей, с помощью forEach вызывая в нем метод invitePeople (использум лямбда выражение)
+
+
+        secretaries.forEach(office::invitePeople);    //прогоняем весь список секреторей, с помощью forEach вызывая в нем метод invitePeople (использум лямбда выражение)
+
+        System.out.println(office.secretary);         //выводим выбранного секретаря
+
+    }
 }
