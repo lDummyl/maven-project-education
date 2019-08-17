@@ -19,7 +19,8 @@ public class Office {
 	public Office(String nameOffice, Object workingSecretary ){  //конструктор для распределения секретарей по офисам
 	    this.nameOffice = nameOffice;
 
-       if (workingSecretary instanceof Secretary)
+		// TODO: 8/16/19 ну нет конечно не так, у нас нет такого способа через черный ход нанять секретаря. Все как положено через хр и директора. Кроме того конструктор не должен содержать логики(в данном случае проверка), он только инициализирует поля.
+	    if (workingSecretary instanceof Secretary)
 	    this.workingSecretary = (Secretary)workingSecretary;
 	}
 
