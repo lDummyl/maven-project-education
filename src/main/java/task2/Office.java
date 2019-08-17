@@ -91,19 +91,36 @@ class Director {
 //	}
 }
 
-class Hr{
+class Hr {
 
-	List<WantAWork> listJobSeekers = new ArrayList<>();
+    List<WantAWork> listJobSeekers = new ArrayList<>();
+    String name;
+
+    public Hr(String name) {
+        this.name = name;
+    }
+
+    public List<WantAWork> considerCandidate(WantAWork candidate) {  //метод в котором Hr рассматривает кандидатов, которые приходят из офиса (invitePeople) и возвращает список тех кто прошел
+        if (candidate.passInterview()) {               //если кандидат прошел интерьвью passInterview() возвращает true
+            listJobSeekers.add(candidate);             //и в список listJobSeekers добавляется кандидат
+        }
+        return listJobSeekers;                         //возвращаем список
+    }
+}
+
+class Accountant{   //implements WantAWork {
+
 	String name;
 
-	public Hr(String name) {
-		this.name = name;
-	}
+	public Accountant(String name){this.name = name;}
 
-	public List<WantAWork> considerCandidate(WantAWork candidate) {  //метод в котором Hr рассматривает кандидатов, которые приходят из офиса (invitePeople) и возвращает список тех кто прошел
-		if (candidate.passInterview()) {               //если кандидат прошел интерьвью passInterview() возвращает true
-			listJobSeekers.add(candidate);             //и в список listJobSeekers добавляется кандидат
-		}
-		return listJobSeekers;                         //возвращаем список
-	}
+	@Override
+    public String toString(){return "Бухгалтер " + name;}
+
+ /*   @Override
+    public boolean passInterview() {
+        return true;
+    } */
 }
+
+

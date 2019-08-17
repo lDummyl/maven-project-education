@@ -84,7 +84,27 @@ public class OfficeTest {
         for(int i=0; i<additionalOffice.size(); i++)
             additionalOffice.get(i).workingOffice();
 
+    }
 
+    @Test
+    public void addAccountant(){
+
+        Office office = new Office();
+
+        ArrayList<Object> laborMarket = new ArrayList<>();
+        laborMarket.add(new Secretary("Маша"));    //создаем секретарей
+        laborMarket.add(new Secretary("Алла"));
+        laborMarket.add(new Secretary("Анжелла"));
+        laborMarket.add(new Secretary("Зина"));
+        laborMarket.add(new Secretary("Марина"));
+        laborMarket.add(new Secretary("Лера"));
+        laborMarket.add(new Accountant("Виолетта"));
+
+
+        laborMarket.forEach(i-> System.out.println(i));
+
+        laborMarket.forEach(office::invitePeople);
+           assertTrue(laborMarket.contains(office.secretary));
 
     }
 
