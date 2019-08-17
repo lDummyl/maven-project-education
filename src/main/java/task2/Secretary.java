@@ -4,13 +4,10 @@ import java.util.Random;
 
 public class Secretary extends Employee {
 
+    Random random = new Random();
 
     public Secretary(String name) {
         super(name);
-    }
-
-    public Coffee getCoffee(String sort) {
-        return new Coffee(sort);
     }
 
     @Override
@@ -20,11 +17,16 @@ public class Secretary extends Employee {
 
     @Override
     public Boolean makeDecision() {
-        Random random = new Random();
         boolean agree = random.nextBoolean();
-        if (agree && random.nextBoolean()) super.setOfficeImHiredIn(null); //side effect
+        if (agree && random.nextBoolean())
+            super.setOfficeImHiredIn(null); //side effect
         return agree;
     }
 
-
+    @Override
+    public String toString() {
+        return "Secretary{" +
+                "name=" + getName() +
+                '}';
+    }
 }

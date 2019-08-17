@@ -2,7 +2,6 @@ package task2;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.WeakHashMap;
 
 public class Office {
 
@@ -13,8 +12,7 @@ public class Office {
 
     // чтож пора нанять еще людей по тому же принципу, пусть будут еще 2 бухгалтера, охранник и юрист. Эх, добавится работы ХРу ну и директору.
 
-    private Director director = new Director(this); // 5 баллов, если не подглядывал, если подглядел все равно зачет.
-    // делаю сам. подглядывать не собираюсь, т.к. хочу иметь понимание всего что делается в задаче
+    private Director director = new Director(this);
     private Hr hr = new Hr();
 
     //претенденты идут по одному, когда их достаточно,

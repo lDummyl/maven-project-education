@@ -26,23 +26,10 @@ public class Hr {
 		accountants = offerRequestedCandidates(Accountant.class);
     }
 
-    // TODO: 8/14/19 so you cant call new Hr().offerRequestedCandidates(Coffee.class)
 	private <T extends WantAJob> List<T> offerRequestedCandidates(Class<T> clazz) {
-        // TODO: 8/14/19 а тут финт ушами
-//        Map<? extends Class<?>, List<Object>> candidatesByClass = candidates.stream().collect(Collectors.groupingBy(Object::getClass));
         Map<Class<?>, List<WantAJob>> candidatesByClass = candidates.stream().collect(Collectors.groupingBy(Object::getClass));
         return (List<T>) candidatesByClass.get(clazz);
     }
-
-    // это так нахальненько и не очень чисто, но уж больго лаконично, из более тривиальных вариантов, все-таки я имел в виду что HR будет инкапулировать в себе листы кандидатов и по требованию директора  их выдавать уже отфильтрованные
-
-	public void clearCandidatesList() {
-		candidates.clear();
-		secretaries.clear();
-		securities.clear();
-		lawyers.clear();
-		accountants.clear();
-	}
 
 	public List<WantAJob> getCandidates() {
 		return candidates;

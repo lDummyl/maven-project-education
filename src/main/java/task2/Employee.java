@@ -9,7 +9,6 @@ public abstract class Employee implements WantAJob {
         this.name = name;
     }
 
-
     public String getName() {
         return name;
     }

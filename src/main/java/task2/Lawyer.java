@@ -1,20 +1,13 @@
 package task2;
 
-public class Lawyer implements WantAJob {
+import java.util.Random;
 
-    private final String name;
-    private boolean employed = false;
+public class Lawyer extends Employee {
+
+    Random random = new Random();
 
     public Lawyer(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setEmployed(boolean employed) {
-        this.employed = employed;
+        super(name);
     }
 
     @Override
@@ -23,20 +16,17 @@ public class Lawyer implements WantAJob {
     }
 
     @Override
-    public Boolean isEmployed() {
-        return employed;
-    }
-
-    @Override
     public Boolean makeDecision() {
-        return true;
+        boolean agree = random.nextBoolean();
+        if (agree && random.nextBoolean())
+            super.setOfficeImHiredIn(null); //side effect
+        return agree;
     }
 
     @Override
     public String toString() {
         return "Lawyer{" +
-                "name='" + name + '\'' +
-                ", employed=" + employed +
+                "name=" + getName() +
                 '}';
     }
 }
