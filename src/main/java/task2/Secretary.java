@@ -1,20 +1,12 @@
 package task2;
 
-public class Secretary implements WantAJob {
+import java.util.Random;
 
-    private final String name;
-    private boolean employed = false;
+public class Secretary extends Employee {
+
 
     public Secretary(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setEmployed(boolean employed) {
-        this.employed = employed;
+        super(name);
     }
 
     public Coffee getCoffee(String sort) {
@@ -27,20 +19,12 @@ public class Secretary implements WantAJob {
     }
 
     @Override
-    public Boolean isEmployed() {
-        return employed;
-    }
-
-    @Override
     public Boolean makeDecision() {
-        return true;
+        Random random = new Random();
+        boolean agree = random.nextBoolean();
+        if (agree && random.nextBoolean()) super.setOfficeImHiredIn(null); //side effect
+        return agree;
     }
 
-    @Override
-    public String toString() {
-        return "Secretary{" +
-                "name='" + name + '\'' +
-                ", employed=" + employed +
-                '}';
-    }
+
 }

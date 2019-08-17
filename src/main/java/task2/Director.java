@@ -1,6 +1,7 @@
 package task2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -21,7 +22,7 @@ public class Director {
 
         Secretary secretary = choseCandidate(hr.getSecretaries());
         if (secretary != null) {
-            secretary.setEmployed(true);
+            secretary.setOfficeImHiredIn(office);
             office.setSecretary(secretary);
         }
 
@@ -37,11 +38,27 @@ public class Director {
             office.setLawyer(lawyer);
         }
 
-        List<Accountant> accountants = choseSomeCandidates(hr.getAccountants(), accountantsOnStaff);
-        for (Accountant accountant : accountants) {
-            accountant.setEmployed(true);
+        List<Accountant> accountants = office.getAccountants();
+        Accountant accountant1 = choseCandidate(hr.getAccountants());
+        if (accountant1 != null) {
+            accountant1.setEmployed(true);
+            hr.getAccountants().remove(accountant1);
+            List<String> strings = Arrays.asList("", "");
+            hr.getAccountants().removeIf(i -> i.getName().equals("Masha"));
+
+            accountants.add(accountant1);
         }
-        office.setAccountants(accountants);
+        Accountant accountant2 = choseCandidate(hr.getAccountants());
+        if (accountant2 != null) {
+            accountant2.setEmployed(true);
+            accountants.add(accountant2);
+        }
+
+//        List<Accountant> accountants = choseSomeCandidates(hr.getAccountants(), accountantsOnStaff);
+//        for (Accountant accountant : accountants) {
+//            accountant.setEmployed(true);
+//        }
+//        office.setAccountants(accountants);
 
     }
 
@@ -49,8 +66,13 @@ public class Director {
         if (candidates.size() >= enoughCandidatesToDecide) {
             int lastIndex = candidates.size() - 1;
             T candidate = candidates.get(random.nextInt(lastIndex));
-            if (candidate.makeDecision())
-                return candidate;
+            if (candidate.makeDecision()) {
+                if(candidate.getOfficeImHiredIn() == null){
+                    return candidate;
+                } else {
+                    System.out.println("You need to fire yourself first, when come back to hire");
+                }
+            }
         }
         return null;
     }

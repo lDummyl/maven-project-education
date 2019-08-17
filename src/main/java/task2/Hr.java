@@ -24,7 +24,7 @@ public class Hr {
 		securities = offerRequestedCandidates(SecurityOfficer.class);
 		lawyers = offerRequestedCandidates(Lawyer.class);
 		accountants = offerRequestedCandidates(Accountant.class);
-	}
+    }
 
     // TODO: 8/14/19 so you cant call new Hr().offerRequestedCandidates(Coffee.class)
 	private <T extends WantAJob> List<T> offerRequestedCandidates(Class<T> clazz) {

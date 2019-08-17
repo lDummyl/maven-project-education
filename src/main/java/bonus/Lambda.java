@@ -10,11 +10,19 @@ import java.util.List;
 
 public class Lambda {
 
+	String print;
 
-	public static void main(String[] args) {
+	void print(String a){
+		System.out.println();
+	}
 
-//		Funkey fun = ???
-//		test(fun);
+
+	public void main(String[] args) {
+
+		Funkey fun1 = argS -> System.out.println(argS);
+		Funkey fun2 = argS -> System.out.print(argS);
+		Funkey fun = this::print;
+		test(fun);
 
 	}
 
