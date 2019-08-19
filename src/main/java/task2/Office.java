@@ -9,6 +9,7 @@ public class Office {
 
 	Secretary secretary;
     Secretary workingSecretary;
+	List<Secretary> listWorkingSecretary = new ArrayList<>();
     String nameOffice;
 
 	Director director = new Director(this);   //зачем здесь параметр this не оч понятно?
@@ -16,13 +17,18 @@ public class Office {
 
     public Office(){};
 
-	public Office(String nameOffice, Object workingSecretary ){  //конструктор для распределения секретарей по офисам
+    public Office(String nameOffice){ this.nameOffice = nameOffice;};
+
+/*	public Office(String nameOffice, Object workingSecretary ){  //конструктор для распределения секретарей по офисам
 	    this.nameOffice = nameOffice;
 
-		// TODO: 8/16/19 ну нет конечно не так, у нас нет такого способа через черный ход нанять секретаря. Все как положено через хр и директора. Кроме того конструктор не должен содержать логики(в данном случае проверка), он только инициализирует поля.
-	    if (workingSecretary instanceof Secretary)
+		// TODO: 8/16/19 ну нет конечно не так, у нас нет такого способа через черный ход нанять секретаря. Все как положено через хр и директора.
+		//  Кроме того конструктор не должен содержать логики(в данном случае проверка), он только инициализирует поля.
+	//    if (workingSecretary instanceof Secretary)
 	    this.workingSecretary = (Secretary)workingSecretary;
 	}
+
+ */
 
 	void invitePeople(Object human) {      //претенденты приходят по одному
 		if (human instanceof WantAWork) {      //с помощью оператора instanceof убеждаемся, что обьекты human может быть приведен типу(интерфейсу) WantAWork
@@ -31,22 +37,26 @@ public class Office {
 		}
 	}
 
-	void workingOffice() {
-        System.out.println(this.nameOffice + " - здесь работает " + workingSecretary);
-    }
+	void workingOffice(Object workingSecretary ) {
+		if (workingSecretary instanceof Secretary)
+			this.workingSecretary = (Secretary)workingSecretary;
 
+		this.listWorkingSecretary.add(this.workingSecretary);
+
+        System.out.println(this.nameOffice + " - здесь работает " + this.listWorkingSecretary);
+    }
 }
 
 class Secretary implements WantAWork {  //implements это ключевое слово, предназначенное для реализации интерфейса
 
 	String name;
-	Office office;
+//	Office office;
 
 	public Secretary(String name) {
 		this.name = name;
 	}
 
-    public Secretary(String name, Office office) { this.name = name; this.office = office; }
+  //  public Secretary(String name, Office office) { this.name = name; this.office = office; }
 
 	@Override
 	public String toString() {
