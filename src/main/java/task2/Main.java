@@ -1,4 +1,5 @@
 package task2;
+
 import java.util.ArrayList;
 
 //Сделать 10 секретарей 1 hr и директора котторый
@@ -30,7 +31,7 @@ public class Main {
     public static void main(String[] args) {
 
         ArrayList<Object> secretaries = new ArrayList<>();
-       secretaries.add(new Secretary("Маша"));    //создаем секретарей
+        secretaries.add(new Secretary("Маша"));    //создаем секретарей
         secretaries.add(new Secretary("Алла"));
         secretaries.add(new Secretary("Анжелла"));
         secretaries.add(new Secretary("Зина"));
@@ -48,19 +49,12 @@ public class Main {
 
         Office office = new Office();
 
-   //     for (Object secretary : secretaries) {
-   //         System.out.println(secretary);
-   //     }
-
+        //     for (Object secretary : secretaries) {
+        //         System.out.println(secretary);
+    }
+}
 //        secretaries.forEach(i -> System.out.println(i));    //прогоняем весь список секреторей, с помощью forEach вызывая в нем метод invitePeople (использум лямбда выражение)
 //        secretaries.forEach(secret -> System.out.print((secret));    //прогоняем весь список секреторей, с помощью forEach вызывая в нем метод invitePeople (использум лямбда выражение)
 //        secretaries.forEach(secret -> System.out.printF((secret));    //прогоняем весь список секреторей, с помощью forEach вызывая в нем метод invitePeople (использум лямбда выражение)
 //        secretaries.forEach(secret -> System.out.print4((secret));    //прогоняем весь список секреторей, с помощью forEach вызывая в нем метод invitePeople (использум лямбда выражение)
 
-
-        secretaries.forEach(office::invitePeople);    //прогоняем весь список секреторей, с помощью forEach вызывая в нем метод invitePeople (использум лямбда выражение)
-
-        System.out.println(office.secretary);         //выводим выбранного секретаря
-
-    }
-}

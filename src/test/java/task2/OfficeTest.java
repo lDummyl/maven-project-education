@@ -56,6 +56,14 @@ public class OfficeTest {
     }
 
     @Test
+    public void mainTest(){
+        String test = "Main question of the universe and everything";
+        int result = new SuperComPuter.ask(test);
+        assertEquals(42, result);
+    }
+
+
+    @Test
     public void newOffices(){
 
         Office office = new Office();
@@ -70,6 +78,11 @@ public class OfficeTest {
         secretaries.add(new Secretary("Марина"));
         secretaries.add(new Secretary("Лера"));
 
+
+        secretaries.forEach(office::invitePeople);
+        Secretary secretary = office.secretary;
+        boolean isWorking = secretary.office != null;
+        Office wockingIn = secretary.office;
 
         for(int i=0; i<5; i++) {
             secretaries.forEach(office::invitePeople);
