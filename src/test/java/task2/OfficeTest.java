@@ -3,10 +3,21 @@ package task2;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.assertTrue;
 
 public class OfficeTest {
+
+
+	Random random = new Random();
+
 
 	@Test
 	public void invitePeaople() {
@@ -48,11 +59,31 @@ public class OfficeTest {
         offices.add(new Office());
         offices.add(new Office());
 
-        for (Office office : offices) {
-            office.invitePeaople(labourMarket);
-        }
 
-        for (Office office : offices) {
+		// TODO: 8/17/19 тесты лучше иметь на каждый кейс свой и вообще это не очень хорошо когда повденеие рандмное, тесты будут то падать то нет.
+		// но раз мы приняли такое решение, то нужно создать большой рынок труда, чтобы вероятность прохождения теста, что всё всех устроят была близка к 100%,
+		// стримы в помощь, только сам сделай всего побольше
+
+		List<String> womenNames = Arrays.asList("Anna", "Inna");
+
+		List<Secretary> aLotOfSecretaries = Stream.generate(() ->
+				new Secretary(womenNames.get(random.nextInt(womenNames.size()-1))))
+				.limit(10000) // почти уже биг дата!
+				.collect(Collectors.toList());
+
+		List<Accountant> aLotOfAccountans = Stream.generate(() ->
+				new Accountant(womenNames.get(random.nextInt(womenNames.size()-1))))
+				.limit(1000).collect(Collectors.toList());
+
+		labourMarket.addAll(aLotOfAccountans);
+		labourMarket.addAll(aLotOfSecretaries);
+
+
+		for (Office office : offices) {
+			office.invitePeaople(labourMarket);
+		}
+		// TODO: 8/17/19 ну и разделить это все конечно надо, более того желательно написать тесты на каждый класс, отдельно повление HR и тд.
+		for (Office office : offices) {
             assertTrue(labourMarket.contains(office.getSecretary()));
             assertTrue(labourMarket.contains(office.getSecurity()));
             assertTrue(labourMarket.contains(office.getLawyer()));
