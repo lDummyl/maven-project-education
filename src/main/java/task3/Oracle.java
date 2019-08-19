@@ -18,6 +18,7 @@ public class Oracle {
         questions.add(new What());
         questions.add(new Where());
         questions.add(new When());
+        // TODO: 8/19/19 не плохо, но я бы не стал делать классы на вопросы, достаточно словаря, но можно и так, тогда я бы вынес всеже общую логику
     }
 
     public void addressToOracle() {
@@ -27,7 +28,7 @@ public class Oracle {
         BufferedReader bufferedReader = new BufferedReader(streamReader);
 
         String question;
-        boolean exit = false;
+        boolean exit = false; // булевы лучше называть isRunning, isDone, и тд так проще понять чем в случае с существительным
         while (!exit) {
             try {
                 question = bufferedReader.readLine();
@@ -44,6 +45,10 @@ public class Oracle {
             }
         }
     }
+
+    // TODO: 8/19/19 я бы сделал отдельный метод checkQuestionLength
+    // TODO: 8/19/19 Самое важное пока ты в начале, не мешай ввод вывод и логику. Если Оракул отвечает один раз то он должен это елать в одном и только в одном месте.
+    // TODO: 8/19/19 если ты заглядывал в следующие задачи, то обратил внимание, что мы будем работать с отчетами, поэтому куда важней классов Вопросов, они не обязательны, завести класс Conversation в которм, ну ты понял что будет инкапулировать он в себе.
 
     private void parsingQuestion(String questionFromUser) {
         boolean wantToAnswer = makeDecision();
