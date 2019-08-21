@@ -4,42 +4,43 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Oracle {
 
     private final int shortQuestion = 10;
     private final int longQuestion = 20;
+    private Conversation conversation = new Conversation();
     private Random random = new Random();
-    private List<Question> questions = new ArrayList<>();
+    private final String nameThreadSleep = "oracleSleep";
+    private final ThreadSleep threadSleep = new ThreadSleep(nameThreadSleep);
 
     public Oracle() {
-        questions.add(new What());
-        questions.add(new Where());
-        questions.add(new When());
+        //questions.add(new What());
+        //questions.add(new Where());
+        //questions.add(new When());
         // TODO: 8/19/19 не плохо, но я бы не стал делать классы на вопросы, достаточно словаря, но можно и так, тогда я бы вынес всеже общую логику
+        // не понял на счет общей логики, что под этим подразумевается?
     }
 
     public void addressToOracle() {
-        System.out.println("I am, great and powerful oracle, listen to you");
+        conversation.greeting();
 
         InputStreamReader streamReader = new InputStreamReader(System.in);
         BufferedReader bufferedReader = new BufferedReader(streamReader);
 
         String question;
-        boolean exit = false; // булевы лучше называть isRunning, isDone, и тд так проще понять чем в случае с существительным
-        while (!exit) {
+        boolean isExit = false; // булевы лучше называть isRunning, isDone, и тд так проще понять чем в случае с существительным
+        while (!isExit) {
             try {
                 question = bufferedReader.readLine();
             } catch (IOException exc) {
                 question = "";
-                System.out.println("I do't understand what you asked. Try again");
+                conversation.exception();
             }
 
             question = question.toLowerCase().trim();
             if (question.equals("e")) {
-                exit = true;
+                isExit = true;
             } else if (!question.equals("")) {
                 parsingQuestion(question);
             }
@@ -51,42 +52,53 @@ public class Oracle {
     // TODO: 8/19/19 если ты заглядывал в следующие задачи, то обратил внимание, что мы будем работать с отчетами, поэтому куда важней классов Вопросов, они не обязательны, завести класс Conversation в которм, ну ты понял что будет инкапулировать он в себе.
 
     private void parsingQuestion(String questionFromUser) {
-        boolean wantToAnswer = makeDecision();
+        boolean wantToAnswer = makeDecision() && checkQuestionLength(questionFromUser);
         if (wantToAnswer) {
-            if (questionFromUser.length() >= longQuestion) {
-                System.out.println("Be concise");
-            } else if (questionFromUser.length() <= shortQuestion) {
-                System.out.println("Be more eloquent");
-            } else {
-                System.out.println(getAnswer(questionFromUser));
-            }
+            conversation.giveAnswerOnQuestion(questionFromUser);
         }
     }
 
     private Boolean makeDecision() {
-        // еще не реализовал
-        // оракул может рандомно нахамить или стукнуть палкой, может устать и сделать перерыв на 10 сек до минуты
+        // еще не довел до конца
+        if (!checkSleep()) {
+            return false;
+        }
+
+        boolean wantToAnswer = false;
         int variant = random.nextInt(3);
-        return true;
+        if (variant == 0) {
+            sleep(); // может устать и сделать перерыв на 10 сек до минуты
+        } else if (variant == 1) {
+            wantToAnswer = true;
+        } else if (variant == 2) {
+            conversation.say("oooh, stupid people, dont touch me!"); // нахамить
+        } else if (variant == 3) {
+            conversation.action("stick kick"); // стукнуть палкой
+        }
+        return wantToAnswer;
     }
 
-    private String getAnswer(String questionFromUser) {
-        String answer = "";
+    private Boolean checkSleep() {
+        // не реализовал. уперся в проблему в классе ThreadSleep
+        return random.nextBoolean();
+    }
 
-        int countQuestions = 0;
-        for (Question question : questions) {
-            String answerOnQuestion = question.getAnswer(questionFromUser);
-            if (!answerOnQuestion.equals("")) {
-                answer = answerOnQuestion;
-                countQuestions++;
-            }
+    private void sleep() {
+        threadSleep.start();
+    }
+
+    private Boolean checkQuestionLength(String questionFromUser) {
+        String answerCheck = "";
+        if (questionFromUser.length() >= longQuestion) {
+            answerCheck = "Be concise";
+        } else if (questionFromUser.length() <= shortQuestion) {
+            answerCheck = "Be more eloquent";
         }
 
-        if (countQuestions > 1) {
-            answer = "You ask too many questions";
-        } else if (answer.equals("")) {
-            answer = "I do't hear the question in your speeches";
+        if (!answerCheck.equals("")) {
+            conversation.say(answerCheck);
+            return false;
         }
-        return answer;
+        return true;
     }
 }

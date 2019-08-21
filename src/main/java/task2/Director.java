@@ -53,8 +53,6 @@ public class Director {
 		while (newEmployee == null && candidates.size() >= enoughCandidatesToDecide) {
 			T candidate = candidates.get(random.nextInt(candidates.size() - 1));
 			if (candidate.makeDecision()) {
-			    // тут есть нюанс, когда кандидат может отклонить офер, а потом в рандоме опять выпадет он и у себя в методе примет офер
-				// пока не знаю как это решить
 				if (candidate.getOfficeImHiredIn() == null) {
 					newEmployee = candidate;
 				} else {
