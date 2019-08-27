@@ -3,114 +3,164 @@ package task3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Oracle {
 
+	private final String GREETING = "<greeting>";
+	private final String EXCEPTION = "<exception>";
+	private final String SLEEP = "<sleep>";
+	private final String STICK_KICK = "<stick kick>";
+	private final String RUDE = "<rude>";
+	private final String LONG_QUESTION = "<long question>";
+	private final String SHORT_QUESTION = "<short question>";
 	private final int shortQuestion = 10;
 	private final int longQuestion = 20;
-	private final String nameThreadSleep = "oracleSleep";
-	private final ThreadSleep threadSleep = new ThreadSleep(nameThreadSleep);
+	private Map<String, String> systemMap = new HashMap<>();
+	private Map<String, String> questionAnswer = new HashMap<>();
+	private LocalDateTime timeWakeUp = LocalDateTime.of(1, Month.JANUARY, 1, 0, 0, 0);
 	private Conversation conversation = new Conversation();
 	private Random random = new Random();
 
 	public Oracle() {
-		//questions.add(new What());
-		//questions.add(new Where());
-		//questions.add(new When());
-		// TODO: 8/19/19 не плохо, но я бы не стал делать классы на вопросы, достаточно словаря, но можно и так, тогда я бы вынес всеже общую логику
-		// не понял на счет общей логики, что под этим подразумевается?
-	}
+		systemMap.put(GREETING, "I am, great and powerful oracle, listen to you");
+		systemMap.put(EXCEPTION, "I do't understand what you asked. Try again");
+		systemMap.put(SLEEP, "zZz");
+		systemMap.put(STICK_KICK, "Pom!");
+		systemMap.put(RUDE, "oooh, stupid people, dont touch me!");
+		systemMap.put(LONG_QUESTION, "Be concise");
+		systemMap.put(SHORT_QUESTION, "Be more eloquent");
 
-    // TODO: 8/21/19 приходится копипастить как видишь, не смертельно, но ввод и вывод это то что должно быть отделено начисято в любоим приложении и меняться как насадки на кухонном блендере, по щелчку
-	public void addressToOracle(String... preparedQuestions) {
-		conversation.greeting();
-		for (String preparedQuestion : preparedQuestions) {
-			String question = preparedQuestion.toLowerCase().trim();
-			if (question.equals("e")) {
-			} else if (!question.equals("")) {
-				parsingQuestion(question);
-			}
-		}
+		questionAnswer.put("what", "what you need to know");
+		questionAnswer.put("when", "on time");
+		questionAnswer.put("where", "somewhere");
 	}
 
 	public void addressToOracle() {
-		conversation.greeting();
+		reproduce(GREETING, systemMap);
 
 		InputStreamReader streamReader = new InputStreamReader(System.in);
 		BufferedReader bufferedReader = new BufferedReader(streamReader);
 
-		String question;
-		boolean isExit = false; // булевы лучше называть isRunning, isDone, и тд так проще понять чем в случае с существительным
+		String preparedQuestions;
+		boolean isExit = false;
 		while (!isExit) {
 			try {
-				question = bufferedReader.readLine();
+				preparedQuestions = bufferedReader.readLine();
 			} catch (IOException exc) {
-				question = "";
-				conversation.exception();
+				preparedQuestions = "";
+				reproduce(EXCEPTION, systemMap);
 			}
-
-			question = question.toLowerCase().trim();
-			if (question.equals("e")) {
+			preparedQuestions = preparedQuestions.toLowerCase().trim();
+			if (preparedQuestions.equals("e")) {
 				isExit = true;
-			} else if (!question.equals("")) {
-				parsingQuestion(question);
+			} else {
+                parsingQuestion(preparedQuestions);
 			}
 		}
+		conversation.createReport();
 	}
 
-	// TODO: 8/19/19 я бы сделал отдельный метод checkQuestionLength
-	// TODO: 8/19/19 Самое важное пока ты в начале, не мешай ввод вывод и логику. Если Оракул отвечает один раз то он должен это елать в одном и только в одном месте.
-	// TODO: 8/19/19 если ты заглядывал в следующие задачи, то обратил внимание, что мы будем работать с отчетами, поэтому куда важней классов Вопросов, они не обязательны, завести класс Conversation в которм, ну ты понял что будет инкапулировать он в себе.
-
-	private void parsingQuestion(String questionFromUser) {
-		boolean wantToAnswer = makeDecision() && checkQuestionLength(questionFromUser);
-		if (wantToAnswer) {
-			conversation.giveAnswerOnQuestion(questionFromUser);
+	public void addressToOracle(String... preparedQuestions) {
+		reproduce(GREETING, systemMap);
+        boolean answerIsGiven;
+		for (String preparedQuestion : preparedQuestions) {
+		    answerIsGiven = false;
+		    while (!answerIsGiven) {
+                answerIsGiven = parsingQuestion(preparedQuestion);
+            }
 		}
+		conversation.createReport();
+	}
+
+    private Boolean parsingQuestion(String preparedQuestions) {
+        if (checkSleep()) {
+            return false;
+        }
+
+        String question = preparedQuestions.toLowerCase().trim();
+		if (!question.equals("")) {
+            boolean wantToAnswer = makeDecision() && checkQuestionLength(question);
+            if (wantToAnswer) {
+                reproduce(question, questionAnswer);
+            }
+		}
+		return true;
 	}
 
 	private Boolean makeDecision() {
-		// еще не довел до конца
-		if (!checkSleep()) {
-			return false;
-		}
-
 		boolean wantToAnswer = false;
-		int variant = random.nextInt(3);
+		int variant = random.nextInt(4);
 		if (variant == 0) {
-			sleep(); // может устать и сделать перерыв на 10 сек до минуты
+			reproduce(RUDE, systemMap);
 		} else if (variant == 1) {
 			wantToAnswer = true;
 		} else if (variant == 2) {
-			conversation.say("oooh, stupid people, dont touch me!"); // нахамить
+			reproduce(STICK_KICK, systemMap);
 		} else if (variant == 3) {
-			conversation.action("stick kick"); // стукнуть палкой
+			sleep();
 		}
 		return wantToAnswer;
 	}
 
 	private Boolean checkSleep() {
-		// не реализовал. уперся в проблему в классе ThreadSleep
-		return random.nextBoolean();
+		boolean isSleep =  false;
+		LocalDateTime now = LocalDateTime.now();
+		if (now.isBefore(timeWakeUp)) {
+			isSleep = true;
+			Duration duration = Duration.between(now, timeWakeUp);
+			output("left to sleep (sec): " + (duration.toMillis() / 1000));
+		}
+		return isSleep;
 	}
 
 	private void sleep() {
-		threadSleep.start();
+		timeWakeUp = LocalDateTime.now().plusSeconds(random.nextInt(50) + 10);
+		reproduce(SLEEP, systemMap);
 	}
 
 	private Boolean checkQuestionLength(String questionFromUser) {
-		String answerCheck = "";
+		String check = "";
 		if (questionFromUser.length() >= longQuestion) {
-			answerCheck = "Be concise";
+			check = LONG_QUESTION;
 		} else if (questionFromUser.length() <= shortQuestion) {
-			answerCheck = "Be more eloquent";
+			check = SHORT_QUESTION;
 		}
-
-		if (!answerCheck.equals("")) {
-			conversation.say(answerCheck);
+		if (!check.equals("")) {
+			reproduce(check, systemMap);
 			return false;
 		}
 		return true;
+	}
+
+	private void reproduce(String question, Map<String, String> map) {
+		String answer = "";
+		int countQuestions = 0;
+		for (Map.Entry<String, String> entry : map.entrySet()) {
+			if (question.contains(entry.getKey())) {
+				answer = entry.getValue();
+				countQuestions++;
+			}
+		}
+		if (countQuestions > 1) {
+			answer = "You ask too many questions";
+		} else if (answer.equals("")) {
+			answer = "I do't hear the question in your speeches";
+		}
+		conversation.addConversation(question, answer);
+		output(answer);
+	}
+
+	private void output(String answer) {
+		System.out.println(answer);
+	}
+
+	public String getReportString() {
+		return conversation.getStringJSON();
 	}
 }

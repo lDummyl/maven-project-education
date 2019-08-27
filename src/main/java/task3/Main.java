@@ -21,9 +21,6 @@ package task3;
 
 public class Main {
 	public static void main(String[] args) {
-		Oracle oracle = new Oracle();
-		oracle.addressToOracle();
-
-
+		// TODO
 	}
 }
