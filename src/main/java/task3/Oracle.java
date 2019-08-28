@@ -1,5 +1,7 @@
 package task3;
 
+import lombok.SneakyThrows;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,8 +11,11 @@ import java.time.Month;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class Oracle {
+
+	Logger log = Logger.getLogger(Oracle.class.getName());
 
 	private final String GREETING = "<greeting>";
 	private final String EXCEPTION = "<exception>";
@@ -78,8 +83,10 @@ public class Oracle {
 		conversation.createReport();
 	}
 
+	@SneakyThrows
     private Boolean parsingQuestion(String preparedQuestions) {
         if (checkSleep()) {
+        	Thread.sleep(3000); // TODO: 8/29/19 ух на 2 гига прям у меня график оператвной памяти подскакивает, это очень хорошо что мы с этим столкнулись это надо запомнить OutOfMemoryError бывает не каждый день, и хорошо что он есть. Хоже когда ты запскаешь демона через while и фигачишь а он жрет весь перфрманс и где он проседает понять удастся не быстро. Циклические процессы только если они конечны можно пускать без таймера. Здесь не бесконечный луп, но пока мы ждем секудну проходят тонны итераций, это важно помнить.
             return false;
         }
 
@@ -93,6 +100,7 @@ public class Oracle {
 		return true;
 	}
 
+	// TODO: 8/29/19 а как насчет их неравновесными сделать?
 	private Boolean makeDecision() {
 		boolean wantToAnswer = false;
 		int variant = random.nextInt(4);
@@ -114,6 +122,7 @@ public class Oracle {
 		if (now.isBefore(timeWakeUp)) {
 			isSleep = true;
 			Duration duration = Duration.between(now, timeWakeUp);
+			log.info("left to sleep (sec): " + (duration.toMillis() / 1000)); // TODO: 8/29/19 да вывод один, но это не занчит что при тесторовании нельзя логиировать состояние это очень важно, так что тут играет злую шутку с тобой это правило
 			output("left to sleep (sec): " + (duration.toMillis() / 1000));
 		}
 		return isSleep;

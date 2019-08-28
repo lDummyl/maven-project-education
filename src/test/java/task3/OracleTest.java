@@ -13,6 +13,8 @@ public class OracleTest {
 
     Logger log = Logger.getLogger(Oracle.class.getName());
 
+    // TODO: 8/29/19 тест кесков нужно несколько это как с диагностикой: что не работает? Все не работает! Чем четче кейс выделен тем тесты информативней говорят о состоянии.
+
     @Test
     public void runOracle() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
