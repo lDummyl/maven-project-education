@@ -27,14 +27,14 @@ public class OracleTest {
         String[] questions = {"what do you want?", "not question", "where are you?", "small q",
                 "very big question - not good", "what, where, when?"};
         System.setOut(ps);
-        oracle.addressToOracle(questions); // сыпется тест тут, не могу до конца понять пока в чем причина
+        oracle.addressToOracle(questions);
         System.setOut(old);
 
         String report = oracle.getReportString();
         log.info(report);
         assertFalse(report.contains("what is meaning of life?"));
         for (String question : questions) {
-            assertTrue(report.contains(question));
+            assertTrue(report.contains(question)); // пока что тут затык. почему что в файл JSON выгружается только приветствие
         }
     }
 }

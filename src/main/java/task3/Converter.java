@@ -27,6 +27,6 @@ public class Converter {
     }
 
     public String getStringJSON(Set<Communication> historyConversations) throws IOException {
-        return mapper.writeValueAsString(new File(pathFile));
+        return mapper.writeValueAsString(historyConversations);
     }
 }
