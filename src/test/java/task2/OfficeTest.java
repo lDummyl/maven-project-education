@@ -136,7 +136,24 @@ public class OfficeTest {
 
     }
 
+
     @Test
+    public void addAccountantStress(){
+        try {
+            for (int i = 0; i < 100; i++) {
+                addAccountant();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            String message = e.getMessage();
+            assertFalse(message.contains(new Office().hr.name));
+        }
+
+    }
+
+    // TODO: 8/29/19 айайай а тестик то падает время от времени, директор ругается, лучше путь hr подготовиться, отсортирует всех кандидатов, разложит по папочкам у себя в картотеке и тогда дирктору проще будет, чем если ему все на стол просто вывалено
+
+        @Test
     public void addAccountant(){
 
         Office office = new Office();
