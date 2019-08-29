@@ -58,8 +58,8 @@ public class OfficeTest {
     @Test
     public void mainTest(){
         String test = "Main question of the universe and everything";
-        int result = new SuperComPuter.ask(test);
-        assertEquals(42, result);
+ //       int result = new SuperComPuter.ask(test);
+ //       assertEquals(42, result);
     }
 
 
@@ -67,8 +67,6 @@ public class OfficeTest {
     public void newOffices(){
 
         Office office = new Office();
-        ArrayList<Office> additionalOffice = new ArrayList<>();
-        ArrayList<Secretary> secretariesWorking = new ArrayList<>();
 
         ArrayList<Object> secretaries = new ArrayList<>();
         secretaries.add(new Secretary("Маша"));    //создаем секретарей
@@ -78,42 +76,30 @@ public class OfficeTest {
         secretaries.add(new Secretary("Марина"));
         secretaries.add(new Secretary("Лера"));
 
+        Office additionalOffice1 = new Office("Офис №1");
+        Office additionalOffice2 = new Office("Офис №2");
+        Office additionalOffice3 = new Office("Офис №3");
 
         secretaries.forEach(office::invitePeople);
-        Secretary secretary = office.secretary;
+
+     //   Secretary secretary = office.secretary;
+     //   Secretary secretary2 = office.listWorkingSecretary.get(0);
+     //   Office wockingIn = secretary.office;
+
+        office.distributeOnOffice(office.listWorkingSecretary.get(0), additionalOffice1);   //забиваем вручную секретаря и офис в котором он будет работать
+        office.distributeOnOffice(office.listWorkingSecretary.get(1), additionalOffice2);
+        office.distributeOnOffice(office.listWorkingSecretary.get(2), additionalOffice3);
+    //    office.distributeOnOffice(office.listWorkingSecretary.get(3), additionalOffice1);
+
+
+    /*    Secretary secretary = office.secretary;
         boolean isWorking = secretary.office != null;
         Office wockingIn = secretary.office;
 
-        for(int i=0; i<5; i++) {
-            secretaries.forEach(office::invitePeople);
-            secretariesWorking.add(office.secretary);
-        }
-
-        assertTrue(secretaries.contains(office.secretary));
-
-
-        System.out.println(secretariesWorking);
-
-
-        additionalOffice.add(new Office("Офис №1"));
-        additionalOffice.add(new Office("Офис №2"));
-        additionalOffice.add(new Office("Офис №3"));
-
-     //   additionalOffice.add(new Office("Офис №1", secretariesWorking.get(0)));
-     //  additionalOffice.add(new Office("Офис №2", secretariesWorking.get(1)));
-     //   additionalOffice.add(new Office("Офис №3", secretariesWorking.get(2)));
-
-
-        for(int i=0; i<secretariesWorking.size(); i++) {
-            if(i<additionalOffice.size())
-            additionalOffice.get(i).workingOffice(secretariesWorking.get(i));
-            else
-            additionalOffice.get(i-additionalOffice.size()).workingOffice(secretariesWorking.get(i));
-
-        }
+     */
+                assertTrue(secretaries.contains(office.secretary));
 
 /*
-
       Office offissNuber1 = null;
         for (int i = 0; i < additionalOffice.size(); i++) {
             Office offiss = additionalOffice.get(i);
@@ -146,7 +132,6 @@ public class OfficeTest {
         stream.limit(2).forEach(x -> additionalOffice.add(new Office("Офис №1" ,x)));            //возвращает первые два элемента
         stream2.skip(2).limit(2).forEach(y -> additionalOffice.add(new Office("Офис №2" ,y)));   //возвращает два элемента начиная со второго
         stream3.skip(4).forEach(z -> additionalOffice.add(new Office("Офис №3" ,z)));            //возвращает возвращает все элементы после четвертого
-
     */
 
     }
@@ -157,7 +142,7 @@ public class OfficeTest {
         Office office = new Office();
 
         ArrayList<Object> laborMarket = new ArrayList<>();
-        laborMarket.add(new Secretary("Маша"));    //создаем секретарей
+        laborMarket.add(new Secretary("Маша"));
         laborMarket.add(new Secretary("Алла"));
         laborMarket.add(new Secretary("Анжелла"));
         laborMarket.add(new Secretary("Зина"));
@@ -165,12 +150,10 @@ public class OfficeTest {
         laborMarket.add(new Secretary("Лера"));
         laborMarket.add(new Accountant("Виолетта"));
 
-
-        laborMarket.forEach(i-> System.out.println(i));
-
         laborMarket.forEach(office::invitePeople);
-        assertTrue(laborMarket.contains(office.secretary));
 
+      //  assertTrue(laborMarket.contains(office.secretary));
+        assertTrue(laborMarket.contains(office.accountant));
     }
 
 }

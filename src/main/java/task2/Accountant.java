@@ -1,7 +1,6 @@
 package task2;
 
-
-class Accountant{   //implements WantAWork {
+class Accountant implements WantAWork {
 
     String name;
 
@@ -10,9 +9,9 @@ class Accountant{   //implements WantAWork {
     @Override
     public String toString(){return "Бухгалтер " + name;}
 
- /*   @Override
+    @Override
     public boolean passInterview() {
         return true;
-    } */
+    }
 }
 

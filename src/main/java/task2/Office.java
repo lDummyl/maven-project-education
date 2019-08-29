@@ -8,7 +8,8 @@ import java.util.Random;
 public class Office {
 
 	Secretary secretary;
-    Secretary workingSecretary;
+	Accountant accountant;
+
 	List<Secretary> listWorkingSecretary = new ArrayList<>();
     String nameOffice;
 
@@ -27,25 +28,26 @@ public class Office {
 	//    if (workingSecretary instanceof Secretary)
 	    this.workingSecretary = (Secretary)workingSecretary;
 	}
-
  */
 
 	void invitePeople(Object human) {      //претенденты приходят по одному
 		if (human instanceof WantAWork) {      //с помощью оператора instanceof убеждаемся, что обьекты human может быть приведен типу(интерфейсу) WantAWork
 			List<WantAWork> currentCandidates = hr.considerCandidate((WantAWork) human);  //создаем спсок текущих кандидатов и присваивам ему список от Hr с параметром human, который приведен к типу WantAWork
 			secretary = director.chooseSecretary(currentCandidates);  //присваиваем объекту secretary выбранного секретаря которого выбрал директор
-			secretary.office = this;
+			accountant = director.chooseAccountant(currentCandidates);
+
+			//	secretary.office = this;
+			if(secretary != null)
+				listWorkingSecretary.add(secretary);
 		}
 	}
 
-	void workingOffice(Object workingSecretary ) {
-		if (workingSecretary instanceof Secretary)
-			this.workingSecretary = (Secretary)workingSecretary;
+	void distributeOnOffice(Secretary secretary, Office office) {
+		this.secretary = secretary;
+		this.secretary.office = office;
 
-		this.listWorkingSecretary.add(this.workingSecretary);
-
-        System.out.println(this.nameOffice + " - здесь работает " + this.listWorkingSecretary);
-    }
+		System.out.println(this.secretary + " работает в " + this.secretary.office.nameOffice);
+	}
 }
 
 
