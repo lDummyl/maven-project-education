@@ -1,5 +1,7 @@
 package task3;
 
+import lombok.SneakyThrows;
+
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.Set;
@@ -15,19 +17,13 @@ public class Conversation {
 		historyConversation.add(communication);
 	}
 
+	@SneakyThrows
 	public void createReport() {
-		try {
-			converter.toJSON(historyConversation);
-		} catch (IOException e) {
-			System.out.println(e);
-		}
+		converter.toJSON(historyConversation);
 	}
 
+	@SneakyThrows
 	public String getStringJSON() {
-		try {
-			return converter.getStringJSON(historyConversation);
-		} catch (IOException e) {
-			return e.toString();
-		}
+		return converter.getStringJSON(historyConversation);
 	}
 }

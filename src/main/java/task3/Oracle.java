@@ -9,13 +9,14 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
 public class Oracle {
 
-	Logger log = Logger.getLogger(Oracle.class.getName());
+	private Logger log = Logger.getLogger(Oracle.class.getName());
 
 	private final String GREETING = "<greeting>";
 	private final String EXCEPTION = "<exception>";
@@ -83,6 +84,18 @@ public class Oracle {
 		conversation.createReport();
 	}
 
+	public void addressToOracle(List<String> preparedQuestions) {
+        reproduce(GREETING, systemMap);
+        boolean answerIsGiven;
+        for (String preparedQuestion : preparedQuestions) {
+            answerIsGiven = false;
+            while (!answerIsGiven) {
+                answerIsGiven = parsingQuestion(preparedQuestion);
+            }
+        }
+        conversation.createReport();
+    }
+
 	@SneakyThrows
     private Boolean parsingQuestion(String preparedQuestions) {
         if (checkSleep()) {
@@ -92,6 +105,7 @@ public class Oracle {
 
         String question = preparedQuestions.toLowerCase().trim();
 		if (!question.equals("")) {
+		    Thread.sleep(1000);
             boolean wantToAnswer = makeDecision() && checkQuestionLength(question);
             if (wantToAnswer) {
                 reproduce(question, questionAnswer);
@@ -103,14 +117,14 @@ public class Oracle {
 	// TODO: 8/29/19 а как насчет их неравновесными сделать?
 	private Boolean makeDecision() {
 		boolean wantToAnswer = false;
-		int variant = random.nextInt(4);
+		int variant = random.nextInt(7);
 		if (variant == 0) {
 			reproduce(RUDE, systemMap);
-		} else if (variant == 1) {
+		} else if (variant >= 1 && variant <= 4) {
 			wantToAnswer = true;
-		} else if (variant == 2) {
+		} else if (variant == 5) {
 			reproduce(STICK_KICK, systemMap);
-		} else if (variant == 3) {
+		} else if (variant == 6) {
 			sleep();
 		}
 		return wantToAnswer;
@@ -122,7 +136,7 @@ public class Oracle {
 		if (now.isBefore(timeWakeUp)) {
 			isSleep = true;
 			Duration duration = Duration.between(now, timeWakeUp);
-			log.info("left to sleep (sec): " + (duration.toMillis() / 1000)); // TODO: 8/29/19 да вывод один, но это не занчит что при тесторовании нельзя логиировать состояние это очень важно, так что тут играет злую шутку с тобой это правило
+			//log.info("left to sleep (sec): " + (duration.toMillis() / 1000)); // TODO: 8/29/19 да вывод один, но это не занчит что при тесторовании нельзя логиировать состояние это очень важно, так что тут играет злую шутку с тобой это правило
 			output("left to sleep (sec): " + (duration.toMillis() / 1000));
 		}
 		return isSleep;
@@ -166,7 +180,7 @@ public class Oracle {
 	}
 
 	private void output(String answer) {
-		System.out.println(answer);
+		log.info(answer);
 	}
 
 	public String getReportString() {

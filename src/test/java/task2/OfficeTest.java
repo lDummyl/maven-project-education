@@ -2,16 +2,15 @@ package task2;
 
 import org.junit.Test;
 
-import java.util.*;
 import java.util.logging.Logger;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class OfficeTest {
 
-    Logger log = Logger.getLogger(HrTest.class.getName());
-    Settings settings = new Settings();
-    Office office = new Office();
+    private Logger log = Logger.getLogger(HrTest.class.getName());
+    private Settings settings = new Settings();
+    private Office office = new Office();
 
     @Test
     public void invitePeople() {
@@ -29,16 +28,16 @@ public class OfficeTest {
         log.info(office.getLawyer().toString());
         log.info(office.getAccountants().toString());
 
-        assertTrue(office.getHr() != null);
-        assertTrue(office.getSecretary() != null);
-        assertTrue(office.getSecurity() != null);
-        assertTrue(office.getLawyer() != null);
-        assertTrue(office.getAccountants().size() == 2);
+        assertNotNull(office.getHr());
+        assertNotNull(office.getSecretary());
+        assertNotNull(office.getSecurity());
+        assertNotNull(office.getLawyer());
+        assertEquals(2, office.getAccountants().size());
 
         office.setAccountants(office.getAccountants());
 
         log.info(office.getAccountants().toString());
-        assertTrue(office.getAccountants().size() == 2);
+        assertEquals(2, office.getAccountants().size());
     }
 
     @Test
@@ -51,10 +50,10 @@ public class OfficeTest {
 
         office.invitePeaople(settings.getLabourMarket());
 
-        assertTrue(office.getHr() != null);
-        assertTrue(office.getSecretary() == null);
-        assertTrue(office.getSecurity() == null);
-        assertTrue(office.getLawyer() == null);
+        assertNotNull(office.getHr());
+        assertNull(office.getSecretary());
+        assertNull(office.getSecurity());
+        assertNull(office.getLawyer());
         assertTrue(office.getAccountants().size() != 2);
     }
 }
