@@ -36,13 +36,12 @@ public class Converter {
 		mapper.writeValue(new File(pathFile), historyConversations);
 	}
 
-
+	// TODO: 9/2/19 не знаю успел ли поглядеть прошлый коммит, но теерь новости хорошие, все работет проблема была в том что сериализуются данные по разному до и после подключения дом модуля в маппер, я пытался старые данные десериализовать пропатченным маппером, не вышло, сериалзовал по новой, сработало.
 	public List<Communication> fromJSON() throws IOException {
-//        List list = mapper.readValue(new File(pathFile), List.class);
+//        List list = mapper.readValue(new File(pathFile), List.class);// TODO: 9/1/19 вот по этому Unchecked assignment
         String content = new String(Files.readAllBytes(Paths.get(pathFile)));
-        List<Communication> communicationList = mapper.readValue(content, new TypeReference<Communication[]>() {}); // TODO: 9/1/19 это мощное колдунство но иначе generic фргумент не передать
-
-		return null; // TODO: 9/1/19 вот по этому Unchecked assignment
+        List<Communication> communicationList = mapper.readValue(content, new TypeReference<List<Communication>>() {}); // TODO: 9/1/19 это мощное колдунство но иначе generic фргумент не передать
+		return communicationList;
 	}
 
 	public String getStringJSON(List<Communication> historyConversations) throws IOException {
@@ -56,34 +55,4 @@ public class Converter {
 	public void setPathFile(String pathFile) {
 		this.pathFile = pathFile;
 	}
-
-    // TODO: 9/1/19 но есть плохие нвовости у меня работает, у тебя почему-то все равно валится, нужно копать что не так, удачи!
-
-	@SneakyThrows
-    public static void main(String[] args) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.findAndRegisterModules();
-        List<Ass> objects = new ArrayList<>();
-        objects.add(new Ass("1", LocalDateTime.now()));
-        objects.add(new Ass("2", LocalDateTime.now()));
-        objects.add(new Ass("3", LocalDateTime.now()));
-        objects.add(new Ass("4", LocalDateTime.now()));
-        String s = objectMapper.writeValueAsString(objects);
-        List<Ass> o = objectMapper.readValue(s, new TypeReference<List<Ass>>() { });
-
-        Ass ass = o.get(2);
-        System.out.println(ass.getTime().toString());
-
-    }
-
-
-}
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Setter
-@Getter
-class Ass{
-    String string;
-    LocalDateTime time;
 }
