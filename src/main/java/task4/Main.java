@@ -6,14 +6,8 @@ package task4;
 	отчет не менее чем на 1000 строк
 */
 
-
-import task3.Oracle;
-
 public class Main {
     public static void main(String[] args) {
-        Seeker seeker = new Seeker();
-        Oracle oracle = new Oracle();
-        String question = seeker.generateQuestion();
-        oracle.addressToOracle(question);
+        // TODO
     }
 }

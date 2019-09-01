@@ -18,13 +18,13 @@ public class Oracle {
 
 	private Logger log = Logger.getLogger(Oracle.class.getName());
 
-	private final String GREETING = "<greeting>";
-	private final String EXCEPTION = "<exception>";
-	private final String SLEEP = "<sleep>";
-	private final String STICK_KICK = "<stick kick>";
-	private final String RUDE = "<rude>";
-	private final String LONG_QUESTION = "<long question>";
-	private final String SHORT_QUESTION = "<short question>";
+	public static final String GREETING = "<greeting>";
+	public static final String EXCEPTION = "<exception>";
+	public static final String SLEEP = "<sleep>";
+	public static final String STICK_KICK = "<stick kick>";
+	public static final String RUDE = "<rude>";
+	public static final String LONG_QUESTION = "<long question>";
+	public static final String SHORT_QUESTION = "<short question>";
 	private final int shortQuestion = 10;
 	private final int longQuestion = 20;
 	private Map<String, String> systemMap = new HashMap<>();
@@ -48,7 +48,7 @@ public class Oracle {
 	}
 
 	public void addressToOracle() {
-		reproduce(GREETING, systemMap);
+		reproduce(GREETING, GREETING, systemMap);
 
 		InputStreamReader streamReader = new InputStreamReader(System.in);
 		BufferedReader bufferedReader = new BufferedReader(streamReader);
@@ -60,7 +60,7 @@ public class Oracle {
 				preparedQuestions = bufferedReader.readLine();
 			} catch (IOException exc) {
 				preparedQuestions = "";
-				reproduce(EXCEPTION, systemMap);
+				reproduce(EXCEPTION, EXCEPTION, systemMap);
 			}
 			preparedQuestions = preparedQuestions.toLowerCase().trim();
 			if (preparedQuestions.equals("e")) {
@@ -73,7 +73,7 @@ public class Oracle {
 	}
 
 	public void addressToOracle(String... preparedQuestions) {
-		reproduce(GREETING, systemMap);
+		reproduce(GREETING, GREETING, systemMap);
         boolean answerIsGiven;
 		for (String preparedQuestion : preparedQuestions) {
 		    answerIsGiven = false;
@@ -85,7 +85,7 @@ public class Oracle {
 	}
 
 	public void addressToOracle(List<String> preparedQuestions) {
-        reproduce(GREETING, systemMap);
+        reproduce(GREETING, GREETING, systemMap);
         boolean answerIsGiven;
         for (String preparedQuestion : preparedQuestions) {
             answerIsGiven = false;
@@ -105,27 +105,26 @@ public class Oracle {
 
         String question = preparedQuestions.toLowerCase().trim();
 		if (!question.equals("")) {
-		    Thread.sleep(1000);
-            boolean wantToAnswer = makeDecision() && checkQuestionLength(question);
+            boolean wantToAnswer = makeDecision(question) && checkQuestionLength(question);
             if (wantToAnswer) {
-                reproduce(question, questionAnswer);
+                reproduce(question, "", questionAnswer);
             }
 		}
 		return true;
 	}
 
 	// TODO: 8/29/19 а как насчет их неравновесными сделать?
-	private Boolean makeDecision() {
+	private Boolean makeDecision(String question) {
 		boolean wantToAnswer = false;
 		int variant = random.nextInt(7);
 		if (variant == 0) {
-			reproduce(RUDE, systemMap);
+			reproduce(question, RUDE, systemMap);
 		} else if (variant >= 1 && variant <= 4) {
 			wantToAnswer = true;
 		} else if (variant == 5) {
-			reproduce(STICK_KICK, systemMap);
+			reproduce(question, STICK_KICK, systemMap);
 		} else if (variant == 6) {
-			sleep();
+			sleep(question);
 		}
 		return wantToAnswer;
 	}
@@ -137,14 +136,14 @@ public class Oracle {
 			isSleep = true;
 			Duration duration = Duration.between(now, timeWakeUp);
 			//log.info("left to sleep (sec): " + (duration.toMillis() / 1000)); // TODO: 8/29/19 да вывод один, но это не занчит что при тесторовании нельзя логиировать состояние это очень важно, так что тут играет злую шутку с тобой это правило
-			output("left to sleep (sec): " + (duration.toMillis() / 1000));
+			output("left to sleep (sec): " + duration.getSeconds());
 		}
 		return isSleep;
 	}
 
-	private void sleep() {
+	private void sleep(String question) {
 		timeWakeUp = LocalDateTime.now().plusSeconds(random.nextInt(50) + 10);
-		reproduce(SLEEP, systemMap);
+		reproduce(question, SLEEP, systemMap);
 	}
 
 	private Boolean checkQuestionLength(String questionFromUser) {
@@ -155,17 +154,22 @@ public class Oracle {
 			check = SHORT_QUESTION;
 		}
 		if (!check.equals("")) {
-			reproduce(check, systemMap);
+			reproduce(questionFromUser, check, systemMap);
 			return false;
 		}
 		return true;
 	}
 
-	private void reproduce(String question, Map<String, String> map) {
+	private void reproduce(String question, String action, Map<String, String> map) {
+		String searchWord = question;
+		if (!action.equals("")) {
+			searchWord = action;
+		}
+
 		String answer = "";
 		int countQuestions = 0;
 		for (Map.Entry<String, String> entry : map.entrySet()) {
-			if (question.contains(entry.getKey())) {
+			if (searchWord.contains(entry.getKey())) {
 				answer = entry.getValue();
 				countQuestions++;
 			}
@@ -175,12 +179,16 @@ public class Oracle {
 		} else if (answer.equals("")) {
 			answer = "I do't hear the question in your speeches";
 		}
-		conversation.addConversation(question, answer);
+		conversation.addConversation(question, answer, action);
 		output(answer);
 	}
 
 	private void output(String answer) {
 		log.info(answer);
+	}
+
+	public List<Communication> getHistoryConversation() {
+		return conversation.getHistoryConversation();
 	}
 
 	public String getReportString() {

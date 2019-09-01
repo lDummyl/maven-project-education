@@ -34,7 +34,7 @@ public class ConversationTest {
 //        Collections.sort(list, Comparator.comparing(Conversation::getStringJSON, ));
         for (Map.Entry<String, String> entry : test.entrySet()) {
             Thread.sleep(1000);
-            conversation.addConversation(entry.getKey(), entry.getValue());
+            conversation.addConversation(entry.getKey(), entry.getValue(), "");
         }
 
         String report = conversation.getStringJSON();

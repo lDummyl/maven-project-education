@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
+import java.util.List;
 
 public class Converter {
 
@@ -18,15 +18,23 @@ public class Converter {
         mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
     }
 
-    public void toJSON(Set<Communication> historyConversations) throws IOException {
+    public void toJSON(List<Communication> historyConversations) throws IOException {
         mapper.writeValue(new File(pathFile), historyConversations);
     }
 
-    public Set<Communication> fromJSON() throws IOException {
-        return mapper.readValue(new File(pathFile), Set.class);
+    public List<Communication> fromJSON() throws IOException {
+        return mapper.readValue(new File(pathFile), List.class);
     }
 
-    public String getStringJSON(Set<Communication> historyConversations) throws IOException {
+    public String getStringJSON(List<Communication> historyConversations) throws IOException {
         return mapper.writeValueAsString(historyConversations);
+    }
+
+    public String getPathFile() {
+        return pathFile;
+    }
+
+    public void setPathFile(String pathFile) {
+        this.pathFile = pathFile;
     }
 }
