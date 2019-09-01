@@ -1,6 +1,7 @@
 package task4;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -31,9 +32,9 @@ public class PhraseGenerator {
 
     private void writeListWords() {
         firstWords = Arrays.asList("what", "where", "when", "how", "why", "who", "not", "just");
-        secondWords = Arrays.asList("are you", "you felling", "i'm don't understand", "question", "words");
-        thirdWords = Arrays.asList("normal");
-        fourthWords = Arrays.asList("");
+        secondWords = Arrays.asList("are you", "you felling", "I don't understand", "question", "words");
+        thirdWords = Collections.singletonList("normal");
+        fourthWords = Collections.singletonList("");
 
         firstWordsSize = firstWords.size();
         secondWordsSize = secondWords.size();
