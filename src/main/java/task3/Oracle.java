@@ -8,10 +8,7 @@ import java.io.InputStreamReader;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class Oracle {
@@ -30,7 +27,8 @@ public class Oracle {
 	private Map<String, String> systemMap = new HashMap<>();
 	private Map<String, String> questionAnswer = new HashMap<>();
 	private LocalDateTime timeWakeUp = LocalDateTime.of(1, Month.JANUARY, 1, 0, 0, 0);
-	private Conversation conversation = new Conversation();
+	private List<Communication> historyConversation = new ArrayList<>();
+	private Converter converter = new Converter("conversation.json");
 	private Random random = new Random();
 
 	public Oracle() {
@@ -69,7 +67,7 @@ public class Oracle {
                 parsingQuestion(preparedQuestions);
 			}
 		}
-		conversation.createReport();
+		createReport();
 	}
 
 	public void addressToOracle(String... preparedQuestions) {
@@ -81,7 +79,7 @@ public class Oracle {
                 answerIsGiven = parsingQuestion(preparedQuestion);
             }
 		}
-		conversation.createReport();
+		createReport();
 	}
 
 	public void addressToOracle(List<String> preparedQuestions) {
@@ -93,7 +91,7 @@ public class Oracle {
                 answerIsGiven = parsingQuestion(preparedQuestion);
             }
         }
-        conversation.createReport();
+        createReport();
     }
 
 	@SneakyThrows
@@ -179,7 +177,7 @@ public class Oracle {
 		} else if (answer.equals("")) {
 			answer = "I do't hear the question in your speeches";
 		}
-		conversation.addConversation(question, answer, action);
+		addConversation(question, answer, action);
 		output(answer);
 	}
 
@@ -187,11 +185,29 @@ public class Oracle {
 		log.info(answer);
 	}
 
-	public List<Communication> getHistoryConversation() {
-		return conversation.getHistoryConversation();
+	public void addConversation(String question, String answer, String action) {
+		Communication communication = new Communication(question, answer, action);
+		historyConversation.add(communication);
 	}
 
+	@SneakyThrows
+	public void createReport() {
+		sortHistoryConversation();
+		converter.toJSON(historyConversation);
+	}
+
+	@SneakyThrows
+	public List<Communication> getHistoryConversation() {
+		return converter.fromJSON();
+	}
+
+	@SneakyThrows
 	public String getReportString() {
-		return conversation.getStringJSON();
+		sortHistoryConversation();
+		return converter.getStringJSON(historyConversation);
+	}
+
+	private void sortHistoryConversation() {
+		historyConversation.stream().sorted(Comparator.comparing(Communication::getTimeCommunication));
 	}
 }

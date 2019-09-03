@@ -2,13 +2,11 @@ package task4;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Seeker {
 
     private PhraseGenerator phraseGenerator = new PhraseGenerator(2);
     private List<String> questions = new ArrayList<>();
-    private Random random = new Random();
 
     public void generateQuestions(int countQuestions) {
         if (countQuestions <= 0) {
