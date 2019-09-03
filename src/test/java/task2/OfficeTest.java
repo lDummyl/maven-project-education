@@ -82,22 +82,16 @@ public class OfficeTest {
 
         secretaries.forEach(office::invitePeople);
 
-     //   Secretary secretary = office.secretary;
-     //   Secretary secretary2 = office.listWorkingSecretary.get(0);
-     //   Office wockingIn = secretary.office;
+        Secretary secretary = office.secretary;
+      //  boolean isWorking = secretary.office != null;
+         boolean isWorking = secretary.isWorking;
 
-        office.distributeOnOffice(office.listWorkingSecretary.get(0), additionalOffice1);   //забиваем вручную секретаря и офис в котором он будет работать
-        office.distributeOnOffice(office.listWorkingSecretary.get(1), additionalOffice2);
-        office.distributeOnOffice(office.listWorkingSecretary.get(2), additionalOffice3);
-    //    office.distributeOnOffice(office.listWorkingSecretary.get(3), additionalOffice1);
+        if(isWorking)
+        secretary.office=additionalOffice1;
 
+   //     Office wockingIn = secretary.office;
 
-    /*    Secretary secretary = office.secretary;
-        boolean isWorking = secretary.office != null;
-        Office wockingIn = secretary.office;
-
-     */
-                assertTrue(secretaries.contains(office.secretary));
+                assertTrue(secretaries.contains(office.secretary));  // не очень понимаю какая здесь должна быть проверка
 
 /*
       Office offissNuber1 = null;
@@ -148,7 +142,6 @@ public class OfficeTest {
             String message = e.getMessage();
             assertFalse(message.contains(new Office().hr.name));
         }
-
     }
 
     // TODO: 8/29/19 айайай а тестик то падает время от времени, директор ругается, лучше путь hr подготовиться, отсортирует всех кандидатов, разложит по папочкам у себя в картотеке и тогда дирктору проще будет, чем если ему все на стол просто вывалено
@@ -166,6 +159,7 @@ public class OfficeTest {
         laborMarket.add(new Secretary("Марина"));
         laborMarket.add(new Secretary("Лера"));
         laborMarket.add(new Accountant("Виолетта"));
+        laborMarket.add(new Accountant("Фекла"));
 
         laborMarket.forEach(office::invitePeople);
 

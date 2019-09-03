@@ -3,6 +3,7 @@ class Secretary implements WantAWork {  //implements это ключевое с�
 
     String name;
 	Office office;
+    boolean isWorking = false;
 
     public Secretary(String name) {
         this.name = name;

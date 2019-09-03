@@ -5,6 +5,9 @@ import java.util.List;
 
 class Hr {
     List<WantAWork> listJobSeekers = new ArrayList<>();
+    List<WantAWork> listSeekersSecretary = new ArrayList<>();
+    List<WantAWork> listSeekersAccountant = new ArrayList<>();
+
     String name;
 
     public Hr(String name) {
@@ -12,10 +15,21 @@ class Hr {
     }
 
     public List<WantAWork> considerCandidate(WantAWork candidate) {  //метод в котором Hr рассматривает кандидатов, которые приходят из офиса (invitePeople) и возвращает список тех кто прошел
-        if (candidate.passInterview()) {               //если кандидат прошел интерьвью passInterview() возвращает true
-            listJobSeekers.add(candidate);             //и в список listJobSeekers добавляется кандидат
-        }
-        return listJobSeekers;                         //возвращаем список
+
+
+            if(candidate.passInterview() && candidate instanceof Secretary) {
+                listSeekersSecretary.add(candidate);
+             //   System.out.println("listSeekersSecretary - " + listSeekersSecretary);
+                return listSeekersSecretary;
+            }
+            if(candidate.passInterview() && candidate instanceof Accountant){
+                listSeekersAccountant.add(candidate);
+                return listSeekersAccountant;
+            }
+
+            listJobSeekers.add(candidate);                           // остальные
+            return listJobSeekers;
+
     }
 
 }

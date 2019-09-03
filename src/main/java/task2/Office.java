@@ -10,7 +10,7 @@ public class Office {
 	Secretary secretary;
 	Accountant accountant;
 
-	List<Secretary> listWorkingSecretary = new ArrayList<>();
+//	List<Secretary> listWorkingSecretary = new ArrayList<>();
     String nameOffice;
 
 	Director director = new Director(this);   //зачем здесь параметр this не оч понятно?
@@ -36,17 +36,11 @@ public class Office {
 			secretary = director.chooseSecretary(currentCandidates);  //присваиваем объекту secretary выбранного секретаря которого выбрал директор
 			accountant = director.chooseAccountant(currentCandidates);
 
-			//	secretary.office = this;
-			if(secretary != null)
-				listWorkingSecretary.add(secretary);
+			/*if(secretary != null) {
+                secretary.office = this;
+                listWorkingSecretary.add(secretary);
+            }*/
 		}
-	}
-
-	void distributeOnOffice(Secretary secretary, Office office) {
-		this.secretary = secretary;
-		this.secretary.office = office;
-
-		System.out.println(this.secretary + " работает в " + this.secretary.office.nameOffice);
 	}
 }
 
