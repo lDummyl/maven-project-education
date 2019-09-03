@@ -13,6 +13,8 @@ public class StatisticCollectionTest {
 
     Logger log = Logger.getLogger(StatisticCollection.class.getName());
 
+    // TODO: 9/3/19 починил тебе тест, всегда старайся внимаетельно с тем что пишут в консоль.
+
     @Test
     public void statisticCollectionTest() {
         //Oracle oracle = new Oracle();
