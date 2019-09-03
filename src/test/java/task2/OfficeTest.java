@@ -3,11 +3,11 @@ package task2;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.stream.Stream;
+import java.util.Collections;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class OfficeTest {
 
@@ -56,15 +56,15 @@ public class OfficeTest {
     }
 
     @Test
-    public void mainTest(){
+    public void mainTest() {
         String test = "Main question of the universe and everything";
- //       int result = new SuperComPuter.ask(test);
- //       assertEquals(42, result);
+        //       int result = new SuperComPuter.ask(test);
+        //       assertEquals(42, result);
     }
 
 
     @Test
-    public void newOffices(){
+    public void newOffices() {
 
         Office office = new Office();
 
@@ -83,15 +83,16 @@ public class OfficeTest {
         secretaries.forEach(office::invitePeople);
 
         Secretary secretary = office.secretary;
-      //  boolean isWorking = secretary.office != null;
-         boolean isWorking = secretary.isWorking;
+        //  boolean isWorking = secretary.office != null;
+        boolean isWorking = secretary.isWorking;
 
-        if(isWorking)
-        secretary.office=additionalOffice1;
+        if (isWorking) {
+            secretary.office = additionalOffice1;
+        }
 
-   //     Office wockingIn = secretary.office;
+        //     Office wockingIn = secretary.office;
 
-                assertTrue(secretaries.contains(office.secretary));  // не очень понимаю какая здесь должна быть проверка
+        assertTrue(secretaries.contains(office.secretary));  // не очень понимаю какая здесь должна быть проверка
 
 /*
       Office offissNuber1 = null;
@@ -115,8 +116,8 @@ public class OfficeTest {
 
  */
         // TODO: 8/16/19 способ 2
-    //    long offices1qty = additionalOffice.stream().filter(off -> off.nameOffice.equals("Офис №1")).count();
-    //    assertThat("Offices 1 qty", offices1qty, lessThan(2L));
+        //    long offices1qty = additionalOffice.stream().filter(off -> off.nameOffice.equals("Офис №1")).count();
+        //    assertThat("Offices 1 qty", offices1qty, lessThan(2L));
 
 
    /*     Stream stream = secretariesWorking.stream();
@@ -132,22 +133,24 @@ public class OfficeTest {
 
 
     @Test
-    public void addAccountantStress(){
-        try {
-            for (int i = 0; i < 100; i++) {
+    public void addAccountantStress() {
+
+        for (int i = 0; i < 10000; i++) {
+            try {
                 addAccountant();
+            } catch (Exception e) {
+                e.printStackTrace();
+                String message = e.getMessage();
+                assertFalse(message.contains(new Office().hr.name));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            String message = e.getMessage();
-            assertFalse(message.contains(new Office().hr.name));
+
         }
     }
 
     // TODO: 8/29/19 айайай а тестик то падает время от времени, директор ругается, лучше путь hr подготовиться, отсортирует всех кандидатов, разложит по папочкам у себя в картотеке и тогда дирктору проще будет, чем если ему все на стол просто вывалено
 
-        @Test
-    public void addAccountant(){
+    @Test
+    public void addAccountant() {
 
         Office office = new Office();
 
@@ -160,10 +163,13 @@ public class OfficeTest {
         laborMarket.add(new Secretary("Лера"));
         laborMarket.add(new Accountant("Виолетта"));
         laborMarket.add(new Accountant("Фекла"));
-
+        laborMarket.add(new Accountant("Фекла1"));
+        laborMarket.add(new Accountant("Фекла2"));
+        laborMarket.add(new Accountant("Фекла3"));
+        Collections.shuffle(laborMarket);
         laborMarket.forEach(office::invitePeople);
 
-      //  assertTrue(laborMarket.contains(office.secretary));
+        //  assertTrue(laborMarket.contains(office.secretary));
         assertTrue(laborMarket.contains(office.accountant));
     }
 
