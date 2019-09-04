@@ -23,7 +23,7 @@ public class StatisticCollectionTest {
         //seeker.generateQuestions(10);
         //oracle.addressToOracle(seeker.getQuestions());
 
-        StatisticCollection statistic = new StatisticCollection("conversation.json"); // через оракула то же само
+        StatisticCollection statistic = new StatisticCollection("conversation.json");
         log.info("count: " + statistic.getCountAction(Oracle.SHORT_QUESTION));
         log.info("max time sleep: " + statistic.getMaxSleepTimeOracle());
         log.info(statistic.getPopularQuestions().toString());

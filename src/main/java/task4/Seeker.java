@@ -18,7 +18,7 @@ public class Seeker {
     }
 
     public String getQuestion() {
-        return phraseGenerator.generatePhrase();
+        return phraseGenerator.generatePhrase().toLowerCase().trim();
     }
 
     public List<String> getQuestions() {

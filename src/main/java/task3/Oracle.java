@@ -29,21 +29,31 @@ public class Oracle {
 	private LocalDateTime timeWakeUp = LocalDateTime.of(1, Month.JANUARY, 1, 0, 0, 0);
 	private List<Communication> historyConversation = new ArrayList<>();
 	private Converter converter = new Converter("conversation.json");
+	private Duration duration;
 	private Random random = new Random();
 
 	public Oracle() {
-		systemMap.put(GREETING, "I am, great and powerful oracle, listen to you");
-		systemMap.put(EXCEPTION, "I do't understand what you asked. Try again");
-		systemMap.put(SLEEP, "zZz");
-		systemMap.put(STICK_KICK, "Pom!");
-		systemMap.put(RUDE, "oooh, stupid people, dont touch me!");
-		systemMap.put(LONG_QUESTION, "Be concise");
-		systemMap.put(SHORT_QUESTION, "Be more eloquent");
-
-		questionAnswer.put("what", "what you need to know");
-		questionAnswer.put("when", "on time");
-		questionAnswer.put("where", "somewhere");
+		setMaps();
 	}
+
+	public Oracle(Duration duration) {
+	    this.duration = duration;
+	    setMaps();
+    }
+
+	private void setMaps() {
+        systemMap.put(GREETING, "I am, great and powerful oracle, listen to you");
+        systemMap.put(EXCEPTION, "I do't understand what you asked. Try again");
+        systemMap.put(SLEEP, "zZz");
+        systemMap.put(STICK_KICK, "Pom!");
+        systemMap.put(RUDE, "oooh, stupid people, dont touch me!");
+        systemMap.put(LONG_QUESTION, "Be concise");
+        systemMap.put(SHORT_QUESTION, "Be more eloquent");
+
+        questionAnswer.put("what", "what you need to know");
+        questionAnswer.put("when", "on time");
+        questionAnswer.put("where", "somewhere");
+    }
 
 	public void addressToOracle() {
 		reproduce(GREETING, GREETING, systemMap);
@@ -132,9 +142,14 @@ public class Oracle {
 		LocalDateTime now = LocalDateTime.now();
 		if (now.isBefore(timeWakeUp)) {
 			isSleep = true;
-			Duration duration = Duration.between(now, timeWakeUp);
-			//log.info("left to sleep (sec): " + (duration.toMillis() / 1000)); // TODO: 8/29/19 да вывод один, но это не занчит что при тесторовании нельзя логиировать состояние это очень важно, так что тут играет злую шутку с тобой это правило
-			output("left to sleep (sec): " + duration.getSeconds());
+            Duration durationNow = Duration.between(now, timeWakeUp);
+			if (duration != null && duration.getSeconds() < durationNow.getSeconds()) {
+			    timeWakeUp = now.plusSeconds(duration.getSeconds());
+			    output("left to sleep (sec): " + duration.getSeconds());
+            } else {
+                //log.info("left to sleep (sec): " + (duration.toMillis() / 1000)); // TODO: 8/29/19 да вывод один, но это не занчит что при тесторовании нельзя логиировать состояние это очень важно, так что тут играет злую шутку с тобой это правило
+                output("left to sleep (sec): " + durationNow.getSeconds());
+            }
 		}
 		return isSleep;
 	}

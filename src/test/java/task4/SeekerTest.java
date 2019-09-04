@@ -3,6 +3,7 @@ package task4;
 import org.junit.Test;
 import task3.Oracle;
 
+import java.time.Duration;
 import java.util.logging.Logger;
 
 import static org.junit.Assert.assertFalse;
@@ -15,7 +16,7 @@ public class SeekerTest {
     @Test
     public void seekerTest() {
         Seeker seeker = new Seeker();
-        Oracle oracle = new Oracle(); // TODO: 9/1/19  чтобы не ждать 100 лет пока тест пройдет, а так быть не должно в принципе, при инициализации я бы передавал в констуктор максимальное время ожидания оракула(именно время(Duration) никаких интов) и тогда в тестовом режиме все бы проходило за разумный период
+        Oracle oracle = new Oracle(Duration.ofSeconds(3L)); // TODO: 9/1/19  чтобы не ждать 100 лет пока тест пройдет, а так быть не должно в принципе, при инициализации я бы передавал в констуктор максимальное время ожидания оракула(именно время(Duration) никаких интов) и тогда в тестовом режиме все бы проходило за разумный период
 
         String question = seeker.getQuestion();
         oracle.addressToOracle(question);

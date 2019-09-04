@@ -29,13 +29,13 @@ public class StatisticCollection {
     }
 
     public Long getCountAction(String action) {
-        return historyConversation.stream().filter(i -> i.getAction().equals(action)).count(); // тут сыпется, пока не могу разобраться в в чем ошибка
+        return historyConversation.stream().filter(i -> i.getAction().equals(action)).count();
     }
 
     public Long getMaxSleepTimeOracle() {
         long maxSleepTime = 0L;
         LocalDateTime previousDate = null;
-        for (Communication communication : historyConversation) { // тут тоже сыпется...
+        for (Communication communication : historyConversation) {
             if (communication.getAction().equals(Oracle.SLEEP) && previousDate != null) {
                 duration = Duration.between(communication.getTimeCommunication(), previousDate);
                 if (duration.getSeconds() > maxSleepTime) {
@@ -49,7 +49,7 @@ public class StatisticCollection {
 
     public Map<String, Long> getPopularQuestions() {
         Map<String, Long> popularQuestions = historyConversation.stream()
-                .collect(Collectors.groupingBy(Communication::getQuestion, Collectors.counting())); // и тут сыпется... пытаюсь разобраться
+                .collect(Collectors.groupingBy(Communication::getQuestion, Collectors.counting()));
         return popularQuestions;
     }
 
