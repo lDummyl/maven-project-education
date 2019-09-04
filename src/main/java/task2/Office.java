@@ -32,9 +32,11 @@ public class Office {
 
 	void invitePeople(Object human) {      //претенденты приходят по одному
 		if (human instanceof WantAWork) {      //с помощью оператора instanceof убеждаемся, что обьекты human может быть приведен типу(интерфейсу) WantAWork
-			List<WantAWork> currentCandidates = hr.considerCandidate((WantAWork) human);  //создаем спсок текущих кандидатов и присваивам ему список от Hr с параметром human, который приведен к типу WantAWork
-			secretary = director.chooseSecretary(currentCandidates);  //присваиваем объекту secretary выбранного секретаря которого выбрал директор
-			accountant = director.chooseAccountant(currentCandidates);
+			List<WantAWork> currentCandidatesOfSecretaries = hr.considerCandidateSecretaries((WantAWork) human);  //создаем спсок текущих кандидатов и присваивам ему список от Hr с параметром human, который приведен к типу WantAWork
+            List<WantAWork> currentCandidatesOfAccountants = hr.considerCandidateAccountants((WantAWork) human);
+
+			secretary = director.chooseSecretary(currentCandidatesOfSecretaries);  //присваиваем объекту secretary выбранного секретаря которого выбрал директор
+			accountant = director.chooseAccountant(currentCandidatesOfAccountants);
 
 			/*if(secretary != null) {
                 secretary.office = this;

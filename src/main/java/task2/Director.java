@@ -8,7 +8,7 @@ class Director {
     final Office myOffice;                 //myOffice константа?
 
     final int enoughCandidatesToDecide = 4;
-    final int enoughAccountantToDecide = 7;
+    final int enoughAccountantToDecide = 4;
     Random random = new Random();
 
     public Director(Office myOffice) {
@@ -30,16 +30,17 @@ class Director {
     }
 
       public Accountant chooseAccountant(List<WantAWork> currentCandidates) {       //Дир выбрает бухгалтера из списка Hr
-      //  if (currentCandidates.size() < enoughAccountantToDecide) return null;
+        if (currentCandidates.size() < enoughAccountantToDecide) return null;
 
-          for(WantAWork wantAWork : currentCandidates) {                            //выбирает первого буха который ему попадется
+          WantAWork wantAWork = currentCandidates.get(random.nextInt(currentCandidates.size()));
+
               if (wantAWork instanceof Accountant) {
                   ((Accountant) wantAWork).isWorking = true;
                   return (Accountant) wantAWork;
               }
-          }
+              else
+                  throw new RuntimeException("Что это вы, "+ myOffice.hr.name +",  мне подсовываете " + wantAWork.getClass() + " вместо " + Accountant.class); //иначе создается исключение(в виде ошибки).. срабатывает я так понял, если wantAWork и Secretary не совместимы
 
-          return null;
     }
 
 }

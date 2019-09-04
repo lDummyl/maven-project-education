@@ -169,6 +169,13 @@ public class OfficeTest {
         Collections.shuffle(laborMarket);
         laborMarket.forEach(office::invitePeople);
 
+
+        Secretary secretary = office.secretary;;
+        Accountant accountant = office.accountant;
+
+        System.out.println(secretary);
+        System.out.println(accountant);
+
         //  assertTrue(laborMarket.contains(office.secretary));
         assertTrue(laborMarket.contains(office.accountant));
     }

@@ -5,8 +5,8 @@ import java.util.List;
 
 class Hr {
     List<WantAWork> listJobSeekers = new ArrayList<>();
-    List<WantAWork> listSeekersSecretary = new ArrayList<>();
-    List<WantAWork> listSeekersAccountant = new ArrayList<>();
+    List<WantAWork> listSeekersOnSecretary = new ArrayList<>();
+    List<WantAWork> listSeekersOnAccountant = new ArrayList<>();
 
     String name;
 
@@ -14,22 +14,29 @@ class Hr {
         this.name = name;
     }
 
-    public List<WantAWork> considerCandidate(WantAWork candidate) {  //метод в котором Hr рассматривает кандидатов, которые приходят из офиса (invitePeople) и возвращает список тех кто прошел
-
+    public List<WantAWork> considerCandidateSecretaries(WantAWork candidate) {  //метод в котором Hr рассматривает кандидатов, которые приходят из офиса (invitePeople) и возвращает список тех кто прошел
 
             if(candidate.passInterview() && candidate instanceof Secretary) {
-                listSeekersSecretary.add(candidate);
-             //   System.out.println("listSeekersSecretary - " + listSeekersSecretary);
-                return listSeekersSecretary;
+                listSeekersOnSecretary.add(candidate);
+                return listSeekersOnSecretary;
             }
-            if(candidate.passInterview() && candidate instanceof Accountant){
-                listSeekersAccountant.add(candidate);
-                return listSeekersAccountant;
-            }
-
+            else{
             listJobSeekers.add(candidate);                           // остальные
-            return listJobSeekers;
+            return listSeekersOnSecretary;
+            }
 
+    }
+
+    public List<WantAWork> considerCandidateAccountants(WantAWork candidate) {  //метод в котором Hr рассматривает кандидатов, которые приходят из офиса (invitePeople) и возвращает список тех кто прошел
+
+            if(candidate.passInterview() && candidate instanceof Accountant){
+                listSeekersOnAccountant.add(candidate);
+            return listSeekersOnAccountant;
+            }
+            else{
+                listJobSeekers.add(candidate);                           // остальные
+                return listSeekersOnAccountant;
+            }
     }
 
 }
