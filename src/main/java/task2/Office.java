@@ -20,6 +20,8 @@ public class Office {
 
     public Office(String nameOffice){ this.nameOffice = nameOffice;};
 
+	// TODO: 9/4/19 избавляйся от этих капролитов, все сохраняется в контроле версий, не тащи из коммита в коммит
+
 /*	public Office(String nameOffice, Object workingSecretary ){  //конструктор для распределения секретарей по офисам
 	    this.nameOffice = nameOffice;
 

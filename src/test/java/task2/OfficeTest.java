@@ -4,9 +4,16 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class OfficeTest {
@@ -38,6 +45,8 @@ public class OfficeTest {
 
     }
 
+    // TODO: 9/4/19 отлично! Осталось только починить этот тест и порядок
+
     @Test(expected = RuntimeException.class)
     public void getBossAnger() {
         Office office = new Office();
@@ -61,6 +70,39 @@ public class OfficeTest {
         //       int result = new SuperComPuter.ask(test);
         //       assertEquals(42, result);
     }
+
+
+    @Test
+    public void multipleOfficeTest100Iterations() {
+
+        for (int i = 0; i < 100; i++) {
+             multipleOfficeTest();
+        }
+    }
+
+// TODO: 9/4/19 вот тебе готовый тест, не изменяя его нужно  сделать так чтобы он проходил.
+
+    public void multipleOfficeTest() {
+
+        List<Object> labourMarket = getLabourMarket();
+        Set<Office> offices = Stream.generate(Office::new).limit(3).collect(Collectors.toSet());
+
+        HashSet<Object> alreadySaw = new HashSet<>();
+        for (Office office : offices) {
+            for (Object candidate : labourMarket) {
+                office.invitePeople(candidate);
+            }
+            Secretary secretary = office.secretary;
+            assertNotNull(secretary);
+            assertFalse(alreadySaw.contains(secretary));
+            alreadySaw.add(secretary);
+            Accountant accountant = office.accountant;
+            assertNotNull(accountant);
+            assertFalse(alreadySaw.contains(accountant));
+            alreadySaw.add(accountant);
+        }
+    }
+
 
 
     @Test
@@ -154,7 +196,22 @@ public class OfficeTest {
 
         Office office = new Office();
 
-        ArrayList<Object> laborMarket = new ArrayList<>();
+        List<Object> laborMarket = getLabourMarket();
+        laborMarket.forEach(office::invitePeople);
+
+
+        Secretary secretary = office.secretary;;
+        Accountant accountant = office.accountant;
+
+        System.out.println(secretary);
+        System.out.println(accountant);
+
+        //  assertTrue(laborMarket.contains(office.secretary));
+        assertTrue(laborMarket.contains(office.accountant));
+    }
+
+    private List<Object> getLabourMarket() {
+        List<Object> laborMarket = new ArrayList<>();
         laborMarket.add(new Secretary("Маша"));
         laborMarket.add(new Secretary("Алла"));
         laborMarket.add(new Secretary("Анжелла"));
@@ -167,17 +224,7 @@ public class OfficeTest {
         laborMarket.add(new Accountant("Фекла2"));
         laborMarket.add(new Accountant("Фекла3"));
         Collections.shuffle(laborMarket);
-        laborMarket.forEach(office::invitePeople);
-
-
-        Secretary secretary = office.secretary;;
-        Accountant accountant = office.accountant;
-
-        System.out.println(secretary);
-        System.out.println(accountant);
-
-        //  assertTrue(laborMarket.contains(office.secretary));
-        assertTrue(laborMarket.contains(office.accountant));
+        return laborMarket;
     }
 
 }
