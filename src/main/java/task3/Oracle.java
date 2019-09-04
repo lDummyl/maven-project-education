@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 public class Oracle {
 
+	private final int pollPeriod;
 	private Logger log = Logger.getLogger(Oracle.class.getName());
 
 	public static final String GREETING = "<greeting>";
@@ -23,7 +24,7 @@ public class Oracle {
 	public static final String LONG_QUESTION = "<long question>";
 	public static final String SHORT_QUESTION = "<short question>";
 	private final int shortQuestion = 10;
-	private final int longQuestion = 20;
+	private final int longQuestion = 80;
 	private Map<String, String> systemMap = new HashMap<>();
 	private Map<String, String> questionAnswer = new HashMap<>();
 	private LocalDateTime timeWakeUp = LocalDateTime.of(1, Month.JANUARY, 1, 0, 0, 0);
@@ -33,13 +34,16 @@ public class Oracle {
 	private Random random = new Random();
 
 	public Oracle() {
+		this.pollPeriod = 3000;
 		setMaps();
+
 	}
 
-	public Oracle(Duration duration) {
-	    this.duration = duration;
+	public Oracle(int pollPeriod, Duration duration) {
+		this.pollPeriod = pollPeriod;
+		this.duration = duration;
 	    setMaps();
-    }
+	}
 
 	private void setMaps() {
         systemMap.put(GREETING, "I am, great and powerful oracle, listen to you");
@@ -107,7 +111,7 @@ public class Oracle {
 	@SneakyThrows
     private Boolean parsingQuestion(String preparedQuestions) {
         if (checkSleep()) {
-        	Thread.sleep(3000); // TODO: 8/29/19 ух на 2 гига прям у меня график оператвной памяти подскакивает, это очень хорошо что мы с этим столкнулись это надо запомнить OutOfMemoryError бывает не каждый день, и хорошо что он есть. Хоже когда ты запскаешь демона через while и фигачишь а он жрет весь перфрманс и где он проседает понять удастся не быстро. Циклические процессы только если они конечны можно пускать без таймера. Здесь не бесконечный луп, но пока мы ждем секудну проходят тонны итераций, это важно помнить.
+        	Thread.sleep(pollPeriod); // TODO: 8/29/19 ух на 2 гига прям у меня график оператвной памяти подскакивает, это очень хорошо что мы с этим столкнулись это надо запомнить OutOfMemoryError бывает не каждый день, и хорошо что он есть. Хоже когда ты запскаешь демона через while и фигачишь а он жрет весь перфрманс и где он проседает понять удастся не быстро. Циклические процессы только если они конечны можно пускать без таймера. Здесь не бесконечный луп, но пока мы ждем секудну проходят тонны итераций, это важно помнить.
             return false;
         }
 

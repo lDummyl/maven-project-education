@@ -59,4 +59,17 @@ public class OracleTest {
 
         assertTrue(report.contains("Be concise"));
     }
+
+    // TODO: 9/5/19 надо бы этот кейс отработать и еще, пожалуй стоит сделать так чтобы страждущий добивается ответа на каждый вопрос, даже если приходится ждать или получать по башке палкой он проявлял бы настойчивость
+
+    @Test
+    public void tooManyQuestionsTestValid() {
+        String[] questions = {"what is love? what is life?"};
+        Oracle oracle = new Oracle();
+        oracle.addressToOracle(questions);
+        String reportString = oracle.getReportString();
+        log.info(reportString);
+        assertTrue(reportString.contains("You ask too many questions"));
+
+    }
 }
