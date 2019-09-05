@@ -8,9 +8,7 @@ import task3.Oracle;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class StatisticCollection {
@@ -50,7 +48,10 @@ public class StatisticCollection {
     public Map<String, Long> getPopularQuestions() {
         Map<String, Long> popularQuestions = historyConversation.stream()
                 .collect(Collectors.groupingBy(Communication::getQuestion, Collectors.counting()));
-        return popularQuestions;
+        return popularQuestions.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
+        //return popularQuestions;
     }
 
     private void getHistoryConversationFromOracle() {

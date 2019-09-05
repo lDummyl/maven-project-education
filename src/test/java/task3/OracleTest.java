@@ -4,6 +4,9 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.Array;
+import java.time.Duration;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import static org.junit.Assert.assertFalse;
@@ -22,7 +25,7 @@ public class OracleTest {
         PrintStream ps = new PrintStream(baos);
         PrintStream old = System.out;
         System.setOut(ps);
-        Oracle oracle = new Oracle();
+        Oracle oracle = new Oracle(Duration.ofSeconds(3L));
         oracle.addressToOracle("what is meaning of life?");
         System.setOut(old);
         assertFalse(baos.toString().contains("what"));
@@ -35,10 +38,8 @@ public class OracleTest {
 
         String report = oracle.getReportString();
         log.info(report);
-        assertFalse(report.contains("what is meaning of life?"));
-        //for (String question : questions) {
-        //    assertTrue(report.contains(question));
-        //}
+        assertTrue(report.contains("what is meaning of life?"));
+        Arrays.asList(questions).stream().forEach(i -> assertTrue(report.contains(i)));
     }
 
     @Test
