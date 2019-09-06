@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Oracle {
 
@@ -31,12 +34,12 @@ public class Oracle {
 	private List<Communication> historyConversation = new ArrayList<>();
 	private Converter converter = new Converter("conversation.json");
 	private Duration duration;
+	private int sleepTime = 0;
 	private Random random = new Random();
 
 	public Oracle() {
 		this.pollPeriod = 3000;
 		setMaps();
-
 	}
 
 	public Oracle(int pollPeriod, Duration duration) {
@@ -115,28 +118,29 @@ public class Oracle {
             return false;
         }
 
+        boolean giveAnswer = false;
         String question = preparedQuestions.toLowerCase().trim();
 		if (!question.equals("")) {
-            boolean wantToAnswer = makeDecision(question) && checkQuestionLength(question);
-            if (wantToAnswer) {
+			giveAnswer = makeDecision(question);
+            if (giveAnswer && checkQuestionLength(question)) {
                 reproduce(question, "", questionAnswer);
             }
 		}
-		return true;
+		return giveAnswer;
 	}
 
 	// TODO: 8/29/19 а как насчет их неравновесными сделать?
 	private Boolean makeDecision(String question) {
 		boolean wantToAnswer = false;
-		int variant = random.nextInt(7);
+		int variant = random.nextInt(9);
 		if (variant == 0) {
 			reproduce(question, RUDE, systemMap);
-		} else if (variant >= 1 && variant <= 4) {
-			wantToAnswer = true;
-		} else if (variant == 5) {
+		} else if (variant == 1) {
 			reproduce(question, STICK_KICK, systemMap);
-		} else if (variant == 6) {
+		} else if (variant == 2) {
 			sleep(question);
+		} else if (variant >= 3) {
+			wantToAnswer = true;
 		}
 		return wantToAnswer;
 	}
@@ -159,8 +163,10 @@ public class Oracle {
 	}
 
 	private void sleep(String question) {
-		timeWakeUp = LocalDateTime.now().plusSeconds(random.nextInt(50) + 10);
+		sleepTime = random.nextInt(50) + 10;
+		timeWakeUp = LocalDateTime.now().plusSeconds(sleepTime);
 		reproduce(question, SLEEP, systemMap);
+		sleepTime = 0; // не уверен что это корректное решение
 	}
 
 	private Boolean checkQuestionLength(String questionFromUser) {
@@ -179,14 +185,18 @@ public class Oracle {
 
 	private void reproduce(String question, String action, Map<String, String> map) {
 		String searchWord = question;
+		String metacharacter = "\\b";
 		if (!action.equals("")) {
 			searchWord = action;
+            metacharacter = "";
 		}
 
 		String answer = "";
 		int countQuestions = 0;
 		for (Map.Entry<String, String> entry : map.entrySet()) {
-			if (searchWord.contains(entry.getKey())) {
+			Matcher matcher = Pattern.compile(metacharacter + entry.getKey() + metacharacter, Pattern.CASE_INSENSITIVE)
+					.matcher(searchWord);
+			while (matcher.find()) {
 				answer = entry.getValue();
 				countQuestions++;
 			}
@@ -204,13 +214,13 @@ public class Oracle {
 		log.info(answer);
 	}
 
-	public void addConversation(String question, String answer, String action) {
-		Communication communication = new Communication(question, answer, action);
+	private void addConversation(String question, String answer, String action) {
+		Communication communication = new Communication(question, answer, action, sleepTime);
 		historyConversation.add(communication);
 	}
 
 	@SneakyThrows
-	public void createReport() {
+	private void createReport() {
 		sortHistoryConversation();
 		converter.toJSON(historyConversation);
 	}
@@ -227,6 +237,8 @@ public class Oracle {
 	}
 
 	private void sortHistoryConversation() {
-		historyConversation.stream().sorted(Comparator.comparing(Communication::getTimeCommunication));
+		historyConversation = historyConversation.stream()
+				.sorted(Comparator.comparing(Communication::getTimeCommunication))
+				.collect(Collectors.toList());
 	}
 }

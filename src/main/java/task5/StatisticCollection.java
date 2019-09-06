@@ -7,7 +7,6 @@ import task3.Converter;
 import task3.Oracle;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -30,17 +29,12 @@ public class StatisticCollection {
         return historyConversation.stream().filter(i -> i.getAction().equals(action)).count();
     }
 
-    public Long getMaxSleepTimeOracle() {
-        long maxSleepTime = 0L;
-        LocalDateTime previousDate = null;
+    public Integer getMaxSleepTimeOracle() {
+        int maxSleepTime = 0;
         for (Communication communication : historyConversation) {
-            if (communication.getAction().equals(Oracle.SLEEP) && previousDate != null) {
-                duration = Duration.between(communication.getTimeCommunication(), previousDate);
-                if (duration.getSeconds() > maxSleepTime) {
-                    maxSleepTime = duration.getSeconds();
-                }
+            if (communication.getAction().equals(Oracle.SLEEP) && communication.getSleepTime() > maxSleepTime) {
+                maxSleepTime = communication.getSleepTime();
             }
-            previousDate = communication.getTimeCommunication();
         }
         return maxSleepTime;
     }
@@ -48,6 +42,9 @@ public class StatisticCollection {
     public Map<String, Long> getPopularQuestions() {
         Map<String, Long> popularQuestions = historyConversation.stream()
                 .collect(Collectors.groupingBy(Communication::getQuestion, Collectors.counting()));
+        if (popularQuestions.values().stream().mapToDouble(Long::doubleValue).max().orElse(0) > 1) {
+            popularQuestions.entrySet().removeIf(i -> i.getValue() == 1);
+        }
         return popularQuestions.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));

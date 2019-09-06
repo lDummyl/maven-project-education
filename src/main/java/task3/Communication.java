@@ -14,29 +14,15 @@ public class Communication {
 	private String question;
 	private String answer;
 	private String action;
+	private int sleepTime;
 	private LocalDateTime timeCommunication;
 
-	public Communication(String question, String answer, String action) {
+	public Communication(String question, String answer, String action, int sleepTime) {
 		this.question = question;
 		this.answer = answer;
 		this.action = action;
+		this.sleepTime = sleepTime;
 		this.timeCommunication = LocalDateTime.now();
-	}
-
-	public String getQuestion() {
-		return question;
-	}
-
-	public String getAnswer() {
-		return answer;
-	}
-
-	public String getAction() {
-		return action;
-	}
-
-	public LocalDateTime getTimeCommunication() {
-		return timeCommunication;
 	}
 
 	@Override
@@ -45,6 +31,7 @@ public class Communication {
 				"question='" + question + '\'' +
 				", answer='" + answer + '\'' +
 				", action='" + action + '\'' +
+				", sleepTime=" + sleepTime +
 				", timeCommunication=" + timeCommunication +
 				'}';
 	}

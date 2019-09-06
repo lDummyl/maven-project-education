@@ -25,7 +25,7 @@ public class OracleTest {
         PrintStream ps = new PrintStream(baos);
         PrintStream old = System.out;
         System.setOut(ps);
-        Oracle oracle = new Oracle(Duration.ofSeconds(3L));
+        Oracle oracle = new Oracle(3, Duration.ofMillis(3L));
         oracle.addressToOracle("what is meaning of life?");
         System.setOut(old);
         assertFalse(baos.toString().contains("what"));
@@ -66,7 +66,7 @@ public class OracleTest {
     @Test
     public void tooManyQuestionsTestValid() {
         String[] questions = {"what is love? what is life?"};
-        Oracle oracle = new Oracle();
+        Oracle oracle = new Oracle(3, Duration.ofMillis(3L));
         oracle.addressToOracle(questions);
         String reportString = oracle.getReportString();
         log.info(reportString);
