@@ -29,26 +29,30 @@ public class StatisticCollection {
         return historyConversation.stream().filter(i -> i.getAction().equals(action)).count();
     }
 
-    public Integer getMaxSleepTimeOracle() {
-        int maxSleepTime = 0;
+    public Long getMaxSleepTimeOracle() {
+        long maxSleepTime = 0L;
         for (Communication communication : historyConversation) {
-            if (communication.getAction().equals(Oracle.SLEEP) && communication.getSleepTime() > maxSleepTime) {
-                maxSleepTime = communication.getSleepTime();
+            long sleepTime = communication.getDurationSleepTime().getSeconds();
+            if (communication.getAction().equals(Oracle.SLEEP) && sleepTime > maxSleepTime) {
+                maxSleepTime = sleepTime;
             }
         }
         return maxSleepTime;
     }
 
-    public Map<String, Long> getPopularQuestions() {
+    public Map<String, Long> getPopularQuestions(int countGet) {
         Map<String, Long> popularQuestions = historyConversation.stream()
                 .collect(Collectors.groupingBy(Communication::getQuestion, Collectors.counting()));
         if (popularQuestions.values().stream().mapToDouble(Long::doubleValue).max().orElse(0) > 1) {
             popularQuestions.entrySet().removeIf(i -> i.getValue() == 1);
         }
+        if (popularQuestions.size() < countGet) {
+            countGet = popularQuestions.size();
+        }
         return popularQuestions.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .limit(countGet)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (oldValue, newValue) -> oldValue, LinkedHashMap::new));
-        //return popularQuestions;
     }
 
     private void getHistoryConversationFromOracle() {

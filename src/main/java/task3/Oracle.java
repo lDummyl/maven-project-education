@@ -34,7 +34,7 @@ public class Oracle {
 	private List<Communication> historyConversation = new ArrayList<>();
 	private Converter converter = new Converter("conversation.json");
 	private Duration duration;
-	private int sleepTime = 0;
+    private Duration durationSleepTime = Duration.ofSeconds(0L);
 	private Random random = new Random();
 
 	public Oracle() {
@@ -163,10 +163,11 @@ public class Oracle {
 	}
 
 	private void sleep(String question) {
-		sleepTime = random.nextInt(50) + 10;
+		int sleepTime = random.nextInt(50) + 10;
+        durationSleepTime = Duration.ofSeconds(sleepTime);
 		timeWakeUp = LocalDateTime.now().plusSeconds(sleepTime);
 		reproduce(question, SLEEP, systemMap);
-		sleepTime = 0; // не уверен что это корректное решение
+        durationSleepTime = Duration.ofSeconds(0L); // не уверен что это корректное решение
 	}
 
 	private Boolean checkQuestionLength(String questionFromUser) {
@@ -215,7 +216,7 @@ public class Oracle {
 	}
 
 	private void addConversation(String question, String answer, String action) {
-		Communication communication = new Communication(question, answer, action, sleepTime);
+		Communication communication = new Communication(question, answer, action, durationSleepTime);
 		historyConversation.add(communication);
 	}
 

@@ -26,6 +26,6 @@ public class StatisticCollectionTest {
         StatisticCollection statistic = new StatisticCollection("conversation.json");
         log.info("count: " + statistic.getCountAction(Oracle.SHORT_QUESTION));
         log.info("max time sleep: " + statistic.getMaxSleepTimeOracle());
-        log.info(statistic.getPopularQuestions().toString());
+        log.info(statistic.getPopularQuestions(3).toString());
     }
 }
