@@ -29,11 +29,11 @@ public class StatisticCollection {
         return historyConversation.stream().filter(i -> i.getAction().equals(action)).count();
     }
 
-    public Long getMaxSleepTimeOracle() {
-        long maxSleepTime = 0L;
+    public Duration getMaxSleepTimeOracle() {
+        Duration maxSleepTime = Duration.ofSeconds(0L);
         for (Communication communication : historyConversation) {
-            long sleepTime = communication.getDurationSleepTime().getSeconds();
-            if (communication.getAction().equals(Oracle.SLEEP) && sleepTime > maxSleepTime) {
+            Duration sleepTime = communication.getDurationSleepTime();
+            if (communication.getAction().equals(Oracle.SLEEP) && sleepTime.compareTo(maxSleepTime) > 0) {
                 maxSleepTime = sleepTime;
             }
         }
@@ -42,8 +42,10 @@ public class StatisticCollection {
 
     public Map<String, Long> getPopularQuestions(int countGet) {
         Map<String, Long> popularQuestions = historyConversation.stream()
+                .filter(i -> i.getAction().equals(""))
                 .collect(Collectors.groupingBy(Communication::getQuestion, Collectors.counting()));
-        if (popularQuestions.values().stream().mapToDouble(Long::doubleValue).max().orElse(0) > 1) {
+        boolean maxCount_1 = popularQuestions.values().stream().mapToDouble(Long::doubleValue).max().orElse(0) > 1;
+        if (maxCount_1) {
             popularQuestions.entrySet().removeIf(i -> i.getValue() == 1);
         }
         if (popularQuestions.size() < countGet) {
