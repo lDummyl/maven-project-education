@@ -2,6 +2,8 @@ package bonus;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 
 /*Используя данную конструкцию, работая только в методе main вывести на печать
@@ -11,24 +13,28 @@ import java.util.List;
 public class Lambda {
 
 	public static void main(String[] args) {
-		Funkey fun1 = argS -> System.out.println(argS);
-		Funkey fun2 = argS -> System.out.print(argS);
 
-		print(fun2);
-		System.out.println();
-		print(fun1);
+		// TODO: 9/11/19 вызвать fun здесь (в одну строчку)
+
 	}
 
-	public static void print(Funkey func) {
-		List<String> strings = Arrays.asList("A", "B", "C");
-		for (String string : strings) {
-			func.print(string);
-		}
+	public static void fun(Supplier<Apple> supplier, Consumer<Apple> consumer) {
+
+		// TODO: 9/11/19    нужно покормить лошадь тут используя интерфейсы (в одну строчку)
+
 	}
 }
 
-@FunctionalInterface
-interface Funkey {
+class Apple{
 
-	void print(String s);
 }
+
+class Horse{
+
+	void chew(Apple apple){
+		System.out.println("omnomnom");
+	}
+
+}
+
+
