@@ -75,9 +75,8 @@ public class OfficeTest {
     @Test
     public void multipleOfficeTest100Iterations() {
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++)
              multipleOfficeTest();
-        }
     }
 
 // TODO: 9/4/19 вот тебе готовый тест, не изменяя его нужно  сделать так чтобы он проходил.
@@ -89,10 +88,11 @@ public class OfficeTest {
 
         HashSet<Object> alreadySaw = new HashSet<>();
         for (Office office : offices) {
-            for (Object candidate : labourMarket) {
+            for (Object candidate : labourMarket)
                 office.invitePeople(candidate);
-            }
+
             Secretary secretary = office.secretary;
+
             assertNotNull(secretary);
             assertFalse(alreadySaw.contains(secretary));
             alreadySaw.add(secretary);
@@ -102,7 +102,6 @@ public class OfficeTest {
             alreadySaw.add(accountant);
         }
     }
-
 
 
     @Test
@@ -126,7 +125,7 @@ public class OfficeTest {
 
         Secretary secretary = office.secretary;
         //  boolean isWorking = secretary.office != null;
-        boolean isWorking = secretary.isWorking;
+        boolean isWorking = secretary.hired;
 
         if (isWorking) {
             secretary.office = additionalOffice1;
@@ -136,27 +135,6 @@ public class OfficeTest {
 
         assertTrue(secretaries.contains(office.secretary));  // не очень понимаю какая здесь должна быть проверка
 
-/*
-      Office offissNuber1 = null;
-        for (int i = 0; i < additionalOffice.size(); i++) {
-            Office offiss = additionalOffice.get(i);
-            offiss.workingOffice();
-            // TODO: 8/16/19 что-то не так способ 1
-            if (offiss.nameOffice.equals("Офис №1")) {
-                if (offissNuber1 == null) {
-                    offissNuber1 = offiss;
-                    System.out.println("offissNuber1 = " + offissNuber1 + "offiss = " + offiss);
-                } else {
-                    if (!offiss.equals(offissNuber1)) {
-                        System.out.println("как это офис 1 уже есть, не не равен офису 1, ¯\\_(ツ)_/¯");
-                        System.out.println("(2)offissNuber1 = " + offissNuber1 + "(2)offiss = " + offiss);
-                        assertTrue(offiss.equals(offissNuber1));
-                    }
-                }
-            }
-        }
-
- */
         // TODO: 8/16/19 способ 2
         //    long offices1qty = additionalOffice.stream().filter(off -> off.nameOffice.equals("Офис №1")).count();
         //    assertThat("Offices 1 qty", offices1qty, lessThan(2L));
@@ -206,7 +184,6 @@ public class OfficeTest {
         System.out.println(secretary);
         System.out.println(accountant);
 
-        //  assertTrue(laborMarket.contains(office.secretary));
         assertTrue(laborMarket.contains(office.accountant));
     }
 

@@ -3,7 +3,7 @@ package task2;
 class Accountant implements WantAWork {
 
     String name;
-    boolean isWorking = false;
+    boolean hired = false;
 
     public Accountant(String name){this.name = name;}
 

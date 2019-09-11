@@ -3,13 +3,11 @@ class Secretary implements WantAWork {  //implements это ключевое с�
 
     String name;
 	Office office;
-    boolean isWorking = false;
+    boolean hired = false;
 
     public Secretary(String name) {
         this.name = name;
     }
-
-    //  public Secretary(String name, Office office) { this.name = name; this.office = office; }
 
     @Override
     public String toString() {
