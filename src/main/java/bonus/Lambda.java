@@ -10,23 +10,16 @@ import java.util.List;
 
 public class Lambda {
 
-	String print;
-
-	void print(String a){
-		System.out.println();
-	}
-
-
-	public void main(String[] args) {
-
+	public static void main(String[] args) {
 		Funkey fun1 = argS -> System.out.println(argS);
 		Funkey fun2 = argS -> System.out.print(argS);
-		Funkey fun = this::print;
-		test(fun);
 
+		print(fun2);
+		System.out.println();
+		print(fun1);
 	}
 
-	public static void test(Funkey func) {
+	public static void print(Funkey func) {
 		List<String> strings = Arrays.asList("A", "B", "C");
 		for (String string : strings) {
 			func.print(string);
@@ -36,7 +29,6 @@ public class Lambda {
 
 @FunctionalInterface
 interface Funkey {
+
 	void print(String s);
 }
-
-

@@ -14,7 +14,6 @@ public class StatisticCollection {
 
     private Oracle oracle;
     private List<Communication> historyConversation = new ArrayList<>();
-    private Duration duration;
 
     public StatisticCollection(String pathFile) {
         getHistoryConversationFromFile(pathFile);
