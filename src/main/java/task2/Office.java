@@ -23,14 +23,16 @@ public class Office {
 
 	void invitePeople(Object human) {      //претенденты приходят по одному
 
+        // TODO: 9/12/19 почему офис должен что-то решать? Ты где-то всетречал такие? Это пространстов в котором люди что-то длают, бизнес логики он содержать не должен.
 		if (human instanceof WantAWork) {      //с помощью оператора instanceof убеждаемся, что обьекты human может быть приведен типу(интерфейсу) WantAWork
 			List<Secretary> currentCandidatesOfSecretaries = hr.considerCandidateSecretaries((WantAWork) human);  //создаем спсок текущих кандидатов и присваивам ему список от Hr с параметром human, который приведен к типу WantAWork
             List<Accountant> currentCandidatesOfAccountants = hr.considerCandidateAccountants((WantAWork) human);
 
+            // TODO: 9/12/19 то же самое
             if(numberOfCandidates>=10) {          // только с помощью этого искусственного костыля получется решить эту задачу.. понимаю, что если изменить кол-во laborMarket тест сразу посыпеться =(
                 secretary = director.chooseSecretary(currentCandidatesOfSecretaries);
                 accountant = director.chooseAccountant(currentCandidatesOfAccountants);
-
+                // TODO: 9/12/19 то же самое, никаких if только вызовы методов передача в них аргументов из других методов, и на худой конец создание объектов, не более
                 if (secretary != null)
                     secretary.hired = true;
                 if (accountant != null)

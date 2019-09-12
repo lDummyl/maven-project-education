@@ -80,6 +80,7 @@ public class OfficeTest {
     }
 
 // TODO: 9/4/19 вот тебе готовый тест, не изменяя его нужно  сделать так чтобы он проходил.
+    // TODO: 9/12/19 уже лучше, но попробуй теперь с новыми данными
 
     public void multipleOfficeTest() {
 
@@ -194,7 +195,24 @@ public class OfficeTest {
         laborMarket.add(new Secretary("Анжелла"));
         laborMarket.add(new Secretary("Зина"));
         laborMarket.add(new Secretary("Марина"));
-        laborMarket.add(new Secretary("Лера"));
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
         laborMarket.add(new Accountant("Виолетта"));
         laborMarket.add(new Accountant("Фекла"));
         laborMarket.add(new Accountant("Фекла1"));
@@ -204,4 +222,11 @@ public class OfficeTest {
         return laborMarket;
     }
 
+}
+class Sluggard implements WantAWork{
+
+    @Override
+    public boolean passInterview() {
+        return true;
+    }
 }
