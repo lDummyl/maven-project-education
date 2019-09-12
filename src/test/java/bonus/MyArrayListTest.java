@@ -18,7 +18,8 @@ public class MyArrayListTest {
         int size = 10;
         fill(size);
 
-        assertEquals(list.size(), size);
+
+        assertEquals(list.size(), size); // TODO: 9/12/19 в этом асерте сначала идет оживаемый резульат а затем тот на кторый проверяем, на логику это не влияет, но мы получим репорт именно с такими размещением и если значания спутаны это затруднит понимание.
         assertFalse(list.isEmpty());
     }
 

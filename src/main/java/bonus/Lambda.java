@@ -15,7 +15,8 @@ public class Lambda {
 	public static void main(String[] args) {
 
 		// TODO: 9/11/19 вызвать fun здесь (в одну строчку)
-		fun(() -> new Apple(), i -> new Horse().chew(i));
+		// TODO: 9/12/19 или еще короче просто ссылками на методы
+		fun(Apple::new, new Horse()::chew);
 
 	}
 
@@ -23,6 +24,7 @@ public class Lambda {
 
 		// TODO: 9/11/19    нужно покормить лошадь тут используя интерфейсы (в одну строчку)
 		consumer.accept(supplier.get());
+
 
 	}
 }
