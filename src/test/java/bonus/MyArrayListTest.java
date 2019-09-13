@@ -2,13 +2,18 @@ package bonus;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 public class MyArrayListTest {
 
@@ -17,7 +22,7 @@ public class MyArrayListTest {
     MyArrayList<Integer> list = new MyArrayList<>();
 
     @Test
-    public void sizeTest () {
+    public void sizeTest() {
         int size = 10;
         fill(size);
 
@@ -26,10 +31,23 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void addTest () {
-        List<Integer> integers = Arrays.asList(1, 2, 3, 4);
+    public void fun1testValid() {
+        List<Integer> integers = new ArrayList<>(Arrays.asList(1, 0, 0, 0, 5, 6, 7));
+        List<Integer> zerosRange = integers.stream().skip(1).limit(3).collect(Collectors.toList());
+        zerosRange.forEach(i -> assertEquals(0, (int) i));
+        boolean changed = integers.removeAll(zerosRange);
+        assertTrue(changed);
+        assertFalse(integers.contains(0));
+        assertTrue(integers.stream().noneMatch(i -> i == 0));
+        assertTrue(integers.stream().allMatch(i -> i > 0));
+        // TODO: 9/13/19 несколько примеров как можно, чем ровнее линия тем лучше, промежуточные состояния тоже приветствуются, стримы дают деклоративность в тестах это очень важно в них важна наглядность как нигде в коде
+    }
 
+    @Test
+    public void addTest() {
+        List<Integer> integers = Arrays.asList(1, 2, 3, 4);
         list.addAll(integers);
+
         assertEquals(4, list.size());
 
         integers = Arrays.asList(0, 0, 0);
@@ -41,13 +59,12 @@ public class MyArrayListTest {
                 assertNotEquals(0, (int) list.get(i));
             }
         }
-
         list.set(2, 22);
         assertEquals(22, (int) list.get(2));
     }
 
     @Test
-    public void setGetTest () {
+    public void setGetTest() {
         fill(10);
 
         int number = list.get(5);
@@ -58,7 +75,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void removeTest () {
+    public void removeTest() {
         int size = 10;
         fill(size);
 
@@ -80,7 +97,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void indexOfTest () {
+    public void indexOfTest() {
         List<Integer> integers = Arrays.asList(1, 1, 2, 3, 1, 4);
 
         list.addAll(integers);
@@ -91,7 +108,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void toArrayTest () {
+    public void toArrayTest() {
         fill(10);
 
         Object[] array = list.toArray();
@@ -109,7 +126,7 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void iteratorsTest () {
+    public void iteratorsTest() {
         fill(100);
 
         Iterator<Integer> iterator = list.iterator();
@@ -138,6 +155,7 @@ public class MyArrayListTest {
         }
         assertEquals(10, iteratorSize);
     }
+
     private void fill(int size) {
         for (int i = 0; i < size; i++) {
             list.add(i);
