@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 class Director {
 
     final Office myOffice;                 //myOffice константа?
+    Secretary secretary;
     Hr hr;
 
     final int enoughSecretariesToDecide = 4;   //4
@@ -22,18 +23,27 @@ class Director {
 
         if (currentCandidates.size() < enoughSecretariesToDecide) return null;    //если список Hr меньше достаточного кол-ва кандидатов, то возвращаем null
 
-        WantAWork wantAWork = currentCandidates.get(random.nextInt(currentCandidates.size()));
+     //   WantAWork wantAWork = currentCandidates.get(random.nextInt(currentCandidates.size()));
+
+        secretary = currentCandidates.get(random.nextInt(currentCandidates.size()));
 
      //   Stream.of(currentCandidates).filter(x -> x != ((Secretary) wantAWork).isWorking).forEach(System.out::println);
 
-           if (wantAWork instanceof Secretary) {      //проверяем на совместимость типа к объкту wantAWork
-            if(!((Secretary) wantAWork).hired)
+        /*   if (wantAWork instanceof Secretary) {      //проверяем на совместимость типа к объкту wantAWork
+            if(!((Secretary)wantAWork).hired) {
+                ((Secretary)wantAWork).hired = true;
                 return (Secretary) wantAWork;         //тогда возвращаем wantAWork приведенный к типу Secretary
-            else
-                return null;
+            }*/
+
+        if(!secretary.hired) {
+            secretary.hired = true;
+            return secretary;
         }
-         else
-            throw new RuntimeException("Что это вы, "+ myOffice.hr.name +",  мне подсовываете " + wantAWork.getClass() + " вместо " + Secretary.class); //иначе создается исключение(в виде ошибки).. срабатывает я так понял, если wantAWork и Secretary не совместимы
+        else
+            return null;
+  //      }
+  //       else
+  //          throw new RuntimeException("Что это вы, "+ myOffice.hr.name +",  мне подсовываете " + wantAWork.getClass() + " вместо " + Secretary.class); //иначе создается исключение(в виде ошибки).. срабатывает я так понял, если wantAWork и Secretary не совместимы
     }
 
       public Accountant chooseAccountant(List<Accountant> currentCandidates) {       //Дир выбрает бухгалтера из списка Hr
@@ -42,8 +52,10 @@ class Director {
           WantAWork wantAWork = currentCandidates.get(random.nextInt(currentCandidates.size()));
 
               if (wantAWork instanceof Accountant) {
-                  if(!((Accountant) wantAWork).hired)
+                  if(!((Accountant) wantAWork).hired) {
+                      ((Accountant) wantAWork).hired = true;
                       return (Accountant) wantAWork;
+                  }
                   else
                       return null;
               }

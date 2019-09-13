@@ -27,7 +27,7 @@ class Hr {
             }
     }
 
-    public List<Accountant> considerCandidateAccountants(WantAWork candidate) {
+    public List<Accountant> considerCandidateAccountants(WantAWork candidate) {  //метод в котором Hr рассматривает кандидатов, которые приходят из офиса (invitePeople) и возвращает список тех кто прошел
 
             if(candidate.passInterview() && candidate instanceof Accountant && !((Accountant) candidate).hired){    //
                 listSeekersOnAccountant.add((Accountant)candidate);

@@ -28,17 +28,23 @@ public class Office {
 			List<Secretary> currentCandidatesOfSecretaries = hr.considerCandidateSecretaries((WantAWork) human);  //создаем спсок текущих кандидатов и присваивам ему список от Hr с параметром human, который приведен к типу WantAWork
             List<Accountant> currentCandidatesOfAccountants = hr.considerCandidateAccountants((WantAWork) human);
 
+        //    System.out.println("currentCandidatesOfSecretaries - " + currentCandidatesOfSecretaries);
+        //    System.out.println("currentCandidatesOfAccountants - " + currentCandidatesOfAccountants);
+
             // TODO: 9/12/19 то же самое
-            if(numberOfCandidates>=10) {          // только с помощью этого искусственного костыля получется решить эту задачу.. понимаю, что если изменить кол-во laborMarket тест сразу посыпеться =(
+ //           if(numberOfCandidates>=27) {          // только с помощью этого искусственного костыля получется решить эту задачу.. понимаю, что если изменить кол-во laborMarket тест сразу посыпеться =(
                 secretary = director.chooseSecretary(currentCandidatesOfSecretaries);
+                if(secretary!=null)
+                    secretary.office = this;
+
                 accountant = director.chooseAccountant(currentCandidatesOfAccountants);
+                if(accountant!=null)
+                    accountant.office = this;
+
                 // TODO: 9/12/19 то же самое, никаких if только вызовы методов передача в них аргументов из других методов, и на худой конец создание объектов, не более
-                if (secretary != null)
-                    secretary.hired = true;
-                if (accountant != null)
-                    accountant.hired = true;
-            }
-            numberOfCandidates++;
+
+  //         }
+  //          numberOfCandidates++;
 		}
 	}
 }

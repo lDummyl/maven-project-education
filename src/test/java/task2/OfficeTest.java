@@ -75,8 +75,10 @@ public class OfficeTest {
     @Test
     public void multipleOfficeTest100Iterations() {
 
-        for (int i = 0; i < 100; i++)
-             multipleOfficeTest();
+        for (int i = 0; i < 100; i++) {
+            multipleOfficeTest();
+            System.out.println("---" + i + "---");
+        }
     }
 
 // TODO: 9/4/19 вот тебе готовый тест, не изменяя его нужно  сделать так чтобы он проходил.
@@ -92,12 +94,14 @@ public class OfficeTest {
             for (Object candidate : labourMarket)
                 office.invitePeople(candidate);
 
-            Secretary secretary = office.secretary;
 
+            Secretary secretary = office.secretary;
+            System.out.println("secretary - " + secretary);
             assertNotNull(secretary);
             assertFalse(alreadySaw.contains(secretary));
             alreadySaw.add(secretary);
             Accountant accountant = office.accountant;
+            System.out.println("accountant - " + accountant);
             assertNotNull(accountant);
             assertFalse(alreadySaw.contains(accountant));
             alreadySaw.add(accountant);
