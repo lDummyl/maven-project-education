@@ -33,6 +33,8 @@ public class PumpSelectorSquare implements PumpSelector {
         return suitablePump;
     }
 
+    // TODO: 9/15/19 конвенции именования boolean возвращающих методов лучше соблюдать, они оченть просты, если возврат это ответ да или нет,
+    //  то имя метода это вопрос на кторый мы отвечаем.
     private Boolean compareValues(Double pressure, Double comparedValue, Double previouslyValue) {
         if (comparedValue.equals(previouslyValue)) {
             return false;

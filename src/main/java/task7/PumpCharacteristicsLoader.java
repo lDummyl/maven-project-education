@@ -9,6 +9,10 @@ public class PumpCharacteristicsLoader {
     // Google Guava
     private static List<PumpIMP> pumps = new ArrayList<>();
 
+    // TODO: 9/15/19 следует всеже добавить цену, это важный критерий подбора, проще всего отсортировав насосы
+    //  по цене двигаться от меньшего к большему и выбрать первый оказавшийся подходящим по тех параметрам.
+
+
     static {
         pumps.add(new PumpIMP("GHN 25/40-130", "-1/24x2 + 1/4x + 29/3", new Double[]{-0.042, 0.25, 9.67}));
         pumps.add(new PumpIMP("GHN 32/120-180", "-13/96x2 + 5/2x - 83/24", new Double[]{-0.135, 2.5, 3.46}));
