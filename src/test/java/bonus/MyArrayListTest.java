@@ -156,6 +156,36 @@ public class MyArrayListTest {
         assertEquals(10, iteratorSize);
     }
 
+    @Test
+    public void subListTest() {
+        fill(30);
+
+        List<Integer> subList = list.subList(10, 20);
+
+        String ch1 = "";
+        for (Integer i : list) {
+            ch1 += i + " ";
+        }
+        log.info(ch1);
+        ch1 = "";
+        Integer integer = subList.get(0);
+        System.out.println(integer);
+        for (Integer i : subList) {
+            ch1 += i + " ";
+        }
+        log.info(ch1);
+
+        for (int i = 0; i < list.size(); i++) {
+            int value = list.get(i);
+            int index = subList.indexOf(value);
+            if (i >= 10 && i <= 20) {
+                assertEquals(i - 10, index);
+            } else {
+                assertEquals(-1, index);
+            }
+        }
+    }
+
     private void fill(int size) {
         for (int i = 0; i < size; i++) {
             list.add(i);

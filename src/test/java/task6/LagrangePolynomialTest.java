@@ -12,8 +12,9 @@ public class LagrangePolynomialTest {
 
     @Test
     public void LagrangePolynomialTest () {
-        double polynomial = LagrangePolynomial.getLagrangePolynomial(10);
+        Double[] xValues = new Double[]{4., 7.4, 12.3};
+        double polynomial = LagrangePolynomial.getLagrangePolynomial(xValues, 10.);
         log.info("-> " + polynomial);
-        assertEquals(polynomial, 3112.135999993654d, 0.0);
+        assertEquals(polynomial, 16.77127236436743, 0.0);
     }
 }
