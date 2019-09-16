@@ -1,5 +1,6 @@
 package task7;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +15,10 @@ public class PumpSelectorSquare implements PumpSelector {
 
         PumpIMP suitablePump = null;
         Double previouslyValue = 0.;
+        // TODO: 9/16/19 ты не можешь гарантировать что насосы по производительности будут в том же порядке что и по цене,
+        //  если задача подобрать самый дешевый из подходящих, такой подход самый простой.
+        pumps.sort(Comparator.comparing(PumpIMP::getPrice));
+
         for (PumpIMP pump : pumps) {
             Double newValue = pump.calculateConsumption(flow);
             if (newValueIsLess(pressure, newValue, previouslyValue)) { // тут не пойму как опираться на цену, мне кажется что и без цены все необходимые данные есть
