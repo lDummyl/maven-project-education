@@ -1,32 +1,24 @@
 package task7;
 
-import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PumpSelectorSquare implements PumpSelector {
 
     @Override
     public PumpIMP select(Double pressure, Double flow) {
-        /*
-        PumpIMP pumpIMP = PumpCharacteristicsLoader.pumps.get(0);
-        Double[] functionArgs = pumpIMP.getFunctionArgs();
-        Double pumpPressure = functionArgs[0]* flow*flow + functionArgs[1]*flow + functionArgs[2];
-        if(pumpPressure > pressure){
-            System.out.println("ok");
-            return pumpIMP;
-        }
-        return null;
-        */
-
-        List<PumpIMP> pumps = PumpCharacteristicsLoader.getPumps();
+        List<PumpIMP> pumps = PumpCharacteristicsLoader.getPumps().stream()
+                .sorted(Comparator.comparing(PumpIMP::getPrice))
+                .collect(Collectors.toList());
 
         PumpIMP suitablePump = null;
         Double previouslyValue = 0.;
         for (PumpIMP pump : pumps) {
-            Double value = pump.calculateConsumption(flow);
-            if (compareValues(pressure, value, previouslyValue)) {
+            Double newValue = pump.calculateConsumption(flow);
+            if (newValueIsLess(pressure, newValue, previouslyValue)) { // тут не пойму как опираться на цену, мне кажется что и без цены все необходимые данные есть
                 suitablePump = pump;
-                previouslyValue = value;
+                previouslyValue = newValue;
             }
         }
 
@@ -35,7 +27,7 @@ public class PumpSelectorSquare implements PumpSelector {
 
     // TODO: 9/15/19 конвенции именования boolean возвращающих методов лучше соблюдать, они оченть просты, если возврат это ответ да или нет,
     //  то имя метода это вопрос на кторый мы отвечаем.
-    private Boolean compareValues(Double pressure, Double comparedValue, Double previouslyValue) {
+    private Boolean newValueIsLess(Double pressure, Double comparedValue, Double previouslyValue) {
         if (comparedValue.equals(previouslyValue)) {
             return false;
         } else if (previouslyValue.equals(0.)) {
