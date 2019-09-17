@@ -9,6 +9,7 @@ public class PumpSelectorSquare implements PumpSelector {
 
     @Override
     public PumpIMP select(Double pressure, Double flow) {
+        // TODO: 9/17/19 это как раз можно сделать полем класса, тогда не придется список передавать, у методов будет к ним доступ в любой момент
         List<PumpIMP> pumps = PumpCharacteristicsLoader.getPumps();
 
         // TODO: 9/16/19 ты не можешь гарантировать что насосы по производительности будут в том же порядке что и по цене,
@@ -27,10 +28,10 @@ public class PumpSelectorSquare implements PumpSelector {
         return calculateConsumption(pumps, pressure, flow);
     }
 
+    // TODO: 9/17/19 опять же по именованию, логично что если метод что-то вычисляет то он должен возращать резульатат. Вычиляет потребление но возвразает насос? Немного сбивает с току.
     private PumpIMP calculateConsumption(List<PumpIMP> pumps, Double pressure, Double flow) {
         PumpIMP suitablePump = null;
         Double previouslyValue = 0.;
-
         for (PumpIMP pump : pumps) {
             Double newValue = pump.calculateConsumption(flow);
             if (newValueIsLess(pressure, newValue, previouslyValue)) {

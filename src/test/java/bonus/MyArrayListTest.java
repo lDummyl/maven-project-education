@@ -2,6 +2,9 @@ package bonus;
 
 import org.junit.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -190,5 +193,22 @@ public class MyArrayListTest {
         for (int i = 0; i < size; i++) {
             list.add(i);
         }
+    }
+}
+
+
+class Solution {
+    public static void main(String[] args) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(reader.readLine());
+        int max = 0;
+        if (N > 0) {
+            for (int i = 0; i < N; i++) {
+                int number = Integer.parseInt(reader.readLine());
+                if (number > max) max = number;
+            }
+        }
+        System.out.println(max);
+
     }
 }
