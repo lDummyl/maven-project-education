@@ -14,6 +14,7 @@ class Director {
     boolean choiceSecretaryMade=false;
     boolean choiceAccountantMade=false;
 
+    final int enoughCandidatesToDecide = 3;
     final int enoughSecretariesToDecide = 3;
     final int enoughAccountantToDecide = 3;
     Random random = new Random();
@@ -21,6 +22,22 @@ class Director {
     public Director(Office myOffice) {
         this.myOffice = myOffice;
     }
+
+    public WantAWork chooseOneCandidate(List<? extends WantAWork> currentCandidates) {
+        WantAWork candidate = null;
+        if(currentCandidates.size() == enoughCandidatesToDecide){
+            candidate = currentCandidates.get(random.nextInt(currentCandidates.size()));
+        }
+        return candidate;
+    }
+    // TODO: 9/17/19 товоя задача использовать этот метод вместо осальных, понять чего не хватает для того чтобы все заработало. Ну и убрать все лишнее.
+
+//    public void chooseSecretary(List<Secretary> currentCandidates) {
+//        WantAWork wantAWork = chooseOneCandidate(currentCandidates);
+//        myOffice.setSecretary((Secretary) wantAWork);
+//    }
+
+
 
     public Secretary chooseSecretary(List<Secretary> currentCandidates) {
 
