@@ -28,19 +28,14 @@ class Hr {
         }
 
         if (choiceSecretaryMade && choiceAccountantMade){
-            System.out.println("(Hr) considerAnyCandidate - return !!!");
             return;
         }
 
         if(candidate instanceof Secretary){
-            System.out.println("listSeekersOnSecretary (Hr) - " + listSeekersOnSecretary);
             listSeekersOnSecretary.add((Secretary) candidate);
-            System.out.println("listSeekersOnSecretary (Hr) after - " + listSeekersOnSecretary);
         }
         if(candidate instanceof Accountant){
-            System.out.println("listSeekersOnAccountant (Hr) - " + listSeekersOnAccountant);
             listSeekersOnAccountant.add((Accountant) candidate);
-            System.out.println("listSeekersOnAccountant (Hr) after - " + listSeekersOnAccountant);
         }
     }
 

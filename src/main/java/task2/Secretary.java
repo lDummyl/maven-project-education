@@ -11,10 +11,10 @@ class Secretary implements WantAWork {  //implements это ключевое с�
 
     @Override
     public String toString() {
-        return "Секретарь " + name;   //делаем приписку к имени секретаря
+        return "Секретарь " + name;
     }
 
-    @Override                        //для чего здесь переопределение (@Override)
+    @Override
     public boolean passInterview() {
         return true;
     }

@@ -78,7 +78,6 @@ public class OfficeTest {
 
         for (int i = 0; i < 100; i++) {
             multipleOfficeTest();
-            System.out.println("---" + i + "---");
         }
     }
 
@@ -90,33 +89,20 @@ public class OfficeTest {
         List<Object> labourMarket = getLabourMarket();
         Set<Office> offices = Stream.generate(Office::new).limit(3).collect(Collectors.toSet());
 
-//        itar
-//                iter
-  //      Set<Office> officesMy = new HashSet<>();
-  //      for (int i = 0; i < 3; i++) {
-  //          officesMy.add(new Office());
-  //      }
-
-
         HashSet<Object> alreadySaw = new HashSet<>();
-        for (Office office : offices) {
-            for (Object candidate : labourMarket) {
-                System.out.println("candidate (for) - " + candidate);
-                office.invitePeople(candidate);
-            }
 
+        for (Office office : offices) {
+            for (Object candidate : labourMarket)
+                office.invitePeople(candidate);
 
             Secretary secretary = office.secretary;
-            System.out.println("secretary choice - " + secretary);
             assertNotNull(secretary);
             assertFalse(alreadySaw.contains(secretary));
             alreadySaw.add(secretary);
             Accountant accountant = office.accountant;
-            System.out.println("accountant choice - " + accountant);
             assertNotNull(accountant);
             assertFalse(alreadySaw.contains(accountant));
             alreadySaw.add(accountant);
-            System.out.println(" -----------------------------------------");
         }
     }
 
@@ -135,8 +121,6 @@ public class OfficeTest {
         secretaries.add(new Secretary("Лера"));
 
         Office additionalOffice1 = new Office("Офис №1");
-        Office additionalOffice2 = new Office("Офис №2");
-        Office additionalOffice3 = new Office("Офис №3");
 
         secretaries.forEach(office::invitePeople);
 
@@ -155,16 +139,6 @@ public class OfficeTest {
         // TODO: 8/16/19 способ 2
         //    long offices1qty = additionalOffice.stream().filter(off -> off.nameOffice.equals("Офис №1")).count();
         //    assertThat("Offices 1 qty", offices1qty, lessThan(2L));
-
-
-   /*     Stream stream = secretariesWorking.stream();
-        Stream stream2 = secretaries.stream();
-        Stream stream3 = secretaries.stream();
-
-        stream.limit(2).forEach(x -> additionalOffice.add(new Office("Офис №1" ,x)));            //возвращает первые два элемента
-        stream2.skip(2).limit(2).forEach(y -> additionalOffice.add(new Office("Офис №2" ,y)));   //возвращает два элемента начиная со второго
-        stream3.skip(4).forEach(z -> additionalOffice.add(new Office("Офис №3" ,z)));            //возвращает возвращает все элементы после четвертого
-    */
 
     }
 
