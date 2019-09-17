@@ -15,5 +15,10 @@ class Accountant implements WantAWork {
     public boolean passInterview() {
         return true;
     }
+
+    @Override
+    public boolean isHired() {
+        return hired;
+    }
 }
 

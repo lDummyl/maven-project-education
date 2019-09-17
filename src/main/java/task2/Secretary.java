@@ -18,4 +18,9 @@ class Secretary implements WantAWork {  //implements это ключевое с�
     public boolean passInterview() {
         return true;
     }
+
+    @Override
+    public boolean isHired() {
+        return hired;
+    }
 }

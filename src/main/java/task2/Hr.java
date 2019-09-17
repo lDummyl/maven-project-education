@@ -9,34 +9,39 @@ class Hr {
     List<Secretary> listSeekersOnSecretary = new ArrayList<>();
     List<Accountant> listSeekersOnAccountant = new ArrayList<>();
 
+    Office office;
+    Secretary secretary;
+
     String name;
 
     public Hr(String name) {
         this.name = name;
     }
 
-    public List<Secretary> considerCandidateSecretaries(WantAWork candidate) {  //метод в котором Hr рассматривает кандидатов, которые приходят из офиса (invitePeople) и возвращает список тех кто прошел
 
-            if(candidate.passInterview() && candidate instanceof Secretary && !((Secretary) candidate).hired) {   //
-                listSeekersOnSecretary.add((Secretary) candidate);
-                return listSeekersOnSecretary;
-            }
-            else{
-            listJobSeekers.add(candidate);                           // остальные
-            return listSeekersOnSecretary;
-            }
-    }
+    public void considerAnyCandidate(Object candidate, boolean choiceSecretaryMade, boolean choiceAccountantMade) {
+        if (!((WantAWork)candidate).passInterview()) {
+            return;
+        }
+        if(((WantAWork)candidate).isHired()){
+            return;
+        }
 
-    public List<Accountant> considerCandidateAccountants(WantAWork candidate) {  //метод в котором Hr рассматривает кандидатов, которые приходят из офиса (invitePeople) и возвращает список тех кто прошел
+        if (choiceSecretaryMade && choiceAccountantMade){
+            System.out.println("(Hr) considerAnyCandidate - return !!!");
+            return;
+        }
 
-            if(candidate.passInterview() && candidate instanceof Accountant && !((Accountant) candidate).hired){    //
-                listSeekersOnAccountant.add((Accountant)candidate);
-            return listSeekersOnAccountant;
-            }
-            else{
-                listJobSeekers.add(candidate);                           // остальные
-                return listSeekersOnAccountant;
-            }
+        if(candidate instanceof Secretary){
+            System.out.println("listSeekersOnSecretary (Hr) - " + listSeekersOnSecretary);
+            listSeekersOnSecretary.add((Secretary) candidate);
+            System.out.println("listSeekersOnSecretary (Hr) after - " + listSeekersOnSecretary);
+        }
+        if(candidate instanceof Accountant){
+            System.out.println("listSeekersOnAccountant (Hr) - " + listSeekersOnAccountant);
+            listSeekersOnAccountant.add((Accountant) candidate);
+            System.out.println("listSeekersOnAccountant (Hr) after - " + listSeekersOnAccountant);
+        }
     }
 
 }

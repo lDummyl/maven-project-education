@@ -9,9 +9,13 @@ class Director {
 
     final Office myOffice;                 //myOffice константа?
     Secretary secretary;
+    Accountant accountant;
     Hr hr;
+    boolean choiceSecretaryMade=false;
+    boolean choiceAccountantMade=false;
 
-    final int enoughSecretariesToDecide = 4;   //4
+
+    final int enoughSecretariesToDecide = 5;   //4
     final int enoughAccountantToDecide = 3;
     Random random = new Random();
 
@@ -19,49 +23,67 @@ class Director {
         this.myOffice = myOffice;
     }
 
-    public Secretary chooseSecretary(List<Secretary> currentCandidates) {       //Дир выбрает секретаря из списка Hr
+    public Secretary chooseSecretary(List<Secretary> currentCandidates) {
 
-        if (currentCandidates.size() < enoughSecretariesToDecide) return null;    //если список Hr меньше достаточного кол-ва кандидатов, то возвращаем null
+        if (currentCandidates.size() == enoughSecretariesToDecide && !choiceSecretaryMade) {
 
-     //   WantAWork wantAWork = currentCandidates.get(random.nextInt(currentCandidates.size()));
+            System.out.println("currentCandidates (secr) - " + currentCandidates);
+            System.out.println("currentCandidates.size() (secr) - " + currentCandidates.size());
+            //   WantAWork wantAWork = currentCandidates.get(random.nextInt(currentCandidates.size()));
 
-        secretary = currentCandidates.get(random.nextInt(currentCandidates.size()));
+            secretary = currentCandidates.get(random.nextInt(currentCandidates.size()));
 
-     //   Stream.of(currentCandidates).filter(x -> x != ((Secretary) wantAWork).isWorking).forEach(System.out::println);
+            //   Stream.of(currentCandidates).filter(x -> x != ((Secretary) wantAWork).isWorking).forEach(System.out::println);
 
-        /*   if (wantAWork instanceof Secretary) {      //проверяем на совместимость типа к объкту wantAWork
-            if(!((Secretary)wantAWork).hired) {
-                ((Secretary)wantAWork).hired = true;
-                return (Secretary) wantAWork;         //тогда возвращаем wantAWork приведенный к типу Secretary
-            }*/
 
-        if(!secretary.hired) {
-            secretary.hired = true;
-            return secretary;
+            System.out.println("secretary (dir) - " + secretary);
+            if (!secretary.hired) {
+                secretary.hired = true;
+                choiceSecretaryMade = true;
+                System.out.println("choiceIsMade = true !!!");
+                return secretary;
+            } else {
+                System.out.println(secretary + " is hired!!!");
+                return null;
+            }
+            //      }
+            //       else
+            //          throw new RuntimeException("Что это вы, "+ myOffice.hr.name +",  мне подсовываете " + wantAWork.getClass() + " вместо " + Secretary.class); //иначе создается исключение(в виде ошибки).. срабатывает я так понял, если wantAWork и Secretary не совместимы
         }
         else
             return null;
-  //      }
-  //       else
-  //          throw new RuntimeException("Что это вы, "+ myOffice.hr.name +",  мне подсовываете " + wantAWork.getClass() + " вместо " + Secretary.class); //иначе создается исключение(в виде ошибки).. срабатывает я так понял, если wantAWork и Secretary не совместимы
     }
 
       public Accountant chooseAccountant(List<Accountant> currentCandidates) {       //Дир выбрает бухгалтера из списка Hr
-        if (currentCandidates.size() < enoughAccountantToDecide) return null;
+          if (currentCandidates.size() == enoughAccountantToDecide && !choiceAccountantMade) {
 
-          WantAWork wantAWork = currentCandidates.get(random.nextInt(currentCandidates.size()));
+              System.out.println("currentCandidates (Acc) - " + currentCandidates);
+              System.out.println("currentCandidates.size() (Acc) - " + currentCandidates.size());
 
-              if (wantAWork instanceof Accountant) {
-                  if(!((Accountant) wantAWork).hired) {
-                      ((Accountant) wantAWork).hired = true;
-                      return (Accountant) wantAWork;
-                  }
-                  else
-                      return null;
+              accountant = currentCandidates.get(random.nextInt(currentCandidates.size()));
+
+              System.out.println("accountant (dir) - " + accountant);
+
+              if (!accountant.hired) {
+                  accountant.hired = true;
+                  choiceAccountantMade = true;
+                  System.out.println("choiceIsMade = true !!!");
+                  return accountant;
+              } else {
+                  System.out.println(accountant + " is hired!!!");
+                  return null;
               }
-              else
-                  throw new RuntimeException("Что это вы, "+ myOffice.hr.name +",  мне подсовываете " + wantAWork.getClass() + " вместо " + Accountant.class); //иначе создается исключение(в виде ошибки).. срабатывает я так понял, если wantAWork и Secretary не совместимы
+          }
+           else
+              return null;
 
+
+      }
+    public boolean getChoiceSecretaryMade(){
+        return choiceSecretaryMade;
     }
 
+      public boolean getChoiceAccountantMade(){
+        return choiceAccountantMade;
+      }
 }

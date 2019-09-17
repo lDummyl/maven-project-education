@@ -2,11 +2,7 @@ package task2;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -58,6 +54,11 @@ public class OfficeTest {
                 public boolean passInterview() {
                     return true;                         //возвращаем положительный результат прохождения интерьвью у Hr
                 }
+                @Override
+                public boolean isHired() {
+                    return false;                         //возвращаем положительный результат прохождения интерьвью у Hr
+                }
+
             });
 
         secretaries.forEach(office::invitePeople);
@@ -89,22 +90,33 @@ public class OfficeTest {
         List<Object> labourMarket = getLabourMarket();
         Set<Office> offices = Stream.generate(Office::new).limit(3).collect(Collectors.toSet());
 
+//        itar
+//                iter
+  //      Set<Office> officesMy = new HashSet<>();
+  //      for (int i = 0; i < 3; i++) {
+  //          officesMy.add(new Office());
+  //      }
+
+
         HashSet<Object> alreadySaw = new HashSet<>();
         for (Office office : offices) {
-            for (Object candidate : labourMarket)
+            for (Object candidate : labourMarket) {
+                System.out.println("candidate (for) - " + candidate);
                 office.invitePeople(candidate);
+            }
 
 
             Secretary secretary = office.secretary;
-            System.out.println("secretary - " + secretary);
+            System.out.println("secretary choice - " + secretary);
             assertNotNull(secretary);
             assertFalse(alreadySaw.contains(secretary));
             alreadySaw.add(secretary);
             Accountant accountant = office.accountant;
-            System.out.println("accountant - " + accountant);
+            System.out.println("accountant choice - " + accountant);
             assertNotNull(accountant);
             assertFalse(alreadySaw.contains(accountant));
             alreadySaw.add(accountant);
+            System.out.println(" -----------------------------------------");
         }
     }
 
@@ -232,5 +244,8 @@ class Sluggard implements WantAWork{
     @Override
     public boolean passInterview() {
         return true;
+    }
+    public boolean isHired(){
+        return false;
     }
 }
