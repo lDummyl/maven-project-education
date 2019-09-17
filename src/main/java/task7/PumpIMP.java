@@ -5,28 +5,12 @@ import task6.LagrangePolynomial;
 public class PumpIMP implements Pump {
 
     private String name;
-    private Integer price;
+    private Double price;
     private String function;
     private Double[] functionArgsX;
     private Double[] functionArgsY;
 
-    public PumpIMP(String name, String function, Double[] functionArgsX) {
-        this.name = name;
-        this.price = 0;
-        this.function = function;
-        this.functionArgsX = functionArgsX;
-        this.functionArgsY = new Double[]{};
-    }
-
-    public PumpIMP(String name, String function, Double[] functionArgsX, Double[] functionArgsY) {
-        this.name = name;
-        this.price = 0;
-        this.function = function;
-        this.functionArgsX = functionArgsX;
-        this.functionArgsY = functionArgsY;
-    }
-
-    public PumpIMP(String name, Integer price, String function, Double[] functionArgsX) {
+    public PumpIMP(String name, Double price, String function, Double[] functionArgsX) {
         this.name = name;
         this.price = price;
         this.function = function;
@@ -34,7 +18,7 @@ public class PumpIMP implements Pump {
         this.functionArgsY = new Double[]{};
     }
 
-    public PumpIMP(String name, Integer price, String function, Double[] functionArgsX, Double[] functionArgsY) {
+    public PumpIMP(String name, Double price, String function, Double[] functionArgsX, Double[] functionArgsY) {
         this.name = name;
         this.price = price;
         this.function = function;
@@ -55,7 +39,7 @@ public class PumpIMP implements Pump {
         return name;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 

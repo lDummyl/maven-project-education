@@ -37,7 +37,7 @@ public class LagrangePolynomial {
     }
 
     private static Double interpolateLagrangePolynomial(Double x, Double[] xValues, Double[] yValues) {
-        Double lagrangePol = 0.;
+        double lagrangePol = 0.;
         int size = xValues.length;
 
         for (int i = 0; i < size; i++) {
