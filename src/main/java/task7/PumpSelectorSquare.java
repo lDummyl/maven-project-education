@@ -52,10 +52,15 @@ public class PumpSelectorSquare implements PumpSelector {
     }
 
     private Double getModularValue(Double value) {
-        if (value >= 0) {
-            return value;
-        } else {
-            return (-1 * value);
-        }
+        // TODO: 9/18/19 самый простой
+//        return Math.abs(value);
+        // TODO: 9/18/19  это с тернарником
+        return value < 0 ? value * -1 : value;
+
+//        if (value >= 0) {
+//            return value;
+//        } else {
+//            return (-1 * value);
+//        }
     }
 }
