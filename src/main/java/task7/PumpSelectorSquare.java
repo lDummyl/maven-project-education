@@ -1,38 +1,33 @@
 package task7;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PumpSelectorSquare implements PumpSelector {
 
+    private List<PumpIMP> pumps = PumpCharacteristicsLoader.getPumps();
+
     @Override
     public PumpIMP select(Double pressure, Double flow) {
-        // TODO: 9/17/19 это как раз можно сделать полем класса, тогда не придется список передавать, у методов будет к ним доступ в любой момент
-        List<PumpIMP> pumps = PumpCharacteristicsLoader.getPumps();
-
-        // TODO: 9/16/19 ты не можешь гарантировать что насосы по производительности будут в том же порядке что и по цене,
-        //  если задача подобрать самый дешевый из подходящих, такой подход самый простой.
         pumps.sort(Comparator.comparing(PumpIMP::getPrice));
 
-        return calculateConsumption(pumps, pressure, flow);
+        return getProfitablePump(pumps, pressure, flow);
     }
 
     public PumpIMP selectInPriceRange(Double pressure, Double flow, Double minPrice, Double maxPrice) {
-        List<PumpIMP> pumps = PumpCharacteristicsLoader.getPumps().stream()
+        List<PumpIMP> filteredPumps = pumps.stream()
                 .filter(i -> i.getPrice() >= minPrice && i.getPrice() <= maxPrice)
                 .collect(Collectors.toList());
-        pumps.sort(Comparator.comparing(PumpIMP::getPrice));
+        filteredPumps.sort(Comparator.comparing(PumpIMP::getPrice));
 
-        return calculateConsumption(pumps, pressure, flow);
+        return getProfitablePump(filteredPumps, pressure, flow);
     }
 
-    // TODO: 9/17/19 опять же по именованию, логично что если метод что-то вычисляет то он должен возращать резульатат. Вычиляет потребление но возвразает насос? Немного сбивает с току.
-    private PumpIMP calculateConsumption(List<PumpIMP> pumps, Double pressure, Double flow) {
+    private PumpIMP getProfitablePump(List<PumpIMP> pumpsList, Double pressure, Double flow) {
         PumpIMP suitablePump = null;
         Double previouslyValue = 0.;
-        for (PumpIMP pump : pumps) {
+        for (PumpIMP pump : pumpsList) {
             Double newValue = pump.calculateConsumption(flow);
             if (newValueIsLess(pressure, newValue, previouslyValue)) {
                 suitablePump = pump;
@@ -43,8 +38,6 @@ public class PumpSelectorSquare implements PumpSelector {
         return suitablePump;
     }
 
-    // TODO: 9/15/19 конвенции именования boolean возвращающих методов лучше соблюдать, они оченть просты, если возврат это ответ да или нет,
-    //  то имя метода это вопрос на кторый мы отвечаем.
     private Boolean newValueIsLess(Double pressure, Double comparedValue, Double previouslyValue) {
         if (comparedValue.equals(previouslyValue)) {
             return false;

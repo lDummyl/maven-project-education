@@ -6,7 +6,7 @@ public class PumpIMP implements Pump {
 
     private String name;
     private Double price;
-    private String function;
+    private String function; // так как механизм подбора изменился, я теперь до конца не понимаю для чего нам надо хранить это значение
     private Double[] functionArgsX;
     private Double[] functionArgsY;
 
@@ -47,7 +47,11 @@ public class PumpIMP implements Pump {
         return function;
     }
 
-    public Double[] getFunctionArgs() {
+    public Double[] getFunctionArgsX() {
         return functionArgsX;
+    }
+
+    public Double[] getFunctionArgsY() {
+        return functionArgsY;
     }
 }
