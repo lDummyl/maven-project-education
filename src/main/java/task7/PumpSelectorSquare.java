@@ -35,6 +35,9 @@ public class PumpSelectorSquare implements PumpSelector {
             }
         }
 
+        if (suitablePump == null) {
+            throw new RuntimeNullException("No matching pumps found");
+        }
         return suitablePump;
     }
 

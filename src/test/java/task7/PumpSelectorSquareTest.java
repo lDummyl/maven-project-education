@@ -31,6 +31,7 @@ public class PumpSelectorSquareTest {
     //  может быть выше допустимной по нормативам или заданным ограничением. Что не допустимо, Ее кстати тоже можно расчитать. у каждого насоса есть даметр, в его сечении можно прикинуть скорость.
     //  характеристика сети параболическая чтобы не возится с этим можно упростить до линейной функции То есть от точки 0 - 0 через расчетную точку нужно построить график до пересечения с
     //  графиком насоса. В пересечении координаты будут соответствовать рабочим параметрам.
+    // я не силен в насосах)) не понял что это за соотношение "4м\ч и 1м" и что значит "на 3й скорости будет 8м\ч"))
 
     @Test
     public void selectInPriceRangeTest() {
@@ -51,16 +52,31 @@ public class PumpSelectorSquareTest {
     public void selectInPriceRangeNullTest() {
         PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare();
 
+        PumpIMP selected;
+        boolean isSelected = false;
+
         Double minPrice = 80000.;
         Double maxPrice = 120000.;
-        PumpIMP selected = pumpSelectorSquare.selectInPriceRange(100., 9.5, minPrice, maxPrice);
+        try {
+            selected = pumpSelectorSquare.selectInPriceRange(100., 9.5, minPrice, maxPrice);
+            isSelected = true;
+        } catch (RuntimeNullException ex) {
+            isSelected = false;
+            log.info(ex.toString());
+        }
 
-        assertNull(selected);
+        assertFalse(isSelected);
 
         minPrice = 40000.;
         maxPrice = 10000.;
-        selected = pumpSelectorSquare.selectInPriceRange(100., 9.5, minPrice, maxPrice);
+        try {
+            selected = pumpSelectorSquare.selectInPriceRange(100., 9.5, minPrice, maxPrice);
+            isSelected = true;
+        } catch (RuntimeNullException ex) {
+            isSelected = false;
+            log.info(ex.toString());
+        }
 
-        assertNull(selected);
+        assertFalse(isSelected);
     }
 }
