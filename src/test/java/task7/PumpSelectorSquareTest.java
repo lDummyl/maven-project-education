@@ -4,7 +4,8 @@ import org.junit.Test;
 
 import java.util.logging.Logger;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class PumpSelectorSquareTest {
 
@@ -32,6 +33,14 @@ public class PumpSelectorSquareTest {
     //  характеристика сети параболическая чтобы не возится с этим можно упростить до линейной функции То есть от точки 0 - 0 через расчетную точку нужно построить график до пересечения с
     //  графиком насоса. В пересечении координаты будут соответствовать рабочим параметрам.
     // я не силен в насосах)) не понял что это за соотношение "4м\ч и 1м" и что значит "на 3й скорости будет 8м\ч"))
+    // TODO: 9/19/19 К сожалению в работе очень часто придется вникать в доменные области, это часть професии.
+    //  на верхнем базисе 3 графика это 3 скорости.
+    //  http://imppumps-rus.ru/UserFiles/Image/img9_34270_big.jpg
+    //  вот про подбор https://www.youtube.com/watch?v=DsBpqhVEnNU
+    //  характеристика насоса есть, чтобы упростить построение характеристики сети можно приянять ее за линейную функцию(а не параболу как на видео), проходящую через нулевую точку и точку которую ты получаешь
+    //  в качестве входных параметров расчета(расход напор). В пересечении будет рабочая точка(см видео). Она будет отличатся от входной, отличие и нужно измерить.
+
+
 
     @Test
     public void selectInPriceRangeTest() {
@@ -46,37 +55,25 @@ public class PumpSelectorSquareTest {
         assertTrue(pumpPrice <= maxPrice);
     }
 
-    @Test
+    @Test(expected = PumpNotSelectedException.class)
     // TODO: 9/18/19 когда подбор не состоялся возвращать null не очень информативно, лучше кидать эксепшн и в него помещать сообщение о том почему подбор не состоялся.
     //  Заведи свой класс и отнаследуй от RuntimeException.
     public void selectInPriceRangeNullTest() {
+
         PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare();
-
-        PumpIMP selected;
-        boolean isSelected = false;
-
         Double minPrice = 80000.;
         Double maxPrice = 120000.;
-        try {
-            selected = pumpSelectorSquare.selectInPriceRange(100., 9.5, minPrice, maxPrice);
-            isSelected = true;
-        } catch (RuntimeNullException ex) {
-            isSelected = false;
-            log.info(ex.toString());
-        }
+        pumpSelectorSquare.selectInPriceRange(100., 9.5, minPrice, maxPrice);
+    }
 
-        assertFalse(isSelected);
+    @Test(expected = PumpNotSelectedException.class)
+    // TODO: 9/19/19 чем меньше тесткейс тем лучше, чем ровнее тем лучше, и кейс это одни входные данные один вызов один результат(всегда есть исключения но это 1%)
+    public void selectInPriceRangeNullTestOther() {
 
-        minPrice = 40000.;
-        maxPrice = 10000.;
-        try {
-            selected = pumpSelectorSquare.selectInPriceRange(100., 9.5, minPrice, maxPrice);
-            isSelected = true;
-        } catch (RuntimeNullException ex) {
-            isSelected = false;
-            log.info(ex.toString());
-        }
+        PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare();
+        Double minPrice = 40000.;
+        Double maxPrice = 10000.;
+        pumpSelectorSquare.selectInPriceRange(100., 9.5, minPrice, maxPrice);
 
-        assertFalse(isSelected);
     }
 }
