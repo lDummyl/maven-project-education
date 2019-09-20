@@ -9,27 +9,29 @@ public class PumpSelectorSquare implements PumpSelector {
     private List<PumpIMP> pumps = PumpCharacteristicsLoader.getPumps();
 
     @Override
-    public PumpIMP select(Double pressure, Double flow) {
+    public PumpIMP select(Double pressure, Double flow, Double ratioPercent) {
         pumps.sort(Comparator.comparing(PumpIMP::getPrice));
 
-        return getProfitablePump(pumps, pressure, flow);
+        return getProfitablePump(pumps, pressure, flow, ratioPercent);
     }
 
-    public PumpIMP selectInPriceRange(Double pressure, Double flow, Double minPrice, Double maxPrice) {
+    public PumpIMP selectInPriceRange(Double pressure, Double flow, Double ratioPercent, Double minPrice, Double maxPrice) {
         List<PumpIMP> filteredPumps = pumps.stream()
                 .filter(i -> i.getPrice() >= minPrice && i.getPrice() <= maxPrice)
                 .collect(Collectors.toList());
         filteredPumps.sort(Comparator.comparing(PumpIMP::getPrice));
 
-        return getProfitablePump(filteredPumps, pressure, flow);
+        return getProfitablePump(filteredPumps, pressure, flow, ratioPercent);
     }
 
-    private PumpIMP getProfitablePump(List<PumpIMP> pumpsList, Double pressure, Double flow) {
+    private PumpIMP getProfitablePump(List<PumpIMP> pumpsList, Double pressure, Double flow, Double ratioPercent) {
         PumpIMP suitablePump = null;
         Double previouslyValue = 0.;
         for (PumpIMP pump : pumpsList) {
             Double newValue = pump.calculateConsumption(flow);
-            if (newValueIsLess(pressure, newValue, previouslyValue)) {
+            Double workPoint = pump.calculateWorkPoint(pressure, flow);
+            if (newValueIsLess(pressure, newValue, previouslyValue) &&
+                    ratioPercentIsNormal(ratioPercent, newValue, workPoint)) {
                 suitablePump = pump;
                 previouslyValue = newValue;
             }
@@ -48,22 +50,14 @@ public class PumpSelectorSquare implements PumpSelector {
             return true;
         }
 
-        Double newValue = getModularValue(pressure - comparedValue);
-        Double oldValue = getModularValue(pressure - previouslyValue);
+        Double newValue = Math.abs(pressure - comparedValue);
+        Double oldValue = Math.abs(pressure - previouslyValue);
 
         return newValue < oldValue;
     }
 
-    private Double getModularValue(Double value) {
-        // TODO: 9/18/19 самый простой
-//        return Math.abs(value);
-        // TODO: 9/18/19  это с тернарником
-        return value < 0 ? value * -1 : value;
-
-//        if (value >= 0) {
-//            return value;
-//        } else {
-//            return (-1 * value);
-//        }
+    private Boolean ratioPercentIsNormal(Double ratioPercent, Double newValue, Double workPoint) {
+        Double percent = workPoint / newValue * 100;
+        return percent > 0 && percent <= ratioPercent;
     }
 }

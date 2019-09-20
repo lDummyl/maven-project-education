@@ -14,14 +14,14 @@ public class PumpSelectorSquareTest {
     @Test
     public void selectTest() {
         PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare();
-        PumpIMP select = pumpSelectorSquare.select(2., 5.);
+        PumpIMP select = pumpSelectorSquare.select(2., 5., 20.);
         log.info(select.getName());
         assertEquals("NMTD SMART", select.getName());
 
-        select = pumpSelectorSquare.select(272., 5.);
+        select = pumpSelectorSquare.select(272., 5., 20.);
         assertEquals("GHN SOL", select.getName());
 
-        select = pumpSelectorSquare.select(272.5, 5.);
+        select = pumpSelectorSquare.select(272.5, 5., 20.);
         assertEquals("CL 4 POLES", select.getName());
     }
 
@@ -48,7 +48,7 @@ public class PumpSelectorSquareTest {
 
         Double minPrice = 20000.;
         Double maxPrice = 34000.;
-        PumpIMP selected = pumpSelectorSquare.selectInPriceRange(3300., 14., minPrice, maxPrice);
+        PumpIMP selected = pumpSelectorSquare.selectInPriceRange(3300., 14., 20., minPrice, maxPrice);
 
         Double pumpPrice = selected.getPrice();
         assertTrue(pumpPrice >= minPrice);
@@ -59,21 +59,27 @@ public class PumpSelectorSquareTest {
     // TODO: 9/18/19 когда подбор не состоялся возвращать null не очень информативно, лучше кидать эксепшн и в него помещать сообщение о том почему подбор не состоялся.
     //  Заведи свой класс и отнаследуй от RuntimeException.
     public void selectInPriceRangeNullTest() {
-
         PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare();
+
         Double minPrice = 80000.;
         Double maxPrice = 120000.;
-        pumpSelectorSquare.selectInPriceRange(100., 9.5, minPrice, maxPrice);
+        pumpSelectorSquare.selectInPriceRange(100., 9.5, 20., minPrice, maxPrice);
     }
 
     @Test(expected = PumpNotSelectedException.class)
     // TODO: 9/19/19 чем меньше тесткейс тем лучше, чем ровнее тем лучше, и кейс это одни входные данные один вызов один результат(всегда есть исключения но это 1%)
     public void selectInPriceRangeNullTestOther() {
-
         PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare();
+
         Double minPrice = 40000.;
         Double maxPrice = 10000.;
-        pumpSelectorSquare.selectInPriceRange(100., 9.5, minPrice, maxPrice);
+        pumpSelectorSquare.selectInPriceRange(100., 9.5, 20., minPrice, maxPrice);
+    }
 
+    @Test(expected = PumpNotSelectedException.class)
+    public void selectWithRatioPercentNotNormalTest() {
+        PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare();
+
+        pumpSelectorSquare.select(300., 12.5, 0.01);
     }
 }

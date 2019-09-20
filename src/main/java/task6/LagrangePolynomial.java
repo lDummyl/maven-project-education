@@ -32,7 +32,7 @@ public class LagrangePolynomial {
     }
 
     private static Boolean checkCorrectArrayValues(Double[] array) {
-        long uncorrectedValues = Arrays.stream(array).filter(i -> i <= 0).count();
+        long uncorrectedValues = Arrays.stream(array).filter(i -> i < 0).count();
         return uncorrectedValues == 0;
     }
 

@@ -35,6 +35,10 @@ public class PumpIMP implements Pump {
         }
     }
 
+    public Double calculateWorkPoint(Double pressure, Double flow) {
+        return LagrangePolynomial.getLagrangePolynomial(new Double[]{0., pressure}, new Double[]{0., flow}, flow);
+    }
+
     public String getName() {
         return name;
     }
