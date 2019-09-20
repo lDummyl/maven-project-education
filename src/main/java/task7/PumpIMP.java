@@ -39,6 +39,10 @@ public class PumpIMP implements Pump {
         return LagrangePolynomial.getLagrangePolynomial(new Double[]{0., pressure}, new Double[]{0., flow}, flow);
     }
 
+    public static void main(String[] args) {
+        System.out.println(LagrangePolynomial.getLagrangePolynomial(new Double[]{0.,2.}, new Double[]{0., 4.}, 6.));
+    }
+
     public String getName() {
         return name;
     }

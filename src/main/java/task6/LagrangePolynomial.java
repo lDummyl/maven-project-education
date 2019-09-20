@@ -1,6 +1,10 @@
 package task6;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class LagrangePolynomial {
 
@@ -15,6 +19,13 @@ public class LagrangePolynomial {
     }
 
     public static Double getLagrangePolynomial(Double[] xValues, Double[] yValues, Double x) {
+        return calculateLagrangePolynomial(xValues, yValues, x);
+    }
+
+
+    public static Double getYValueOfXPointByOtherTwo(Point a, Point b, Point c, Double x) {
+        Double[] xValues = Stream.of(a, b, c).map(Point::getX).toArray(Double[]::new);
+        Double[] yValues = Stream.of(a, b, c).map(Point::getY).toArray(Double[]::new);
         return calculateLagrangePolynomial(xValues, yValues, x);
     }
 
@@ -44,7 +55,7 @@ public class LagrangePolynomial {
             double basicsPol = 1;
             for (int j = 0; j < size; j++) {
                 if (j != i) {
-                    basicsPol *= (x - xValues[j])/(xValues[i] - xValues[j]);
+                    basicsPol *= (x - xValues[j]) / (xValues[i] - xValues[j]);
                 }
             }
             lagrangePol += basicsPol * yValues[i];
@@ -54,6 +65,14 @@ public class LagrangePolynomial {
     }
 
     private static Double getY(Double x) {
-        return  x*x*x + 3*x*x + 3*x + 1;
+        return x * x * x + 3 * x * x + 3 * x + 1;
+    }
+
+    @AllArgsConstructor
+    @Getter
+    static class Point {
+        Double x;
+        Double y;
+
     }
 }
