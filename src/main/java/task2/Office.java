@@ -8,6 +8,8 @@ import java.util.Random;
 public class Office {
 
 	Secretary secretary;
+    // TODO: 9/23/19 теперь секретарей должно быть по 3 в каждом офисе, List<Acc..>
+    //  и добавь еще охраннника, юриста, финансисяа, логиста.
 	Accountant accountant;;
 
     String nameOffice;
