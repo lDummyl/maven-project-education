@@ -7,12 +7,15 @@ import lombok.SneakyThrows;
 
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
 public class Converter {
 
     ObjectMapper mapper = new ObjectMapper();
+
+    // TODO: 9/23/19 не стоит создавать на каждый фаил по конвертору, лучше оставить его утильным
     private String pathFile;
 
     {
@@ -25,10 +28,20 @@ public class Converter {
         mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
     }
 
+    public Converter() {
+
+    }
+
+    // TODO: 9/23/19 я бы воспользовался полиморфизмом в данном случае
     @SneakyThrows
-    public List<Pair> pairFromJSON(String pathFile) {
-        String content = new String(Files.readAllBytes(Paths.get(pathFile)));
-        return mapper.readValue(content, new TypeReference<List<Pair>>() {});
+    public List<Pair> pairFromJSON(Path pathFile) {
+        String content = new String(Files.readAllBytes(pathFile));
+        return pairFromJSON(content);
+    }
+
+    @SneakyThrows
+    public List<Pair> pairFromJSON(String jsonBody) {
+        return mapper.readValue(jsonBody, new TypeReference<List<Pair>>() {});
     }
 
     @SneakyThrows
