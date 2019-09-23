@@ -25,28 +25,29 @@ public class Office {
         hr.considerAnyCandidate(human, director.choiceSecretaryMade, director.choiceAccountantMade);
 
         director.chooseSecretary(hr.listSeekersOnSecretary);
-
         director.chooseAccountant(hr.listSeekersOnAccountant);
-
-        // TODO: 9/12/19 то же самое, никаких if только вызовы методов передача в них аргументов из других методов, и на худой конец создание объектов, не более
 
 	}
 
-	public Secretary getSecretary(){
-	    return secretary;
-    }
-
     public void setSecretary(Secretary secretary){
 	    this.secretary = secretary;
+    }
+
+    public void setAccountant(Accountant accountant){
+        this.accountant = accountant;
+    }
+
+    /*
+    public Secretary getSecretary(){
+        return secretary;
     }
 
     public Accountant getAccountant(){
         return accountant;
     }
 
-    public void setAccountant(Accountant accountant){
-        this.accountant = accountant;
-    }
+     */
+
 }
 
 
