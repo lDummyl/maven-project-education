@@ -9,7 +9,8 @@ class Director {
 
     final Office myOffice;
 
-    boolean choiceSecretaryMade=false;
+    // TODO: 9/23/19 это тоже лишнее, вместо лучше использовать проверку полей офиса
+//    boolean choiceSecretaryMade=false;
     boolean choiceAccountantMade=false;
 
     final int enoughCandidatesToDecide = 3;
@@ -30,14 +31,12 @@ class Director {
     // TODO: 9/17/19 товоя задача использовать этот метод вместо осальных, понять чего не хватает для того чтобы все заработало. Ну и убрать все лишнее.
 
     public void chooseSecretary(List<Secretary> currentCandidates) {
-        if(!choiceSecretaryMade) {
-            WantAWork wantAWork = chooseOneCandidate(currentCandidates);
-
-            if(wantAWork != null) {
-                choiceSecretaryMade = true;
-                ((Secretary) wantAWork).hired = true;
+        if(myOffice.secretary == null) {
+            Secretary secretary = (Secretary) chooseOneCandidate(currentCandidates);
+            if(secretary != null) {
+                myOffice.setSecretary(secretary);
+                secretary.hired = true;
             }
-            myOffice.setSecretary((Secretary) wantAWork);
         }
     }
 

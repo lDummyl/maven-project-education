@@ -10,7 +10,7 @@ class Hr {
     List<Accountant> listSeekersOnAccountant = new ArrayList<>();
 
     Office office;
-    Secretary secretary;
+//    Secretary secretary;
 
     String name;
 
@@ -19,7 +19,7 @@ class Hr {
     }
 
 
-    public void considerAnyCandidate(Object candidate, boolean choiceSecretaryMade, boolean choiceAccountantMade) {
+    public void considerAnyCandidate(Object candidate, /*так ли уж нужны эти параметры для HR? -> */ boolean choiceSecretaryMade, boolean choiceAccountantMade) {
         if (!((WantAWork)candidate).passInterview()) {
             return;
         }

@@ -22,7 +22,7 @@ public class Office {
 
 	void invitePeople(Object human) {
 
-        hr.considerAnyCandidate(human, director.choiceSecretaryMade, director.choiceAccountantMade);
+        // TODO: 9/23/19 fix    hr.considerAnyCandidate(human, director.choiceSecretaryMade, director.choiceAccountantMade);
 
         director.chooseSecretary(hr.listSeekersOnSecretary);
         director.chooseAccountant(hr.listSeekersOnAccountant);
