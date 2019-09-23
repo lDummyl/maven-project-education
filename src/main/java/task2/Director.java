@@ -9,10 +9,6 @@ class Director {
 
     final Office myOffice;
 
-    // TODO: 9/23/19 это тоже лишнее, вместо лучше использовать проверку полей офиса
-//    boolean choiceSecretaryMade=false;
-    boolean choiceAccountantMade=false;
-
     final int enoughCandidatesToDecide = 3;
 
     Random random = new Random();
@@ -28,7 +24,6 @@ class Director {
         }
         return candidate;
     }
-    // TODO: 9/17/19 товоя задача использовать этот метод вместо осальных, понять чего не хватает для того чтобы все заработало. Ну и убрать все лишнее.
 
     public void chooseSecretary(List<Secretary> currentCandidates) {
         if(myOffice.secretary == null) {
@@ -41,14 +36,12 @@ class Director {
     }
 
     public void chooseAccountant(List<Accountant> currentCandidates) {
-        if(!choiceAccountantMade) {
-            WantAWork wantAWork = chooseOneCandidate(currentCandidates);
-
-            if(wantAWork != null) {
-                choiceAccountantMade = true;
-                ((Accountant) wantAWork).hired = true;
+        if(myOffice.accountant == null) {
+            Accountant accountant = (Accountant) chooseOneCandidate(currentCandidates);
+            if(accountant != null) {
+                myOffice.setAccountant(accountant);
+                accountant.hired = true;
             }
-            myOffice.setAccountant((Accountant) wantAWork);
         }
     }
 }

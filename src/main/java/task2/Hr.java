@@ -19,15 +19,11 @@ class Hr {
     }
 
 
-    public void considerAnyCandidate(Object candidate, /*так ли уж нужны эти параметры для HR? -> */ boolean choiceSecretaryMade, boolean choiceAccountantMade) {
+    public void considerAnyCandidate(Object candidate) {
         if (!((WantAWork)candidate).passInterview()) {
             return;
         }
         if(((WantAWork)candidate).isHired()){
-            return;
-        }
-
-        if (choiceSecretaryMade && choiceAccountantMade){
             return;
         }
 
