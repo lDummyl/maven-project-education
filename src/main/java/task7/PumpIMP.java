@@ -6,7 +6,7 @@ public class PumpIMP implements Pump {
 
     private String name;
     private Double price;
-    private String function; // так как механизм подбора изменился, я теперь до конца не понимаю для чего нам надо хранить это значение
+    private String function;
     private Double[] functionArgsX;
     private Double[] functionArgsY;
 
@@ -18,12 +18,12 @@ public class PumpIMP implements Pump {
         this.functionArgsY = new Double[]{};
     }
 
-    public PumpIMP(String name, Double price, String function, Double[] functionArgsX, Double[] functionArgsY) {
+    public PumpIMP(String name, Double price, String function, LagrangePolynomial.SquareInterpolation squareInterpolation) {
         this.name = name;
         this.price = price;
         this.function = function;
-        this.functionArgsX = functionArgsX;
-        this.functionArgsY = functionArgsY;
+        this.functionArgsX = getArgsX(squareInterpolation);
+        this.functionArgsY = getArgsY(squareInterpolation);
     }
 
     @Override
@@ -39,8 +39,12 @@ public class PumpIMP implements Pump {
         return LagrangePolynomial.getLagrangePolynomial(new Double[]{0., pressure}, new Double[]{0., flow}, flow);
     }
 
-    public static void main(String[] args) {
-        System.out.println(LagrangePolynomial.getLagrangePolynomial(new Double[]{0.,2.}, new Double[]{0., 4.}, 6.));
+    private Double[] getArgsX(LagrangePolynomial.SquareInterpolation squareInterpolation) {
+        return new Double[]{squareInterpolation.a.getX(), squareInterpolation.b.getX(), squareInterpolation.c.getX()};
+    }
+
+    private Double[] getArgsY(LagrangePolynomial.SquareInterpolation squareInterpolation) {
+        return new Double[]{squareInterpolation.a.getY(), squareInterpolation.b.getY(), squareInterpolation.c.getY()};
     }
 
     public String getName() {

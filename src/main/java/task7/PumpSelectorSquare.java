@@ -1,21 +1,29 @@
 package task7;
 
+import lombok.NoArgsConstructor;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@NoArgsConstructor
 public class PumpSelectorSquare implements PumpSelector {
 
     private List<PumpIMP> pumps = PumpCharacteristicsLoader.getPumps();
+    private Double ratioPercent = 10.;
+
+    public PumpSelectorSquare(Double ratioPercent) {
+        this.ratioPercent = ratioPercent;
+    }
 
     @Override
-    public PumpIMP select(Double pressure, Double flow, Double ratioPercent) {
+    public PumpIMP select(Double pressure, Double flow) {
         pumps.sort(Comparator.comparing(PumpIMP::getPrice));
 
         return getProfitablePump(pumps, pressure, flow, ratioPercent);
     }
 
-    public PumpIMP selectInPriceRange(Double pressure, Double flow, Double ratioPercent, Double minPrice, Double maxPrice) {
+    public PumpIMP selectInPriceRange(Double pressure, Double flow, Double minPrice, Double maxPrice) {
         List<PumpIMP> filteredPumps = pumps.stream()
                 .filter(i -> i.getPrice() >= minPrice && i.getPrice() <= maxPrice)
                 .collect(Collectors.toList());
@@ -38,7 +46,7 @@ public class PumpSelectorSquare implements PumpSelector {
         }
 
         if (suitablePump == null) {
-            throw new PumpNotSelectedException("No matching pumps found"); // TODO: 9/19/19 следующим шагом будет поместить отчет о том почему подбор не состоялся. Слишком много/ слишком мало и тд.
+            throw new PumpNotSelectedException(ErrorMessage.NOT_FOUND); // TODO: 9/19/19 следующим шагом будет поместить отчет о том почему подбор не состоялся. Слишком много/ слишком мало и тд.
         }
         return suitablePump;
     }

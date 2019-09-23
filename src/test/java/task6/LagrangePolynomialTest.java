@@ -20,12 +20,14 @@ public class LagrangePolynomialTest {
 
     @Test
     public void squareFunction3PointsGetYValid() {
-        LagrangePolynomial.Point zero = new LagrangePolynomial.Point(0., 0.);
-        LagrangePolynomial.Point one = new LagrangePolynomial.Point(1., 1.);
-        LagrangePolynomial.Point twoSquare = new LagrangePolynomial.Point(2., 4.);
-
+        LagrangePolynomial.SquareInterpolation squareInterpolation = new LagrangePolynomial.SquareInterpolation(
+                0., 0.,
+                1., 1.,
+                2., 4.);
         final double xToCount = 3.;
-        Double xSquare = LagrangePolynomial.getYValueOfXPointByOtherTwo(zero, one, twoSquare, xToCount);
+        Double xSquare = LagrangePolynomial.getYValueOfXPointByOtherTwo(squareInterpolation, xToCount);
         assertEquals(Math.pow(xToCount, 2.), xSquare, 0.1);
     }
+
+
 }

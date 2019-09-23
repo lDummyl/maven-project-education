@@ -13,15 +13,15 @@ public class PumpSelectorSquareTest {
 
     @Test
     public void selectTest() {
-        PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare();
-        PumpIMP select = pumpSelectorSquare.select(2., 5., 20.);
+        PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare(20.);
+        PumpIMP select = pumpSelectorSquare.select(2., 5.);
         log.info(select.getName());
         assertEquals("NMTD SMART", select.getName());
 
-        select = pumpSelectorSquare.select(272., 5., 20.);
+        select = pumpSelectorSquare.select(272., 5.);
         assertEquals("GHN SOL", select.getName());
 
-        select = pumpSelectorSquare.select(272.5, 5., 20.);
+        select = pumpSelectorSquare.select(272.5, 5.);
         assertEquals("CL 4 POLES", select.getName());
     }
 
@@ -40,15 +40,13 @@ public class PumpSelectorSquareTest {
     //  характеристика насоса есть, чтобы упростить построение характеристики сети можно приянять ее за линейную функцию(а не параболу как на видео), проходящую через нулевую точку и точку которую ты получаешь
     //  в качестве входных параметров расчета(расход напор). В пересечении будет рабочая точка(см видео). Она будет отличатся от входной, отличие и нужно измерить.
 
-
-
     @Test
     public void selectInPriceRangeTest() {
-        PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare();
+        PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare(20.);
 
         Double minPrice = 20000.;
         Double maxPrice = 34000.;
-        PumpIMP selected = pumpSelectorSquare.selectInPriceRange(3300., 14., 20., minPrice, maxPrice);
+        PumpIMP selected = pumpSelectorSquare.selectInPriceRange(3300., 14., minPrice, maxPrice);
 
         Double pumpPrice = selected.getPrice();
         assertTrue(pumpPrice >= minPrice);
@@ -56,30 +54,27 @@ public class PumpSelectorSquareTest {
     }
 
     @Test(expected = PumpNotSelectedException.class)
-    // TODO: 9/18/19 когда подбор не состоялся возвращать null не очень информативно, лучше кидать эксепшн и в него помещать сообщение о том почему подбор не состоялся.
-    //  Заведи свой класс и отнаследуй от RuntimeException.
     public void selectInPriceRangeNullTest() {
-        PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare();
+        PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare(20.);
 
         Double minPrice = 80000.;
         Double maxPrice = 120000.;
-        pumpSelectorSquare.selectInPriceRange(100., 9.5, 20., minPrice, maxPrice);
+        pumpSelectorSquare.selectInPriceRange(100., 9.5, minPrice, maxPrice);
     }
 
     @Test(expected = PumpNotSelectedException.class)
-    // TODO: 9/19/19 чем меньше тесткейс тем лучше, чем ровнее тем лучше, и кейс это одни входные данные один вызов один результат(всегда есть исключения но это 1%)
     public void selectInPriceRangeNullTestOther() {
-        PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare();
+        PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare(20.);
 
         Double minPrice = 40000.;
         Double maxPrice = 10000.;
-        pumpSelectorSquare.selectInPriceRange(100., 9.5, 20., minPrice, maxPrice);
+        pumpSelectorSquare.selectInPriceRange(100., 9.5, minPrice, maxPrice);
     }
 
     @Test(expected = PumpNotSelectedException.class)
     public void selectWithRatioPercentNotNormalTest() {
-        PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare();
+        PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare(0.01);
 
-        pumpSelectorSquare.select(300., 12.5, 0.01);
+        pumpSelectorSquare.select(300., 12.5);
     }
 }

@@ -22,11 +22,14 @@ public class LagrangePolynomial {
         return calculateLagrangePolynomial(xValues, yValues, x);
     }
 
-
-    public static Double getYValueOfXPointByOtherTwo(Point a, Point b, Point c, Double x) {
-        Double[] xValues = Stream.of(a, b, c).map(Point::getX).toArray(Double[]::new);
-        Double[] yValues = Stream.of(a, b, c).map(Point::getY).toArray(Double[]::new);
+    public static Double getYValueOfXPointByOtherTwo(SquareInterpolation.Point a, SquareInterpolation.Point b, SquareInterpolation.Point c, Double x) {
+        Double[] xValues = Stream.of(a, b, c).map(SquareInterpolation.Point::getX).toArray(Double[]::new);
+        Double[] yValues = Stream.of(a, b, c).map(SquareInterpolation.Point::getY).toArray(Double[]::new);
         return calculateLagrangePolynomial(xValues, yValues, x);
+    }
+
+    public static Double getYValueOfXPointByOtherTwo(SquareInterpolation squareInterpolation, Double x) {
+        return getYValueOfXPointByOtherTwo(squareInterpolation.a, squareInterpolation.b, squareInterpolation.c, x);
     }
 
     private static Double calculateLagrangePolynomial(Double[] xValues, Double[] yValues, Double x) {
@@ -68,11 +71,28 @@ public class LagrangePolynomial {
         return x * x * x + 3 * x * x + 3 * x + 1;
     }
 
-    @AllArgsConstructor
-    @Getter
-    static class Point {
-        Double x;
-        Double y;
+    public static class SquareInterpolation {
+        public final Point a;
+        public final Point b;
+        public final Point c;
 
+        public SquareInterpolation(Double x1, Double x2, Double x3) {
+            this.a = new Point(x1, getY(x1));
+            this.b = new Point(x2, getY(x2));
+            this.c = new Point(x3, getY(x3));
+        }
+
+        public SquareInterpolation(Double x1, Double y1, Double x2, Double y2, Double x3, Double y3) {
+            this.a = new Point(x1,y1);
+            this.b = new Point(x2,y2);
+            this.c = new Point(x3,y3);
+        }
+
+        @AllArgsConstructor
+        @Getter
+        public static class Point {
+            Double x;
+            Double y;
+        }
     }
 }

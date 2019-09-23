@@ -1,10 +1,13 @@
 package task7;
 
+import lombok.Getter;
 import lombok.NonNull;
 
-
-// TODO: 9/19/19 слишком походит на NPE. лучше переименовать
+@Getter
 public class PumpNotSelectedException extends RuntimeException {
+
+    private String message;
+    private ErrorMessage errorMessage;
 
     public PumpNotSelectedException() {
         super();
@@ -13,5 +16,12 @@ public class PumpNotSelectedException extends RuntimeException {
     @NonNull
     public PumpNotSelectedException(String message) {
         super(message);
+        this.message = message;
+    }
+
+    public PumpNotSelectedException(ErrorMessage errorMessage) {
+        super(errorMessage.getMessage());
+        this.errorMessage = errorMessage;
+        this.message = errorMessage.getMessage();
     }
 }
