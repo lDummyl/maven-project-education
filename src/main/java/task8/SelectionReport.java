@@ -1,10 +1,13 @@
 package task8;
 
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@NoArgsConstructor
 public class SelectionReport {
 
-    private TechnicalUnit technicalUnit;
-    private CommercialUnit commercialUnit;
-
-    public SelectionReport(String pathFile) {
-    }
+    public List<TechnicalUnit> technicalUnits = new ArrayList<>();
+    public CommercialUnit commercialUnit;
 }

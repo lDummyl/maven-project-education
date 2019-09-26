@@ -3,33 +3,28 @@ package task8;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
+@NoArgsConstructor
 public class Converter {
 
     ObjectMapper mapper = new ObjectMapper();
-
     // TODO: 9/23/19 не стоит создавать на каждый фаил по конвертору, лучше оставить его утильным
     private String pathFile;
 
     {
         mapper.findAndRegisterModules();
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
     }
 
     public Converter(String pathFile) {
         this.pathFile = pathFile;
-
-        mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-    }
-
-    public Converter() {
-
     }
 
     // TODO: 9/23/19 я бы воспользовался полиморфизмом в данном случае
@@ -45,8 +40,8 @@ public class Converter {
     }
 
     @SneakyThrows
-    public String getStringPairList(List<Pair> pairList) {
-        return mapper.writeValueAsString(pairList);
+    public String getStringJSON(List<Pair> pairList) {
+        return mapper.writeValueAsString(pairList); // 9/26/19 тут код сыпется. пока не разобрался почему. в Converter из task3 все то же самое и работает
     }
 
     @SneakyThrows
@@ -55,7 +50,7 @@ public class Converter {
     }
 
     @SneakyThrows
-    public String getStringSelectionReport(SelectionReport selectionReport) {
+    public String getStringJSON(SelectionReport selectionReport) {
         return mapper.writeValueAsString(selectionReport);
     }
 

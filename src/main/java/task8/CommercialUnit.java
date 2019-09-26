@@ -16,17 +16,18 @@ public class CommercialUnit {
 
     public CommercialUnit(List<PumpIMP> pumps) {
         fillPriceList(pumps);
-        totalPriceList();
+        totalPriceList(pumps);
+        calculateShipping();
     }
 
     private void fillPriceList(List<PumpIMP> pumps) {
-        pumps.stream().forEach(i -> priceList.put(i, i.getPrice()));
+        pumps.forEach(i -> priceList.put(i, i.getPrice()));
     }
 
-    private void totalPriceList() {
-        countPositions = priceList.size();
+    private void totalPriceList(List<PumpIMP> pumps) {
+        countPositions = pumps.size();
         sumPositions = 0.;
-        priceList.values().stream().forEach(i -> sumPositions += i);
+        priceList.values().forEach(i -> sumPositions += i);
     }
 
     private void calculateShipping() {
