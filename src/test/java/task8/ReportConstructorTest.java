@@ -13,6 +13,7 @@ public class ReportConstructorTest {
     Logger log = Logger.getLogger(ConverterTest.class.getName());
     Converter converter = new Converter();
 
+    // TODO: 9/26/19 просто внимательно прочитай на что ругается InvalidDefinitionException, сделай что он просит и все булет ок
     @Test
     public void generateReportStringTest() {
         List<Pair> pairs = Arrays.asList(new Pair(4., 7.), new Pair(10., 16.));

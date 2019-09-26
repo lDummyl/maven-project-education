@@ -51,10 +51,8 @@ public class ReportConstructor {
 
     @SneakyThrows
     public String getReportString() {
-        if (selectionReport != null) {
-            return mapper.writeValueAsString(selectionReport);
-        }
-        return "";
+        // TODO: 9/26/19 так короче
+        return selectionReport != null ? mapper.writeValueAsString(selectionReport) : "";
     }
 
     public SelectionReport getSelectionReport() {
