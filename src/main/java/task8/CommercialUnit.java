@@ -3,13 +3,14 @@ package task8;
 import lombok.Getter;
 import task7.PumpIMP;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Getter
 public class CommercialUnit {
 
-    private Map<PumpIMP, Double> priceList;
+    private Map<PumpIMP, Double> priceList = new HashMap<>();
     private Integer countPositions;
     private Double sumPositions;
     private Double delivery = 0.;

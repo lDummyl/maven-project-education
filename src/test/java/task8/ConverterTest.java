@@ -23,7 +23,6 @@ public class ConverterTest {
         Converter converter = new Converter();
 
         String s = converter.getStringJSON(pairs);
-        log.info(s);
         List<Pair> parsed = converter.pairFromJSON(s);
 
         assertEquals(2, parsed.size());

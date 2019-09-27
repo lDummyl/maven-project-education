@@ -41,7 +41,7 @@ public class Converter {
 
     @SneakyThrows
     public String getStringJSON(List<Pair> pairList) {
-        return mapper.writeValueAsString(pairList); // 9/26/19 тут код сыпется. пока не разобрался почему. в Converter из task3 все то же самое и работает
+        return mapper.writeValueAsString(pairList);
     }
 
     @SneakyThrows
