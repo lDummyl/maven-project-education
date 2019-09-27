@@ -11,8 +11,6 @@ import java.util.Random;
 public class Office {
 
 	Secretary secretary;
-    // TODO: 9/23/19 теперь секретарей должно быть по 3 в каждом офисе, List<Acc..>
-    //  и добавь еще охраннника, юриста, финансисяа, логиста.
 	Accountant accountant;
 	List<Accountant> accountants = new ArrayList<>();
 
@@ -48,7 +46,6 @@ public class Office {
         // TODO: 9/27/19 гораздо полезней починить тесты, там давно пора навести порядок. Убрать копипасты,  заменить цклами или стримами,
         //  выкинуть закоментированные блоки. Тогда будет наглядней и проще
         //  и напиши тест, который будет проверять новое назначние бугалтеров
-        this.accountant = this.accountants.get(0);  //чтобы тест не падал:)
     }
 
     public List<Accountant> getAccountant(){

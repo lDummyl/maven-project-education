@@ -19,7 +19,7 @@ public class OfficeTest {
         Office office = new Office();
 
         ArrayList<Object> secretaries = new ArrayList<>();
-        secretaries.add(new Secretary("Маша"));    //создаем секретарей
+        secretaries.add(new Secretary("Маша"));
         secretaries.add(new Secretary("Алла"));
         secretaries.add(new Secretary("Анжелла"));
         secretaries.add(new Secretary("Зина"));
@@ -28,7 +28,6 @@ public class OfficeTest {
 
         secretaries.forEach(office::invitePeople);
         assertTrue(secretaries.contains(office.secretary));
-
     }
 
     @Test
@@ -41,37 +40,26 @@ public class OfficeTest {
 
     }
 
-    // TODO: 9/4/19 отлично! Осталось только починить этот тест и порядок
-
     @Test(expected = RuntimeException.class)
     public void getBossAnger() {
         Office office = new Office();
         ArrayList<Object> secretaries = new ArrayList<>();
 
-        for (int i = 0; i < 6; i++)                       //создаем 6 кандидатов жилающих работать, но е совсем секретарей
+        for (int i = 0; i < 6; i++)
             secretaries.add(new WantAWork() {
                 @Override
                 public boolean passInterview() {
-                    return true;                         //возвращаем положительный результат прохождения интерьвью у Hr
+                    return true;
                 }
+
                 @Override
                 public boolean isHired() {
-                    return false;                         //возвращаем положительный результат прохождения интерьвью у Hr
+                    return false;
                 }
 
             });
-
         secretaries.forEach(office::invitePeople);
-
     }
-
-    @Test
-    public void mainTest() {
-        String test = "Main question of the universe and everything";
-        //       int result = new SuperComPuter.ask(test);
-        //       assertEquals(42, result);
-    }
-
 
     @Test
     public void multipleOfficeTest100Iterations() {
@@ -80,9 +68,6 @@ public class OfficeTest {
             multipleOfficeTest();
         }
     }
-
-// TODO: 9/4/19 вот тебе готовый тест, не изменяя его нужно  сделать так чтобы он проходил.
-    // TODO: 9/12/19 уже лучше, но попробуй теперь с новыми данными
 
     public void multipleOfficeTest() {
 
@@ -107,43 +92,6 @@ public class OfficeTest {
         }
     }
 
-
-    @Test
-    public void newOffices() {
-
-        Office office = new Office();
-
-        ArrayList<Object> secretaries = new ArrayList<>();
-        secretaries.add(new Secretary("Маша"));    //создаем секретарей
-        secretaries.add(new Secretary("Алла"));
-        secretaries.add(new Secretary("Анжелла"));
-        secretaries.add(new Secretary("Зина"));
-        secretaries.add(new Secretary("Марина"));
-        secretaries.add(new Secretary("Лера"));
-
-        Office additionalOffice1 = new Office("Офис №1");
-
-        secretaries.forEach(office::invitePeople);
-
-        Secretary secretary = office.secretary;
-        //  boolean isWorking = secretary.office != null;
-        boolean isWorking = secretary.hired;
-
-        if (isWorking) {
-            secretary.office = additionalOffice1;
-        }
-
-        //     Office wockingIn = secretary.office;
-
-        assertTrue(secretaries.contains(office.secretary));  // не очень понимаю какая здесь должна быть проверка
-
-        // TODO: 8/16/19 способ 2
-        //    long offices1qty = additionalOffice.stream().filter(off -> off.nameOffice.equals("Офис №1")).count();
-        //    assertThat("Offices 1 qty", offices1qty, lessThan(2L));
-
-    }
-
-
     @Test
     public void addAccountantStress() {
 
@@ -159,8 +107,6 @@ public class OfficeTest {
         }
     }
 
-    // TODO: 8/29/19 айайай а тестик то падает время от времени, директор ругается, лучше путь hr подготовиться, отсортирует всех кандидатов, разложит по папочкам у себя в картотеке и тогда дирктору проще будет, чем если ему все на стол просто вывалено
-
     @Test
     public void addAccountant() {
 
@@ -169,14 +115,9 @@ public class OfficeTest {
         List<Object> laborMarket = getLabourMarket();
         laborMarket.forEach(office::invitePeople);
 
-
-        Secretary secretary = office.secretary;;
         Accountant accountant = office.accountant;
 
-        System.out.println(secretary);
-        System.out.println(accountant);
-
-        assertTrue(laborMarket.contains(office.accountant));
+        assertTrue(laborMarket.contains(accountant));
     }
 
     private List<Object> getLabourMarket() {
@@ -207,19 +148,49 @@ public class OfficeTest {
         laborMarket.add(new Accountant("Виолетта"));
         laborMarket.add(new Accountant("Фекла"));
         laborMarket.add(new Accountant("Фекла1"));
-//        laborMarket.add(new Accountant("Фекла2"));
-//        laborMarket.add(new Accountant("Фекла3"));
-
-//        laborMarket.add(new Accountant("Фекла4"));
-//        laborMarket.add(new Accountant("Фекла5"));
-//        laborMarket.add(new Accountant("Фекла6"));
-//        laborMarket.add(new Accountant("Фекла7"));
+        laborMarket.add(new Accountant("Фекла2"));
 
         Collections.shuffle(laborMarket);
         return laborMarket;
     }
 
+    @Test
+    public void threeAccountantsInEachOffice() {
+            List<Object> labourMarket = getLabourMarketSecondParty();
+             Office office = new Office();
+                for (Object candidate : labourMarket) {
+                    office.invitePeople(candidate);
+                }
+                List<Accountant> accountants = office.accountants;
+                assertTrue(accountants.size() == office.director.accountantsRequired);    //тест пройден, если дир выбрал 3х бухгалтеров
+
+    }
+    private List<Object> getLabourMarketSecondParty() {
+        List<Object> laborMarket = new ArrayList<>();
+        laborMarket.add(new Secretary("Маша"));
+        laborMarket.add(new Secretary("Алла"));
+        laborMarket.add(new Secretary("Анжелла"));
+        laborMarket.add(new Secretary("Зина"));
+        laborMarket.add(new Secretary("Марина"));
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Sluggard());
+        laborMarket.add(new Accountant("Виолетта"));
+        laborMarket.add(new Accountant("Фекла"));
+        laborMarket.add(new Accountant("Фекла1"));
+        laborMarket.add(new Accountant("Фекла2"));
+        laborMarket.add(new Accountant("Фекла3"));
+        laborMarket.add(new Accountant("Фекла4"));
+        laborMarket.add(new Accountant("Фекла5"));
+        laborMarket.add(new Accountant("Фекла6"));
+        laborMarket.add(new Accountant("Фекла7"));
+        laborMarket.add(new Accountant("Фекла8"));
+
+        Collections.shuffle(laborMarket);
+        return laborMarket;
+    }
 }
+
 class Sluggard implements WantAWork{
 
     @Override
@@ -230,3 +201,4 @@ class Sluggard implements WantAWork{
         return false;
     }
 }
+
