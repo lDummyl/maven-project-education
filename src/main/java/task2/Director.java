@@ -10,6 +10,7 @@ class Director {
     final Office myOffice;
 
     final int enoughCandidatesToDecide = 3;
+    final int enoughAccountants = 3;
 
     Random random = new Random();
 
@@ -36,12 +37,39 @@ class Director {
     }
 
     public void chooseAccountant(List<Accountant> currentCandidates) {
-        if(myOffice.accountant == null) {
+
+        if(myOffice.accountants.isEmpty() && currentCandidates.size()==enoughCandidatesToDecide) {
+        List<Accountant> accountants = new ArrayList<>();
+
+            while(accountants.size() != enoughAccountants){        //крутим пока дир не выберет трех бухгалтеров
             Accountant accountant = (Accountant) chooseOneCandidate(currentCandidates);
-            if(accountant != null) {
-                myOffice.setAccountant(accountant);
-                accountant.hired = true;
+
+                if (accountant != null && !accountant.hired) {
+                    accountant.hired = true;
+                    accountants.add(accountant);
+                    myOffice.setAccountant(accountants);
+                }
             }
         }
     }
+
+  /*  public void chooseAccountant(List<Accountant> currentCandidates) {
+        if(myOffice.accountants.isEmpty() && currentCandidates.size()==enoughCandidatesToDecide) {
+            List<Accountant> accountants = myOffice.getAccountant();
+
+            for (int i = 0; i < currentCandidates.size(); i++) {
+                Accountant accountant = (Accountant) chooseOneCandidate(currentCandidates);
+                if(accountant!=null && !accountant.hired) {
+                    accountant.hired=true;
+                    accountants.add(accountant);
+
+                    if (accountants.size() == 3) {
+                        myOffice.setAccountant(accountants);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+   */
 }

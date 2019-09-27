@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Hr {
-    List<WantAWork> listJobSeekers = new ArrayList<>();
-    // TODO: 9/4/19 раз мы уже отсортировали их то почему бы не определить как класс
     List<Secretary> listSeekersOnSecretary = new ArrayList<>();
     List<Accountant> listSeekersOnAccountant = new ArrayList<>();
 
     Office office;
-//    Secretary secretary;
 
     String name;
 

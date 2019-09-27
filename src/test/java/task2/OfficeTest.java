@@ -92,8 +92,9 @@ public class OfficeTest {
         HashSet<Object> alreadySaw = new HashSet<>();
 
         for (Office office : offices) {
-            for (Object candidate : labourMarket)
+            for (Object candidate : labourMarket) {
                 office.invitePeople(candidate);
+            }
 
             Secretary secretary = office.secretary;
             assertNotNull(secretary);
@@ -208,6 +209,12 @@ public class OfficeTest {
         laborMarket.add(new Accountant("Фекла1"));
         laborMarket.add(new Accountant("Фекла2"));
         laborMarket.add(new Accountant("Фекла3"));
+
+        laborMarket.add(new Accountant("Фекла4"));
+        laborMarket.add(new Accountant("Фекла5"));
+        laborMarket.add(new Accountant("Фекла6"));
+        laborMarket.add(new Accountant("Фекла7"));
+
         Collections.shuffle(laborMarket);
         return laborMarket;
     }
