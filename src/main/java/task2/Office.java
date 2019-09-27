@@ -2,6 +2,7 @@ package task2;
 
 import bonus.Lambda;
 
+import java.security.Security;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -15,10 +16,10 @@ public class Office {
 	Accountant accountant;
 	List<Accountant> accountants = new ArrayList<>();
 
-	Financier financier;
-	Lawyer lawyer;
-	Logistician logistician;
-	Security security;
+//	Financier financier;
+//	Lawyer lawyer;
+//	Logistician logistician;
+//	Security security;
 
     String nameOffice;
 
@@ -44,6 +45,9 @@ public class Office {
 
     public void setAccountant(List<Accountant> accountants){
         this.accountants = accountants;
+        // TODO: 9/27/19 гораздо полезней починить тесты, там давно пора навести порядок. Убрать копипасты,  заменить цклами или стримами,
+        //  выкинуть закоментированные блоки. Тогда будет наглядней и проще
+        //  и напиши тест, который будет проверять новое назначние бугалтеров
         this.accountant = this.accountants.get(0);  //чтобы тест не падал:)
     }
 

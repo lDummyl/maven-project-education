@@ -38,9 +38,13 @@ class Director {
 
     public void chooseAccountant(List<Accountant> currentCandidates) {
 
+        // TODO: 9/27/19 то есть если кандитов пришло больше то мы их не рассматриваем?
         if(myOffice.accountants.isEmpty() && currentCandidates.size()==enoughCandidatesToDecide) {
         List<Accountant> accountants = new ArrayList<>();
 
+            // TODO: 9/27/19 немного странно получается 3 кандидата нужно ля того чтобы принять решение о найме одного,
+            //  но так же трех кандидатов достаточно чтобы нанаять сразу всех 3их. Что-то не сходится. Нужно 5ть чтобы нанаять 3их из этой логики
+            //  и я бы использовал тот же механизм найма только несколько раз. Тесты тесты тесты и  все будет нагядно, сосредоточься на них.
             while(accountants.size() != enoughAccountants){        //крутим пока дир не выберет трех бухгалтеров
             Accountant accountant = (Accountant) chooseOneCandidate(currentCandidates);
 

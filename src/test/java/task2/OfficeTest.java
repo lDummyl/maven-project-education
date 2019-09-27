@@ -207,13 +207,13 @@ public class OfficeTest {
         laborMarket.add(new Accountant("Виолетта"));
         laborMarket.add(new Accountant("Фекла"));
         laborMarket.add(new Accountant("Фекла1"));
-        laborMarket.add(new Accountant("Фекла2"));
-        laborMarket.add(new Accountant("Фекла3"));
+//        laborMarket.add(new Accountant("Фекла2"));
+//        laborMarket.add(new Accountant("Фекла3"));
 
-        laborMarket.add(new Accountant("Фекла4"));
-        laborMarket.add(new Accountant("Фекла5"));
-        laborMarket.add(new Accountant("Фекла6"));
-        laborMarket.add(new Accountant("Фекла7"));
+//        laborMarket.add(new Accountant("Фекла4"));
+//        laborMarket.add(new Accountant("Фекла5"));
+//        laborMarket.add(new Accountant("Фекла6"));
+//        laborMarket.add(new Accountant("Фекла7"));
 
         Collections.shuffle(laborMarket);
         return laborMarket;
