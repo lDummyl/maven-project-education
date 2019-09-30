@@ -1,6 +1,8 @@
 package task8;
 
 
+import java.util.IntSummaryStatistics;
+
 /*
 	Реализовать пакетный подбор насосов
 	создать генератор Josn, который содержит пары расход/напор
@@ -12,8 +14,8 @@ package task8;
  */
 public class Main {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-	}
+    }
 
 }

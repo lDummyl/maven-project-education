@@ -2,9 +2,13 @@ package task2;
 
 import org.junit.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
@@ -13,6 +17,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class OfficeTest {
+
+    List<String> femaleNames = Arrays.asList("Маша", "Алла");
+    List<String> maleNames = Arrays.asList("Петр", "Иван");
 
     @Test
     public void testOk() {
@@ -156,17 +163,55 @@ public class OfficeTest {
 
     @Test
     public void threeAccountantsInEachOffice() {
-            List<Object> labourMarket = getLabourMarketSecondParty();
-             Office office = new Office();
-                for (Object candidate : labourMarket) {
-                    office.invitePeople(candidate);
-                }
-                List<Accountant> accountants = office.accountants;
-                assertTrue(accountants.size() == office.director.accountantsRequired);    //тест пройден, если дир выбрал 3х бухгалтеров
+        List<Object> labourMarket = getLabourMarketSecondParty();
+        Office office = new Office();
+        for (Object candidate : labourMarket) {
+            office.invitePeople(candidate);
+        }
+        List<Accountant> accountants = office.accountants;
+        assertTrue(accountants.size() == office.director.accountantsRequired);    //тест пройден, если дир выбрал 3х бухгалтеров
+
 
     }
-    private List<Object> getLabourMarketSecondParty() {
+
+
+    @Test
+    public void partAccountantsInOneOffice() {
         List<Object> laborMarket = new ArrayList<>();
+        laborMarket.add(new Accountant(""));
+        laborMarket.add(new Accountant(""));
+        laborMarket.add(new Accountant(""));
+        laborMarket.add(new Accountant(""));
+        Office office = new Office();
+        laborMarket.forEach(office::invitePeople);
+        List<Accountant> accountants = office.accountants;
+        assertEquals(2,  accountants.size());
+
+    }
+
+    @Test
+    public void oneAccountantInOneOffice() {
+        List<Object> laborMarket = new ArrayList<>();
+        laborMarket.add(new Accountant(""));
+        laborMarket.add(new Accountant(""));
+        laborMarket.add(new Accountant(""));
+        Office office = new Office();
+        laborMarket.forEach(office::invitePeople);
+        List<Accountant> accountants = office.accountants;
+        assertEquals(1,  accountants.size());
+
+    }
+
+    private List<Object> getLabourMarketSecondParty() {
+
+
+        List<Object> laborMarket = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            // TODO: 9/30/19 лучше убрать все эти столбы и наполнять списки laborMarket в циклах используя имена по рандому из константных списков,
+            //  которые я добавил(их желательно расширить) и сделать так чтобы я мог задать кого и сколько мен нужно длля теста.
+        }
+
+
         laborMarket.add(new Secretary("Маша"));
         laborMarket.add(new Secretary("Алла"));
         laborMarket.add(new Secretary("Анжелла"));
@@ -191,13 +236,15 @@ public class OfficeTest {
     }
 }
 
-class Sluggard implements WantAWork{
+// TODO: 9/30/19 желательно вынести в отдельный класс и объединить с похожими в отдельный package
+class Sluggard implements WantAWork {
 
     @Override
     public boolean passInterview() {
         return true;
     }
-    public boolean isHired(){
+
+    public boolean isHired() {
         return false;
     }
 }

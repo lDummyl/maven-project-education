@@ -37,7 +37,7 @@ public class Main {
         secretaries.add(new Secretary("Зина"));
         secretaries.add(new Secretary("Марина"));
         secretaries.add(new Secretary("Лера"));
-
+// TODO: 9/30/19 тут все лишнее тоже нужно убрать
    /*      for(int i=0; i<6; i++)                       //создаем 6 кандидатов жилающих работать, но е совсем секретарей
         secretaries.add(new WantAWork() {
             @Override
