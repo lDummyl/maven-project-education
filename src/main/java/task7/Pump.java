@@ -2,5 +2,5 @@ package task7;
 
 public interface Pump {
 
-    Double calculateConsumption(Double flow);
+    Double calculateWorkPoint(Double flow, Double pressure);
 }

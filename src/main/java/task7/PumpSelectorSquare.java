@@ -17,55 +17,34 @@ public class PumpSelectorSquare implements PumpSelector {
     }
 
     @Override
-    public PumpIMP select(Double pressure, Double flow) {
+    public PumpIMP select(Double flow, Double pressure) {
         pumps.sort(Comparator.comparing(PumpIMP::getPrice));
 
-        return getProfitablePump(pumps, pressure, flow, ratioPercent);
+        return getProfitablePump(pumps, flow, pressure);
     }
 
-    public PumpIMP selectInPriceRange(Double pressure, Double flow, Double minPrice, Double maxPrice) {
+    public PumpIMP selectInPriceRange(Double flow, Double pressure, Double minPrice, Double maxPrice) {
         List<PumpIMP> filteredPumps = pumps.stream()
                 .filter(i -> i.getPrice() >= minPrice && i.getPrice() <= maxPrice)
                 .collect(Collectors.toList());
         filteredPumps.sort(Comparator.comparing(PumpIMP::getPrice));
 
-        return getProfitablePump(filteredPumps, pressure, flow, ratioPercent);
+        return getProfitablePump(filteredPumps, flow, pressure);
     }
 
-    private PumpIMP getProfitablePump(List<PumpIMP> pumpsList, Double pressure, Double flow, Double ratioPercent) {
-        PumpIMP suitablePump = null;
-        Double previouslyValue = 0.;
+    private PumpIMP getProfitablePump(List<PumpIMP> pumpsList, Double flow, Double pressure) {
         for (PumpIMP pump : pumpsList) {
-            Double newValue = pump.calculateConsumption(flow);
-            Double workPoint = pump.calculateWorkPoint(pressure, flow);
-            if (newValueIsLess(pressure, newValue, previouslyValue) &&
-                    ratioPercentIsNormal(ratioPercent, newValue, workPoint)) {
-                suitablePump = pump;
-                previouslyValue = newValue;
+            Double workPoint = pump.calculateWorkPoint(flow, pressure);
+            if (workPoint < flow && ratioPercentIsNormal(flow, workPoint)) {
+                return pump;
             }
         }
 
-        if (suitablePump == null) {
-            throw new PumpNotSelectedException(ErrorMessage.NOT_FOUND); // TODO: 9/19/19 следующим шагом будет поместить отчет о том почему подбор не состоялся. Слишком много/ слишком мало и тд.
-        }
-        return suitablePump;
+        throw new PumpNotSelectedException(ErrorMessage.NOT_FOUND); // TODO: 9/19/19 следующим шагом будет поместить отчет о том почему подбор не состоялся. Слишком много/ слишком мало и тд.
     }
 
-    private Boolean newValueIsLess(Double pressure, Double comparedValue, Double previouslyValue) {
-        if (comparedValue.equals(previouslyValue)) {
-            return false;
-        } else if (previouslyValue.equals(0.)) {
-            return true;
-        }
-
-        Double newValue = Math.abs(pressure - comparedValue);
-        Double oldValue = Math.abs(pressure - previouslyValue);
-
-        return newValue < oldValue;
-    }
-
-    private Boolean ratioPercentIsNormal(Double ratioPercent, Double newValue, Double workPoint) {
-        Double percent = workPoint / newValue * 100;
+    private Boolean ratioPercentIsNormal(Double flow, Double workPoint) {
+        Double percent = workPoint / flow * 100;
         return percent > 0 && percent <= ratioPercent;
     }
 }

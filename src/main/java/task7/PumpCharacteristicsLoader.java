@@ -41,7 +41,7 @@ public class PumpCharacteristicsLoader {
         pumps.add(new PumpIMP("NMTD MAX C", 8000., "",
                 new LagrangePolynomial.SquareInterpolation(13.6, 3112.136, 16.3, 5177.7, 19.1, 8120.6)));
         pumps.add(new PumpIMP("GHNDBASIC II", 6000., "",
-                new LagrangePolynomial.SquareInterpolation(2.8, 244.5, 8.4, 610., 11.6, 1524.7)));
+                new LagrangePolynomial.SquareInterpolation(2., 22., 4., 16., 6., 12.)));
     }
 
     public static List<PumpIMP> getPumps() {

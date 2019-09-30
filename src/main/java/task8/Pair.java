@@ -11,6 +11,6 @@ import lombok.Setter;
 @Setter
 public class Pair {
 
-    private Double pressure;
     private Double flow;
+    private Double pressure;
 }

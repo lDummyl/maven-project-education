@@ -35,9 +35,7 @@ public class ReportConstructor {
 
             PumpIMP pump = pumpSelectorSquare.select(pressure, flow);
             pumps.add(pump);
-
-            Double workPoint = 20.; // временный костыль)
-            selectionReport.technicalUnits.add(new TechnicalUnit(pump, pressure, flow, workPoint));
+            selectionReport.technicalUnits.add(new TechnicalUnit(pump, pressure, flow, pump.getWorkPoint()));
         }
 
         selectionReport.commercialUnit = new CommercialUnit(pumps);
@@ -51,7 +49,6 @@ public class ReportConstructor {
 
     @SneakyThrows
     public String getReportString() {
-        // TODO: 9/26/19 так короче
         return selectionReport != null ? mapper.writeValueAsString(selectionReport) : "";
     }
 

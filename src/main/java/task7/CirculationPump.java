@@ -24,7 +24,7 @@ public class CirculationPump implements Pump {
     }
 
     @Override
-    public Double calculateConsumption(Double flow) {
+    public Double calculateWorkPoint(Double flow, Double pressure) {
         return 0d; //LagrangePolynomial.getLagrangePolynomial(consumption, power);
     }
 

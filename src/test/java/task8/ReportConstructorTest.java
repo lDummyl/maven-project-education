@@ -14,7 +14,6 @@ public class ReportConstructorTest {
     Converter converter = new Converter();
     List<Pair> pairs = Arrays.asList(new Pair(4., 7.), new Pair(10., 16.));
 
-    // TODO: 9/26/19 просто внимательно прочитай на что ругается InvalidDefinitionException, сделай что он просит и все булет ок
     @Test
     public void generateReportStringTest() {
         ReportConstructor reportConstructor = new ReportConstructor();
