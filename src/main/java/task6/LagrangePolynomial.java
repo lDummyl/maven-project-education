@@ -85,6 +85,8 @@ public class LagrangePolynomial {
         SquareInterpolation.Point b = squareInterpolation.b;
         SquareInterpolation.Point c = squareInterpolation.c;
 
+        // TODO: 9/30/19 эти копипасты все таки следует выделить в общий приватный метод
+
         double second1 = -b.x - c.x;
         double third1 = b.x * c.x;
         double divider1 = (a.x - b.x) * (a.x - c.x);
@@ -167,9 +169,9 @@ public class LagrangePolynomial {
         }
 
         public SquareInterpolation(Double x1, Double y1, Double x2, Double y2, Double x3, Double y3) {
-            this.a = new Point(x1,y1);
-            this.b = new Point(x2,y2);
-            this.c = new Point(x3,y3);
+            this.a = new Point(x1, y1);
+            this.b = new Point(x2, y2);
+            this.c = new Point(x3, y3);
         }
 
         @AllArgsConstructor

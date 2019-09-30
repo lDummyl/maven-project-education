@@ -40,6 +40,7 @@ public class PumpSelectorSquare implements PumpSelector {
             }
         }
 
+        // TODO: 9/30/19 вот отличный повод (не проходящие тесты ReportConstructorTest) чтобы сделать этот эксепшн более информативным.
         throw new PumpNotSelectedException(ErrorMessage.NOT_FOUND); // TODO: 9/19/19 следующим шагом будет поместить отчет о том почему подбор не состоялся. Слишком много/ слишком мало и тд.
     }
 
