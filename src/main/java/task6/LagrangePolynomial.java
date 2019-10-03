@@ -6,8 +6,8 @@ import task8.Pair;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LagrangePolynomial {
@@ -86,25 +86,40 @@ public class LagrangePolynomial {
         SquareInterpolation.Point c = squareInterpolation.c;
 
         CoefficientsEquationSquare firstIndicators = getIndicators(a.x, b.x, c.x);
-        double first1 = firstIndicators.a;
-        double second1 = firstIndicators.b;
-        double third1 = firstIndicators.c;
-
         CoefficientsEquationSquare secondIndicators = getIndicators(b.x, a.x, c.x);
-        double first2 = secondIndicators.a;
-        double second2 = secondIndicators.b;
-        double third2 = secondIndicators.c;
-
         CoefficientsEquationSquare thirdIndicators = getIndicators(c.x, a.x, b.x);
-        double first3 = thirdIndicators.a;
-        double second3 = thirdIndicators.b;
-        double third3 = thirdIndicators.c;
 
-        Double firstAll = getRoundDouble(first1 * a.y + first2 * b.y + first3 * c.y);
-        Double secondAll = getRoundDouble(second1 * a.y + second2 * b.y + second3 * c.y);
-        Double thirdAll = getRoundDouble(third1 * a.y + third2 * b.y + third3 * c.y);
+        // TODO: 10/3/19 важный момент стрим переиспользовать нельзя, каждый раз нужен новый
+        List<CoefficientsEquationSquare> indicators = Stream.of(firstIndicators, secondIndicators, thirdIndicators).collect(Collectors.toList());
+        List<Double> indicatorsA = indicators.stream().map(CoefficientsEquationSquare::getA).collect(Collectors.toList());
+        List<Double> indicatorsB = indicators.stream().map(CoefficientsEquationSquare::getB).collect(Collectors.toList());
+        List<Double> indicatorsC = indicators.stream().map(CoefficientsEquationSquare::getC).collect(Collectors.toList());
+
+        List<Double> yS = squareInterpolation.getYs();
+
+        Double firstAll = getMultipliedIndicators(yS, indicatorsA);
+        Double secondAll = getMultipliedIndicators(yS, indicatorsB);
+        Double thirdAll = getMultipliedIndicators(yS, indicatorsC);
 
         return new CoefficientsEquationSquare(firstAll, secondAll, thirdAll);
+    }
+
+    // TODO: 10/3/19 можно так как вариант, часто бывает что чем короче запись тем она сложнее понимается, поэтому если точно знаешь что массштабироваться кусок не будет
+    //  можно и оствить запись ту что наглядней, но при этом понимать как ее массштабировать важно как и важно понять когда остановиться)
+
+    private static Double getMultipliedIndicators(SquareInterpolation.Point a, SquareInterpolation.Point b, SquareInterpolation.Point c, List<Double> indicatorsX) {
+        return getRoundDouble(indicatorsX.get(0) * a.y + indicatorsX.get(1) * b.y + indicatorsX.get(2) * c.y);
+    }
+
+    private static Double getMultipliedIndicators(List<Double> yS, List<Double> indicatorsX) {
+        double result = 0.;
+        if (yS.size() != indicatorsX.size()) {
+            throw new RuntimeException("List sizes mismatch");
+        }
+        for (int i = 0; i < yS.size(); i++) {
+            result += yS.get(i) * indicatorsX.get(i);
+        }
+        return getRoundDouble(result);
     }
 
     private static CoefficientsEquationSquare getIndicators(double x1, double x2, double x3) {
@@ -139,11 +154,9 @@ public class LagrangePolynomial {
             y1 = (-b - Math.sqrt(D)) / (2 * a);
             y2 = (-b + Math.sqrt(D)) / (2 * a);
             y = Math.max(y1, y2);
-        }
-        else if (D == 0) {
+        } else if (D == 0) {
             y = -b / (2 * a);
-        }
-        else {
+        } else {
             y = 0.;
         }
 
@@ -175,6 +188,11 @@ public class LagrangePolynomial {
             this.b = new Point(x2, y2);
             this.c = new Point(x3, y3);
         }
+
+        public  List<Double> getYs (){
+             return Stream.of(a, b, c).map(SquareInterpolation.Point::getY).collect(Collectors.toList());
+        }
+
 
         @AllArgsConstructor
         @Getter
