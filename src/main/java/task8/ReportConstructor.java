@@ -18,10 +18,15 @@ public class ReportConstructor {
 
     private PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare();
     private SelectionReport selectionReport;
+    private List<SelectionReport> selectionReports = new ArrayList<>();
 
     {
         mapper.findAndRegisterModules();
         mapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+    }
+
+    public ReportConstructor(Double ratioPercent) {
+        this.pumpSelectorSquare = new PumpSelectorSquare(ratioPercent);
     }
 
     @SneakyThrows
@@ -47,8 +52,37 @@ public class ReportConstructor {
         generateReport(pairs);
     }
 
-    @SneakyThrows
+    public void generateReports(ArrayList<List<Pair>> pairsList) {
+        for (List<Pair> pairs : pairsList) {
+            generateReport(pairs);
+            selectionReports.add(selectionReport);
+        }
+    }
+
+    public void generateReports(List<String> jsonBodyList) {
+        for (String jsonBody : jsonBodyList) {
+            generateReport(jsonBody);
+            selectionReports.add(selectionReport);
+        }
+    }
+
     public String getReportString() {
+        return getReport(selectionReport);
+    }
+
+    public List<String> getReportStrings() {
+        List<String> reports = new ArrayList<>();
+        for (SelectionReport report : selectionReports) {
+            String reportString = getReport(report);
+            if (!reportString.equals("")) {
+                reports.add(reportString);
+            }
+        }
+        return reports;
+    }
+
+    @SneakyThrows
+    private String getReport(SelectionReport selectionReport) {
         return selectionReport != null ? mapper.writeValueAsString(selectionReport) : "";
     }
 

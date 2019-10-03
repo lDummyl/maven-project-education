@@ -85,34 +85,35 @@ public class LagrangePolynomial {
         SquareInterpolation.Point b = squareInterpolation.b;
         SquareInterpolation.Point c = squareInterpolation.c;
 
-        // TODO: 9/30/19 эти копипасты все таки следует выделить в общий приватный метод
+        CoefficientsEquationSquare firstIndicators = getIndicators(a.x, b.x, c.x);
+        double first1 = firstIndicators.a;
+        double second1 = firstIndicators.b;
+        double third1 = firstIndicators.c;
 
-        double second1 = -b.x - c.x;
-        double third1 = b.x * c.x;
-        double divider1 = (a.x - b.x) * (a.x - c.x);
-        double first1 = 1. / divider1;
-        second1 /= divider1;
-        third1 /= divider1;
+        CoefficientsEquationSquare secondIndicators = getIndicators(b.x, a.x, c.x);
+        double first2 = secondIndicators.a;
+        double second2 = secondIndicators.b;
+        double third2 = secondIndicators.c;
 
-        double second2 = -a.x - c.x;
-        double third2 = a.x * c.x;
-        double divider2 = (b.x - a.x) * (b.x - c.x);
-        double first2 = 1. / divider2;
-        second2 /= divider2;
-        third2 /= divider2;
-
-        double second3 = -a.x - b.x;
-        double third3 = a.x * b.x;
-        double divider3 = (c.x - a.x) * (c.x - b.x);
-        double first3 = 1. / divider3;
-        second3 /= divider3;
-        third3 /= divider3;
+        CoefficientsEquationSquare thirdIndicators = getIndicators(c.x, a.x, b.x);
+        double first3 = thirdIndicators.a;
+        double second3 = thirdIndicators.b;
+        double third3 = thirdIndicators.c;
 
         Double firstAll = getRoundDouble(first1 * a.y + first2 * b.y + first3 * c.y);
         Double secondAll = getRoundDouble(second1 * a.y + second2 * b.y + second3 * c.y);
         Double thirdAll = getRoundDouble(third1 * a.y + third2 * b.y + third3 * c.y);
 
         return new CoefficientsEquationSquare(firstAll, secondAll, thirdAll);
+    }
+
+    private static CoefficientsEquationSquare getIndicators(double x1, double x2, double x3) {
+        double divider = (x1 - x2) * (x1 - x3);
+        double first = 1. / divider;
+        double second = (-x2 - x3) / divider;
+        double third = (x2 * x3) / divider;
+
+        return new CoefficientsEquationSquare(first, second, third);
     }
 
     private static Double getRoundDouble(double number) {
@@ -148,6 +149,7 @@ public class LagrangePolynomial {
 
         if (y != 0.) {
             x = getRoundDouble(y / d);
+            y = getRoundDouble(y);
         }
 
         return new Pair(x, y);

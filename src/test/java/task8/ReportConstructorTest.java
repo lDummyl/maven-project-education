@@ -10,13 +10,13 @@ import static org.junit.Assert.*;
 
 public class ReportConstructorTest {
 
-    Logger log = Logger.getLogger(ConverterTest.class.getName());
+    Logger log = Logger.getLogger(ReportConstructor.class.getName());
     Converter converter = new Converter();
-    List<Pair> pairs = Arrays.asList(new Pair(4., 7.), new Pair(10., 16.));
+    List<Pair> pairs = Arrays.asList(new Pair(4., 26.), new Pair(10., 45.));
 
     @Test
     public void generateReportStringTest() {
-        ReportConstructor reportConstructor = new ReportConstructor();
+        ReportConstructor reportConstructor = new ReportConstructor(70.);
 
         String pairsString = converter.getStringJSON(pairs);
         reportConstructor.generateReport(pairsString);
@@ -29,7 +29,7 @@ public class ReportConstructorTest {
 
     @Test
     public void technicalUnitsTest () {
-        ReportConstructor reportConstructor = new ReportConstructor();
+        ReportConstructor reportConstructor = new ReportConstructor(70.);
 
         String pairsString = converter.getStringJSON(pairs);
         reportConstructor.generateReport(pairsString);
@@ -43,7 +43,7 @@ public class ReportConstructorTest {
 
     @Test
     public void commercialUnitTest () {
-        ReportConstructor reportConstructor = new ReportConstructor();
+        ReportConstructor reportConstructor = new ReportConstructor(70.);
 
         String pairsString = converter.getStringJSON(pairs);
         reportConstructor.generateReport(pairsString);
@@ -51,6 +51,17 @@ public class ReportConstructorTest {
         CommercialUnit commercialUnit = reportConstructor.getSelectionReport().commercialUnit;
 
         assertEquals(2, (int) commercialUnit.getCountPositions());
-        assertEquals((int) commercialUnit.getCountPositions(), commercialUnit.getPriceList().size());
+    }
+
+    @Test
+    public void reportStringTest () {
+        ReportConstructor reportConstructor = new ReportConstructor(70.);
+
+        String pairsString = converter.getStringJSON(pairs);
+        reportConstructor.generateReport(pairsString);
+
+        String report = reportConstructor.getReportString();
+        assertTrue(report.contains("GHN 25/40-130"));
+        assertTrue(report.contains("40000.0"));
     }
 }

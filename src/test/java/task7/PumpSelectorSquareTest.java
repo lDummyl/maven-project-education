@@ -14,15 +14,9 @@ public class PumpSelectorSquareTest {
     @Test
     public void selectTest() {
         PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare(20.);
-        PumpIMP select = pumpSelectorSquare.select(2., 5.);
+        PumpIMP select = pumpSelectorSquare.select(3.5, 17.);
         log.info(select.getName());
-        assertEquals("NMTD SMART", select.getName());
-
-        select = pumpSelectorSquare.select(272., 5.);
-        assertEquals("GHN SOL", select.getName());
-
-        select = pumpSelectorSquare.select(272.5, 5.);
-        assertEquals("CL 4 POLES", select.getName());
+        assertEquals("GHN 25/40-130", select.getName());
     }
 
     // TODO: 9/17/19  ну и кейсы, штук 5, что если ты передашь очень большие параметры или микроскопические. Нужно пройти все пограничные случаи
@@ -42,11 +36,11 @@ public class PumpSelectorSquareTest {
 
     @Test
     public void selectInPriceRangeTest() {
-        PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare(20.);
+        PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare(70.);
 
         Double minPrice = 20000.;
         Double maxPrice = 34000.;
-        PumpIMP selected = pumpSelectorSquare.selectInPriceRange(3300., 14., minPrice, maxPrice);
+        PumpIMP selected = pumpSelectorSquare.selectInPriceRange(8., 40., minPrice, maxPrice);
 
         Double pumpPrice = selected.getPrice();
         assertTrue(pumpPrice >= minPrice);
