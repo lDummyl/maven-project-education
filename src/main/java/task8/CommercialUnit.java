@@ -22,7 +22,13 @@ public class CommercialUnit {
     }
 
     private void fillPriceList(List<PumpIMP> pumps) {
-        pumps.forEach(i -> priceList.put(i, i.getPrice()));
+        for (PumpIMP pump : pumps) {
+            Double price = 0.;
+            if (priceList.containsKey(pump)) {
+                price = priceList.get(pump);
+            }
+            priceList.put(pump, pump.getPrice() + price);
+        }
     }
 
     private void totalPriceList(List<PumpIMP> pumps) {

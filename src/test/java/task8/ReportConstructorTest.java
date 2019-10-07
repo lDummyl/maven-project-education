@@ -19,9 +19,8 @@ public class ReportConstructorTest {
         ReportConstructor reportConstructor = new ReportConstructor(70.);
 
         String pairsString = converter.getStringJSON(pairs);
-        reportConstructor.generateReport(pairsString);
+        SelectionReport selectionReport = reportConstructor.generateSelectionReport(pairsString);
 
-        SelectionReport selectionReport = reportConstructor.getSelectionReport();
         assertNotNull(selectionReport);
         assertEquals(2, selectionReport.technicalUnits.size());
         assertNotNull(selectionReport.commercialUnit);
@@ -32,9 +31,9 @@ public class ReportConstructorTest {
         ReportConstructor reportConstructor = new ReportConstructor(70.);
 
         String pairsString = converter.getStringJSON(pairs);
-        reportConstructor.generateReport(pairsString);
+        SelectionReport selectionReport = reportConstructor.generateSelectionReport(pairsString);
 
-        List<TechnicalUnit> technicalUnits = reportConstructor.getSelectionReport().technicalUnits;
+        List<TechnicalUnit> technicalUnits = selectionReport.technicalUnits;
         for (int i = 0; i < 2; i++) {
             assertEquals(pairs.get(i).getPressure(), technicalUnits.get(i).getPressure());
             assertEquals(pairs.get(i).getFlow(), technicalUnits.get(i).getFlow());
@@ -46,9 +45,9 @@ public class ReportConstructorTest {
         ReportConstructor reportConstructor = new ReportConstructor(70.);
 
         String pairsString = converter.getStringJSON(pairs);
-        reportConstructor.generateReport(pairsString);
+        SelectionReport selectionReport = reportConstructor.generateSelectionReport(pairsString);
 
-        CommercialUnit commercialUnit = reportConstructor.getSelectionReport().commercialUnit;
+        CommercialUnit commercialUnit = selectionReport.commercialUnit;
 
         assertEquals(2, (int) commercialUnit.getCountPositions());
     }
@@ -58,10 +57,9 @@ public class ReportConstructorTest {
         ReportConstructor reportConstructor = new ReportConstructor(70.);
 
         String pairsString = converter.getStringJSON(pairs);
-        reportConstructor.generateReport(pairsString);
+        String report = reportConstructor.generateReport(pairsString);
 
-        String report = reportConstructor.getReportString();
         assertTrue(report.contains("GHN 25/40-130"));
-        assertTrue(report.contains("40000.0"));
+        log.info(report);
     }
 }

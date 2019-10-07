@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import task7.PumpIMP;
+import task7.PumpMinInfo;
 import task7.PumpSelectorSquare;
 
 import java.util.ArrayList;
@@ -17,8 +18,6 @@ public class ReportConstructor {
     private ObjectMapper mapper = new ObjectMapper();
 
     private PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare();
-    private SelectionReport selectionReport;
-    private List<SelectionReport> selectionReports = new ArrayList<>();
 
     {
         mapper.findAndRegisterModules();
@@ -30,8 +29,8 @@ public class ReportConstructor {
     }
 
     @SneakyThrows
-    public void generateReport(List<Pair> pairs) {
-        selectionReport = new SelectionReport();
+    public SelectionReport generateSelectionReport(List<Pair> pairs) {
+        SelectionReport selectionReport = new SelectionReport();
         List<PumpIMP> pumps = new ArrayList<>();
 
         for (Pair pair : pairs) {
@@ -40,37 +39,65 @@ public class ReportConstructor {
 
             PumpIMP pump = pumpSelectorSquare.select(pressure, flow);
             pumps.add(pump);
-            selectionReport.technicalUnits.add(new TechnicalUnit(pump, pressure, flow, pump.getWorkPoint()));
+            PumpMinInfo pumpMinInfo = new PumpMinInfo(pump.getName());
+            selectionReport.technicalUnits.add(new TechnicalUnit(pumpMinInfo, pressure, flow, pump.getWorkPoint()));
         }
-
         selectionReport.commercialUnit = new CommercialUnit(pumps);
+
+        return selectionReport;
     }
 
     @SneakyThrows
-    public void generateReport(String jsonBody) {
+    public SelectionReport generateSelectionReport(String jsonBody) {
         List<Pair> pairs = mapper.readValue(jsonBody, new TypeReference<List<Pair>>() {});
-        generateReport(pairs);
+        return generateSelectionReport(pairs);
     }
 
-    public void generateReports(ArrayList<List<Pair>> pairsList) {
-        for (List<Pair> pairs : pairsList) {
-            generateReport(pairs);
-            selectionReports.add(selectionReport);
-        }
-    }
-
-    public void generateReports(List<String> jsonBodyList) {
-        for (String jsonBody : jsonBodyList) {
-            generateReport(jsonBody);
-            selectionReports.add(selectionReport);
-        }
-    }
-
-    public String getReportString() {
+    public String generateReport(List<Pair> pairs) {
+        SelectionReport selectionReport = generateSelectionReport(pairs);
         return getReport(selectionReport);
     }
 
-    public List<String> getReportStrings() {
+    @SneakyThrows
+    public String generateReport(String jsonBody) {
+        List<Pair> pairs = mapper.readValue(jsonBody, new TypeReference<List<Pair>>() {});
+        return generateReport(pairs);
+    }
+
+    @SneakyThrows
+    private String getReport(SelectionReport selectionReport) {
+        return selectionReport != null ? mapper.writeValueAsString(selectionReport) : "";
+    }
+
+    public List<SelectionReport> generateSelectionReports(ArrayList<List<Pair>> pairsList) {
+        List<SelectionReport> selectionReports = new ArrayList<>();
+        for (List<Pair> pairs : pairsList) {
+            SelectionReport selectionReport = generateSelectionReport(pairs);
+            selectionReports.add(selectionReport);
+        }
+        return selectionReports;
+    }
+
+    public List<SelectionReport> generateSelectionReports(List<String> jsonBodyList) {
+        List<SelectionReport> selectionReports = new ArrayList<>();
+        for (String jsonBody : jsonBodyList) {
+            SelectionReport selectionReport = generateSelectionReport(jsonBody);
+            selectionReports.add(selectionReport);
+        }
+        return selectionReports;
+    }
+
+    public List<String> generateReports(ArrayList<List<Pair>> pairsList) {
+        List<SelectionReport> selectionReports = generateSelectionReports(pairsList);
+        return getReports(selectionReports);
+    }
+
+    public List<String> generateReports(List<String> jsonBodyList) {
+        List<SelectionReport> selectionReports = generateSelectionReports(jsonBodyList);
+        return getReports(selectionReports);
+    }
+
+    private List<String> getReports(List<SelectionReport> selectionReports) {
         List<String> reports = new ArrayList<>();
         for (SelectionReport report : selectionReports) {
             String reportString = getReport(report);
@@ -79,18 +106,5 @@ public class ReportConstructor {
             }
         }
         return reports;
-    }
-
-    @SneakyThrows
-    private String getReport(SelectionReport selectionReport) {
-        return selectionReport != null ? mapper.writeValueAsString(selectionReport) : "";
-    }
-
-    public SelectionReport getSelectionReport() {
-        return selectionReport;
-    }
-
-    public void setSelectionReport(SelectionReport selectionReport) {
-        this.selectionReport = selectionReport;
     }
 }

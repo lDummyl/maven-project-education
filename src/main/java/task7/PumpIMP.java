@@ -1,8 +1,10 @@
 package task7;
 
+import lombok.EqualsAndHashCode;
 import task6.LagrangePolynomial;
 import task8.Pair;
 
+@EqualsAndHashCode
 public class PumpIMP implements Pump {
 
     private String name;
@@ -40,5 +42,12 @@ public class PumpIMP implements Pump {
 
     public void setWorkPoint(Pair workPoint) {
         this.workPoint = workPoint;
+    }
+
+    @Override
+    public String toString() {
+        return "PumpIMP{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }

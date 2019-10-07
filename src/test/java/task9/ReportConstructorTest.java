@@ -23,12 +23,10 @@ public class ReportConstructorTest {
         fillPairsList();
         ReportConstructor reportConstructor = new ReportConstructor(70.);
 
-        reportConstructor.generateReports(pairsList);
+        List<String> reports = reportConstructor.generateReports(pairsList);
 
-        List<String> reports = reportConstructor.getReportStrings();
         for (String report : reports) {
             assertTrue(report.contains("GHN 25/40-130"));
-            assertTrue(report.contains("40000.0"));
         }
     }
 
@@ -44,12 +42,10 @@ public class ReportConstructorTest {
 
         List<String> jsonList = new ArrayList<>();
         pairsList.forEach(i -> jsonList.add(converter.getStringJSON(i)));
-        reportConstructor.generateReports(jsonList);
+        List<String> reports = reportConstructor.generateReports(jsonList);
 
-        List<String> reports = reportConstructor.getReportStrings();
         for (String report : reports) {
             assertTrue(report.contains("GHN 25/40-130"));
-            assertTrue(report.contains("40000.0"));
         }
     }
 }
