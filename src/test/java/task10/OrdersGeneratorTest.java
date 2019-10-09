@@ -2,10 +2,10 @@ package task10;
 
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.logging.Logger;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class OrdersGeneratorTest {
 
@@ -22,8 +22,36 @@ public class OrdersGeneratorTest {
         }
 
         assertEquals(30, countOrders);
-        assertEquals(2019, (int) ordersReportPerYear.getYear());
+        assertEquals(LocalDate.now().getYear(), (int) ordersReportPerYear.getYear());
     }
 
-    // тесты еще не дописал
+    @Test
+    public void errorsTest () {
+        OrdersGenerator ordersGenerator = new OrdersGenerator();
+        OrdersReportPerYear ordersReportPerYear = ordersGenerator.generateOrders(30, 70.);
+
+        for (OrdersPerMonth ordersPerMonth : ordersReportPerYear.getOrders().values()) {
+            assertNotNull(ordersPerMonth.getCountErrors());
+            assertEquals(0, (int) ordersPerMonth.getCountErrors());
+        }
+    }
+
+    @Test
+    public void OrdersReportPerThreeMonthTest () {
+        int countMonth = 3;
+        OrdersGenerator ordersGenerator = new OrdersGenerator();
+        OrdersReportPerYear ordersReportPerYear = ordersGenerator.generateOrders(
+                30, 70., 2019, countMonth, 2);
+
+        assertEquals(countMonth, ordersReportPerYear.getOrders().size());
+    }
+
+    @Test
+    public void OrdersReportPerYearStringTest () {
+        OrdersGenerator ordersGenerator = new OrdersGenerator();
+        String report = ordersGenerator.generateOrdersString(30, 70.);
+
+        log.info(report);
+        assertTrue(report.contains("\"purchaseCount\" : 30.0"));
+    }
 }

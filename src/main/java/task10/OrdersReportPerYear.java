@@ -4,15 +4,15 @@ import lombok.Getter;
 import task8.SelectionReport;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 @Getter
 public class OrdersReportPerYear {
 
     private final Integer year;
-    private Map<LocalDate, OrdersPerMonth> orders = new HashMap<>();
+    private Map<LocalDate, OrdersPerMonth> orders = new TreeMap<>();
     private Double purchaseCount = 0.;
     private Double delivery = 0.;
 
@@ -28,7 +28,7 @@ public class OrdersReportPerYear {
 
         for (int i = 0; i < countMonths; i++) {
             SelectionReport selectionReport = selectionReports.get(i);
-            OrdersPerMonth ordersPerMonth = new OrdersPerMonth(selectionReport.commercialUnit);
+            OrdersPerMonth ordersPerMonth = new OrdersPerMonth(selectionReport);
 
             purchaseCount += ordersPerMonth.getPurchaseCount();
             delivery += ordersPerMonth.getDelivery();

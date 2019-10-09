@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
-import task7.PumpIMP;
-import task7.PumpMinInfo;
-import task7.PumpSelectorSquare;
+import task7.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,21 +26,29 @@ public class ReportConstructor {
         this.pumpSelectorSquare = new PumpSelectorSquare(ratioPercent);
     }
 
-    @SneakyThrows
     public SelectionReport generateSelectionReport(List<Pair> pairs) {
         SelectionReport selectionReport = new SelectionReport();
         List<PumpIMP> pumps = new ArrayList<>();
 
+        int errors = 0;
         for (Pair pair : pairs) {
             Double pressure = pair.getPressure();
             Double flow = pair.getFlow();
 
-            PumpIMP pump = pumpSelectorSquare.select(pressure, flow);
-            pumps.add(pump);
-            PumpMinInfo pumpMinInfo = new PumpMinInfo(pump.getName());
-            selectionReport.technicalUnits.add(new TechnicalUnit(pumpMinInfo, pressure, flow, pump.getWorkPoint()));
+            try {
+                PumpIMP pump = pumpSelectorSquare.select(pressure, flow);
+                pumps.add(pump);
+                PumpMinInfo pumpMinInfo = new PumpMinInfo(pump.getName());
+                selectionReport.technicalUnits.add(new TechnicalUnit(pumpMinInfo, pressure, flow, pump.getWorkPoint()));
+            } catch (PumpNotSelectedException ex) {
+                ErrorMessage message = ex.getErrorMessage();
+                if (message != null && message == ErrorMessage.NOT_FOUND) {
+                    errors++;
+                }
+            }
         }
         selectionReport.commercialUnit = new CommercialUnit(pumps);
+        selectionReport.errors = errors;
 
         return selectionReport;
     }
