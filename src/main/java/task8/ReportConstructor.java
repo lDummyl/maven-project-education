@@ -7,8 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 import task7.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 @NoArgsConstructor
 public class ReportConstructor {
@@ -34,6 +37,16 @@ public class ReportConstructor {
         for (Pair pair : pairs) {
             Double pressure = pair.getPressure();
             Double flow = pair.getFlow();
+
+            // TODO: 10/14/19 try-catch-driven-development  это не самая лучшая методология
+            //  логика в задании немного другая. Не фиксировать сколько ошибок было сделано
+            //  а каждый подбор должен содеражть инфу примерный он или точный. Если данных нет, например пришел расход 10 а напор "хз" итаких 3 штуки
+            //  нужно дать бюджет, подобрать исходя из того например что есть известных 29 насоаов корректно подобранных, и нужно дать еще один. Можно просто поделить сумму 29 на их
+            //  кол-во и добавить среднее. Можно получив среднюю сумму подобрать модель, ближайшую к этой сумме. Можно учитывать или нет параметры котоыре есть, например если подобранный не выдаст 10
+            //  ни при каком давлении подбирать пока не будет хотябы по нижней границе.
+            //  но так или иначе задача дать максимально реальный бюджет и предупередить, что этот насос подобран в усовиях отсутствия точных данных исходя их среденй величины.
+            //  когда дойдет до реального закупа, они уточнят или купят не глядя, но у тебя булет дисклеймер. Задача в этом короче к ней можно по разному подойти, но главное
+            //  дать КП во что бы то ни стало, бытро чтобы уже предметно потом его уточнять.
 
             try {
                 PumpIMP pump = pumpSelectorSquare.select(pressure, flow);
@@ -75,6 +88,25 @@ public class ReportConstructor {
         return selectionReport != null ? mapper.writeValueAsString(selectionReport) : "";
     }
 
+    // TODO: 10/14/19 прочтитай про type erasure технически компилятор полиморфизм в рантайме используется, а в компаилтайме информация в угловых скобках стирается поэтому и там и там List
+    //  что с этим делать Заведи разные классы, классов много не бывает если они понятные и не большие, и из названия следует их Single responsibility.
+
+    class PumpBatchRequest{
+        LocalDateTime created;
+        List<Pair> pairs;
+    }
+    class PumpBatchRequestsArchive{
+        LocalDateTime firstCreated;
+        LocalDateTime lastCreated;
+        Integer pairsOverall;
+        List<PumpBatchRequest> requests;
+
+        public int getPairsOverall() {
+            Optional<Integer> qty = requests.stream().flatMap(Stream::of).map(i -> i.pairs.size()).reduce(Integer::sum);
+            return qty.orElse(0);
+        }
+    }
+
     public List<SelectionReport> generateSelectionReports(ArrayList<List<Pair>> pairsList) {
         List<SelectionReport> selectionReports = new ArrayList<>();
         for (List<Pair> pairs : pairsList) {
@@ -83,6 +115,9 @@ public class ReportConstructor {
         }
         return selectionReports;
     }
+
+
+
 
     public List<SelectionReport> generateSelectionReports(List<String> jsonBodyList) {
         List<SelectionReport> selectionReports = new ArrayList<>();

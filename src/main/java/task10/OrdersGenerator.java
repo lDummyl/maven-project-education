@@ -14,7 +14,7 @@ public class OrdersGenerator {
     private int MAX_VALUE = 12;
     private Random random = new Random();
 
-    public ArrayList<List<Pair>> generateOrders(int countOrders, Period period) {
+    public List<List<Pair>> generateOrders(int countOrders, Period period) {
         int countMonths = period.getMonths();
         ArrayList<List<Pair>> pairsList = new ArrayList<>();
 
@@ -22,16 +22,17 @@ public class OrdersGenerator {
         int surplus = countOrders - avg * countMonths;
         for (int i = 1; i <= countMonths; i++) {
             int countOrdersPerMont = (i <= surplus ? avg + 1 : avg);
-            List<Pair> pairs = getOrders(countOrdersPerMont);
+            List<Pair> pairs = generateOrders(countOrdersPerMont);
             pairsList.add(pairs);
         }
 
         return pairsList;
     }
 
-    private List<Pair> getOrders(int countOrders) {
+    // TODO: 10/14/19 повышай информативность названий в коде, гет это получить что-то существующее.
+    private List<Pair> generateOrders(int necessaryQty) {
         List<Pair> pairs = new ArrayList<>();
-        for (int i = 0; i < countOrders; i++) {
+        for (int i = 0; i < necessaryQty; i++) {
             int flow = random.nextInt(MAX_VALUE) + MIN_VALUE;
             int pressure = random.nextInt(MAX_VALUE) + flow;
             Pair pair = new Pair((double) flow, (double) pressure);

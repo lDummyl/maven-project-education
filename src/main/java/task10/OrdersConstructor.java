@@ -19,7 +19,7 @@ public class OrdersConstructor {
     public PeriodOrdersReport constructOrders(int countOrders, Period period) {
         ReportConstructor reportConstructor = new ReportConstructor((double) random.nextInt(70) + 30);
 
-        ArrayList<List<Pair>> pairsList = ordersGenerator.generateOrders(countOrders, period);
+        ArrayList<List<Pair>> pairsList = new ArrayList<>(ordersGenerator.generateOrders(countOrders, period));
         List<SelectionReport> selectionReports = reportConstructor.generateSelectionReports(pairsList);
         List<OrdersPerMonth> ordersPerMonths = constructOrdersPerMonth(selectionReports, period);
 
