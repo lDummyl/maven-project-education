@@ -23,12 +23,17 @@ public class Recursion {
 		String s = data.replaceAll("\n", "").trim();
 		System.out.println(s);
 		char[] chars = s.toCharArray();
-		Data data = createData(chars);
+		Data data = createData(chars, 0);
 		System.out.println(data);
 	}
 
-	private static Data createData(char[] chars) {
-		// уложить эти данные рекурсивно в дерево
+	private static Data createData(char[] chars, int index) {
+		StringBuilder name = new StringBuilder();
+
+		for (int i = index; i < chars.length; i++) {
+			//...
+		}
+
 		return null;
 	}
 

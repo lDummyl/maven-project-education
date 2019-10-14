@@ -5,17 +5,20 @@ import task8.CommercialUnit;
 import task8.SelectionReport;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Getter
 public class OrdersPerMonth {
 
+    private LocalDate mount;
     private Integer purchaseCount;
     private Double avgSum;
     private Double delivery;
     private Integer countErrors;
 
-    public OrdersPerMonth(SelectionReport selectionReport) {
+    public OrdersPerMonth(SelectionReport selectionReport, LocalDate mount) {
         CommercialUnit commercialUnit = selectionReport.commercialUnit;
+        this.mount = mount;
         this.purchaseCount = commercialUnit.getCountPositions();
         this.avgSum = getRoundDouble(commercialUnit.getSumPositions() / purchaseCount);
         this.delivery = commercialUnit.getDelivery();
