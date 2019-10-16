@@ -2,6 +2,7 @@ package task8;
 
 import org.junit.Test;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
@@ -14,11 +15,19 @@ public class ReportConstructorTest {
     Converter converter = new Converter();
     List<Pair> pairs = Arrays.asList(new Pair(4., 26.), new Pair(10., 45.));
 
+    private PumpBatchRequest getRequest(LocalDateTime created) {
+        PumpBatchRequest pumpBatchRequest = new PumpBatchRequest(LocalDateTime.now());
+        pumpBatchRequest.created = created;
+        pumpBatchRequest.pairs = Arrays.asList(new Pair(4., 26.), new Pair(10., 45.));
+        return pumpBatchRequest;
+    }
+
     @Test
     public void generateReportStringTest() {
         ReportConstructor reportConstructor = new ReportConstructor(70.);
+        PumpBatchRequest pumpBatchRequest = getRequest(LocalDateTime.now());
 
-        String pairsString = converter.getStringJSON(pairs);
+        String pairsString = converter.getStringJSON(pumpBatchRequest);
         SelectionReport selectionReport = reportConstructor.generateSelectionReport(pairsString);
 
         assertNotNull(selectionReport);
@@ -29,8 +38,9 @@ public class ReportConstructorTest {
     @Test
     public void technicalUnitsTest () {
         ReportConstructor reportConstructor = new ReportConstructor(70.);
+        PumpBatchRequest pumpBatchRequest = getRequest(LocalDateTime.now());
 
-        String pairsString = converter.getStringJSON(pairs);
+        String pairsString = converter.getStringJSON(pumpBatchRequest);
         SelectionReport selectionReport = reportConstructor.generateSelectionReport(pairsString);
 
         List<TechnicalUnit> technicalUnits = selectionReport.technicalUnits;
@@ -43,8 +53,9 @@ public class ReportConstructorTest {
     @Test
     public void commercialUnitTest () {
         ReportConstructor reportConstructor = new ReportConstructor(70.);
+        PumpBatchRequest pumpBatchRequest = getRequest(LocalDateTime.now());
 
-        String pairsString = converter.getStringJSON(pairs);
+        String pairsString = converter.getStringJSON(pumpBatchRequest);
         SelectionReport selectionReport = reportConstructor.generateSelectionReport(pairsString);
 
         CommercialUnit commercialUnit = selectionReport.commercialUnit;
@@ -55,8 +66,9 @@ public class ReportConstructorTest {
     @Test
     public void reportStringTest () {
         ReportConstructor reportConstructor = new ReportConstructor(70.);
+        PumpBatchRequest pumpBatchRequest = getRequest(LocalDateTime.now());
 
-        String pairsString = converter.getStringJSON(pairs);
+        String pairsString = converter.getStringJSON(pumpBatchRequest);
         String report = reportConstructor.generateReport(pairsString);
 
         assertTrue(report.contains("GHN 25/40-130"));

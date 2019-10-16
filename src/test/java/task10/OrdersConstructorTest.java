@@ -2,7 +2,7 @@ package task10;
 
 import org.junit.Test;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 import static org.junit.Assert.*;
@@ -11,8 +11,8 @@ public class OrdersConstructorTest {
 
     Logger log = Logger.getLogger(OrdersConstructorTest.class.getName());
 
-    Period period = new Period(LocalDate.of(2019, 1, 1),
-            LocalDate.of(2019, 12, 1));
+    Period period = new Period(LocalDateTime.of(2019, 1, 1, 0, 0, 0),
+            LocalDateTime.of(2019, 12, 1, 0, 0, 0));
 
     @Test
     public void OrdersReportPerYearTest () {

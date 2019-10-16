@@ -23,14 +23,15 @@ public class Recursion {
 		String s = data.replaceAll("\n", "").trim();
 		System.out.println(s);
 		char[] chars = s.toCharArray();
-		Data data = createData(chars, 0);
+		Data data = createData(chars, 1);
 		System.out.println(data);
 	}
 
-	private static Data createData(char[] chars, int index) {
+	private static Data createData(char[] chars, int groupLevel) {
 		StringBuilder name = new StringBuilder();
+		int currentGroupLevel = 1;
 
-		for (int i = index; i < chars.length; i++) {
+		for (int i = 0; i < chars.length; i++) {
 			//...
 		}
 

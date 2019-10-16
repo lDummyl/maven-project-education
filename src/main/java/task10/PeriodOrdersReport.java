@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.Getter;
 import lombok.SneakyThrows;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -16,7 +16,7 @@ public class PeriodOrdersReport {
     private transient ObjectMapper mapper = new ObjectMapper();
 
     private final Period period;
-    private Map<LocalDate, OrdersPerMonth> orders = new TreeMap<>();
+    private Map<LocalDateTime, OrdersPerMonth> orders = new TreeMap<>();
     private Double purchaseCount = 0.;
     private Double delivery = 0.;
 

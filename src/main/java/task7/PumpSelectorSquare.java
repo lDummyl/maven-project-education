@@ -48,4 +48,24 @@ public class PumpSelectorSquare implements PumpSelector {
         Double percent = workPoint / flow * 100;
         return percent > 0 && percent <= ratioPercent;
     }
+
+    public PumpIMP selectPumpAVGPrice(Double avgPrice) {
+        PumpIMP pumpIMP = null;
+
+        for (PumpIMP pump : pumps) {
+            if (pumpIMP == null) {
+                pumpIMP = pump;
+            } else {
+                if (comparePrices(avgPrice, pumpIMP.getPrice(), pump.getPrice())) {
+                    pumpIMP = pump;
+                }
+            }
+        }
+
+        return pumpIMP;
+    }
+
+    private Boolean comparePrices(Double avgPrice, Double oldPrice, Double newPrice) {
+        return Math.abs(avgPrice - newPrice) < Math.abs(avgPrice - oldPrice);
+    }
 }

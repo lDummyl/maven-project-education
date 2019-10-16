@@ -1,6 +1,5 @@
 package task8;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,6 @@ import lombok.SneakyThrows;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.List;
 
 @NoArgsConstructor
 public class Converter {
@@ -29,19 +27,19 @@ public class Converter {
 
     // TODO: 9/23/19 я бы воспользовался полиморфизмом в данном случае
     @SneakyThrows
-    public List<Pair> pairFromJSON(Path pathFile) {
+    public PumpBatchRequest pairFromJSON(Path pathFile) {
         String content = new String(Files.readAllBytes(pathFile));
         return pairFromJSON(content);
     }
 
     @SneakyThrows
-    public List<Pair> pairFromJSON(String jsonBody) {
-        return mapper.readValue(jsonBody, new TypeReference<List<Pair>>() {});
+    public PumpBatchRequest pairFromJSON(String jsonBody) {
+        return mapper.readValue(jsonBody, PumpBatchRequest.class);
     }
 
     @SneakyThrows
-    public String getStringJSON(List<Pair> pairList) {
-        return mapper.writeValueAsString(pairList);
+    public String getStringJSON(PumpBatchRequest pumpBatchRequest) {
+        return mapper.writeValueAsString(pumpBatchRequest);
     }
 
     @SneakyThrows

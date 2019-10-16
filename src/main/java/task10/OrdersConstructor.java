@@ -1,11 +1,11 @@
 package task10;
 
 import lombok.NoArgsConstructor;
-import task8.Pair;
+import task8.PumpBatchRequestsArchive;
 import task8.ReportConstructor;
 import task8.SelectionReport;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,8 +19,8 @@ public class OrdersConstructor {
     public PeriodOrdersReport constructOrders(int countOrders, Period period) {
         ReportConstructor reportConstructor = new ReportConstructor((double) random.nextInt(70) + 30);
 
-        ArrayList<List<Pair>> pairsList = new ArrayList<>(ordersGenerator.generateOrders(countOrders, period));
-        List<SelectionReport> selectionReports = reportConstructor.generateSelectionReports(pairsList);
+        PumpBatchRequestsArchive pumpBatchRequestsArchive = ordersGenerator.generateOrders(countOrders, period);
+        List<SelectionReport> selectionReports = reportConstructor.generateSelectionReports(pumpBatchRequestsArchive);
         List<OrdersPerMonth> ordersPerMonths = constructOrdersPerMonth(selectionReports, period);
 
         PeriodOrdersReport periodOrdersReport = new PeriodOrdersReport(ordersPerMonths, period);
@@ -33,8 +33,8 @@ public class OrdersConstructor {
         }
 
         List<OrdersPerMonth> ordersPerMonths = new ArrayList<>();
-        LocalDate iterationDate = period.getStart().withDayOfMonth(1);
-        LocalDate endDate = period.getEnd().withDayOfMonth(2);
+        LocalDateTime iterationDate = period.getStart().withDayOfMonth(1);
+        LocalDateTime endDate = period.getEnd().withDayOfMonth(2);
         int index = 0;
         while (iterationDate.isBefore(endDate)) {
             SelectionReport selectionReport = selectionReports.get(index);

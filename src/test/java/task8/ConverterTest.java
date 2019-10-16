@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Logger;
 
 import static org.junit.Assert.*;
@@ -18,13 +18,15 @@ public class ConverterTest {
     // TODO: 9/23/19 кое-чего не хватет, но ты уж сам доведи до ума
     @Test
     public void pairFromJSON() throws JsonProcessingException {
-        List<Pair> pairs = Arrays.asList(new Pair(1., 1.), new Pair(4., 4.));
+        PumpBatchRequest pumpBatchRequest = new PumpBatchRequest(LocalDateTime.now());
+        pumpBatchRequest.created = LocalDateTime.now();
+        pumpBatchRequest.pairs = Arrays.asList(new Pair(1., 1.), new Pair(4., 4.));
         //String s = objectMapper.writeValueAsString(pairs);
         Converter converter = new Converter();
 
-        String s = converter.getStringJSON(pairs);
-        List<Pair> parsed = converter.pairFromJSON(s);
+        String s = converter.getStringJSON(pumpBatchRequest);
+        PumpBatchRequest parsed = converter.pairFromJSON(s);
 
-        assertEquals(2, parsed.size());
+        assertEquals(2, parsed.pairs.size());
     }
 }
