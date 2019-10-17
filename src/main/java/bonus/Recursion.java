@@ -23,25 +23,55 @@ public class Recursion {
 		String s = data.replaceAll("\n", "").trim();
 		System.out.println(s);
 		char[] chars = s.toCharArray();
-		Data data = createData(chars, 1);
+		Data data = createData(chars, 0);
 		System.out.println(data);
 	}
 
 	private static Data createData(char[] chars, int groupLevel) {
-		StringBuilder name = new StringBuilder();
-		int currentGroupLevel = 1;
+		String name = "";
+		Data data = new Data();
+		int currentGroupLevel = 0;
 
-		for (int i = 0; i < chars.length; i++) {
-			//...
+		for (int i = 0; i < chars.length; i++) { // не доделал
+			char symbol = chars[i];
+
+			if (symbol == '(') {
+				currentGroupLevel++;
+//			} else if (symbol == ')' && currentGroupLevel == groupLevel) {
+//				groupLevel = -1;
+			} else if (symbol == ')') {
+				currentGroupLevel--;
+			}
+
+			if (currentGroupLevel == groupLevel && checkParentheses(symbol)) {
+				name += symbol;
+			} else if (currentGroupLevel == groupLevel + 1) {
+				data.nested.add(createData(chars, currentGroupLevel));
+			}
 		}
+		data.name = new StringBuilder(name.trim());
+		data.length = data.name.length();
 
-		return null;
+		return data;
 	}
 
+	private static Boolean checkParentheses(char symbol) {
+		return symbol != '(' && symbol != ')';
+	}
 }
 
 class Data {
+
 	StringBuilder name = new StringBuilder();
 	int length = 0;
 	List<Data> nested = new ArrayList<>();
+
+	@Override
+	public String toString() {
+		return "Data{" +
+				"name=" + name +
+//				", length=" + length +
+				",\n nested=" + nested +
+				'}';
+	}
 }
