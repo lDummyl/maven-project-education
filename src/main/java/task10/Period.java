@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
+// TODO: 10/18/19 Есть класс java.time.Period другой вопрос может тебе нужно дату начала и конца инкапсулировать,
+//  тогда другой случай, но я бы тогда его добавил третим полем и с ним бы работал.
 public class Period {
 
     private LocalDateTime start;
