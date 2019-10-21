@@ -10,5 +10,5 @@ public class SelectionReport {
 
     public List<TechnicalUnit> technicalUnits = new ArrayList<>();
     public CommercialUnit commercialUnit;
-    public transient Integer errors; // не уверен что это верное решение "transient"
+    public Integer errors = 0;
 }

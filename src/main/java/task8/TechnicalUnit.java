@@ -1,7 +1,6 @@
 package task8;
 
 import lombok.Getter;
-import task7.PumpIMP;
 import task7.PumpMinInfo;
 
 @Getter

@@ -36,7 +36,6 @@ public class OrdersGenerator {
         return pumpBatchRequestsArchive;
     }
 
-    // TODO: 10/14/19 повышай информативность названий в коде, гет это получить что-то существующее.
     private PumpBatchRequest generateOrders(int necessaryQty, LocalDateTime date) {
         PumpBatchRequest pumpBatchRequest = new PumpBatchRequest(date);
         for (int i = 0; i < necessaryQty; i++) {

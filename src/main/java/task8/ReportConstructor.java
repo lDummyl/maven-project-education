@@ -35,26 +35,13 @@ public class ReportConstructor {
             Double flow = pair.getFlow();
             Double pressure = pair.getPressure();
 
-            // TODO: 10/14/19 try-catch-driven-development  это не самая лучшая методология
-            //  логика в задании немного другая. Не фиксировать сколько ошибок было сделано
-            //  а каждый подбор должен содеражть инфу примерный он или точный. Если данных нет, например пришел расход 10 а напор "хз" итаких 3 штуки
-            //  нужно дать бюджет, подобрать исходя из того например что есть известных 29 насоаов корректно подобранных, и нужно дать еще один. Можно просто поделить сумму 29 на их
-            //  кол-во и добавить среднее. Можно получив среднюю сумму подобрать модель, ближайшую к этой сумме. Можно учитывать или нет параметры котоыре есть, например если подобранный не выдаст 10
-            //  ни при каком давлении подбирать пока не будет хотябы по нижней границе.
-            //  но так или иначе задача дать максимально реальный бюджет и предупередить, что этот насос подобран в усовиях отсутствия точных данных исходя их среденй величины.
-            //  когда дойдет до реального закупа, они уточнят или купят не глядя, но у тебя булет дисклеймер. Задача в этом короче к ней можно по разному подойти, но главное
-            //  дать КП во что бы то ни стало, бытро чтобы уже предметно потом его уточнять.
-
             PumpIMP pump;
             try {
                 pump = pumpSelectorSquare.select(flow, pressure);
-            } catch (PumpNotSelectedException ex) {
+            } catch (RuntimeExceptionImp ex) {
                 Double avgPrice = getAVGPrice(pumps);
                 pump = pumpSelectorSquare.selectPumpAVGPrice(avgPrice);
-//                ErrorMessage message = ex.getErrorMessage();
-//                if (message != null && message == ErrorMessage.NOT_FOUND) {
                     errors++;
-//                }
             }
             pumps.add(pump);
             PumpMinInfo pumpMinInfo = new PumpMinInfo(pump.getName());
@@ -76,7 +63,6 @@ public class ReportConstructor {
 
     @SneakyThrows
     public SelectionReport generateSelectionReport(String jsonBody) {
-        //List<Pair> pairs = mapper.readValue(jsonBody, new TypeReference<List<Pair>>() {});
         PumpBatchRequest pumpBatchRequest = mapper.readValue(jsonBody, PumpBatchRequest.class);
         return generateSelectionReport(pumpBatchRequest);
     }
@@ -88,7 +74,6 @@ public class ReportConstructor {
 
     @SneakyThrows
     public String generateReport(String jsonBody) {
-        //List<Pair> pairs = mapper.readValue(jsonBody, new TypeReference<List<Pair>>() {});
         PumpBatchRequest pumpBatchRequest = mapper.readValue(jsonBody, PumpBatchRequest.class);
         return generateReport(pumpBatchRequest);
     }
@@ -97,9 +82,6 @@ public class ReportConstructor {
     private String getReport(SelectionReport selectionReport) {
         return selectionReport != null ? mapper.writeValueAsString(selectionReport) : "";
     }
-
-    // TODO: 10/14/19 прочтитай про type erasure технически компилятор полиморфизм в рантайме используется, а в компаилтайме информация в угловых скобках стирается поэтому и там и там List
-    //  что с этим делать Заведи разные классы, классов много не бывает если они понятные и не большие, и из названия следует их Single responsibility.
 
     public List<SelectionReport> generateSelectionReports(PumpBatchRequestsArchive pumpBatchRequestsArchive) {
         List<SelectionReport> selectionReports = new ArrayList<>();

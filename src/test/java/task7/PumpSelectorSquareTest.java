@@ -47,7 +47,7 @@ public class PumpSelectorSquareTest {
         assertTrue(pumpPrice <= maxPrice);
     }
 
-    @Test(expected = PumpNotSelectedException.class)
+    @Test(expected = RuntimeExceptionImp.class)
     public void selectInPriceRangeNullTest() {
         PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare(20.);
 
@@ -56,7 +56,7 @@ public class PumpSelectorSquareTest {
         pumpSelectorSquare.selectInPriceRange(100., 9.5, minPrice, maxPrice);
     }
 
-    @Test(expected = PumpNotSelectedException.class)
+    @Test(expected = RuntimeExceptionImp.class)
     public void selectInPriceRangeNullTestOther() {
         PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare(20.);
 
@@ -65,7 +65,7 @@ public class PumpSelectorSquareTest {
         pumpSelectorSquare.selectInPriceRange(100., 9.5, minPrice, maxPrice);
     }
 
-    @Test(expected = PumpNotSelectedException.class)
+    @Test(expected = RuntimeExceptionImp.class)
     public void selectWithRatioPercentNotNormalTest() {
         PumpSelectorSquare pumpSelectorSquare = new PumpSelectorSquare(0.01);
 

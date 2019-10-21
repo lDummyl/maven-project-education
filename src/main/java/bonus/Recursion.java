@@ -1,6 +1,9 @@
 package bonus;
 
+import com.sun.deploy.util.ArrayUtil;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Recursion {
@@ -23,40 +26,34 @@ public class Recursion {
 		String s = data.replaceAll("\n", "").trim();
 		System.out.println(s);
 		char[] chars = s.toCharArray();
-		Data data = createData(chars, 0);
+		Data data = createData(chars);
 		System.out.println(data);
 	}
 
-	private static Data createData(char[] chars, int groupLevel) {
-		String name = "";
+	private static Data createData(char[] chars) {
 		Data data = new Data();
-		int currentGroupLevel = 0;
 
-		for (int i = 0; i < chars.length; i++) { // не доделал
+		for (int i = 1; i < chars.length; i++) {
 			char symbol = chars[i];
+			data.length++;
+
+			if (symbol == ')') {
+				data.name = new StringBuilder(data.name.toString().trim());
+				return data;
+			}
 
 			if (symbol == '(') {
-				currentGroupLevel++;
-//			} else if (symbol == ')' && currentGroupLevel == groupLevel) {
-//				groupLevel = -1;
-			} else if (symbol == ')') {
-				currentGroupLevel--;
-			}
-
-			if (currentGroupLevel == groupLevel && checkParentheses(symbol)) {
-				name += symbol;
-			} else if (currentGroupLevel == groupLevel + 1) {
-				data.nested.add(createData(chars, currentGroupLevel));
+				Data nestedDate = createData(Arrays.copyOfRange(chars, i, chars.length));
+				i += nestedDate.length;
+				data.length += nestedDate.length;
+				data.nested.add(nestedDate);
+			} else {
+				data.name.append(symbol);
 			}
 		}
-		data.name = new StringBuilder(name.trim());
-		data.length = data.name.length();
 
+		data.name = new StringBuilder(data.name.toString().trim());
 		return data;
-	}
-
-	private static Boolean checkParentheses(char symbol) {
-		return symbol != '(' && symbol != ')';
 	}
 }
 
@@ -68,10 +65,10 @@ class Data {
 
 	@Override
 	public String toString() {
-		return "Data{" +
+		return "\nData{" +
 				"name=" + name +
 //				", length=" + length +
-				",\n nested=" + nested +
+				", nested=" + nested +
 				'}';
 	}
 }

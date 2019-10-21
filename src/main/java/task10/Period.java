@@ -9,20 +9,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-// TODO: 10/18/19 Есть класс java.time.Period другой вопрос может тебе нужно дату начала и конца инкапсулировать,
-//  тогда другой случай, но я бы тогда его добавил третим полем и с ним бы работал.
 public class Period {
 
     private LocalDateTime start;
     private LocalDateTime end;
 
     public int getMonths() {
-        int startYear = start.getYear();
-        int startMonth = start.getMonthValue();
-        int endYear = end.getYear();
-        int endMonth = end.getMonthValue();
-        int month = (endYear * 12 + endMonth) - (startYear * 12 + startMonth) + 1;
-        return month;
-        //return java.time.Period.between(start, end).getMonths();
+        java.time.Period between = java.time.Period.between(start.toLocalDate(), end.toLocalDate());
+        return (int) between.toTotalMonths() + 1;
     }
 }

@@ -4,22 +4,22 @@ import lombok.Getter;
 import lombok.NonNull;
 
 @Getter
-public class PumpNotSelectedException extends RuntimeException {
+public class RuntimeExceptionImp extends RuntimeException {
 
     private String message;
     private ErrorMessage errorMessage;
 
-    public PumpNotSelectedException() {
+    public RuntimeExceptionImp() {
         super();
     }
 
     @NonNull
-    public PumpNotSelectedException(String message) {
+    public RuntimeExceptionImp(String message) {
         super(message);
         this.message = message;
     }
 
-    public PumpNotSelectedException(ErrorMessage errorMessage) {
+    public RuntimeExceptionImp(ErrorMessage errorMessage) {
         super(errorMessage.getMessage());
         this.errorMessage = errorMessage;
         this.message = errorMessage.getMessage();

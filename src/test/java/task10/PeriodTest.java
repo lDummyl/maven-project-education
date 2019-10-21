@@ -14,10 +14,10 @@ public class PeriodTest {
 
     @Test
     public void monthTest () {
-        Period period = new Period(LocalDateTime.of(2019, 6, 1, 0, 0, 0),
+        Period period = new Period(LocalDateTime.of(2017, 6, 1, 0, 0, 0),
                 LocalDateTime.of(2019, 12, 1, 0, 0, 0));
 
-        assertEquals(7, period.getMonths());
+        assertEquals(31, period.getMonths());
     }
 
     @Test

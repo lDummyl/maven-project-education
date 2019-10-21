@@ -2,6 +2,8 @@ package task6;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import task7.ErrorMessage;
+import task7.RuntimeExceptionImp;
 import task8.Pair;
 
 import java.math.BigDecimal;
@@ -89,7 +91,6 @@ public class LagrangePolynomial {
         CoefficientsEquationSquare secondIndicators = getIndicators(b.x, a.x, c.x);
         CoefficientsEquationSquare thirdIndicators = getIndicators(c.x, a.x, b.x);
 
-        // TODO: 10/3/19 важный момент стрим переиспользовать нельзя, каждый раз нужен новый
         List<CoefficientsEquationSquare> indicators = Stream.of(firstIndicators, secondIndicators, thirdIndicators).collect(Collectors.toList());
         List<Double> indicatorsA = indicators.stream().map(CoefficientsEquationSquare::getA).collect(Collectors.toList());
         List<Double> indicatorsB = indicators.stream().map(CoefficientsEquationSquare::getB).collect(Collectors.toList());
@@ -104,9 +105,6 @@ public class LagrangePolynomial {
         return new CoefficientsEquationSquare(firstAll, secondAll, thirdAll);
     }
 
-    // TODO: 10/3/19 можно так как вариант, часто бывает что чем короче запись тем она сложнее понимается, поэтому если точно знаешь что массштабироваться кусок не будет
-    //  можно и оствить запись ту что наглядней, но при этом понимать как ее массштабировать важно как и важно понять когда остановиться)
-
     private static Double getMultipliedIndicators(SquareInterpolation.Point a, SquareInterpolation.Point b, SquareInterpolation.Point c, List<Double> indicatorsX) {
         return getRoundDouble(indicatorsX.get(0) * a.y + indicatorsX.get(1) * b.y + indicatorsX.get(2) * c.y);
     }
@@ -114,7 +112,7 @@ public class LagrangePolynomial {
     private static Double getMultipliedIndicators(List<Double> yS, List<Double> indicatorsX) {
         double result = 0.;
         if (yS.size() != indicatorsX.size()) {
-            throw new RuntimeException("List sizes mismatch");
+            throw new RuntimeExceptionImp(ErrorMessage.LIST_SIZES_MISMATCH);
         }
         for (int i = 0; i < yS.size(); i++) {
             result += yS.get(i) * indicatorsX.get(i);
@@ -138,7 +136,7 @@ public class LagrangePolynomial {
 
     private static Pair getWorkPoint(CoefficientsEquationSquare equationSquare, Double flow, Double pressure) {
         if (!checkCoefficientsCorrect(equationSquare)) {
-            throw new RuntimeException(); // потом заменю на свой exception
+            throw new RuntimeExceptionImp(ErrorMessage.ZERO_VALUE);
         }
 
         double a = equationSquare.a;
