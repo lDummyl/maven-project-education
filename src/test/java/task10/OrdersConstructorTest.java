@@ -58,9 +58,10 @@ public class OrdersConstructorTest {
         OrdersConstructor ordersConstructor = new OrdersConstructor();
         PeriodOrdersReport periodOrdersReport = ordersConstructor.constructOrders(30, period);
 
-        for (OrdersPerMonth ordersPerMonth : periodOrdersReport.getOrders().values()) {
-            assertEquals(0, (int) ordersPerMonth.getCountErrors());
-        }
+        Optional<Integer> reduce = periodOrdersReport.getOrders().values().stream()
+                .map(OrdersPerMonth::getCountErrors)
+                .reduce(Integer::sum);
+        assertEquals(0, reduce.orElse(0).intValue());
     }
 
     @Test
