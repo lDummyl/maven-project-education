@@ -9,17 +9,26 @@ public class Oracle {
     private String rudeness = "Иди в задницу со своими вопросами!!!";
     private String tired = "Я устал... \n Пойду отдохну.";
 
+
+    // TODO: 10/23/19 хорошо, в целом, но есть такая вешь как статический анализ кода, например Sonar. В Идею можно импортировать плагин
+    //  sonar lint и он покажет что не так с этим методом. Кроме того часто при совместной работе достигабются определенные конвенции по стилю
+    //  чаще всего будет требование блок if размещать в {} строкой ниже. Технически проще мержить такой код так что в этом есть смысл..
     public String getAnswer(String question) {
         int chance = (int) (Math.random() * 10);
-        if (chance == 6) answer = rudeness;
-        else if (chance > 6) answer = tired;
-        else {
+        if (chance == 6) {
+            answer = rudeness;
+        } else if (chance > 6) {
+            answer = tired;
+        } else {
             if (question.length() >= 5 && question.length() <= 30) {
                 if (question.toLowerCase().contains("\bчто\b")) answer = "Эти зания у тебя уже есть, загляни в свою душу";
                 if (question.toLowerCase().contains("\bгде\b")) answer = "Ты попадешь туда в скором времени";
                 if (question.toLowerCase().contains("\bкогда\b")) answer = "Когда наступит этот момент - ты узнаешь";
-            } else if (question.length() > 30) answer = tooLongQuestion;
-            else answer = tooShortQuestion;
+            } else if (question.length() > 30) {
+                answer = tooLongQuestion;
+            } else {
+                answer = tooShortQuestion;
+            }
 
         }
 
