@@ -18,6 +18,8 @@ public class Oracle {
     //  sonar lint и он покажет что не так с этим методом. Кроме того часто при совместной работе достигабются определенные конвенции по стилю
     //  чаще всего будет требование блок if размещать в {} строкой ниже. Технически проще мержить такой код так что в этом есть смысл..
 
+
+    // TODO: 10/25/19 а если я добавлю еще 20 условий, не запутаешься? Лучше разбить на логические модули в зависимости от того что мы обрабатывем, длину содержание и проч.
     public String askTheOracle (String question) {
         switch (whatIsCase(question)){
             case 1: {
@@ -73,7 +75,7 @@ public class Oracle {
         if (isQuestion(question)){
             int answerCount = 0;
             for (int i = 0; i < question.length(); i++) {
-                if (question.charAt(i) == '?'){
+                if (question.charAt(i) == '?'){ // TODO: 10/25/19 почему ты уверен что человек всегда озаботится поставить занк впроса, я бы считал слова
                     answerCount++;
                     if (answerCount>1) {
                         return true;
