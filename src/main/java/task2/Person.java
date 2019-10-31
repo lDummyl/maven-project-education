@@ -1,33 +1,34 @@
 package task2;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Person {
     private String name;
-    private String age;
+    private int age;
+    private boolean sex;
     // TODO: 10/25/19  Переведи
     //  все твои скиллы в интерфейсы, как ты понимаешь что интерфейсы так ж могут расширять один или более интерфейсов..
-    private List <Skills> skills = new ArrayList();
 
-    public Person(String name, String age) {
+
+    public Person(String name, int age, String sex) {
         this.name = name;
         this.age = age;
-    }
-
-    public void addSkils (Skills skill){
-        skills.add(skill);
+        this.sex = sex.equalsIgnoreCase("female");
     }
 
     public String getName() {
         return name;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public List<Skills> getSkills() {
-        return skills;
+    public String getSex() {
+        if (sex){
+            return "Female";
+        }else {
+            return "Male";
+        }
+
     }
 }
