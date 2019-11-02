@@ -1,6 +1,7 @@
 package task2;
 
 import org.junit.Test;
+import task2.People.*;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -13,7 +14,11 @@ public class OfficeTest {
 
 		Office office = new Office();
 		office.inviteToAudition(new LarisaIvanovna("Larisa", 56, "female"));
-//        assertTrue(office.getSecretary() != null);
+		office.inviteToAudition(new SergeyPetrovich("Sergey", 34, "male"));
+		office.inviteToAudition(new VladimirSergeyevich("Vladimir", 26, "male"));
+		office.inviteToAudition(new AnnaNikolayevna("Anna", 28, "female"));
+		office.inviteToAudition(new EvgeniyaSemenovna("Evgeniya", 35, "female"));
+		office.inviteToAudition(new NikitaPavlovich("Nikita", 32, "male"));
 		assertNotNull(office.getSecretary());
 
 	}

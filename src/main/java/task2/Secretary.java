@@ -18,4 +18,20 @@ public class Secretary implements CanPassInterview {
         this.age = person.getAge();
         this.sex = person.getSex().equalsIgnoreCase("female");
     }
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getSex() {
+        if (sex){
+            return "Female";
+        }else {
+            return "Male";
+        }
+
+    }
 }
