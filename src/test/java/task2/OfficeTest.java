@@ -12,7 +12,7 @@ public class OfficeTest {
 	public void inviteToAudition() {
 
 		Office office = new Office();
-		office.inviteToAudition(new Person("Larisa", 56, "female"));
+		office.inviteToAudition(new LarisaIvanovna("Larisa", 56, "female"));
 //        assertTrue(office.getSecretary() != null);
 		assertNotNull(office.getSecretary());
 
