@@ -11,12 +11,13 @@ public class Secretary implements CanPassInterview {
 
     private String name;
     private int age;
-    private boolean sex; // TODO: 11/3/19 используй для таких вещей enum
+    private Gender gender; // TODO: 11/3/19 используй для таких вещей enum
+    private Office office;
 
     public Secretary(Person person) {
         this.name = person.getName();
         this.age = person.getAge();
-        this.sex = person.getSex().equalsIgnoreCase("female");
+        this.gender = person.getGender();
     }
     public String getName() {
         return name;
@@ -26,12 +27,11 @@ public class Secretary implements CanPassInterview {
         return age;
     }
 
-    public String getSex() {
-        if (sex){
-            return "Female";
-        }else {
-            return "Male";
-        }
+    public Gender getGender() {
+        return gender;
+    }
 
+    protected void setOffice(Office office) {
+        this.office = office;
     }
 }

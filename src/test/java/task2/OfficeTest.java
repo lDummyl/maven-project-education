@@ -14,12 +14,12 @@ public class OfficeTest {
 
 		Office office = new Office();
 		// TODO: 11/3/19 заводить для каждого человека класс, это немного противоречит самой концепции класса.
-		office.inviteToAudition(new LarisaIvanovna("Larisa", 56, "female"));
-		office.inviteToAudition(new SergeyPetrovich("Sergey", 34, "male"));
-		office.inviteToAudition(new VladimirSergeyevich("Vladimir", 26, "male"));
-		office.inviteToAudition(new AnnaNikolayevna("Anna", 28, "female"));
-		office.inviteToAudition(new EvgeniyaSemenovna("Evgeniya", 35, "female"));
-		office.inviteToAudition(new NikitaPavlovich("Nikita", 32, "male"));
+		office.inviteToAudition(new LarisaIvanovna("Larisa", 56, Gender.Female));
+		office.inviteToAudition(new SergeyPetrovich("Sergey", 34, Gender.Male));
+		office.inviteToAudition(new VladimirSergeyevich("Vladimir", 26, Gender.Male));
+		office.inviteToAudition(new AnnaNikolayevna("Anna", 28, Gender.Female));
+		office.inviteToAudition(new EvgeniyaSemenovna("Evgeniya", 35, Gender.Female));
+		office.inviteToAudition(new NikitaPavlovich("Nikita", 32, Gender.Male));
 		assertNotNull(office.getSecretary());
 
 	}

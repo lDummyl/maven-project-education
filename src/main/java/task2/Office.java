@@ -19,13 +19,16 @@ public class Office {
 	private Hr hr = new Hr();
 	private Secretary secretary;
 
+	public Office() {
+		this.hr.setOffice(this);
+		this.director.setOffice(this);
+	}
+
 	public void inviteToAudition(Person person){
-		List<Person> passed = hr.examinePerson(person);
-		if (secretary == null) { // TODO: 11/3/19 логики в офисе быть не должно, офис не принимает решений
-			secretary = director.chooseCandidate(passed);
-		} else {
-			System.out.println("В офисе уже есть секретарь - " + secretary.getName());
-		}
+		List<Person> passed = hr.examinePerson(person);// TODO: 11/3/19 логики в офисе быть не должно, офис не принимает решений
+		secretary = director.chooseCandidate(passed);
+		if (secretary != null)secretary.setOffice(this);
+
 	}
 
 	public Secretary getSecretary() {
