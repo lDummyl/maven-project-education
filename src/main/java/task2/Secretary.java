@@ -11,7 +11,7 @@ public class Secretary implements CanPassInterview {
 
     private String name;
     private int age;
-    private boolean sex;
+    private boolean sex; // TODO: 11/3/19 используй для таких вещей enum
 
     public Secretary(Person person) {
         this.name = person.getName();

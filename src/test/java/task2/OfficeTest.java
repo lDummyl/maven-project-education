@@ -13,6 +13,7 @@ public class OfficeTest {
 	public void inviteToAudition() {
 
 		Office office = new Office();
+		// TODO: 11/3/19 заводить для каждого человека класс, это немного противоречит самой концепции класса.
 		office.inviteToAudition(new LarisaIvanovna("Larisa", 56, "female"));
 		office.inviteToAudition(new SergeyPetrovich("Sergey", 34, "male"));
 		office.inviteToAudition(new VladimirSergeyevich("Vladimir", 26, "male"));

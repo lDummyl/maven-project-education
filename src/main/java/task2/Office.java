@@ -21,7 +21,7 @@ public class Office {
 
 	public void inviteToAudition(Person person){
 		List<Person> passed = hr.examinePerson(person);
-		if (secretary == null) {
+		if (secretary == null) { // TODO: 11/3/19 логики в офисе быть не должно, офис не принимает решений
 			secretary = director.chooseCandidate(passed);
 		} else {
 			System.out.println("В офисе уже есть секретарь - " + secretary.getName());
