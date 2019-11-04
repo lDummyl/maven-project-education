@@ -31,7 +31,7 @@ public class Secretary implements CanPassInterview {
         return gender;
     }
 
-    protected void setOffice(Office office) {
+    protected void setOffice(Office office) { // TODO: 11/4/19 модификатор доступа может быть уже
         this.office = office;
     }
 }

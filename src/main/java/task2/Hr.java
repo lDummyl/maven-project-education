@@ -15,7 +15,7 @@ public class Hr {
             candidates.clear();
             return candidates;
         }
-        if (person instanceof CanPassInterview) // TODO: 11/3/19 не самый лучший способ использования интерфейсов
+        if (person instanceof CanPassInterview) // TODO: 11/3/19 к сожалению, это по прежнему не самый лучший способ использования интерфейсов
             candidates.add(person);
         return candidates;
     }
