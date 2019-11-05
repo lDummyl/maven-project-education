@@ -18,7 +18,7 @@ public class MonitoringLogFiles implements Runnable {
     }
 
     public static void main(String[] args) {
-        Thread thread = new Thread(new MonitoringLogFiles("F:\\My knowledge\\Java\\Practice\\GitHub\\testWalk"));
+        Thread thread = new Thread(new MonitoringLogFiles("F:\\My knowledge\\Java\\Practice\\GitHub\\testWalk"));  // TODO: 11/5/19 как ты понимаешь у меня этот путь работать не будет, перенеси в ресурсы проекта
         thread.start();
     }
 }

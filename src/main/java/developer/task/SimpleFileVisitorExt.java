@@ -28,7 +28,7 @@ public class SimpleFileVisitorExt extends SimpleFileVisitor<Path> {
 
         File file = pathFile.toFile();
         if (file.canWrite()) {
-            new FileOutputStream(file, true);
+            new FileOutputStream(file, true); // TODO: 11/5/19 try-with resources
             processData(file);
         }
 
@@ -38,11 +38,8 @@ public class SimpleFileVisitorExt extends SimpleFileVisitor<Path> {
     private Boolean checkPath(Path pathFile) {
         if (!Files.isRegularFile(pathFile)) {
             return false;
-        } else if (!matcher.matches(pathFile.getFileName())) {
-            return false;
-        }
+        } else return matcher.matches(pathFile.getFileName());
 
-        return true;
     }
 
     private void processData(File file) {
