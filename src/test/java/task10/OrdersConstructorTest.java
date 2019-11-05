@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 
 public class OrdersConstructorTest {
 
+    public static final int COUNT_ORDERS = 30;
     Logger log = Logger.getLogger(OrdersConstructorTest.class.getName());
 
     Period period = new Period(LocalDateTime.of(2019, 1, 1, 0, 0, 0),
@@ -18,20 +19,19 @@ public class OrdersConstructorTest {
     @Test
     public void OrdersReportPerYearTest() {
         OrdersConstructor ordersConstructor = new OrdersConstructor();
-        int countOrders = 30;
-        PeriodOrdersReport periodOrdersReport = ordersConstructor.constructOrders(countOrders, period);
+        PeriodOrdersReport periodOrdersReport = ordersConstructor.constructOrders(COUNT_ORDERS, period);
 
         Optional<Integer> reduce = periodOrdersReport.getOrders().values().stream()
                 .map(OrdersPerMonth::getPurchaseCount)
                 .reduce(Integer::sum);
 
-        assertEquals(countOrders, reduce.orElse(0).intValue());
+        assertEquals(COUNT_ORDERS, reduce.orElse(0).intValue());
     }
 
     @Test
     public void validValuesTest () {
         OrdersConstructor ordersConstructor = new OrdersConstructor();
-        PeriodOrdersReport periodOrdersReport = ordersConstructor.constructOrders(30, period);
+        PeriodOrdersReport periodOrdersReport = ordersConstructor.constructOrders(COUNT_ORDERS, period);
 
         long invalidValues = periodOrdersReport.getOrders().values().stream()
                 .filter(i -> i.getPurchaseCount() <= 0).count();
@@ -42,7 +42,7 @@ public class OrdersConstructorTest {
     @Test
     public void deliveryTest () {
         OrdersConstructor ordersConstructor = new OrdersConstructor();
-        PeriodOrdersReport periodOrdersReport = ordersConstructor.constructOrders(30, period);
+        PeriodOrdersReport periodOrdersReport = ordersConstructor.constructOrders(COUNT_ORDERS, period);
 
         Optional<Double> reduce = periodOrdersReport.getOrders().values().stream()
                 .map(i -> i.getAvgSum() * i.getPurchaseCount())
@@ -56,7 +56,7 @@ public class OrdersConstructorTest {
     @Test
     public void errorsTest() {
         OrdersConstructor ordersConstructor = new OrdersConstructor();
-        PeriodOrdersReport periodOrdersReport = ordersConstructor.constructOrders(30, period);
+        PeriodOrdersReport periodOrdersReport = ordersConstructor.constructOrders(COUNT_ORDERS, period);
 
         Optional<Integer> reduce = periodOrdersReport.getOrders().values().stream()
                 .map(OrdersPerMonth::getCountErrors)
@@ -68,7 +68,7 @@ public class OrdersConstructorTest {
     public void OrdersReportPerThreeMonthTest() {
         int countMonth = 12;
         OrdersConstructor ordersConstructor = new OrdersConstructor();
-        PeriodOrdersReport periodOrdersReport = ordersConstructor.constructOrders(30, period);
+        PeriodOrdersReport periodOrdersReport = ordersConstructor.constructOrders(COUNT_ORDERS, period);
 
         assertEquals(countMonth, periodOrdersReport.getOrders().size());
     }
@@ -76,10 +76,10 @@ public class OrdersConstructorTest {
     @Test
     public void OrdersReportPerYearStringTest() {
         OrdersConstructor ordersConstructor = new OrdersConstructor();
-        PeriodOrdersReport periodOrdersReport = ordersConstructor.constructOrders(30, period);
+        PeriodOrdersReport periodOrdersReport = ordersConstructor.constructOrders(COUNT_ORDERS, period);
 
         String report = periodOrdersReport.toString();
         log.info(report);
-        assertTrue(report.contains("\"purchaseCount\" : 30.0"));
+        assertTrue(report.contains("\"purchaseCount\" : " + COUNT_ORDERS + ".0"));
     }
 }
