@@ -100,13 +100,6 @@ public class XMLParser {
         return output;
     }
 
-    public static void main(String[] args) {
-        File file = new File("target/logs/file1.xml");
-//        List<User> usersAlso = parseXML("target/logs/file1.xml");
-        Output output = parseXMLWithMapper(file);
-        System.out.println(file.getParentFile().getAbsolutePath().replace("\\", "/"));
-    }
-
     @SneakyThrows
     public static void mainTest(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(10);

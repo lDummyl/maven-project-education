@@ -9,16 +9,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SimpleFileVisitorExt extends SimpleFileVisitor<Path> {
 
-    private final String PATTERN_XML = "glob:{file}[0-9].xml";
-    private final PathMatcher matcher;
-
-    protected SimpleFileVisitorExt() {
-        super();
-        matcher = FileSystems.getDefault().getPathMatcher(PATTERN_XML);
-    }
+    private final Pattern pattern = Pattern.compile("^file\\d+\\.xml", Pattern.CASE_INSENSITIVE);
 
     @Override
     public FileVisitResult visitFile(Path pathFile, BasicFileAttributes attrs) throws IOException {
@@ -28,18 +24,22 @@ public class SimpleFileVisitorExt extends SimpleFileVisitor<Path> {
 
         File file = pathFile.toFile();
         if (file.canWrite()) {
-            new FileOutputStream(file, true); // TODO: 11/5/19 try-with resources
-            processData(file);
+            try (FileOutputStream stream = new FileOutputStream(file, true)) { // TODO: 11/5/19 try-with resources // хотел дописать и забыл, спасибо
+                processData(file);
+            }
         }
 
         return FileVisitResult.CONTINUE;
     }
 
     private Boolean checkPath(Path pathFile) {
+        Matcher matcher = pattern.matcher(pathFile.getFileName().toString());
+
         if (!Files.isRegularFile(pathFile)) {
             return false;
-        } else return matcher.matches(pathFile.getFileName());
-
+        } else {
+            return matcher.find();
+        }
     }
 
     private void processData(File file) {
