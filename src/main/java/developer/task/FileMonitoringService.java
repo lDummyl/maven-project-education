@@ -13,6 +13,7 @@ public class FileMonitoringService implements Runnable {
     private String pathFile;
     private final int countThread;
 
+    // TODO: 11/10/19 ниче не понял вообще. Просто читай все долбанные фаилы в сколлекцию строк с определенной периодичностью. Потом прочтенные фаилы переноси или удаляй.
     @Override
     public void run() {
         ExecutorService executorService = Executors.newFixedThreadPool(countThread);
