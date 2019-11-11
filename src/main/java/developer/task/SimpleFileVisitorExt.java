@@ -3,6 +3,7 @@ package developer.task;
 import developer.task.XMLInteraction.XMLParser;
 import developer.task.XMLInteraction.XMLWriter;
 import developer.task.structureXML.output.Output;
+import lombok.SneakyThrows;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,6 +43,7 @@ public class SimpleFileVisitorExt extends SimpleFileVisitor<Path> {
         }
     }
 
+    @SneakyThrows
     private void processData(File file) {
         String fileName = "/avg_" + file.getName();
         String absolutePath = file.getParentFile().getAbsolutePath().replace("\\", "/");
@@ -49,5 +51,9 @@ public class SimpleFileVisitorExt extends SimpleFileVisitor<Path> {
 
         Output output = XMLParser.parseXMLWithMapper(file);
         XMLWriter.writeXMLWithMapper(output, pathFile);
+
+        String oldPath = absolutePath + "/" + file.getName();
+        String newPath = absolutePath + "/read-files/" + file.getName();
+//        Files.move(Paths.get(oldPath), Paths.get(newPath), StandardCopyOption.REPLACE_EXISTING); // тут сыпется WindowsException
     }
 }

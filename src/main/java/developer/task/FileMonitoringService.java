@@ -13,21 +13,42 @@ public class FileMonitoringService implements Runnable {
     private String pathFile;
     private final int countThread;
 
-    // TODO: 11/10/19 ниче не понял вообще. Просто читай все долбанные фаилы в сколлекцию строк с определенной периодичностью. Потом прочтенные фаилы переноси или удаляй.
+    @SneakyThrows
     @Override
     public void run() {
         ExecutorService executorService = Executors.newFixedThreadPool(countThread);
         Path path = Paths.get(pathFile);
+        WatchService watchService = getWatchService(path);
 
-        WatchKey watchKey = getWatchKey(path);
-        // тут я не уверен что пошел по правильному пути, что-то не клеится
+        while (true) {
+            WatchKey watchKey = watchService.take();
+
+            for (WatchEvent<?> event : watchKey.pollEvents()) {
+                WatchEvent<Path> eventPath = (WatchEvent<Path>) event;
+                String absolutePath = pathFile + "/" + eventPath.context().toString();
+                executorService.submit(new LogFilesMonitoring(absolutePath));
+                Thread.sleep(3000);
+            }
+
+            if (!watchKey.reset()) {
+                break;
+            }
+        }
     }
 
     @SneakyThrows
-    private WatchKey getWatchKey(Path path) {
+    private WatchService getWatchService(Path path) {
         WatchService watchService = path.getFileSystem().newWatchService();
         path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY);
 
-        return watchService.take();
+        return watchService;
+    }
+
+    public static void main(String[] args) {
+        String path = "target/developer-task-logs";
+        int countThread = 10;
+
+        Thread thread = new Thread(new FileMonitoringService(path, countThread));
+        thread.start();
     }
 }
