@@ -25,7 +25,8 @@ public class FileMonitoringService implements Runnable {
 
             for (WatchEvent<?> event : watchKey.pollEvents()) {
                 WatchEvent<Path> eventPath = (WatchEvent<Path>) event;
-                String absolutePath = pathFile + "/" + eventPath.context().toString();
+                String absolutePath = eventPath.context().toAbsolutePath().toString().replace("\\", "/");
+                // не могу получить полный путь до файла. делаю это для file2.xml
                 executorService.submit(new LogFilesMonitoring(absolutePath));
                 Thread.sleep(3000);
             }
