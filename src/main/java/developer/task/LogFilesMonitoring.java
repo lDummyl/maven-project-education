@@ -27,6 +27,11 @@ public class LogFilesMonitoring implements Runnable {
         Files.walkFileTree(pathFiles, new SimpleFileVisitorExt());
     }
 
+
+// TODO: 11/15/19  Зачем тебе 2 метода main? Почему не используешь способ чтения ресурсов, которые я привел? Почему нет никаких тестов?
+//  За 15 минут прочитать код и понять как он работет может только компилятор. Человек этого делать не будет. One Issue at a time. Если есть проблема напиши тест кейс, который валится.
+//  Тогда тебе можно будет помочь. Пока я могу только сказать почему программа не запускается, но я сделал это уже 11.10.19
+
     @SneakyThrows
     public static void main(String[] args) {
         InputStream resource = Thread.currentThread().getContextClassLoader().getResourceAsStream("text.txt");
