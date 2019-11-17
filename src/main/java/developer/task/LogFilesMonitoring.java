@@ -1,45 +1,105 @@
 package developer.task;
 
+import developer.task.XMLInteraction.XMLParser;
+import developer.task.XMLInteraction.XMLWriter;
+import developer.task.structureXML.output.Output;
 import lombok.SneakyThrows;
-import org.apache.commons.io.IOUtils;
 
-import java.io.InputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Objects;
+import java.nio.file.StandardCopyOption;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LogFilesMonitoring implements Runnable {
 
-    private Path pathFiles;
+    private final String readFiles = "/read-files";
+    private final Pattern patternReadFiles = Pattern.compile(readFiles + "(/|$)");
+    private final Pattern patternFileName = Pattern.compile("^file\\d+\\.xml", Pattern.CASE_INSENSITIVE);
 
-    public LogFilesMonitoring(Path pathFiles) {
-        this.pathFiles = pathFiles;
+    private Path pathFile;
+
+    public LogFilesMonitoring(Path pathFile) {
+        this.pathFile = pathFile;
     }
 
-    public LogFilesMonitoring(String pathFiles) {
-        this.pathFiles = Paths.get(pathFiles);
+    public LogFilesMonitoring(String pathFile) {
+        this.pathFile = Paths.get(pathFile);
     }
 
     @SneakyThrows
     @Override
     public void run() {
-        Files.walkFileTree(pathFiles, new SimpleFileVisitorExt());
+        if (!checkPath(pathFile)) {
+            return;
+        }
+
+        try (FileOutputStream stream = new FileOutputStream(pathFile.toFile(), true)) {
+            processData();
+        }
+
+        moveFile();
     }
 
+    private Boolean checkPath(Path pathFile) {
+        String absolutePath = pathFile.toAbsolutePath().toString().replace("\\", "/");
 
-// TODO: 11/15/19  Зачем тебе 2 метода main? Почему не используешь способ чтения ресурсов, которые я привел? Почему нет никаких тестов?
-//  За 15 минут прочитать код и понять как он работет может только компилятор. Человек этого делать не будет. One Issue at a time. Если есть проблема напиши тест кейс, который валится.
-//  Тогда тебе можно будет помочь. Пока я могу только сказать почему программа не запускается, но я сделал это уже 11.10.19
+        Matcher matcherReadFiles = patternReadFiles.matcher(absolutePath);
+        Matcher matcherFileName = patternFileName.matcher(pathFile.getFileName().toString());
+
+        if (!Files.isRegularFile(pathFile)) {
+            return false;
+        } else {
+            return !matcherReadFiles.find() && matcherFileName.find();
+        }
+    }
+
+    private void processData() {
+        File file = pathFile.toFile();
+        String fileName = "/avg_" + file.getName();
+        String absolutePath = file.getParentFile().getAbsolutePath().replace("\\", "/");
+        String pathFile = absolutePath + fileName;
+
+        Output output = XMLParser.parseXMLWithMapper(file);
+        XMLWriter.writeXMLWithMapper(output, pathFile);
+    }
 
     @SneakyThrows
-    public static void main(String[] args) {
-        InputStream resource = Thread.currentThread().getContextClassLoader().getResourceAsStream("text.txt");
-        String myString = IOUtils.toString(Objects.requireNonNull(resource), "UTF-8");
-        System.out.println(myString);
+    private void moveFile() {
+        String absolutePath = pathFile.getParent().toAbsolutePath().toString().replace("\\", "/");
+        String fileName = pathFile.getFileName().toString();
 
-        Thread thread = new Thread(new LogFilesMonitoring("target/developer-task-logs"));  // TODO: 11/5/19 как ты понимаешь у меня этот путь работать не будет, перенеси в ресурсы проекта
-        // ресурсы не читаются почему-то, еще с прошлых задач по этому проекту
+        String pathReadFile = absolutePath + readFiles;
+        checkFileAvailability(pathReadFile, true);
+
+        String oldPath = absolutePath + "/" + fileName;
+        String newPath = pathReadFile + "/" + fileName;
+
+        checkFileAvailability(newPath, false);
+        Files.move(Paths.get(oldPath), Paths.get(newPath), StandardCopyOption.REPLACE_EXISTING);
+    }
+
+    @SneakyThrows
+    private Boolean checkFileAvailability(String filePath, Boolean isDirectory) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            if (isDirectory) {
+                return file.mkdir();
+            } else {
+                return file.createNewFile();
+            }
+        }
+
+        return true;
+    }
+    @SneakyThrows
+    public static void main(String[] args) {
+        String pathFiles = "./developer-task-logs/file1.xml";
+
+        Thread thread = new Thread(new LogFilesMonitoring(pathFiles));
         thread.start();
     }
 }
