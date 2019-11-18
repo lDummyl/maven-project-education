@@ -19,16 +19,13 @@ public class XMLParser {
 
     @Synchronized
     public static Output parseXMLWithMapper(File file) {
-        Output output = parseXMLWithMapper_Input(file);
-        return output;
+        return parseXMLWithMapper_Input(file);
     }
 
     private static Output parseXMLWithMapper_Input(File file) {
         Input input = XMLReader.readXMLWithMapper(file, Input.class);
         List<User> users = collectUsers(input);
-        Output output = parseUsers(users);
-
-        return output;
+        return parseUsers(users);
     }
 
     private static List<User> collectUsers(Input input) {

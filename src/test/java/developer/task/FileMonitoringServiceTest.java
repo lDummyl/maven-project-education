@@ -9,6 +9,8 @@ public class FileMonitoringServiceTest {
 
     Logger log = Logger.getLogger(FileMonitoringServiceTest.class.getName());
 
+    // TODO: 11/18/19 тесты тесты тесты, нужен кейс где один и тот же юзер обрабатывется несколькими потоками и извстный результат подтверждается, то есть не искривляется асинхронностью.
+    
     @SneakyThrows
     @Test
     public void runTest () {

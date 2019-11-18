@@ -6,7 +6,6 @@ import developer.task.structureXML.output.Output;
 import lombok.SneakyThrows;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -14,7 +13,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class LogFilesMonitoring implements Runnable {
+public class SingleFileProcesser implements Runnable {
 
     private final String readFiles = "/read-files";
     private final Pattern patternReadFiles = Pattern.compile(readFiles + "(/|$)");
@@ -22,25 +21,19 @@ public class LogFilesMonitoring implements Runnable {
 
     private Path pathFile;
 
-    public LogFilesMonitoring(Path pathFile) {
+    public SingleFileProcesser(Path pathFile) {
         this.pathFile = pathFile;
     }
 
-    public LogFilesMonitoring(String pathFile) {
-        this.pathFile = Paths.get(pathFile);
-    }
 
     @SneakyThrows
     @Override
     public void run() {
         if (!checkPath(pathFile)) {
             return;
+            // TODO: 11/18/19 вероятнее стоит бросить экспешн если что-то не так.
         }
-
-        try (FileOutputStream stream = new FileOutputStream(pathFile.toFile(), true)) {
-            processData();
-        }
-
+        processData();
         moveFile();
     }
 
@@ -63,9 +56,11 @@ public class LogFilesMonitoring implements Runnable {
         String absolutePath = file.getParentFile().getAbsolutePath().replace("\\", "/");
         String pathFile = absolutePath + fileName;
 
+        // TODO: 11/18/19 тебе следует собрать сначала данные в общий котел, к которому организовать синхронный доступ, и потом отдельной службой выводить с него данные в отчет. Я этого не нашел, может плохо искал.
         Output output = XMLParser.parseXMLWithMapper(file);
         XMLWriter.writeXMLWithMapper(output, pathFile);
     }
+
 
     @SneakyThrows
     private void moveFile() {
@@ -84,6 +79,8 @@ public class LogFilesMonitoring implements Runnable {
 
     @SneakyThrows
     private Boolean checkFileAvailability(String filePath, Boolean isDirectory) {
+        // TODO: 11/18/19 ну как то у тебя не используется возвращаемое значение нигде
+
         File file = new File(filePath);
         if (!file.exists()) {
             if (isDirectory) {
@@ -92,14 +89,6 @@ public class LogFilesMonitoring implements Runnable {
                 return file.createNewFile();
             }
         }
-
         return true;
-    }
-    @SneakyThrows
-    public static void main(String[] args) {
-        String pathFiles = "./developer-task-logs/file1.xml";
-
-        Thread thread = new Thread(new LogFilesMonitoring(pathFiles));
-        thread.start();
     }
 }
