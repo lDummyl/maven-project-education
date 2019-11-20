@@ -48,7 +48,7 @@ public class FileMonitoringService implements Runnable {
         ExecutorService executorService = Executors.newFixedThreadPool(countThread);
         Path path = Paths.get(pathFile);
 
-        for (int j = 0; j < 1; j++) { // TODO: 11/18/19  ну ты понимаешь что это выполнится только 1 раз.
+        while (true) {
             try (Stream<Path> walk = Files.walk(path)) {
                 walk.forEach(i -> executorService.submit(new SingleFileProcesser(i)));
             }

@@ -4,6 +4,7 @@ import developer.task.XMLInteraction.XMLParser;
 import developer.task.XMLInteraction.XMLWriter;
 import developer.task.structureXML.output.Output;
 import lombok.SneakyThrows;
+import task7.RuntimeExceptionImp;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -32,6 +33,7 @@ public class SingleFileProcesser implements Runnable {
         if (!checkPath(pathFile)) {
             return;
             // TODO: 11/18/19 вероятнее стоит бросить экспешн если что-то не так.
+            // мне кажется что не надо, тут просто идет проверка на то что это не папка или не файл с другим паттерном имени и формата
         }
         processData();
         moveFile();
@@ -57,6 +59,7 @@ public class SingleFileProcesser implements Runnable {
         String pathFile = absolutePath + fileName;
 
         // TODO: 11/18/19 тебе следует собрать сначала данные в общий котел, к которому организовать синхронный доступ, и потом отдельной службой выводить с него данные в отчет. Я этого не нашел, может плохо искал.
+        // тут не понял что значит собрать в общий котел? сейчас у меня для каждого файла формируется отдельно выходной файл xml, каждый в своем потоке
         Output output = XMLParser.parseXMLWithMapper(file);
         XMLWriter.writeXMLWithMapper(output, pathFile);
     }
@@ -68,12 +71,16 @@ public class SingleFileProcesser implements Runnable {
         String fileName = pathFile.getFileName().toString();
 
         String pathReadFile = absolutePath + readFiles;
-        checkFileAvailability(pathReadFile, true);
+        if (!checkFileAvailability(pathReadFile, true)) {
+            throw new RuntimeExceptionImp("can't create directory");
+        }
 
         String oldPath = absolutePath + "/" + fileName;
         String newPath = pathReadFile + "/" + fileName;
 
-        checkFileAvailability(newPath, false);
+        if (!checkFileAvailability(newPath, false)) {
+            throw new RuntimeExceptionImp("can't create file");
+        }
         Files.move(Paths.get(oldPath), Paths.get(newPath), StandardCopyOption.REPLACE_EXISTING);
     }
 
