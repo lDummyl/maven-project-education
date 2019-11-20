@@ -20,6 +20,7 @@ public class FileMonitoringServiceTest {
 
         // TODO: 11/18/19 ну так это и работает, эксепшн в одном потоке на другой не влияет, для этого есть Callable. Чтобы тест прошел или нет нужен ассерт на твой результат и все будет пучком.
         // все равно не понял что мне нужно сделать, чтобы тест работал так же как и в main сейчас
+        // TODO: 11/20/19 в тесте должны быть assert где они?
         int countThread = 10;
 
         Thread thread = new Thread(new FileMonitoringService(path, countThread));
