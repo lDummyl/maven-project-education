@@ -6,6 +6,10 @@ import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.nio.file.Paths;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 import static org.junit.Assert.*;
@@ -23,7 +27,7 @@ public class FileMonitoringServiceTest {
     public void runTest () {
         int countThread = 10;
 
-        Thread thread = new Thread(new FileMonitoringService(path, countThread));
+        Thread thread = new Thread(new FileMonitoringService(path, countThread, Duration.ofSeconds(3)));
         thread.start();
         Thread.sleep(5000);
 
@@ -44,14 +48,28 @@ public class FileMonitoringServiceTest {
     public void someRunTest () {
         int countThread = 10;
 
-        Thread threadOne = new Thread(new FileMonitoringService(path, countThread));
-        Thread threadTwo = new Thread(new FileMonitoringService(path, countThread));
+        // TODO: 11/22/19 зачем тебе 2 мониторинга? Один прораб ходит по всем папкам и каждый фаил отдает другому потоку,
+        //  который обрабатывает его и данные добавляет в общий котел. после завершения периода сканирования мы выводим общий результат.
 
-        threadOne.start();
-        threadTwo.start();
-        Thread.sleep(5000);
+        Thread threadOne = new Thread(new FileMonitoringService(path, countThread, Duration.ofSeconds(3)));
+        Thread threadTwo = new Thread(new FileMonitoringService(path, countThread, Duration.ofSeconds(3)));
+
+        List<Thread> threads = Arrays.asList(threadOne, threadTwo);
+        threads.forEach(Thread::start);
+        for (Thread thread : threads) {
+            thread.join(); // TODO: 11/22/19 вместо ожидания используй этот метод.
+        }
+        assertTrue(Paths.get(path + "/some-test-folder/avg_file21.xml").toFile().exists());
+
+
+
+
+
+
+
 
         boolean fileExists;
+
 
         fileExists = checkFileExists(path + "/some-test-folder/file21.xml");
         assertFalse(fileExists);
