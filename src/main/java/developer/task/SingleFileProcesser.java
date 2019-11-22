@@ -32,8 +32,6 @@ public class SingleFileProcesser implements Runnable {
     public void run() {
         if (!checkPath(pathFile)) {
             return;
-            // TODO: 11/18/19 вероятнее стоит бросить экспешн если что-то не так.
-            // мне кажется что не надо, тут просто идет проверка на то что это не папка или не файл с другим паттерном имени и формата
         }
         processData();
         moveFile();
@@ -77,17 +75,15 @@ public class SingleFileProcesser implements Runnable {
 
         String oldPath = absolutePath + "/" + fileName;
         String newPath = pathReadFile + "/" + fileName;
-
         if (!checkFileAvailability(newPath, false)) {
             throw new RuntimeExceptionImp("can't create file");
         }
+
         Files.move(Paths.get(oldPath), Paths.get(newPath), StandardCopyOption.REPLACE_EXISTING);
     }
 
     @SneakyThrows
     private Boolean checkFileAvailability(String filePath, Boolean isDirectory) {
-        // TODO: 11/18/19 ну как то у тебя не используется возвращаемое значение нигде
-
         File file = new File(filePath);
         if (!file.exists()) {
             if (isDirectory) {
