@@ -19,6 +19,20 @@ public class ShapesDraw {
     }
 }
 
+class MyPoint {
+    double a;
+    double b;
+
+    public MyPoint(double a, double b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    public MyPoint plus(double a, double b) {
+        return new MyPoint(a + this.a, b + this.b);
+    }
+}
+
 
 class LineComponent extends JComponent {
 
@@ -32,17 +46,31 @@ class LineComponent extends JComponent {
 
     public void addLines() {
 
-        addLine();
+        MyPoint startPoint = new MyPoint(200, 100);
+        int n = 6;
+        double anglePart = 360. / n;
+        double length = 100.;
+        MyPoint myPoint = startPoint;
+        for (int i = 1; i <= n; i++) {
+            myPoint = addLine(myPoint, anglePart * i, length);
+        }
         repaint();
     }
 
-    private void addLine() {
+    private MyPoint addLine(MyPoint startPoint, double angle, double length) {
+        double radians = Math.toRadians(angle);
+        double sin = Math.sin(radians);
+        double cos = Math.cos(radians);
+        double x = cos * length;
+        double y = sin * length;
+        MyPoint endPoint = startPoint.plus(x, y);
         Line2D.Double line = new Line2D.Double(
-                10,
-                20,
-                40,
-                50);
+                startPoint.a,
+                startPoint.b,
+                endPoint.a,
+                endPoint.b);
         lines.add(line);
+        return endPoint;
     }
 
     public void paintComponent(Graphics g) {
