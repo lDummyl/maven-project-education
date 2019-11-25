@@ -18,14 +18,15 @@ import java.util.stream.Collectors;
 public class XMLParser {
 
     @Synchronized
-    public static Output parseXMLWithMapper(File file) {
+    public static List<User> parseXMLWithMapper(File file) {
         return parseXMLWithMapper_Input(file);
     }
 
-    private static Output parseXMLWithMapper_Input(File file) {
+    private static List<User> parseXMLWithMapper_Input(File file) {
         Input input = XMLReader.readXMLWithMapper(file, Input.class);
-        List<User> users = collectUsers(input);
-        return parseUsers(users);
+//        List<User> users = collectUsers(input);
+//        return parseUsers(users);
+        return collectUsers(input);
     }
 
     private static List<User> collectUsers(Input input) {
@@ -63,16 +64,16 @@ public class XMLParser {
         users.add(user);
     }
 
-    private static Output parseUsers(List<User> users) {
-        Output output = new Output();
-
-        Function<User, LocalDate> similarDates = User::getDate;
-        Map<LocalDate, List<User>> dateListUsers = users.stream()
-                .collect(Collectors.groupingBy(similarDates));
-        dateListUsers.entrySet().stream()
-                .sorted(Comparator.comparing(Map.Entry::getKey))
-                .forEach(i -> output.getLogDays().add(new LogDay(i.getKey().toString(), i.getValue())));
-
-        return output;
-    }
+//    private static Output parseUsers(List<User> users) {
+//        Output output = new Output();
+//
+//        Function<User, LocalDate> similarDates = User::getDate;
+//        Map<LocalDate, List<User>> dateListUsers = users.stream()
+//                .collect(Collectors.groupingBy(similarDates));
+//        dateListUsers.entrySet().stream()
+//                .sorted(Comparator.comparing(Map.Entry::getKey))
+//                .forEach(i -> output.getLogDays().add(new LogDay(i.getKey().toString(), i.getValue())));
+//
+//        return output;
+//    }
 }

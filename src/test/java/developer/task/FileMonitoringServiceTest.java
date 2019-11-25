@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.nio.file.Paths;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
@@ -29,15 +30,12 @@ public class FileMonitoringServiceTest {
 
         Thread thread = new Thread(new FileMonitoringService(path, countThread, Duration.ofSeconds(3)));
         thread.start();
-        Thread.sleep(5000);
+        thread.join();
 
         boolean fileExists;
 
         fileExists = checkFileExists(path + "/file1.xml");
         assertFalse(fileExists);
-
-        fileExists = checkFileExists(path + "/avg_file1.xml");
-        assertTrue(fileExists);
 
         fileExists = checkFileExists(path + "/read-files/file1.xml");
         assertTrue(fileExists);
@@ -51,34 +49,8 @@ public class FileMonitoringServiceTest {
         // TODO: 11/22/19 зачем тебе 2 мониторинга? Один прораб ходит по всем папкам и каждый фаил отдает другому потоку,
         //  который обрабатывает его и данные добавляет в общий котел. после завершения периода сканирования мы выводим общий результат.
 
-        Thread threadOne = new Thread(new FileMonitoringService(path, countThread, Duration.ofSeconds(3)));
-        Thread threadTwo = new Thread(new FileMonitoringService(path, countThread, Duration.ofSeconds(3)));
-
-        List<Thread> threads = Arrays.asList(threadOne, threadTwo);
-        threads.forEach(Thread::start);
-        for (Thread thread : threads) {
-            thread.join(); // TODO: 11/22/19 вместо ожидания используй этот метод.
-        }
-        assertTrue(Paths.get(path + "/some-test-folder/avg_file21.xml").toFile().exists());
-
-
-
-
-
-
-
-
-        boolean fileExists;
-
-
-        fileExists = checkFileExists(path + "/some-test-folder/file21.xml");
-        assertFalse(fileExists);
-
-        fileExists = checkFileExists(path + "/some-test-folder/avg_file21.xml");
-        assertTrue(fileExists);
-
-        fileExists = checkFileExists(path + "/some-test-folder/read-files/file21.xml");
-        assertTrue(fileExists);
+        Thread thread = new Thread(new FileMonitoringService(path, countThread, Duration.ofSeconds(3)));
+        thread.start();
     }
 
     private Boolean checkFileExists(String pathFile) {
