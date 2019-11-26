@@ -1,8 +1,6 @@
 package developer.task;
 
 import developer.task.XMLInteraction.XMLParser;
-import developer.task.XMLInteraction.XMLWriter;
-import developer.task.structureXML.output.Output;
 import developer.task.structureXML.output.User;
 import lombok.SneakyThrows;
 import task7.RuntimeExceptionImp;
@@ -38,7 +36,7 @@ public class SingleFileProcesser implements Runnable {
             return;
         }
         processData();
-//        moveFile();
+        moveFile();
     }
 
     private Boolean checkPath(Path pathFile) {
@@ -56,17 +54,7 @@ public class SingleFileProcesser implements Runnable {
 
     private void processData() {
         File file = pathFile.toFile();
-//        String fileName = "/avg_" + file.getName();
-//        String absolutePath = file.getParentFile().getAbsolutePath().replace("\\", "/");
-//        String pathFile = absolutePath + fileName;
 
-        // TODO: 11/18/19 тебе следует собрать сначала данные в общий котел, к которому организовать синхронный доступ, и потом отдельной службой выводить с него данные в отчет. Я этого не нашел, может плохо искал.
-        // тут не понял что значит собрать в общий котел? сейчас у меня для каждого файла формируется отдельно выходной файл xml, каждый в своем потоке
-        // TODO: 11/22/19 в этом и суть задания. Любое задание на многопоточность заключается не в том сможешь ли ты создать 10 процессов, которые выполняются параллельно,
-        //  это не трудно. Задача в том чтобы эти процессы работали скоорденированно вокруг общего контейнера из которого они должны читать и писать в который, в этом 99,9% всех проблем
-        //  с многопоточностью, вот когда получается 10 раз по  десять = 97. Поэтому отчет должен быть общей сводкой.
-//        Output output = XMLParser.parseXMLWithMapper(file);
-//        XMLWriter.writeXMLWithMapper(output, pathFile);
         List<User> usersList = XMLParser.parseXMLWithMapper(file);
         usersList.forEach(user -> users.add(user));
     }

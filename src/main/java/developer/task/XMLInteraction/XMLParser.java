@@ -2,18 +2,13 @@ package developer.task.XMLInteraction;
 
 import developer.task.structureXML.input.Input;
 import developer.task.structureXML.input.Log;
-import developer.task.structureXML.output.LogDay;
-import developer.task.structureXML.output.Output;
 import developer.task.structureXML.output.User;
 import lombok.Synchronized;
 
 import java.io.File;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class XMLParser {
 
@@ -24,8 +19,6 @@ public class XMLParser {
 
     private static List<User> parseXMLWithMapper_Input(File file) {
         Input input = XMLReader.readXMLWithMapper(file, Input.class);
-//        List<User> users = collectUsers(input);
-//        return parseUsers(users);
         return collectUsers(input);
     }
 
@@ -63,17 +56,4 @@ public class XMLParser {
         user.setAverage(average);
         users.add(user);
     }
-
-//    private static Output parseUsers(List<User> users) {
-//        Output output = new Output();
-//
-//        Function<User, LocalDate> similarDates = User::getDate;
-//        Map<LocalDate, List<User>> dateListUsers = users.stream()
-//                .collect(Collectors.groupingBy(similarDates));
-//        dateListUsers.entrySet().stream()
-//                .sorted(Comparator.comparing(Map.Entry::getKey))
-//                .forEach(i -> output.getLogDays().add(new LogDay(i.getKey().toString(), i.getValue())));
-//
-//        return output;
-//    }
 }

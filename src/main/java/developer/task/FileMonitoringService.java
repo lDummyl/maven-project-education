@@ -95,14 +95,7 @@ public class FileMonitoringService implements Runnable {
         Map<LocalDate, List<User>> dateListUsers = users.stream()
                 .collect(Collectors.groupingBy(similarDates));
 
-//        for (List<User> usersList : dateListUsers.values()) {
-//            Map<LocalDate, Map<String, Map<String, List<User>>>> us = usersList.stream()
-//                    .collect(Collectors.groupingBy(User::getDate,
-//                            Collectors.groupingBy(User::getUserId,
-//                                    Collectors.groupingBy(User::getUrl,
-//                                        Collectors.summingLong(User::getAverage)))));
-//        }
-        dateListUsers.values().forEach(usersList -> usersList = groupUsers(usersList));
+        dateListUsers.entrySet().forEach(entry -> entry.setValue(groupUsers(entry.getValue())));
 
         List<LogDay> logDays = output.getLogDays();
         dateListUsers.entrySet().stream()
@@ -115,8 +108,31 @@ public class FileMonitoringService implements Runnable {
     private List<User> groupUsers(List<User> usersList) {
         List<User> newUsersList = new ArrayList<>();
 
-        // в процессе
+        for (User user : usersList) {
+            boolean isAdded = false;
+            User iterationUser = null;
+            for (User addedUser : newUsersList) {
+                isAdded = compareUsers(addedUser, user);
+                if (isAdded) {
+                    iterationUser = addedUser;
+                }
+            }
+
+            if (iterationUser != null) {
+                iterationUser.setAverage(iterationUser.getAverage() + user.getAverage());
+            } else {
+                newUsersList.add(new User(user.getDate(), user.getUserId(), user.getUrl(), user.getAverage()));
+            }
+        }
+
+        usersList.clear();
 
         return newUsersList;
+    }
+
+    private Boolean compareUsers(User addedUser, User anotherUser) {
+        return addedUser.getDate().isEqual(anotherUser.getDate()) &&
+                addedUser.getUserId().equals(anotherUser.getUserId()) &&
+                addedUser.getUrl().equals(anotherUser.getUrl());
     }
 }

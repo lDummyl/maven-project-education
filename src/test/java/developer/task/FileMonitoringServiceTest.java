@@ -3,15 +3,15 @@ package developer.task;
 import lombok.SneakyThrows;
 import org.junit.Test;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 
@@ -20,9 +20,9 @@ public class FileMonitoringServiceTest {
     Logger log = Logger.getLogger(FileMonitoringServiceTest.class.getName());
 
     String path = "./developer-task-logs";
+    Path pathFile = Paths.get(path);
+    Pattern pattern = Pattern.compile("report_.+\\.xml");
 
-    // TODO: 11/18/19 тесты тесты тесты, нужен кейс где один и тот же юзер обрабатывется несколькими потоками и извстный результат подтверждается, то есть не искривляется асинхронностью.
-    
     @SneakyThrows
     @Test
     public void runTest () {
@@ -32,41 +32,48 @@ public class FileMonitoringServiceTest {
         thread.start();
         thread.join();
 
-        boolean fileExists; // TODO: 11/26/19 старайся не переиспользовать переменную, вообще никогда. Все делать final не обязательно,
-        //                      но представить что они final очень полезно, в данном случае можно просто все выражение поместить в блок assert
+        String pathNewFile = getNewFile(pathFile);
 
-        fileExists = checkFileExists(path + "/file1.xml");
-        assertFalse(fileExists);
-
-        fileExists = checkFileExists(path + "/read-files/file1.xml");
-        assertTrue(fileExists);
-
-        // TODO: 11/26/19 я бы сделал так, создал бы исходные фаилы на основании данных в тесте, сохранил их как отчеты через маппер, запустил бы сканирование,
-        //  и проверил содержимое распарсив эти фаилы и сопоставив данные. Просто ассерты на то что фаилы созданы ничего не говорят об их содержании.
+        assertNotEquals("", pathNewFile);
+        assertFalse(checkFileExists(path + "/file1.xml"));
+        assertTrue(checkFileExists(path + "/read-files/file1.xml"));
+        assertTrue(compareContentFiles(path + "/valid-files/report_pattern1.xml", pathNewFile));
+        //TODO: последний асерт почему-то не работает с SneakyThrows, а если join запихнуть в трай и убрать SneakyThrows - то тест проходит
     }
 
     @SneakyThrows
-    @Test
-    public void someRunTest () {
-        int countThread = 10;
+    private String getNewFile(Path pathFile) {
+        List<String> pathFiles = new ArrayList<>();
+        try (Stream<Path> walk = Files.walk(pathFile)) {
+            walk.forEach(i -> pathFiles.add(i.toString()));
+        }
 
-        // TODO: 11/22/19 зачем тебе 2 мониторинга? Один прораб ходит по всем папкам и каждый фаил отдает другому потоку,
-        //  который обрабатывает его и данные добавляет в общий котел. после завершения периода сканирования мы выводим общий результат.
-
-        Thread thread = new Thread(new FileMonitoringService(path, countThread, Duration.ofSeconds(3)));
-        thread.start();
+        for (String path : pathFiles) {
+            if (pattern.matcher(path).find()) {
+                return path;
+            }
+        }
+        return "";
     }
 
-
-    // TODO: 11/26/19 зря проигнорировал и удалил эту строчку
-    //  (Paths.get(path + "/some-test-folder/avg_file21.xml").toFile().exists());
-
     private Boolean checkFileExists(String pathFile) {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(pathFile));
-            return true;
-        } catch (FileNotFoundException ex) {
-            return false;
-        }
+        return Paths.get(pathFile).toFile().exists();
+    }
+
+    @SneakyThrows
+    private Boolean compareContentFiles(String pathPatternFile, String pathNewFile) {
+        Path patternPath = Paths.get(pathPatternFile);
+        Path newPath = Paths.get(pathNewFile);
+
+        List<String> patternPathLines = Files.readAllLines(patternPath);
+        List<String> newPathLines = Files.readAllLines(newPath);
+
+        StringBuilder patternSB = new StringBuilder();
+        StringBuilder newPathSB = new StringBuilder();
+
+        patternPathLines.forEach(patternSB::append);
+        newPathLines.forEach(newPathSB::append);
+
+        return patternSB.toString().equals(newPathSB.toString());
     }
 }
