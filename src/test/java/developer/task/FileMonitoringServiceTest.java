@@ -36,7 +36,7 @@ public class FileMonitoringServiceTest {
 
         assertNotEquals("", pathNewFile);
         assertFalse(checkFileExists(path + "/file1.xml"));
-        assertTrue(checkFileExists(path + "/read-files/file1.xml"));
+        assertTrue(checkFileExists(path + "/read-files/file1.xml")); // TODO: 11/27/19 у меня падает этот
         assertTrue(compareContentFiles(path + "/valid-files/report_pattern1.xml", pathNewFile));
         //TODO: последний асерт почему-то не работает с SneakyThrows, а если join запихнуть в трай и убрать SneakyThrows - то тест проходит
     }
