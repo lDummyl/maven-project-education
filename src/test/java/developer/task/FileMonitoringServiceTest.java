@@ -32,13 +32,17 @@ public class FileMonitoringServiceTest {
         thread.start();
         thread.join();
 
-        boolean fileExists;
+        boolean fileExists; // TODO: 11/26/19 старайся не переиспользовать переменную, вообще никогда. Все делать final не обязательно,
+        //                      но представить что они final очень полезно, в данном случае можно просто все выражение поместить в блок assert
 
         fileExists = checkFileExists(path + "/file1.xml");
         assertFalse(fileExists);
 
         fileExists = checkFileExists(path + "/read-files/file1.xml");
         assertTrue(fileExists);
+
+        // TODO: 11/26/19 я бы сделал так, создал бы исходные фаилы на основании данных в тесте, сохранил их как отчеты через маппер, запустил бы сканирование,
+        //  и проверил содержимое распарсив эти фаилы и сопоставив данные. Просто ассерты на то что фаилы созданы ничего не говорят об их содержании.
     }
 
     @SneakyThrows
@@ -52,6 +56,10 @@ public class FileMonitoringServiceTest {
         Thread thread = new Thread(new FileMonitoringService(path, countThread, Duration.ofSeconds(3)));
         thread.start();
     }
+
+
+    // TODO: 11/26/19 зря проигнорировал и удалил эту строчку
+    //  (Paths.get(path + "/some-test-folder/avg_file21.xml").toFile().exists());
 
     private Boolean checkFileExists(String pathFile) {
         try {
