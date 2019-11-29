@@ -27,11 +27,21 @@ public class User {
     private String url;
 
     @JacksonXmlProperty(localName = "average")
-    private Long average;
+    private Long average = 0L;
+
+    @JsonIgnore
+    private Long timeSpent;
+
+    @JsonIgnore
+    private Integer userQuantity = 1;
 
     public User(String userId, String url) {
         this.userId = userId;
         this.url = url;
+    }
+
+    public void calculateAverage() {
+        average = timeSpent / userQuantity;
     }
 
     @Override
@@ -40,7 +50,9 @@ public class User {
                 "date=" + date +
                 ", userId='" + userId + '\'' +
                 ", url='" + url + '\'' +
-                ", average=" + average +
+                ", average=" + average + '\'' +
+                ", timeSpent=" + timeSpent + '\'' +
+                ", userQuantity=" + userQuantity +
                 '}';
     }
 }

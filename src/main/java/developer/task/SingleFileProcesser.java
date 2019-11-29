@@ -11,9 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 
 public class SingleFileProcesser implements Runnable {
 
@@ -45,16 +43,13 @@ public class SingleFileProcesser implements Runnable {
     private Boolean isFileValid(Path pathFile) {
         String absolutePath = pathFile.toAbsolutePath().toString().replace("\\", "/");
 
-
-        // TODO: 11/27/19 что-то с регулярочками не так, и зачем тебе их тащить матчеры, а потом вызывать, не лучше ли сразу присвоить boolean
-        //  это будет гораздо более читаемый код, потому как название boolean переменной всегда позволяет дать в качестве имени вопрос на кторый мы отвечаем.
-        Matcher matcherReadFiles = patternReadFiles.matcher(absolutePath);
-        Matcher matcherFileName = patternFileName.matcher(pathFile.getFileName().toString());
+        boolean isReadFilesPath = patternReadFiles.matcher(absolutePath).find();
+        boolean isSuitableFileName = patternFileName.matcher(pathFile.getFileName().toString()).find();
 
         if (!Files.isRegularFile(pathFile)) {
             return false;
         } else {
-            return !matcherReadFiles.find() && matcherFileName.find();
+            return !isReadFilesPath && isSuitableFileName;
         }
     }
 

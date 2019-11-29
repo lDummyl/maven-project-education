@@ -34,12 +34,12 @@ public class XMLParser {
             while (iterationTime <= endTime) {
                 LocalDateTime startDateTime = LocalDateTime.ofEpochSecond(startTime, 0, ZoneOffset.UTC);
                 LocalDateTime iterationDateTime = LocalDateTime.ofEpochSecond(iterationTime, 0, ZoneOffset.UTC);
-                long average = iterationTime - startTime;
+                long timeSpent = iterationTime - startTime;
 
                 if (iterationTime == endTime) {
-                    addUser(users, user, startDateTime, average);
+                    addUser(users, user, startDateTime, timeSpent);
                 } else if (iterationDateTime.getDayOfYear() != startDateTime.getDayOfYear()) {
-                    addUser(users, user, startDateTime, average);
+                    addUser(users, user, startDateTime, timeSpent);
                     user = new User(log.getUserId(), log.getUrl());
                     startTime = iterationTime;
                 }
@@ -51,9 +51,9 @@ public class XMLParser {
         return users;
     }
 
-    private static void addUser(List<User> users, User user, LocalDateTime date, long average) {
+    private static void addUser(List<User> users, User user, LocalDateTime date, long timeSpent) {
         user.setDate(date.toLocalDate());
-        user.setAverage(average);
+        user.setTimeSpent(timeSpent);
         users.add(user);
     }
 }

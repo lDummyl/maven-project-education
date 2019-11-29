@@ -109,21 +109,22 @@ public class FileMonitoringService implements Runnable {
         List<User> newUsersList = new ArrayList<>();
 
         for (User user : usersList) {
-            boolean isAdded = false;
             User iterationUser = null;
             for (User addedUser : newUsersList) {
-                isAdded = compareUsers(addedUser, user);
-                if (isAdded) {
+                if (compareUsers(addedUser, user)) {
                     iterationUser = addedUser;
                 }
             }
 
             if (iterationUser != null) {
-                iterationUser.setAverage(iterationUser.getAverage() + user.getAverage());
+                iterationUser.setTimeSpent(iterationUser.getTimeSpent() + user.getTimeSpent());
+                iterationUser.setUserQuantity(iterationUser.getUserQuantity() + user.getUserQuantity());
             } else {
-                newUsersList.add(new User(user.getDate(), user.getUserId(), user.getUrl(), user.getAverage()));
+                newUsersList.add(new User(user.getDate(), user.getUserId(), user.getUrl(), user.getAverage(),
+                        user.getTimeSpent(), user.getUserQuantity()));
             }
         }
+        newUsersList.forEach(User::calculateAverage);
 
         usersList.clear();
 

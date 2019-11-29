@@ -31,6 +31,11 @@ public class DeadLock {
 
         Future<?> andrewAttempt = executorService.submit(() -> {
             synchronized (room1) {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException ie) {
+                    ie.printStackTrace();
+                }
                 synchronized (room2) {
                     System.out.println("Journal 2 visited");
                 }
@@ -39,6 +44,11 @@ public class DeadLock {
 
         Future<?> jacobAttempt = executorService.submit(() -> {
             synchronized (room2) {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException ie) {
+                    ie.printStackTrace();
+                }
                 synchronized (room1) {
                     System.out.println("Journal 1 visited");
                 }
