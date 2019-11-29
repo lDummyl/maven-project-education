@@ -7,6 +7,7 @@ import developer.task.structureXML.output.User;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 
+import java.io.File;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
@@ -65,7 +66,10 @@ public class FileMonitoringService implements Runnable {
 
         while (creation.plus(ofMonitoring).isAfter(LocalDateTime.now())) {
             try (Stream<Path> walk = Files.walk(path)) {
-                walk.forEach(i -> executorService.submit(new SingleFileProcesser(i, users)));
+                // TODO: 11/29/19 разложи папки ввода и вывода по разным местам и давай
+                //  им максимально информативные названия
+                walk.filter(p -> p.toFile().getName().endsWith(".xml"))
+                        .forEach(i -> executorService.submit(new SingleFileProcesser(i, users)));
             }
             Thread.sleep(3000);
         }
@@ -136,4 +140,5 @@ public class FileMonitoringService implements Runnable {
                 addedUser.getUserId().equals(anotherUser.getUserId()) &&
                 addedUser.getUrl().equals(anotherUser.getUrl());
     }
+
 }

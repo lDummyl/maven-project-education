@@ -43,6 +43,9 @@ public class User {
     public void calculateAverage() {
         average = timeSpent / userQuantity;
     }
+    // TODO: 11/29/19 строго говоря ДТО не должен содержать логики, это довольно бурно обсуждаемый тезис,
+    //  который идет вразрез с принципом инкапсуляции
+    //  но будь готов что твои товарищи будут на этом настаивать.
 
     @Override
     public String toString() {

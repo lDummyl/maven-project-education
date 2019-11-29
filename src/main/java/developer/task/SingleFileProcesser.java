@@ -41,16 +41,8 @@ public class SingleFileProcesser implements Runnable {
     }
 
     private Boolean isFileValid(Path pathFile) {
-        String absolutePath = pathFile.toAbsolutePath().toString().replace("\\", "/");
-
-        boolean isReadFilesPath = patternReadFiles.matcher(absolutePath).find();
-        boolean isSuitableFileName = patternFileName.matcher(pathFile.getFileName().toString()).find();
-
-        if (!Files.isRegularFile(pathFile)) {
-            return false;
-        } else {
-            return !isReadFilesPath && isSuitableFileName;
-        }
+        // TODO: 11/29/19 validate with XSD
+        return true;
     }
 
     private void processData() {
