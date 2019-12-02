@@ -4,10 +4,10 @@ import developer.task.XMLInteraction.XMLWriter;
 import developer.task.structureXML.output.LogDay;
 import developer.task.structureXML.output.Output;
 import developer.task.structureXML.output.User;
+import developer.task.structureXML.output.supportCasses.UserService;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 
-import java.io.File;
 import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
@@ -27,35 +27,33 @@ public class FileMonitoringService implements Runnable {
 
     private final int countThread;
     private String pathFile;
+    private String pathReportFile;
+    private String schemaFile;
     private Duration ofMonitoring;
     private LocalDateTime creation = LocalDateTime.now();
     private List<User> users = Collections.synchronizedList(new ArrayList<>());
 
-    public FileMonitoringService(String pathFile, int countThread, Duration ofMonitoring) {
+    public FileMonitoringService(String pathFile, String pathReportFile, String schemaFile, int countThread, Duration ofMonitoring) {
         this.pathFile = pathFile.replace("\\", "/");
+        this.pathReportFile = pathReportFile.replace("\\", "/");
+        this.schemaFile = schemaFile;
         this.countThread = countThread;
         this.ofMonitoring = ofMonitoring;
     }
 
     @NonNull
-    public FileMonitoringService(URI pathFile, int countThread, Duration ofMonitoring) {
-        this(pathFile.getPath(), countThread, ofMonitoring);
+    public FileMonitoringService(URI pathFile, URI pathReportFile, URI schemaFile, int countThread, Duration ofMonitoring) {
+        this(pathFile.getPath(), pathReportFile.getPath(), schemaFile.getPath(), countThread, ofMonitoring);
     }
 
     @SneakyThrows
     @NonNull
-    public FileMonitoringService(URL pathFile, int countThread, Duration ofMonitoring) {
+    public FileMonitoringService(URL pathFile, URL pathReportFile, URL schemaFile, int countThread, Duration ofMonitoring) {
         this.pathFile = pathFile.toURI().getPath().replace("\\", "/");
+        this.pathReportFile = pathReportFile.toURI().getPath().replace("\\", "/");
+        this.schemaFile = schemaFile.toURI().getPath().replace("\\", "/");
         this.countThread = countThread;
         this.ofMonitoring = ofMonitoring;
-    }
-
-    public static void main(String[] args) {
-        String path = "./developer-task-logs";
-        int countThread = 10;
-
-        Thread thread = new Thread(new FileMonitoringService(path, countThread, Duration.ofSeconds(3)));
-        thread.start();
     }
 
     @SneakyThrows
@@ -66,10 +64,8 @@ public class FileMonitoringService implements Runnable {
 
         while (creation.plus(ofMonitoring).isAfter(LocalDateTime.now())) {
             try (Stream<Path> walk = Files.walk(path)) {
-                // TODO: 11/29/19 разложи папки ввода и вывода по разным местам и давай
-                //  им максимально информативные названия
                 walk.filter(p -> p.toFile().getName().endsWith(".xml"))
-                        .forEach(i -> executorService.submit(new SingleFileProcesser(i, users)));
+                        .forEach(i -> executorService.submit(new SingleFileProcesser(i, schemaFile, users)));
             }
             Thread.sleep(3000);
         }
@@ -83,7 +79,7 @@ public class FileMonitoringService implements Runnable {
     }
 
     private Boolean writeFileXML() {
-        String filePath = pathFile + "/report_" + getDateTimeFormat(LocalDateTime.now()) + ".xml";
+        String filePath = pathReportFile + "/report_" + getDateTimeFormat(LocalDateTime.now()) + ".xml";
         return XMLWriter.writeXMLWithMapper(parseUsers(), filePath);
     }
 
@@ -128,7 +124,7 @@ public class FileMonitoringService implements Runnable {
                         user.getTimeSpent(), user.getUserQuantity()));
             }
         }
-        newUsersList.forEach(User::calculateAverage);
+        newUsersList.forEach(UserService::calculateAverage);
 
         usersList.clear();
 
@@ -140,5 +136,4 @@ public class FileMonitoringService implements Runnable {
                 addedUser.getUserId().equals(anotherUser.getUserId()) &&
                 addedUser.getUrl().equals(anotherUser.getUrl());
     }
-
 }

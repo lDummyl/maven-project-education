@@ -3,13 +3,19 @@ package developer.task;
 import developer.task.XMLInteraction.XMLParser;
 import developer.task.structureXML.output.User;
 import lombok.SneakyThrows;
+import org.xml.sax.SAXException;
 import task7.RuntimeExceptionImp;
 
+import javax.xml.XMLConstants;
+import javax.xml.transform.Source;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 import java.io.File;
-import java.nio.file.Files;
+import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -20,10 +26,12 @@ public class SingleFileProcesser implements Runnable {
     private final Pattern patternFileName = Pattern.compile("^file\\d+\\.xml", Pattern.CASE_INSENSITIVE);
 
     private Path pathFile;
+    private String schemaFile;
     private List<User> users;
 
-    public SingleFileProcesser(Path pathFile, List<User> users) {
+    public SingleFileProcesser(Path pathFile, String schemaFile, List<User> users) {
         this.pathFile = pathFile;
+        this.schemaFile = schemaFile;
         this.users = users;
     }
 
@@ -37,11 +45,26 @@ public class SingleFileProcesser implements Runnable {
             //  Не знаю что не так с последним ассертом у меня тест дальше этого блока не идет ¯\_(ツ)_/¯ а чтобы понять это пришлось дебажить, тратить время
         }
         processData();
-        moveFile();
     }
 
     private Boolean isFileValid(Path pathFile) {
-        // TODO: 11/29/19 validate with XSD
+        URL schemaXML = SingleFileProcesser.class.getClassLoader().getResource(schemaFile);
+        if (schemaXML == null) {
+            return false;
+        }
+
+        Source xmlFile = new StreamSource(pathFile.toFile());
+        SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        try {
+            Schema schema = schemaFactory.newSchema(schemaXML);
+            Validator validator = schema.newValidator();
+            validator.validate(xmlFile);
+        } catch (SAXException e) {
+            return false;
+        } catch (IOException e) {
+            throw new RuntimeExceptionImp("can't validate file");
+        }
+
         return true;
     }
 
@@ -50,38 +73,5 @@ public class SingleFileProcesser implements Runnable {
 
         List<User> usersList = XMLParser.parseXMLWithMapper(file);
         usersList.forEach(user -> users.add(user));
-    }
-
-
-    @SneakyThrows
-    private void moveFile() {
-        String absolutePath = pathFile.getParent().toAbsolutePath().toString().replace("\\", "/");
-        String fileName = pathFile.getFileName().toString();
-
-        String pathReadFile = absolutePath + readFiles;
-        if (!checkFileAvailability(pathReadFile, true)) {
-            throw new RuntimeExceptionImp("can't create directory");
-        }
-
-        String oldPath = absolutePath + "/" + fileName;
-        String newPath = pathReadFile + "/" + fileName;
-        if (!checkFileAvailability(newPath, false)) {
-            throw new RuntimeExceptionImp("can't create file");
-        }
-
-        Files.move(Paths.get(oldPath), Paths.get(newPath), StandardCopyOption.REPLACE_EXISTING);
-    }
-
-    @SneakyThrows
-    private Boolean checkFileAvailability(String filePath, Boolean isDirectory) {
-        File file = new File(filePath);
-        if (!file.exists()) {
-            if (isDirectory) {
-                return file.mkdir();
-            } else {
-                return file.createNewFile();
-            }
-        }
-        return true;
     }
 }

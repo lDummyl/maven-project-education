@@ -1,0 +1,18 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="input">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="log" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:long" name="timestamp"/>
+                            <xs:element type="xs:string" name="userId"/>
+                            <xs:element type="xs:string" name="url"/>
+                            <xs:element type="xs:long" name="seconds"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

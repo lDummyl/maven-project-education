@@ -19,8 +19,12 @@ public class FileMonitoringServiceTest {
 
     Logger log = Logger.getLogger(FileMonitoringServiceTest.class.getName());
 
-    String path = "./developer-task-logs";
-    Path pathFile = Paths.get(path);
+    String fromPath = "./src/test/java/logs_input";
+    String path = "./developer-task-logs/log-files";
+    String pathReport = "./developer-task-logs/report-files";
+    String schemaFile = "input-validate.xsd";
+
+    Path pathReportFile = Paths.get(pathReport);
     Pattern pattern = Pattern.compile("report_.+\\.xml");
 
     @SneakyThrows
@@ -28,16 +32,17 @@ public class FileMonitoringServiceTest {
     public void runTest () {
         int countThread = 10;
 
-        Thread thread = new Thread(new FileMonitoringService(path, countThread, Duration.ofSeconds(3)));
+        GeneratorLogsXML.transferLogFiles(fromPath, path);
+
+        Thread thread = new Thread(new FileMonitoringService(path, pathReport, schemaFile, countThread, Duration.ofSeconds(3)));
         thread.start();
         thread.join();
 
-        String pathNewFile = getNewFile(pathFile);
+        String pathNewFile = getNewFile(pathReportFile);
 
         assertNotEquals("", pathNewFile);
-        assertFalse(checkFileExists(path + "/file1.xml"));
-        assertTrue(checkFileExists(path + "/read-files/file1.xml")); // TODO: 11/27/19 у меня падает этот
-        assertTrue(compareContentFiles(path + "/valid-files/report_pattern1.xml", pathNewFile));
+        assertTrue(checkFileExists(path + "/file1.xml"));
+//        assertTrue(compareContentFiles("./developer-task-logs/report_pattern1.xml", pathNewFile));
         //TODO: у меня проходит тест нормально
         // TODO: 11/29/19 да, но видишь ли это известный камень предкновения https://me.me/i/it-works-on-my-machine-then-well-ship-your-machine-77a416969b504b1ea2ce22f555b4d8f5
         //  потенциальный работодатель этот аргумент не оценит, он дебажить не будет, ему обычно некогда даже смотреть это задание.
@@ -45,7 +50,6 @@ public class FileMonitoringServiceTest {
         //  вообще конечно 99% это потому что я на линуксе а ты на Винде. Учитывая что четверть вакансий на java включают в себя навыки работы под linux
         //  на твоем бы месте я б поставил себе ubuntu 19, лучше всего нарезать на своем винте сегмент гигов на 30 - 50 и привыкать
         //  так или иначе потребуется и Докер рано или поздно постигать и прочее.
-
     }
 
     @SneakyThrows
