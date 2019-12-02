@@ -1,25 +1,39 @@
 package developer.task;
 
+import com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import developer.task.structureXML.input.Input;
+import developer.task.structureXML.input.Log;
 import lombok.SneakyThrows;
 import org.junit.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FileMonitoringServiceTest {
 
     Logger log = Logger.getLogger(FileMonitoringServiceTest.class.getName());
 
+    // TODO: 12/2/19 не самая лучшая идея. В папке java должны быть только фаилы с кодом на java.
+    //  Я почему-то не виджу папки с тестовыми ресурсами. А она должна быть возможно не закомичена. Как читать ресурсы я уже показывал,
+    //  берешь класс лоадер и череез него. Но я бы вообще создавал бы данные а потом помещал бы в сканнер.
+
     String fromPath = "./src/test/java/logs_input";
+
     String path = "./developer-task-logs/log-files";
     String pathReport = "./developer-task-logs/report-files";
     String schemaFile = "input-validate.xsd";
@@ -27,9 +41,22 @@ public class FileMonitoringServiceTest {
     Path pathReportFile = Paths.get(pathReport);
     Pattern pattern = Pattern.compile("report_.+\\.xml");
 
+    @Test
+    public void testValid() {
+
+        Input input = new Input();
+        Log log1 = new Log(Timestamp.valueOf(LocalDateTime.now()).getTime(), "Vasya", "https://www.google.ru", 100L);
+        Log log2 = new Log(Timestamp.valueOf(LocalDateTime.now().plusMinutes(15)).getTime(), "Vasya", "https://www.google.ru", 10L);
+        List<Log> logs = ImmutableList.of(log1, log2);
+        input.setLogs(logs);
+        // TODO: 12/2/19 дальше обжект маппер -> в фаилы, в папку сканнера, потом парсим резульатат и пишем ассерт что по юзеру Vasya за сегодня среднне время на гугле 55 сек.
+
+    }
+
+
     @SneakyThrows
     @Test
-    public void runTest () {
+    public void runTest() {
         int countThread = 10;
 
         GeneratorLogsXML.transferLogFiles(fromPath, path);
