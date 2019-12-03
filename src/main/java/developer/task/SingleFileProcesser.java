@@ -22,8 +22,8 @@ import java.util.regex.Pattern;
 public class SingleFileProcesser implements Runnable {
 
     private final String readFiles = "/read-files";
-    private final Pattern patternReadFiles = Pattern.compile(readFiles + "(/|$)");
-    private final Pattern patternFileName = Pattern.compile("^file\\d+\\.xml", Pattern.CASE_INSENSITIVE);
+//    private final Pattern patternReadFiles = Pattern.compile(readFiles + "(/|$)");
+//    private final Pattern patternFileName = Pattern.compile("^file\\d+\\.xml", Pattern.CASE_INSENSITIVE);
 
     private Path pathFile;
     private String schemaFile;
