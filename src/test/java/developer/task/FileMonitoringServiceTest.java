@@ -19,12 +19,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
@@ -53,8 +55,11 @@ public class FileMonitoringServiceTest {
     @Test
     public void testValid() {
         Input input = new Input();
-        Log log1 = new Log(Timestamp.valueOf(LocalDateTime.now()).getTime(), "Vasya", "https://www.google.ru", 100L);
-        Log log2 = new Log(Timestamp.valueOf(LocalDateTime.now().plusMinutes(15)).getTime(), "Vasya", "https://www.google.ru", 10L);
+        LocalDateTime testTDateTime = LocalDateTime.now();
+        String testUser = "Vasya";
+        String testUrl = "https://www.google.ru";
+        Log log1 = new Log(Timestamp.valueOf(testTDateTime).getTime(), testUser, testUrl, 100L);
+        Log log2 = new Log(Timestamp.valueOf(testTDateTime.plusMinutes(15)).getTime(), testUser, testUrl, 10L);
         List<Log> logs = ImmutableList.of(log1, log2);
         input.setLogs(logs);
         // TODO: 12/2/19 дальше обжект маппер -> в фаилы, в папку сканнера, потом парсим резульатат и пишем ассерт что по юзеру Vasya за сегодня среднне время на гугле 55 сек.
@@ -79,14 +84,19 @@ public class FileMonitoringServiceTest {
         removeExtraTags(pathNewFile, Arrays.asList("String"));
         Output output = XMLReader.readXMLWithMapper(new File(pathNewFile), Output.class);
 
-        long average = 0;
-        for (LogDay logDay : output.getLogDays()) {
-            for (User user : logDay.getUsers()) {
-                average += user.getAverage();
-            }
-        }
+        LocalDate testDate = testTDateTime.toLocalDate();
+        List<LogDay> logDays = output.getLogDays().stream().filter(i -> i.getDay().equals(testDate.toString())).collect(Collectors.toList());
 
-        assertEquals(55L, average);
+        assertEquals(1, logDays.size());
+
+        LogDay logDay1 = logDays.get(0);
+        List<User> targetUser = logDay1.getUsers().stream().peek(u -> assertEquals(testDate, u.getDate()))
+                .filter(u -> u.getUserId().equals(testUser) && u.getUrl().equals(testUrl)).collect(Collectors.toList());
+
+        assertEquals(1, targetUser.size());
+        assertEquals(55, targetUser.get(0).getAverage().intValue());
+
+
     }
 
     // TODO: 12/6/19 просто ты создал объект - строка содержащая хмл, и попытался этот строковый объект сериализовать,
