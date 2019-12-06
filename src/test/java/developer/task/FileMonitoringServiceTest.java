@@ -1,8 +1,7 @@
 package developer.task;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.google.common.collect.ImmutableCollection;
+import com.fasterxml.jackson.dataformat.xml.ser.ToXmlGenerator;
 import com.google.common.collect.ImmutableList;
 import developer.task.XMLInteraction.XMLReader;
 import developer.task.structureXML.input.Input;
@@ -28,12 +27,14 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 public class FileMonitoringServiceTest {
 
     Logger log = Logger.getLogger(FileMonitoringServiceTest.class.getName());
-    ObjectMapper xmlMapper = new XmlMapper();
+    XmlMapper xmlMapper = new XmlMapper();
 
     // TODO: 12/2/19 не самая лучшая идея. В папке java должны быть только фаилы с кодом на java.
     //  Я почему-то не виджу папки с тестовыми ресурсами. А она должна быть возможно не закомичена. Как читать ресурсы я уже показывал,
@@ -63,7 +64,7 @@ public class FileMonitoringServiceTest {
         // 2. так же при записи xml через тот же метод символ "<" заменяется сам на "&lt;"
         // эти два вопроса не дают сделать обратную конвертацию для теста
         // гуглил, яндексил и тд - решения не нашел
-        assertTrue(writeInputLogs(input, fromPath + "/file4.xml"));
+        assertTrue(writeInputLogs(input, "developer-task-logs/scan/testlog.xml"));
         removeExtraTags(fromPath + "/file4.xml", Arrays.asList("String"));
 
         int countThread = 10;
@@ -88,20 +89,24 @@ public class FileMonitoringServiceTest {
         assertEquals(55L, average);
     }
 
+    // TODO: 12/6/19 просто ты создал объект - строка содержащая хмл, и попытался этот строковый объект сериализовать,
+    //  хотя твоя задача была сериализовать просто объект напрямую.
     @SneakyThrows
     private Boolean writeInputLogs(Input input, String pathFile) {
-        String headXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-        File file = new File(pathFile);
-        try {
-            String xmlString = headXML + xmlMapper.writeValueAsString(input);
-            xmlMapper.writeValue(file, xmlString);
-            return true;
-        } catch (IOException ex) {
-            return false;
+        File resultFile = new File(pathFile);
+        if (!resultFile.createNewFile()){
+            if(resultFile.delete()){
+                writeInputLogs(input, pathFile);
+            }else {
+                throw new RuntimeException(pathFile + " cannot be deleted.");
+            }
         }
+        xmlMapper.configure(ToXmlGenerator.Feature.WRITE_XML_DECLARATION, true);
+        xmlMapper.writeValue(resultFile, input);
+        return true;
     }
 
-//    @SneakyThrows
+    //    @SneakyThrows
     private void removeExtraTags(String pathFile, List<String> tags) {
         StringBuilder content = new StringBuilder();
 
