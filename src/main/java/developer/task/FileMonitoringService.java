@@ -65,7 +65,7 @@ public class FileMonitoringService implements Runnable {
         while (creation.plus(ofMonitoring).isAfter(LocalDateTime.now())) {
             try (Stream<Path> walk = Files.walk(path)) {
                 walk.filter(p -> p.toFile().getName().endsWith(".xml"))
-                        .forEach(i -> executorService.submit(new SingleFileProcesser(i, schemaFile, users)));
+                        .forEach(i -> executorService.submit(new SingleFileProcessor(i, schemaFile, users)));
             }
             Thread.sleep(3000);
         }
@@ -84,8 +84,8 @@ public class FileMonitoringService implements Runnable {
     }
 
     private String getDateTimeFormat(LocalDateTime date) {
-        return date.getYear() + "_" + date.getMonthValue() + "_" + date.getDayOfMonth() + "_"
-                + date.getHour() + "_" + date.getMinute() + "_" + date.getSecond();
+        return date.getYear() + "_" + date.getMonthValue() + "_" + date.getDayOfMonth();
+//                + "_" + date.getHour() + "_" + date.getMinute() + "_" + date.getSecond();
     }
 
     private Output parseUsers() {

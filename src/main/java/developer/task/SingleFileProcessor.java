@@ -17,19 +17,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.regex.Pattern;
 
-public class SingleFileProcesser implements Runnable {
-
-    private final String readFiles = "/read-files";
-//    private final Pattern patternReadFiles = Pattern.compile(readFiles + "(/|$)");
-//    private final Pattern patternFileName = Pattern.compile("^file\\d+\\.xml", Pattern.CASE_INSENSITIVE);
+public class SingleFileProcessor implements Runnable {
 
     private Path pathFile;
     private String schemaFile;
     private List<User> users;
 
-    public SingleFileProcesser(Path pathFile, String schemaFile, List<User> users) {
+    public SingleFileProcessor(Path pathFile, String schemaFile, List<User> users) {
         this.pathFile = pathFile;
         this.schemaFile = schemaFile;
         this.users = users;
@@ -48,7 +43,7 @@ public class SingleFileProcesser implements Runnable {
     }
 
     private Boolean isFileValid(Path pathFile) {
-        URL schemaXML = SingleFileProcesser.class.getClassLoader().getResource(schemaFile);
+        URL schemaXML = SingleFileProcessor.class.getClassLoader().getResource(schemaFile);
         if (schemaXML == null) {
             return false;
         }
@@ -72,6 +67,6 @@ public class SingleFileProcesser implements Runnable {
         File file = pathFile.toFile();
 
         List<User> usersList = XMLParser.parseXMLWithMapper(file);
-        usersList.forEach(user -> users.add(user));
+        users.addAll(usersList);
     }
 }

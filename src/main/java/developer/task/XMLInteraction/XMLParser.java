@@ -6,8 +6,7 @@ import developer.task.structureXML.output.User;
 import lombok.Synchronized;
 
 import java.io.File;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.time.*;
 import java.util.*;
 
 public class XMLParser {
@@ -26,34 +25,43 @@ public class XMLParser {
         List<User> users = new ArrayList<>();
 
         for (Log log : input.getLogs()) {
-            User user = new User(log.getUserId(), log.getUrl());
-
-            long startTime = log.getTimestamp();
-            long endTime = startTime + log.getSeconds();
-            long iterationTime = log.getTimestamp();
-            while (iterationTime <= endTime) {
-                LocalDateTime startDateTime = LocalDateTime.ofEpochSecond(startTime, 0, ZoneOffset.UTC);
-                LocalDateTime iterationDateTime = LocalDateTime.ofEpochSecond(iterationTime, 0, ZoneOffset.UTC);
-                long timeSpent = iterationTime - startTime;
-
-                if (iterationTime == endTime) {
-                    addUser(users, user, startDateTime, timeSpent);
-                } else if (iterationDateTime.getDayOfYear() != startDateTime.getDayOfYear()) {
-                    addUser(users, user, startDateTime, timeSpent);
-                    user = new User(log.getUserId(), log.getUrl());
-                    startTime = iterationTime;
-                }
-
-                iterationTime++;
-            }
+            users.addAll(getUsersFromLog(log));
         }
 
         return users;
     }
 
-    private static void addUser(List<User> users, User user, LocalDateTime date, long timeSpent) {
-        user.setDate(date.toLocalDate());
-        user.setTimeSpent(timeSpent);
-        users.add(user);
+    public static List<User> getUsersFromLog(Log log) {
+        List<User> users = new ArrayList<>();
+
+        Map<LocalDate, Long> timeSpentFromLog = getTimeSpentAtDate(log.getTimestamp(), log.getSeconds());
+        timeSpentFromLog.entrySet().forEach(entry -> users.add(new User(entry.getKey(), log.getUserId(), log.getUrl(), entry.getValue())));
+
+        return users;
+    }
+
+    private static Map<LocalDate, Long> getTimeSpentAtDate(Long startTime, Long timeSpent) {
+        Map<LocalDate, Long> timeSpentFromLog = new HashMap<>();
+
+        LocalDateTime startDateTime = LocalDateTime.ofEpochSecond(startTime, 0, ZoneOffset.UTC);
+        LocalDateTime endOfDay = LocalDateTime.of(startDateTime.toLocalDate(), LocalTime.MAX);
+        long secondsToEndDay = Duration.between(startDateTime, endOfDay).getSeconds();
+
+        long timeSpentOnDay = timeSpent;
+        while (timeSpentOnDay > 0) {
+            timeSpentOnDay = timeSpent - secondsToEndDay;
+            if (timeSpentOnDay <= 0) {
+                timeSpentFromLog.put(startDateTime.toLocalDate(), timeSpent);
+            } else {
+                timeSpentFromLog.put(startDateTime.toLocalDate(), secondsToEndDay);
+                timeSpent -= secondsToEndDay;
+
+                startDateTime = startDateTime.plusDays(1L);
+                endOfDay = endOfDay.plusDays(1L);
+                secondsToEndDay = Duration.between(startDateTime, endOfDay).getSeconds();
+            }
+        }
+
+        return timeSpentFromLog;
     }
 }

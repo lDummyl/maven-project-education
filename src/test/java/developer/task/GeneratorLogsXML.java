@@ -25,7 +25,7 @@ public class GeneratorLogsXML {
     }
 
     @SneakyThrows
-    private static Boolean clearPath(String pathDirectory) {
+    public static Boolean clearPath(String pathDirectory) {
         try (Stream<Path> walk = Files.walk(Paths.get(pathDirectory))) {
             walk.forEach(path -> {
                 File file = path.toFile();

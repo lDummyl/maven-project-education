@@ -35,9 +35,11 @@ public class User {
     @JsonIgnore
     private Integer userQuantity = 1;
 
-    public User(String userId, String url) {
+    public User(LocalDate date, String userId, String url, Long timeSpent) {
+        this.date = date;
         this.userId = userId;
         this.url = url;
+        this.timeSpent = timeSpent;
     }
 
     @Override
