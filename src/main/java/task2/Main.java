@@ -14,9 +14,12 @@ public class Main {
 		Secretary secretary = new Secretary("Alla");
 
 		office.invitePeaople(secretary);
+		System.out.println(office.secretary.name);
 
+		Secretary zina = new Secretary("Zina");
+		office.invitePeaople(zina);
 
-        System.out.println("Hey");
-		System.out.println("Hokus - pokus!");
+		Director director = new Director();
+		office.chooseDirector(director);
 	}
 }

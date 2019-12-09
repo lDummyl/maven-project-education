@@ -6,9 +6,10 @@ public class Office {
 	Secretary secretary;
 
 
-/*
+
 	Director director;
 
+	/*
 	Hr hr;
 	*/
 
@@ -17,6 +18,11 @@ public class Office {
 
 	void invitePeaople(Secretary human){
 		secretary = human;
+		System.out.println(secretary.name);
 	}
 
+	void chooseDirector(Director human){
+		director = human;
+		director.firedPeople();
+	}
 }
