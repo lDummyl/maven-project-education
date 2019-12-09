@@ -16,5 +16,7 @@ public class Main {
 		office.invitePeaople(secretary);
 
 
+        System.out.println("Hey");
+		System.out.println("Hokus - pokus!");
 	}
 }
