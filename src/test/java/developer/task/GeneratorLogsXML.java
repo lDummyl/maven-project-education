@@ -6,13 +6,14 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class GeneratorLogsXML {
 
     @SneakyThrows
     public static Boolean transferLogFiles(String fromPath, String toPath) {
-        if (!clearPath(toPath)) {
+        if (!clearPath(toPath) && !checkPath(toPath)) {
             return false;
         }
 
@@ -26,6 +27,10 @@ public class GeneratorLogsXML {
 
     @SneakyThrows
     public static Boolean clearPath(String pathDirectory) {
+        if (!checkPath(pathDirectory)) {
+            return false;
+        }
+
         try (Stream<Path> walk = Files.walk(Paths.get(pathDirectory))) {
             walk.forEach(path -> {
                 File file = path.toFile();
@@ -36,6 +41,23 @@ public class GeneratorLogsXML {
         }
 
         return true;
+    }
+
+    public static Boolean checkPaths(List<String> paths) {
+        boolean allPresent = false;
+        for (String path : paths) {
+            allPresent = checkPath(path);
+        }
+        return allPresent;
+    }
+
+    private static Boolean checkPath(String path) {
+        File file = new File(path);
+        if (file.isDirectory()) {
+            return file.mkdirs();
+        } else {
+            return file.getParentFile().mkdirs();
+        }
     }
 
     @SneakyThrows

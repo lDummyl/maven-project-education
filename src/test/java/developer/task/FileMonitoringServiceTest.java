@@ -20,6 +20,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -45,7 +46,6 @@ public class FileMonitoringServiceTest {
     String pathReport = "./developer-task-logs/report-files";
     String schemaFile = "input-validate.xsd";
 
-    Path pathReportFile = Paths.get(pathReport);
     Pattern pattern = Pattern.compile("report_.+\\.xml");
 
     @SneakyThrows
@@ -60,19 +60,21 @@ public class FileMonitoringServiceTest {
         List<Log> logs = ImmutableList.of(log1, log2);
         input.setLogs(logs);
 
-        assertTrue(writeInputLogs(input, "developer-task-logs/scan/testlog.xml"));
+        String scanPath = "developer-task-logs/scan/testlog.xml";
+
+        new File(pathReport).mkdirs();
+        GeneratorLogsXML.clearPath(pathReport);
+        GeneratorLogsXML.clearPath(scanPath);
+        assertTrue(writeInputLogs(input, scanPath));
 
         int countThread = 10;
 
-//        GeneratorLogsXML.transferLogFiles(fromPath, path); // TODO: 12/9/19 тут падает экспешн если папки у меня такой нет. java.nio.file.NoSuchFileException: ./developer-task-logs/log-files равно как и// /src/test/java/logs_input
-//        GeneratorLogsXML.clearPath(pathReport);
-
-        Thread thread = new Thread(new FileMonitoringService("developer-task-logs/scan/testlog.xml",
+        Thread thread = new Thread(new FileMonitoringService(scanPath,
                 pathReport, schemaFile, countThread, Duration.ofSeconds(3)));
         thread.start();
         thread.join();
 
-        String pathNewFile = getNewFile(pathReportFile);
+        String pathNewFile = getNewFile(Paths.get(pathReport));
         Output output = XMLReader.readXMLWithMapper(new File(pathNewFile), Output.class);
 
         LocalDate testDate = testTDateTime.toLocalDate();
@@ -91,11 +93,16 @@ public class FileMonitoringServiceTest {
     @SneakyThrows
     @Test
     public void testHighLoadValid() {
-        ArrayList<Input> inputs = new ArrayList<>();
+        List<Input> inputs = new ArrayList<>();
         LocalDateTime testTDateTime = LocalDateTime.now();
         String testUser = "Vasya";
         String testUrl = "https://www.google.ru";
 
+        String scanPath = "developer-task-logs/scan";
+
+        new File(pathReport).mkdirs();
+        GeneratorLogsXML.clearPath(pathReport);
+        GeneratorLogsXML.clearPath(scanPath);
 
         for (int i = 0; i <= 1000; i++) {
             Input input = new Input();
@@ -106,21 +113,18 @@ public class FileMonitoringServiceTest {
         }
 
         for (Input input : inputs) {
-            assertTrue(writeInputLogs(input, "developer-task-logs/scan/testlog" + inputs.indexOf(input) + ".xml"));
+            assertTrue(writeInputLogs(input, scanPath + "/testlog" + inputs.indexOf(input) + ".xml"));
         }
 
         int countThread = 10;
 
-//        GeneratorLogsXML.transferLogFiles(fromPath, path); // TODO: 12/9/19 тут падает экспешн если папки у меня такой нет. java.nio.file.NoSuchFileException: ./developer-task-logs/log-files равно как и// /src/test/java/logs_input
-//        GeneratorLogsXML.clearPath(pathReport);
-
-        Thread thread = new Thread(new FileMonitoringService("developer-task-logs/scan",
+        Thread thread = new Thread(new FileMonitoringService(scanPath,
                 pathReport, schemaFile, countThread, Duration.ofSeconds(3)));
         thread.start();
         thread.join();
 
 
-        String pathNewFile = getNewFile(pathReportFile);
+        String pathNewFile = getNewFile(Paths.get(pathReport));
         Output output = XMLReader.readXMLWithMapper(new File(pathNewFile), Output.class);
 
         LocalDate testDate = testTDateTime.toLocalDate();
@@ -156,6 +160,13 @@ public class FileMonitoringServiceTest {
     public void runTest() {
         int countThread = 10;
 
+        new File(fromPath).mkdirs();
+        new File(path).mkdirs();
+        new File(pathReport).mkdirs();
+        // Почему верхний код работает, а тот что на строку ниже (закомменчен) - нет?))
+        // я вообще не вижу в них глобальной разницы
+//        GeneratorLogsXML.checkPaths(Arrays.asList(fromPath, path, pathReport));
+
         GeneratorLogsXML.transferLogFiles(fromPath, path); // TODO: 12/9/19 тут падает экспешн если папки у меня такой нет. java.nio.file.NoSuchFileException: ./developer-task-logs/log-files
         GeneratorLogsXML.clearPath(pathReport);
 
@@ -163,7 +174,7 @@ public class FileMonitoringServiceTest {
         thread.start();
         thread.join();
 
-        String pathNewFile = getNewFile(pathReportFile);
+        String pathNewFile = getNewFile(Paths.get(pathReport));
 
         assertNotEquals("", pathNewFile);
         assertTrue(checkFileExists(path + "/file1.xml"));
