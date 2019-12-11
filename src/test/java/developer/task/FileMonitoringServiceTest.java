@@ -92,6 +92,15 @@ public class FileMonitoringServiceTest {
 
     @SneakyThrows
     @Test
+    public void testBenchmark() {
+        // TODO: 12/11/19 самое время проверить какой бенефит от многопоточности.
+        //  Нужно прогнать аналогичные нагрузочные тесты и расчитать сколько времени потребуется одному потоку, а сколько 10ти, например.
+        //  Сравнить во сколько раз наш перфрманс улучшен. При этом возможно данных следует сгенерить побольше на каждый обрабатываемый фаил,
+        //  сильно побольше.
+    }
+
+    @SneakyThrows
+    @Test
     public void testHighLoadValid() {
         List<Input> inputs = new ArrayList<>();
         LocalDateTime testTDateTime = LocalDateTime.now();
@@ -179,6 +188,7 @@ public class FileMonitoringServiceTest {
         assertNotEquals("", pathNewFile);
         assertTrue(checkFileExists(path + "/file1.xml"));
     }
+
 
     @SneakyThrows
     private String getNewFile(Path pathFile) {
