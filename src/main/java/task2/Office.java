@@ -21,15 +21,6 @@ public class Office {
 		System.out.println(this.hr.phrase1);
 	}
 
-	void prepareList(HR phrase2){
-		hr = phrase2;
-		System.out.println(hr.phrase2);
-	}
-
-	void appealDirector(HR phrase3){
-		System.out.println(phrase3.phrase3);
-	}
-
 
 	void invitePeople(Secretary human){
 		manager.inputKPI(human);
@@ -39,15 +30,19 @@ public class Office {
 
 	void chooseDirector(Director human){
 		director = human;
-		director.firedPeople();
 	}
 
 	void createTable(){
 		Map<String, Double> kpis = manager.kpis;
+		System.out.println(hr.phrase2);
 		hr.createTable(kpis);
 	}
 
 	public void inviteManager(Manager manager) {
 		this.manager = manager;
+	}
+
+	public void applyBonus() {
+		director.giveBonus();
 	}
 }

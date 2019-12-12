@@ -34,9 +34,8 @@ public class Main {
 		System.out.println(office.manager.kpis);
 
 
-		office.prepareList(hr);
-		office.appealDirector(hr);
 		office.createTable();
 		office.chooseDirector(director);
+		office.applyBonus();
 	}
 }
