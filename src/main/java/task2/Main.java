@@ -15,25 +15,18 @@ public class Main {
 		office.giveList(list);
 
 		Secretary alla = new Secretary("Alla");
-		office.invitePeople(alla);
-
 		Secretary zina = new Secretary("Zina");
-		office.invitePeople(zina);
-
 		Secretary oleg = new Secretary("Oleg");
-		office.invitePeople(oleg);
-
 		Manager manager = new Manager();
-		office.listKPI(manager);
-
-		office.prepareList(list);
-		System.out.println("");
-
-		office.appealDirector(list);
-
-		office.createTable(list);
-
 		Director director = new Director();
+
+		office.invitePeople(alla);
+		office.invitePeople(zina);
+		office.invitePeople(oleg);
+		office.listKPI(manager);
+		office.prepareList(list);
+		office.appealDirector(list);
+		office.createTable(list);
 		office.chooseDirector(director);
 
 
