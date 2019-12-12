@@ -19,14 +19,17 @@ public class Main {
 		Secretary alla = new Secretary("Alla");
 		Secretary zina = new Secretary("Zina");
 		Secretary oleg = new Secretary("Oleg");
-		List<String> secretaries = new ArrayList();
+		List<Secretary> secretaries = new ArrayList<>();
+		secretaries.add(alla);
+		secretaries.add(zina);
+		secretaries.add(oleg);
+		secretaries.add(new Secretary("Victor"));
+
 		Manager manager = new Manager();
 		Director director = new Director();
-
-
-		office.invitePeople(alla);
-		office.invitePeople(zina);
-		office.invitePeople(oleg);
+		for (Secretary secretary : secretaries) {      // iter
+			office.invitePeople(secretary);
+		}
 
 
 		office.listKPI(manager);
