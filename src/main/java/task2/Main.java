@@ -4,17 +4,15 @@ package task2;
 // выбирает рандомно секретаря в штат, которого ему пердлагает HR,
 // все это происходит в офисе
 
-import javax.crypto.SecretKey;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Main {
 	public static void main(String[] args) {
 		Office office = new Office();
 
-		HR list = new HR();
-		office.giveList(list);
+		HR hr = new HR();
+		office.inviteHr(hr);
 
 		Secretary alla = new Secretary("Alla");
 		Secretary zina = new Secretary("Zina");
@@ -26,16 +24,19 @@ public class Main {
 		secretaries.add(new Secretary("Victor"));
 
 		Manager manager = new Manager();
+		office.inviteManager(manager);
+
 		Director director = new Director();
 		for (Secretary secretary : secretaries) {      // iter
 			office.invitePeople(secretary);
 		}
 
+		System.out.println(office.manager.kpis);
 
-		office.listKPI(manager);
-		office.prepareList(list);
-		office.appealDirector(list);
-		office.createTable(list);
+
+		office.prepareList(hr);
+		office.appealDirector(hr);
+		office.createTable();
 		office.chooseDirector(director);
 	}
 }

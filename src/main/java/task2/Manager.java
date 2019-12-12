@@ -1,17 +1,21 @@
 package task2;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Manager {
-    public void inputKPI(){
-        System.out.print("Input KPI of employee Zina: ");
+
+    Map<String, Double> kpis = new HashMap<>();
+
+    public void inputKPI(Secretary secretary){
+        System.out.print("Input KPI of employee "+ secretary.name +": ");
         Scanner input = new Scanner(System.in);
-        Double KPI1 = input.nextDouble();
-        System.out.print("Input KPI of employee Alla: ");
-        Double KPI2 = input.nextDouble();
-        System.out.print("Input KPI of third employee Oleg: ");
-        Double KPI3 = input.nextDouble();
+        double kpi = input.nextDouble();
+        kpis.put(secretary.name, kpi);
     }
+
     Manager(){
 
     }

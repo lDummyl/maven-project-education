@@ -1,5 +1,7 @@
 package task2;
 
+import java.util.Map;
+
 public class Office {
 
 	Secretary secretary;
@@ -14,9 +16,9 @@ public class Office {
 	//претенденты идут по одному, когда их достаточно,
 	// то диретор принимает решение и берет одного в штат
 
-	void giveList(HR phrase1){
-		hr = phrase1;
-		System.out.println(hr.phrase1);
+	void inviteHr(HR hr){
+		this.hr = hr;
+		System.out.println(this.hr.phrase1);
 	}
 
 	void prepareList(HR phrase2){
@@ -30,6 +32,7 @@ public class Office {
 
 
 	void invitePeople(Secretary human){
+		manager.inputKPI(human);
 		secretary = human;
 		System.out.println(secretary.name );
 	}
@@ -39,13 +42,12 @@ public class Office {
 		director.firedPeople();
 	}
 
-	void listKPI(Manager human) {
-		manager = human;
-		manager.inputKPI();
+	void createTable(){
+		Map<String, Double> kpis = manager.kpis;
+		hr.createTable(kpis);
 	}
 
-	void createTable(HR human){
-		human.createTable();
+	public void inviteManager(Manager manager) {
+		this.manager = manager;
 	}
-
 }

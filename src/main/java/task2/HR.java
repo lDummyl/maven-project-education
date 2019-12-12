@@ -1,4 +1,7 @@
 package task2;
+
+import java.util.Map;
+
 public class HR extends Manager{
     String phrase1 = "HR: \"Manager A, look at the list of employee and fill up their KPI\" ";
     String phrase2 = "HR: \"Thank you, Manager A, I'll prepare this information to the Director.\"";
@@ -8,10 +11,16 @@ public class HR extends Manager{
     //    super(KPI1, KPI2, KPI3);
  //   }
 
-    public void createTable() {
+    public void createTable(Map<String, Double> kpis) {
+        printHeader();
+        for (Map.Entry<String, Double> pair : kpis.entrySet()) { // iter
+            System.out.println(pair.getKey() +" "+ pair.getValue());
+        }
+    }
+
+    private void printHeader() {
         System.out.println("+------------------+---------+");
         System.out.println("|      Name        +   KPI   +");
         System.out.println("+------------------+---------+");
-
     }
 }
