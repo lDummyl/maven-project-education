@@ -11,15 +11,31 @@ public class Main {
 	public static void main(String[] args) {
 		Office office = new Office();
 
-		Secretary secretary = new Secretary("Alla");
+		HR list = new HR();
+		office.giveList(list);
 
-		office.invitePeaople(secretary);
-		System.out.println(office.secretary.name);
+		Secretary alla = new Secretary("Alla");
+		office.invitePeople(alla);
 
 		Secretary zina = new Secretary("Zina");
-		office.invitePeaople(zina);
+		office.invitePeople(zina);
+
+		Secretary oleg = new Secretary("Oleg");
+		office.invitePeople(oleg);
+
+		Manager manager = new Manager();
+		office.listKPI(manager);
+
+		office.prepareList(list);
+		System.out.println("");
+
+		office.appealDirector(list);
+
+		office.createTable(list);
 
 		Director director = new Director();
 		office.chooseDirector(director);
+
+
 	}
 }
