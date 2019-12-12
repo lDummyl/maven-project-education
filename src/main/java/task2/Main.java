@@ -5,6 +5,8 @@ package task2;
 // все это происходит в офисе
 
 import javax.crypto.SecretKey;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -17,18 +19,20 @@ public class Main {
 		Secretary alla = new Secretary("Alla");
 		Secretary zina = new Secretary("Zina");
 		Secretary oleg = new Secretary("Oleg");
+		List<String> secretaries = new ArrayList();
 		Manager manager = new Manager();
 		Director director = new Director();
+
 
 		office.invitePeople(alla);
 		office.invitePeople(zina);
 		office.invitePeople(oleg);
+
+
 		office.listKPI(manager);
 		office.prepareList(list);
 		office.appealDirector(list);
 		office.createTable(list);
 		office.chooseDirector(director);
-
-
 	}
 }
