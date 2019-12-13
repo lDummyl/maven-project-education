@@ -13,7 +13,7 @@ public class GeneratorLogsXML {
 
     @SneakyThrows
     public static Boolean transferLogFiles(String fromPath, String toPath) {
-        if (!clearPath(toPath) && !checkPath(toPath)) {
+        if (!clearPath(toPath)) {// && !checkPath(toPath)) {
             return false;
         }
 
@@ -27,9 +27,9 @@ public class GeneratorLogsXML {
 
     @SneakyThrows
     public static Boolean clearPath(String pathDirectory) {
-        if (!checkPath(pathDirectory)) {
-            return false;
-        }
+//        if (!checkPath(pathDirectory)) {
+//            return false;
+//        }
 
         try (Stream<Path> walk = Files.walk(Paths.get(pathDirectory))) {
             walk.forEach(path -> {

@@ -20,7 +20,6 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -97,6 +96,42 @@ public class FileMonitoringServiceTest {
         //  Нужно прогнать аналогичные нагрузочные тесты и расчитать сколько времени потребуется одному потоку, а сколько 10ти, например.
         //  Сравнить во сколько раз наш перфрманс улучшен. При этом возможно данных следует сгенерить побольше на каждый обрабатываемый фаил,
         //  сильно побольше.
+
+        new File(fromPath).mkdirs();
+        new File(pathReport).mkdirs();
+
+        for (int i = 0; i < 1000; i++) {
+            String pathDirectory = path + "/part" + i;
+            new File(pathDirectory).mkdirs();
+            GeneratorLogsXML.transferLogFiles(fromPath, pathDirectory);
+        }
+        GeneratorLogsXML.clearPath(pathReport);
+
+        int countThread = 1;
+
+        LocalDateTime startTime = LocalDateTime.now();
+        Thread thread = new Thread(new FileMonitoringService(path, pathReport, schemaFile, countThread, Duration.ofSeconds(3)));
+        thread.start();
+        thread.join();
+        LocalDateTime endTime = LocalDateTime.now();
+
+//        Duration betweenTenThread = Duration.between(startTime, endTime);
+        Duration betweenOneThread = Duration.between(startTime, endTime);
+
+        GeneratorLogsXML.clearPath(pathReport);
+
+        countThread = 10;
+
+        startTime = LocalDateTime.now();
+        thread = new Thread(new FileMonitoringService(path, pathReport, schemaFile, countThread, Duration.ofSeconds(3)));
+        thread.start();
+        thread.join();
+        endTime = LocalDateTime.now();
+
+//        Duration betweenOneThread = Duration.between(startTime, endTime);
+        Duration betweenTenThread = Duration.between(startTime, endTime);
+
+        assertTrue(betweenTenThread.getSeconds() < betweenOneThread.getSeconds());
     }
 
     @SneakyThrows
@@ -131,7 +166,6 @@ public class FileMonitoringServiceTest {
                 pathReport, schemaFile, countThread, Duration.ofSeconds(3)));
         thread.start();
         thread.join();
-
 
         String pathNewFile = getNewFile(Paths.get(pathReport));
         Output output = XMLReader.readXMLWithMapper(new File(pathNewFile), Output.class);
@@ -188,7 +222,6 @@ public class FileMonitoringServiceTest {
         assertNotEquals("", pathNewFile);
         assertTrue(checkFileExists(path + "/file1.xml"));
     }
-
 
     @SneakyThrows
     private String getNewFile(Path pathFile) {
