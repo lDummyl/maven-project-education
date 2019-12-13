@@ -131,7 +131,9 @@ public class FileMonitoringServiceTest {
 //        Duration betweenOneThread = Duration.between(startTime, endTime);
         Duration betweenTenThread = Duration.between(startTime, endTime);
 
-        assertTrue(betweenTenThread.getSeconds() < betweenOneThread.getSeconds());
+        // TODO: 12/13/19 задай такие входные условия чтобы разница составляла не менее 4х раз в производительности, бонус тебе в помощь
+        assertTrue(betweenTenThread.getSeconds() / betweenOneThread.getSeconds() > 4);
+//        assertTrue(betweenTenThread.getSeconds() < betweenOneThread.getSeconds());
     }
 
     @SneakyThrows
