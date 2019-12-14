@@ -2,45 +2,48 @@ package developer.task.XMLInteraction;
 
 import developer.task.structureXML.input.Input;
 import developer.task.structureXML.input.Log;
-import developer.task.structureXML.output.User;
-import lombok.Synchronized;
+import developer.task.structureXML.output.supportClasses.UserSite;
+import lombok.Getter;
 
 import java.io.File;
 import java.time.*;
 import java.util.*;
 
+@Getter
 public class XMLParser {
 
-    @Synchronized
-    public static List<User> parseXMLWithMapper(File file) {
-        return parseXMLWithMapper_Input(file);
-    }
+    private Map<UserSite, Map<LocalDate, Long>> userSiteMap = new HashMap<>();
 
-    private static List<User> parseXMLWithMapper_Input(File file) {
+    public void parseXMLWithMapper(File file) {
         Input input = XMLReader.readXMLWithMapper(file, Input.class);
-        return collectUsers(input);
-    }
-
-    private static List<User> collectUsers(Input input) {
-        List<User> users = new ArrayList<>();
 
         for (Log log : input.getLogs()) {
-            users.addAll(getUsersFromLog(log));
+            writeUsersFromLog(log);
         }
-
-        return users;
     }
 
-    public static List<User> getUsersFromLog(Log log) {
-        List<User> users = new ArrayList<>();
-
+    public void writeUsersFromLog(Log log) {
         Map<LocalDate, Long> timeSpentFromLog = getTimeSpentAtDate(log.getTimestamp(), log.getSeconds());
-        timeSpentFromLog.entrySet().forEach(entry -> users.add(new User(entry.getKey(), log.getUserId(), log.getUrl(), entry.getValue())));
 
-        return users;
+        // TODO: тут жопа. в этот момент надо уже считать "visitQuantity", а как его тут счтитать я хз. Сейчас получается что всегда "visitQuantity" всегда 1
+        UserSite userSite = new UserSite(log.getUserId(), log.getUrl());
+        Map<LocalDate, Long> timeSpentPart = userSiteMap.get(userSite);
+        if ( timeSpentPart == null) {
+            userSiteMap.put(userSite, timeSpentFromLog);
+        } else {
+            for (Map.Entry<LocalDate, Long> entry : timeSpentFromLog.entrySet()) {
+                Long timeSpent = timeSpentPart.get(entry.getKey());
+                if (timeSpent == null) {
+                    timeSpentPart.put(entry.getKey(), entry.getValue());
+                } else {
+                    timeSpentPart.put(entry.getKey(), entry.getValue() + timeSpent);
+                }
+//                timeSpentPart.merge(entry.getKey(), entry.getValue(), Long::sum);
+            }
+        }
     }
 
-    private static Map<LocalDate, Long> getTimeSpentAtDate(Long startTime, Long timeSpent) {
+    private Map<LocalDate, Long> getTimeSpentAtDate(Long startTime, Long timeSpent) {
         Map<LocalDate, Long> timeSpentFromLog = new HashMap<>();
 
         LocalDateTime startDateTime = LocalDateTime.ofEpochSecond(startTime, 0, ZoneOffset.UTC);

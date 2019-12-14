@@ -4,7 +4,7 @@ import developer.task.XMLInteraction.XMLWriter;
 import developer.task.structureXML.output.LogDay;
 import developer.task.structureXML.output.Output;
 import developer.task.structureXML.output.User;
-import developer.task.structureXML.output.supportCasses.UserService;
+import developer.task.structureXML.output.supportClasses.UserService;
 import lombok.NonNull;
 import lombok.SneakyThrows;
 
@@ -31,7 +31,7 @@ public class FileMonitoringService implements Runnable {
     private String schemaFile;
     private Duration ofMonitoring;
     private LocalDateTime creation = LocalDateTime.now();
-    private List<User> users = Collections.synchronizedList(new ArrayList<>());
+    private Output output = new Output();//List<User> users = Collections.synchronizedList(new ArrayList<>());
 
     public FileMonitoringService(String pathFile, String pathReportFile, String schemaFile, int countThread, Duration ofMonitoring) {
         this.pathFile = pathFile.replace("\\", "/");
@@ -65,7 +65,7 @@ public class FileMonitoringService implements Runnable {
         while (creation.plus(ofMonitoring).isAfter(LocalDateTime.now())) {
             try (Stream<Path> walk = Files.walk(path)) {
                 walk.filter(p -> p.toFile().getName().endsWith(".xml"))
-                        .forEach(i -> executorService.submit(new SingleFileProcessor(i, schemaFile, users)));
+                        .forEach(i -> executorService.submit(new SingleFileProcessor(i, schemaFile, output)));
             }
             Thread.sleep(3000);
         }
@@ -80,7 +80,7 @@ public class FileMonitoringService implements Runnable {
 
     private Boolean writeFileXML() {
         String filePath = pathReportFile + "/report_" + getDateTimeFormat(LocalDateTime.now()) + ".xml";
-        return XMLWriter.writeXMLWithMapper(parseUsers(), filePath);
+        return XMLWriter.writeXMLWithMapper(output, filePath);
     }
 
     private String getDateTimeFormat(LocalDateTime date) {
@@ -88,22 +88,22 @@ public class FileMonitoringService implements Runnable {
 //                + "_" + date.getHour() + "_" + date.getMinute() + "_" + date.getSecond();
     }
 
-    private Output parseUsers() {
-        Output output = new Output();
-
-        Function<User, LocalDate> similarDates = User::getDate;
-        Map<LocalDate, List<User>> dateListUsers = users.stream()
-                .collect(Collectors.groupingBy(similarDates));
-
-        dateListUsers.entrySet().forEach(entry -> entry.setValue(groupUsers(entry.getValue())));
-
-        List<LogDay> logDays = output.getLogDays();
-        dateListUsers.entrySet().stream()
-                .sorted(Comparator.comparing(Map.Entry::getKey))
-                .forEach(i -> logDays.add(new LogDay(i.getKey().toString(), i.getValue())));
-
-        return output;
-    }
+//    private Output parseUsers() {
+//        Output output = new Output();
+//
+//        Function<User, LocalDate> similarDates = User::getDate;
+//        Map<LocalDate, List<User>> dateListUsers = users.stream()
+//                .collect(Collectors.groupingBy(similarDates));
+//
+//        dateListUsers.entrySet().forEach(entry -> entry.setValue(groupUsers(entry.getValue())));
+//
+//        List<LogDay> logDays = output.getLogDays();
+//        dateListUsers.entrySet().stream()
+//                .sorted(Comparator.comparing(Map.Entry::getKey))
+//                .forEach(i -> logDays.add(new LogDay(i.getKey().toString(), i.getValue())));
+//
+//        return output;
+//    }
 
     private List<User> groupUsers(List<User> usersList) {
         List<User> newUsersList = new ArrayList<>();
@@ -118,10 +118,10 @@ public class FileMonitoringService implements Runnable {
 
             if (iterationUser != null) {
                 iterationUser.setTimeSpent(iterationUser.getTimeSpent() + user.getTimeSpent());
-                iterationUser.setUserQuantity(iterationUser.getUserQuantity() + user.getUserQuantity());
+                iterationUser.setVisitQuantity(iterationUser.getVisitQuantity() + user.getVisitQuantity());
             } else {
                 newUsersList.add(new User(user.getDate(), user.getUserId(), user.getUrl(), user.getAverage(),
-                        user.getTimeSpent(), user.getUserQuantity()));
+                        user.getTimeSpent(), user.getVisitQuantity()));
             }
         }
         newUsersList.forEach(UserService::calculateAverage);

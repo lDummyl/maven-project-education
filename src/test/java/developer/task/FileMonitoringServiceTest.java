@@ -20,6 +20,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -35,11 +36,7 @@ public class FileMonitoringServiceTest {
     Logger log = Logger.getLogger(FileMonitoringServiceTest.class.getName());
     XmlMapper xmlMapper = new XmlMapper();
 
-    // TODO: 12/2/19 не самая лучшая идея. В папке java должны быть только фаилы с кодом на java.
-    //  Я почему-то не виджу папки с тестовыми ресурсами. А она должна быть возможно не закомичена. Как читать ресурсы я уже показывал,
-    //  берешь класс лоадер и череез него. Но я бы вообще создавал бы данные а потом помещал бы в сканнер.
-
-    String fromPath = "./src/test/java/logs_input"; // TODO: 12/9/19  вообще я бы избавился уже от нее раз мы генерируем на лету данные, по Васе например.
+    String fromPath = "./src/test/java/logs_input";
 
     String path = "./developer-task-logs/log-files";
     String pathReport = "./developer-task-logs/report-files";
@@ -205,14 +202,9 @@ public class FileMonitoringServiceTest {
     public void runTest() {
         int countThread = 10;
 
-        new File(fromPath).mkdirs();
-        new File(path).mkdirs();
-        new File(pathReport).mkdirs();
-        // Почему верхний код работает, а тот что на строку ниже (закомменчен) - нет?))
-        // я вообще не вижу в них глобальной разницы
-//        GeneratorLogsXML.checkPaths(Arrays.asList(fromPath, path, pathReport));
+        GeneratorLogsXML.createPaths(Arrays.asList(fromPath, path, pathReport), true);
 
-        GeneratorLogsXML.transferLogFiles(fromPath, path); // TODO: 12/9/19 тут падает экспешн если папки у меня такой нет. java.nio.file.NoSuchFileException: ./developer-task-logs/log-files
+        GeneratorLogsXML.transferLogFiles(fromPath, path);
         GeneratorLogsXML.clearPath(pathReport);
 
         Thread thread = new Thread(new FileMonitoringService(path, pathReport, schemaFile, countThread, Duration.ofSeconds(3)));

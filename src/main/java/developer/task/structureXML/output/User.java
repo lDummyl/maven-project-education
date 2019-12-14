@@ -3,6 +3,7 @@ package developer.task.structureXML.output;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import developer.task.structureXML.output.supportClasses.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,13 +34,15 @@ public class User {
     private Long timeSpent;
 
     @JsonIgnore
-    private Integer userQuantity = 1;
+    private Integer visitQuantity = 1;
 
     public User(LocalDate date, String userId, String url, Long timeSpent) {
         this.date = date;
         this.userId = userId;
         this.url = url;
         this.timeSpent = timeSpent;
+
+        UserService.calculateAverage(this);
     }
 
     @Override
@@ -50,7 +53,7 @@ public class User {
                 ", url='" + url + '\'' +
                 ", average=" + average + '\'' +
                 ", timeSpent=" + timeSpent + '\'' +
-                ", userQuantity=" + userQuantity +
+                ", userQuantity=" + visitQuantity +
                 '}';
     }
 }

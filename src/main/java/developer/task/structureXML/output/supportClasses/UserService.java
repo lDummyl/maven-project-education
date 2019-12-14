@@ -1,4 +1,4 @@
-package developer.task.structureXML.output.supportCasses;
+package developer.task.structureXML.output.supportClasses;
 
 import developer.task.structureXML.output.User;
 
@@ -9,6 +9,6 @@ public class UserService {
     }
 
     public static Long getCalculateAverage(User user) {
-        return user.getTimeSpent() / user.getUserQuantity();
+        return user.getTimeSpent() / user.getVisitQuantity();
     }
 }
