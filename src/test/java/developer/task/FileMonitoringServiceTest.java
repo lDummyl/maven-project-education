@@ -58,7 +58,9 @@ public class FileMonitoringServiceTest {
 
         String scanPath = "developer-task-logs/scan/testlog.xml";
 
-        new File(pathReport).mkdirs();
+        GeneratorLogsXML.createPaths(Arrays.asList(fromPath, path, pathReport), true);
+        GeneratorLogsXML.createPath(scanPath, false);
+
         GeneratorLogsXML.clearPath(pathReport);
         GeneratorLogsXML.clearPath(scanPath);
         assertTrue(writeInputLogs(input, scanPath));
@@ -112,7 +114,6 @@ public class FileMonitoringServiceTest {
         thread.join();
         LocalDateTime endTime = LocalDateTime.now();
 
-//        Duration betweenTenThread = Duration.between(startTime, endTime);
         Duration betweenOneThread = Duration.between(startTime, endTime);
 
         GeneratorLogsXML.clearPath(pathReport);
@@ -125,12 +126,12 @@ public class FileMonitoringServiceTest {
         thread.join();
         endTime = LocalDateTime.now();
 
-//        Duration betweenOneThread = Duration.between(startTime, endTime);
         Duration betweenTenThread = Duration.between(startTime, endTime);
 
+        log.info("ten thread: " + betweenTenThread.getSeconds() + "; one thread: " + betweenOneThread.getSeconds());
         // TODO: 12/13/19 задай такие входные условия чтобы разница составляла не менее 4х раз в производительности, бонус тебе в помощь
         assertTrue(betweenTenThread.getSeconds() / betweenOneThread.getSeconds() > 4);
-//        assertTrue(betweenTenThread.getSeconds() < betweenOneThread.getSeconds());
+        // 15.12.19 с текущей реализацией все равно разница почти в 3 раза, но не в 4 (6 и 15 сек)
     }
 
     @SneakyThrows

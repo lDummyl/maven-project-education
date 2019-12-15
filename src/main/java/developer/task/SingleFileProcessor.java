@@ -4,6 +4,7 @@ import developer.task.XMLInteraction.XMLParser;
 import developer.task.structureXML.output.LogDay;
 import developer.task.structureXML.output.Output;
 import developer.task.structureXML.output.User;
+import developer.task.structureXML.output.supportClasses.UserIndicators;
 import developer.task.structureXML.output.supportClasses.UserService;
 import developer.task.structureXML.output.supportClasses.UserSite;
 import lombok.SneakyThrows;
@@ -77,16 +78,16 @@ public class SingleFileProcessor implements Runnable {
     }
 
     @Synchronized
-    private void addAllUsers(Map<UserSite, Map<LocalDate, Long>> userSiteMap) {
+    private void addAllUsers(Map<UserSite, Map<LocalDate, UserIndicators>> userSiteMap) {
         // уникальные записи по дате, юзеру и сайту
 
         // пока что придумал только такие ступеньки
+        // 12.15.19 при таком решении перестал проходить тест "testHighLoadValid"
         List<LogDay> logDays = output.getLogDays();
-        for (Map.Entry<UserSite, Map<LocalDate, Long>> entry : userSiteMap.entrySet()) {
+        for (Map.Entry<UserSite, Map<LocalDate, UserIndicators>> entry : userSiteMap.entrySet()) {
             String userName = entry.getKey().user;
             String userSite = entry.getKey().site;
-//            Integer visitQuantity = entry.getKey().visitQuantity;
-            for (Map.Entry<LocalDate, Long> entryDate : entry.getValue().entrySet()) {
+            for (Map.Entry<LocalDate, UserIndicators> entryDate : entry.getValue().entrySet()) {
                 String day = entryDate.getKey().toString();
                 boolean userFind = false;
                 for (LogDay logDay : logDays) {
@@ -95,20 +96,20 @@ public class SingleFileProcessor implements Runnable {
                     if (logDay.equals(day)) {
                         for (User user : users) {
                             if (userEquals(user, entry.getKey())) {
-                                addToUser(user, entryDate.getValue());//, visitQuantity);
+                                addToUser(user, entryDate.getValue());
                                 userDayFind = true;
                                 userFind = true;
                             }
                         }
                         if (!userDayFind) {
-                            users.add(new User(entryDate.getKey(), userName, userSite, entryDate.getValue()));
+                            addUser(users, userName, userSite, entryDate);
                             userFind = true;
                         }
                     }
                 }
                 if (!userFind) {
                     List<User> users = new ArrayList<>();
-                    users.add(new User(entryDate.getKey(), userName, userSite, entryDate.getValue()));
+                    addUser(users, userName, userSite, entryDate);
                     logDays.add(new LogDay(day, users));
                 }
             }
@@ -120,9 +121,17 @@ public class SingleFileProcessor implements Runnable {
                 && user.getUrl().equals(userSite.site);
     }
 
-    private void addToUser(User user, Long timeSpent) {//, Integer visitQuantity) {
-        user.setTimeSpent(user.getTimeSpent() + timeSpent);
-        user.setVisitQuantity(user.getVisitQuantity() + 1);
+    private void addToUser(User user, UserIndicators userIndicators) {
+        user.setTimeSpent(user.getTimeSpent() + userIndicators.timeSpent);
+        user.setVisitQuantity(user.getVisitQuantity() + userIndicators.visitQuantity);
         UserService.calculateAverage(user);
+    }
+
+    private void addUser(List<User> users, String userName, String userSite, Map.Entry<LocalDate, UserIndicators> entryDate) {
+        UserIndicators userIndicators = entryDate.getValue();
+        User user = new User(entryDate.getKey(), userName, userSite, userIndicators.timeSpent);
+        user.setVisitQuantity(userIndicators.visitQuantity);
+        UserService.calculateAverage(user);
+        users.add(user);
     }
 }
