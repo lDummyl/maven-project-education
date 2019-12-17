@@ -15,6 +15,7 @@ public class XMLParser {
 
     // TODO: 12/15/19 любой черновик всегда можно переделать. Например, если у нас вывод сгруппирован по датам, возможно следует сделать
     //  группировку так Map<LocalDate, Map<UserSite, UserIndicators>> она будет похожа максимально на итоговый вывод.
+    // так не получится, потому что Map<LocalDate, UserIndicators> собирается по одному логу и там может быть несколько дней
 
     private Map<UserSite, Map<LocalDate, UserIndicators>> userSiteMap = new HashMap<>();
 

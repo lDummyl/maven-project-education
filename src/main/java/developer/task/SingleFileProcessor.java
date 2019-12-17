@@ -35,7 +35,7 @@ public class SingleFileProcessor implements Runnable {
 
     // TODO: 12/15/19 а вообще не плохо бы было иметь изначально Output в виде Map<LocalDate, List<User>> а потом если надо преобразовнаие
     //        тривиальное, зато в мапе не недо ничего итеративно искать стримами или циклом, просто get вызвал, или еще лучше merge который мы уже видели
-    private Output output = new Output();//List<User> users;
+    private Output output;//List<User> users;
 
     public SingleFileProcessor(Path pathFile, String schemaFile, Output output) {
         this.pathFile = pathFile;
@@ -86,6 +86,7 @@ public class SingleFileProcessor implements Runnable {
     @Synchronized
     private void addAllUsers(Map<UserSite, Map<LocalDate, UserIndicators>> userSiteMap) {
         // TODO: 12/15/19 тогда будет так
+        // я уже не понимаю этот механизм. мне необходимо объяснение этого функционала, либо наглядный пример
         Map<LocalDate, Map<UserSite, UserIndicators>> differentModel = new HashMap<>();
         for (Map.Entry<LocalDate, Map<UserSite, UserIndicators>> e : differentModel.entrySet()) {
             List<LogDay> currentLogDays = output.getLogDays();
@@ -109,37 +110,37 @@ public class SingleFileProcessor implements Runnable {
 
         // пока что придумал только такие ступеньки
         // 12.15.19 при таком решении перестал проходить тест "testHighLoadValid"
-        List<LogDay> logDays = output.getLogDays();
-        for (Map.Entry<UserSite, Map<LocalDate, UserIndicators>> entry : userSiteMap.entrySet()) {
-            String userName = entry.getKey().user;
-            String userSite = entry.getKey().site;
-            for (Map.Entry<LocalDate, UserIndicators> entryDate : entry.getValue().entrySet()) {
-                String day = entryDate.getKey().toString();
-                boolean userFind = false;
-                for (LogDay logDay : logDays) {
-                    List<User> users = logDay.getUsers();
-                    boolean userDayFind = false;
-                    if (logDay.equals(day)) {
-                        for (User user : users) {
-                            if (userEquals(user, entry.getKey())) {
-                                addToUser(user, entryDate.getValue());
-                                userDayFind = true;
-                                userFind = true;
-                            }
-                        }
-                        if (!userDayFind) {
-                            addUser(users, userName, userSite, entryDate);
-                            userFind = true;
-                        }
-                    }
-                }
-                if (!userFind) {
-                    List<User> users = new ArrayList<>();
-                    addUser(users, userName, userSite, entryDate);
-                    logDays.add(new LogDay(day, users));
-                }
-            }
-        }
+//        List<LogDay> logDays = output.getLogDays();
+//        for (Map.Entry<UserSite, Map<LocalDate, UserIndicators>> entry : userSiteMap.entrySet()) {
+//            String userName = entry.getKey().user;
+//            String userSite = entry.getKey().site;
+//            for (Map.Entry<LocalDate, UserIndicators> entryDate : entry.getValue().entrySet()) {
+//                String day = entryDate.getKey().toString();
+//                boolean userFind = false;
+//                for (LogDay logDay : logDays) {
+//                    List<User> users = logDay.getUsers();
+//                    boolean userDayFind = false;
+//                    if (logDay.equals(day)) {
+//                        for (User user : users) {
+//                            if (userEquals(user, entry.getKey())) {
+//                                addToUser(user, entryDate.getValue());
+//                                userDayFind = true;
+//                                userFind = true;
+//                            }
+//                        }
+//                        if (!userDayFind) {
+//                            addUser(users, userName, userSite, entryDate);
+//                            userFind = true;
+//                        }
+//                    }
+//                }
+//                if (!userFind) {
+//                    List<User> users = new ArrayList<>();
+//                    addUser(users, userName, userSite, entryDate);
+//                    logDays.add(new LogDay(day, users));
+//                }
+//            }
+//        }
     }
 
     private Boolean userEquals(User user, UserSite userSite) {
