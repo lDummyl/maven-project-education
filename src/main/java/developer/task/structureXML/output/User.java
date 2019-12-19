@@ -18,9 +18,6 @@ import java.time.LocalDate;
 @JacksonXmlRootElement(localName = "user")
 public class User {
 
-    @JsonIgnore
-    private LocalDate date;
-
     @JacksonXmlProperty(localName = "userId")
     private String userId;
 
@@ -36,11 +33,11 @@ public class User {
     @JsonIgnore
     private Integer visitQuantity = 1;
 
-    public User(LocalDate date, String userId, String url, Long timeSpent) {
-        this.date = date;
+    public User(String userId, String url, Long timeSpent, Integer visitQuantity) {
         this.userId = userId;
         this.url = url;
         this.timeSpent = timeSpent;
+        this.visitQuantity = visitQuantity;
 
         UserService.calculateAverage(this);
     }
@@ -48,7 +45,6 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "date=" + date +
                 ", userId='" + userId + '\'' +
                 ", url='" + url + '\'' +
                 ", average=" + average + '\'' +

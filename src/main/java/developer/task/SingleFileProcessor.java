@@ -23,7 +23,6 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -79,68 +78,55 @@ public class SingleFileProcessor implements Runnable {
     private void processData() {
         XMLParser xmlParser = new XMLParser();
         xmlParser.parseXMLWithMapper(pathFile.toFile());
-        Map<UserSite, Map<LocalDate, UserIndicators>> userSiteMap = xmlParser.getUserSiteMap();
-        addAllUsers(userSiteMap);
+        Map<LocalDate, Map<UserSite, UserIndicators>> dateUserMap = xmlParser.getVisitsMap();
+        addAllUsers(dateUserMap);
     }
 
+
     @Synchronized
-    private void addAllUsers(Map<UserSite, Map<LocalDate, UserIndicators>> userSiteMap) {
-        // TODO: 12/15/19 тогда будет так
-        // я уже не понимаю этот механизм. мне необходимо объяснение этого функционала, либо наглядный пример
-        Map<LocalDate, Map<UserSite, UserIndicators>> differentModel = new HashMap<>();
-        for (Map.Entry<LocalDate, Map<UserSite, UserIndicators>> e : differentModel.entrySet()) {
-            List<LogDay> currentLogDays = output.getLogDays();
-            List<LogDay> collect = currentLogDays.stream().filter(i -> i.getDay().equals(e.getKey()) /*только убедись что преобразования корректыне*/).collect(Collectors.toList());
+    private void addAllUsers(Map<LocalDate, Map<UserSite, UserIndicators>> dateUserMap) {
+        List<LogDay> logDays = output.getLogDays();
+        for (Map.Entry<LocalDate, Map<UserSite, UserIndicators>> entryDate : dateUserMap.entrySet()) {
+            String day = entryDate.getKey().toString();
+            List<LogDay> collect = logDays.stream().filter(i -> i.getDay().equals(day)).collect(Collectors.toList());
             if (collect.size() > 1) {
                 throw new RuntimeException("Ambiguous date output");
             } else {
-                if(collect.isEmpty()){
-                    // TODO: 12/15/19 преобразуй юзеров и запиши их как новый список
-//                    currentLogDays.add()
-                }else {
+                if (collect.isEmpty()) {
+                    logDays.add(getCurrentLogDay(day, entryDate.getValue()));
+                } else {
                     LogDay logDay = collect.get(0);
                     List<User> users = logDay.getUsers();
-                    // TODO: 12/15/19 добавь новые данные к ним.
-//                    users.add()
+                    addUsers(users, entryDate.getValue());
                 }
             }
         }
+    }
 
-        // уникальные записи по дате, юзеру и сайту
+    private LogDay getCurrentLogDay(String day, Map<UserSite, UserIndicators> userValues) {
+        List<User> users = new ArrayList<>();
+        for (Map.Entry<UserSite, UserIndicators> entry : userValues.entrySet()) {
+            UserSite userSite = entry.getKey();
+            UserIndicators userIndicators = entry.getValue();
+            User user = new User(userSite.user, userSite.site, userIndicators.timeSpent, userIndicators.visitQuantity);
+            users.add(user);
+        }
 
-        // пока что придумал только такие ступеньки
-        // 12.15.19 при таком решении перестал проходить тест "testHighLoadValid"
-//        List<LogDay> logDays = output.getLogDays();
-//        for (Map.Entry<UserSite, Map<LocalDate, UserIndicators>> entry : userSiteMap.entrySet()) {
-//            String userName = entry.getKey().user;
-//            String userSite = entry.getKey().site;
-//            for (Map.Entry<LocalDate, UserIndicators> entryDate : entry.getValue().entrySet()) {
-//                String day = entryDate.getKey().toString();
-//                boolean userFind = false;
-//                for (LogDay logDay : logDays) {
-//                    List<User> users = logDay.getUsers();
-//                    boolean userDayFind = false;
-//                    if (logDay.equals(day)) {
-//                        for (User user : users) {
-//                            if (userEquals(user, entry.getKey())) {
-//                                addToUser(user, entryDate.getValue());
-//                                userDayFind = true;
-//                                userFind = true;
-//                            }
-//                        }
-//                        if (!userDayFind) {
-//                            addUser(users, userName, userSite, entryDate);
-//                            userFind = true;
-//                        }
-//                    }
-//                }
-//                if (!userFind) {
-//                    List<User> users = new ArrayList<>();
-//                    addUser(users, userName, userSite, entryDate);
-//                    logDays.add(new LogDay(day, users));
-//                }
-//            }
-//        }
+        return new LogDay(day, users);
+    }
+
+    private void addUsers(List<User> users, Map<UserSite, UserIndicators> userValues) {
+        for (User user : users) {
+            for (Map.Entry<UserSite, UserIndicators> entry : userValues.entrySet()) {
+                if (userEquals(user, entry.getKey())) {
+                    addToUser(user, entry.getValue());
+                } else {
+                    UserSite userSite = entry.getKey();
+                    UserIndicators userIndicators = entry.getValue();
+                    addUser(users, userSite.user, userSite.site, userIndicators);
+                }
+            }
+        }
     }
 
     private Boolean userEquals(User user, UserSite userSite) {
@@ -154,10 +140,8 @@ public class SingleFileProcessor implements Runnable {
         UserService.calculateAverage(user);
     }
 
-    private void addUser(List<User> users, String userName, String userSite, Map.Entry<LocalDate, UserIndicators> entryDate) {
-        UserIndicators userIndicators = entryDate.getValue();
-        User user = new User(entryDate.getKey(), userName, userSite, userIndicators.timeSpent);
-        user.setVisitQuantity(userIndicators.visitQuantity);
+    private void addUser(List<User> users, String userId, String url, UserIndicators userIndicators) {
+        User user = new User(userId, url, userIndicators.timeSpent, userIndicators.visitQuantity);
         UserService.calculateAverage(user);
         users.add(user);
     }
