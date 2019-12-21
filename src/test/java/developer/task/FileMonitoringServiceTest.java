@@ -96,20 +96,21 @@ public class FileMonitoringServiceTest {
         //  Сравнить во сколько раз наш перфрманс улучшен. При этом возможно данных следует сгенерить побольше на каждый обрабатываемый фаил,
         //  сильно побольше.
 
-        new File(fromPath).mkdirs();
-        new File(pathReport).mkdirs();
+        String scanPath = "developer-task-logs/scan";
 
-        for (int i = 0; i < 1000; i++) {
-            String pathDirectory = path + "/part" + i;
-            new File(pathDirectory).mkdirs();
-            GeneratorLogsXML.transferLogFiles(fromPath, pathDirectory);
-        }
+        GeneratorLogsXML.createPaths(Arrays.asList(fromPath, path, pathReport, scanPath), true);
+        GeneratorLogsXML.clearPath(scanPath);
         GeneratorLogsXML.clearPath(pathReport);
+
+        List<String> siteList = Arrays.asList("http://google.com", "http://ru.wikipedia.org");
+        List<Input> inputs = GeneratorLogsXML.createLogFiles(scanPath, 50, 100000, siteList);
+
+        writeFiles(scanPath, inputs);
 
         int countThread = 1;
 
         LocalDateTime startTime = LocalDateTime.now();
-        Thread thread = new Thread(new FileMonitoringService(path, pathReport, schemaFile, countThread, Duration.ofSeconds(3)));
+        Thread thread = new Thread(new FileMonitoringService(scanPath, pathReport, schemaFile, countThread, Duration.ofSeconds(3)));
         thread.start();
         thread.join();
         LocalDateTime endTime = LocalDateTime.now();
@@ -121,7 +122,7 @@ public class FileMonitoringServiceTest {
         countThread = 10;
 
         startTime = LocalDateTime.now();
-        thread = new Thread(new FileMonitoringService(path, pathReport, schemaFile, countThread, Duration.ofSeconds(3)));
+        thread = new Thread(new FileMonitoringService(scanPath, pathReport, schemaFile, countThread, Duration.ofSeconds(3)));
         thread.start();
         thread.join();
         endTime = LocalDateTime.now();
@@ -130,12 +131,18 @@ public class FileMonitoringServiceTest {
 
         log.info("ten thread: " + betweenTenThread.getSeconds() + "; one thread: " + betweenOneThread.getSeconds());
         // TODO: 12/13/19 задай такие входные условия чтобы разница составляла не менее 4х раз в производительности, бонус тебе в помощь
-        assertTrue(betweenTenThread.getSeconds() / betweenOneThread.getSeconds() > 4);
+        assertTrue( betweenOneThread.getSeconds() /betweenTenThread.getSeconds() > 4);
         // TODO: 12/19/19 супер, тепереь подумай еще раз что я имел в виду когда писал задай такие условия. Подсказка я говорил о тестовых данных.
         //  Сделай больше данных для парсинга, не фаилов с данными, а данных в каждом фаиле чтобы было очень сильно больше чем сейчас.
         //  Я это уже упоминал, пожалуйста, будь внимателен.
         // 15.12.19 с текущей реализацией все равно разница почти в 3 раза, но не в 4 (6 и 15 сек)
         // 19.12.19 переделал механизм - стало даже чуть хуже (6 и 12)
+    }
+
+    private void writeFiles(String scanPath, List<Input> inputs) {
+        for (Input input : inputs) {
+            assertTrue(writeInputLogs(input, scanPath + "/testlog" + inputs.indexOf(input) + ".xml"));
+        }
     }
 
     @SneakyThrows
@@ -160,9 +167,7 @@ public class FileMonitoringServiceTest {
             inputs.add(input);
         }
 
-        for (Input input : inputs) {
-            assertTrue(writeInputLogs(input, scanPath + "/testlog" + inputs.indexOf(input) + ".xml"));
-        }
+        writeFiles(scanPath, inputs);
 
         int countThread = 10;
 

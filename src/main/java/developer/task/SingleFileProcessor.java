@@ -21,7 +21,9 @@ import javax.xml.validation.Validator;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -75,11 +77,20 @@ public class SingleFileProcessor implements Runnable {
         return true;
     }
 
+    @SneakyThrows
     private void processData() {
+        LocalDateTime asyncStart = LocalDateTime.now();
         XMLParser xmlParser = new XMLParser();
         xmlParser.parseXMLWithMapper(pathFile.toFile());
         Map<LocalDate, Map<UserSite, UserIndicators>> dateUserMap = xmlParser.getVisitsMap();
-        addAllUsers(dateUserMap);
+        System.out.println(Thread.currentThread().getName() + "Async millis:" + Duration.between(asyncStart, LocalDateTime.now()).toMillis());
+        LocalDateTime syncStart = LocalDateTime.now();
+        try {
+            addAllUsers(dateUserMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(Thread.currentThread().getName() + "Sync millis:" + Duration.between(syncStart, LocalDateTime.now()).toMillis());
     }
 
 
