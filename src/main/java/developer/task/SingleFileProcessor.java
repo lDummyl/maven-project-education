@@ -25,6 +25,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -34,14 +35,12 @@ public class SingleFileProcessor implements Runnable {
     private Path pathFile;
     private String schemaFile;
 
-    // TODO: 12/15/19 а вообще не плохо бы было иметь изначально Output в виде Map<LocalDate, List<User>> а потом если надо преобразовнаие
-    //        тривиальное, зато в мапе не недо ничего итеративно искать стримами или циклом, просто get вызвал, или еще лучше merge который мы уже видели
-    private Output output;//List<User> users;
+    private Map<LocalDate, List<User>> outputMap;//Output output;
 
-    public SingleFileProcessor(Path pathFile, String schemaFile, Output output) {
+    public SingleFileProcessor(Path pathFile, String schemaFile, Map<LocalDate, List<User>> outputMap) {
         this.pathFile = pathFile;
         this.schemaFile = schemaFile;
-        this.output = output;
+        this.outputMap = outputMap;
     }
 
 
@@ -50,8 +49,6 @@ public class SingleFileProcessor implements Runnable {
     public void run() {
         if (!isFileValid(pathFile)) {
             return;
-            // TODO: 11/27/19 а ведь я в коммите  3c50fbb5cabd2183c4474046df2dc30f19227378 предупреждал что не надо так делать.
-            //  Не знаю что не так с последним ассертом у меня тест дальше этого блока не идет ¯\_(ツ)_/¯ а чтобы понять это пришлось дебажить, тратить время
         }
         processData();
     }
@@ -77,44 +74,45 @@ public class SingleFileProcessor implements Runnable {
         return true;
     }
 
-    @SneakyThrows
     private void processData() {
         LocalDateTime asyncStart = LocalDateTime.now();
         XMLParser xmlParser = new XMLParser();
         xmlParser.parseXMLWithMapper(pathFile.toFile());
         Map<LocalDate, Map<UserSite, UserIndicators>> dateUserMap = xmlParser.getVisitsMap();
-        System.out.println(Thread.currentThread().getName() + "Async millis:" + Duration.between(asyncStart, LocalDateTime.now()).toMillis());
+//        System.out.println(Thread.currentThread().getName() + " Async millis:" + Duration.between(asyncStart, LocalDateTime.now()).toMillis());
         LocalDateTime syncStart = LocalDateTime.now();
-        try {
-            addAllUsers(dateUserMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println(Thread.currentThread().getName() + "Sync millis:" + Duration.between(syncStart, LocalDateTime.now()).toMillis());
+        addAllUsers(dateUserMap);
+//        System.out.println(Thread.currentThread().getName() + " Sync millis:" + Duration.between(syncStart, LocalDateTime.now()).toMillis());
     }
 
 
     @Synchronized
-    private void addAllUsers(Map<LocalDate, Map<UserSite, UserIndicators>> dateUserMap) {
-        List<LogDay> logDays = output.getLogDays();
+    private synchronized void addAllUsers(Map<LocalDate, Map<UserSite, UserIndicators>> dateUserMap) {
+//        List<LogDay> logDays = outputMap.getLogDays();
         for (Map.Entry<LocalDate, Map<UserSite, UserIndicators>> entryDate : dateUserMap.entrySet()) {
-            String day = entryDate.getKey().toString();
-            List<LogDay> collect = logDays.stream().filter(i -> i.getDay().equals(day)).collect(Collectors.toList());
-            if (collect.size() > 1) {
-                throw new RuntimeException("Ambiguous date output");
+//            String day = entryDate.getKey().toString();
+//            List<LogDay> collect = logDays.stream().filter(i -> i.getDay().equals(day)).collect(Collectors.toList());
+//            if (collect.size() > 1) {
+//                throw new RuntimeException("Ambiguous date output");
+//            } else {
+//                if (collect.isEmpty()) {
+//                    logDays.add(getCurrentLogDay(day, entryDate.getValue()));
+//                } else {
+//                    LogDay logDay = collect.get(0);
+//                    List<User> users = logDay.getUsers();
+//                    addUsers(users, entryDate.getValue());
+//                }
+//            }
+            List<User> users = outputMap.get(entryDate.getKey());
+            if (users == null) {
+                outputMap.put(entryDate.getKey(), getCurrentUserList(entryDate.getValue()));
             } else {
-                if (collect.isEmpty()) {
-                    logDays.add(getCurrentLogDay(day, entryDate.getValue()));
-                } else {
-                    LogDay logDay = collect.get(0);
-                    List<User> users = logDay.getUsers();
-                    addUsers(users, entryDate.getValue());
-                }
+                addUsers(users, entryDate.getValue());
             }
         }
     }
 
-    private LogDay getCurrentLogDay(String day, Map<UserSite, UserIndicators> userValues) {
+    private List<User> getCurrentUserList(Map<UserSite, UserIndicators> userValues) {
         List<User> users = new ArrayList<>();
         for (Map.Entry<UserSite, UserIndicators> entry : userValues.entrySet()) {
             UserSite userSite = entry.getKey();
@@ -123,21 +121,39 @@ public class SingleFileProcessor implements Runnable {
             users.add(user);
         }
 
-        return new LogDay(day, users);
+        return users;
     }
 
     private void addUsers(List<User> users, Map<UserSite, UserIndicators> userValues) {
+        Map<UserSite, User> newUsers = new HashMap<>();
         for (User user : users) {
-            for (Map.Entry<UserSite, UserIndicators> entry : userValues.entrySet()) {
-                if (userEquals(user, entry.getKey())) {
-                    addToUser(user, entry.getValue());
-                } else {
-                    UserSite userSite = entry.getKey();
-                    UserIndicators userIndicators = entry.getValue();
-                    addUser(users, userSite.user, userSite.site, userIndicators);
-                }
+//            for (Map.Entry<UserSite, UserIndicators> entry : userValues.entrySet()) {
+//                UserSite userSite = entry.getKey();
+//                UserIndicators userIndicators = entry.getValue();
+//                if (userEquals(user, userSite)) {
+//                    addToUser(user, userIndicators);
+//                } else {
+//                    User findUser = newUsers.get(userSite);
+//                    if (findUser != null) {
+//                        addToUser(findUser, userIndicators);
+//                    } else {
+//                        newUsers.put(userSite, new User(userSite.user, userSite.site, userIndicators.timeSpent, userIndicators.visitQuantity));
+//                    }
+//                }
+//            }
+            UserSite userSite = new UserSite(user.getUserId(), user.getUrl());
+            UserIndicators userIndicators = userValues.get(userSite);
+            if (userIndicators != null) {
+                addToUser(user, userIndicators);
+                userValues.remove(userSite);
             }
         }
+        for (Map.Entry<UserSite, UserIndicators> entry : userValues.entrySet()) {
+            UserSite userSite = entry.getKey();
+            UserIndicators userIndicators = entry.getValue();
+            newUsers.put(userSite, new User(userSite.user, userSite.site, userIndicators.timeSpent, userIndicators.visitQuantity));
+        }
+        users.addAll(new ArrayList<>(newUsers.values()));
     }
 
     private Boolean userEquals(User user, UserSite userSite) {
@@ -153,7 +169,6 @@ public class SingleFileProcessor implements Runnable {
 
     private void addUser(List<User> users, String userId, String url, UserIndicators userIndicators) {
         User user = new User(userId, url, userIndicators.timeSpent, userIndicators.visitQuantity);
-        UserService.calculateAverage(user);
         users.add(user);
     }
 }

@@ -131,7 +131,7 @@ public class FileMonitoringServiceTest {
 
         log.info("ten thread: " + betweenTenThread.getSeconds() + "; one thread: " + betweenOneThread.getSeconds());
         // TODO: 12/13/19 задай такие входные условия чтобы разница составляла не менее 4х раз в производительности, бонус тебе в помощь
-        assertTrue( betweenOneThread.getSeconds() /betweenTenThread.getSeconds() > 4);
+        assertTrue( betweenOneThread.getSeconds() / betweenTenThread.getSeconds() > 4);
         // TODO: 12/19/19 супер, тепереь подумай еще раз что я имел в виду когда писал задай такие условия. Подсказка я говорил о тестовых данных.
         //  Сделай больше данных для парсинга, не фаилов с данными, а данных в каждом фаиле чтобы было очень сильно больше чем сейчас.
         //  Я это уже упоминал, пожалуйста, будь внимателен.
