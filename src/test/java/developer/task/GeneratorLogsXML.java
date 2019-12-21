@@ -13,19 +13,13 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Stream;
 
 public class GeneratorLogsXML {
 
-    private static Random random = new Random();
-
     public static List<Input> createLogFiles(String path, int countFiles, int countUsersInFile, List<String> siteList) {
         List<Input> inputs = new ArrayList<>();
         for (int i = 0; i < countFiles; i++) {
-//            String pathFile = path + "/part" + i;
-//            createPath(pathFile, true);
-
             Input input = new Input();
             List<Log> logs = new ArrayList<>();
             for (int j = 0; j < countUsersInFile; j++) {
@@ -34,7 +28,6 @@ public class GeneratorLogsXML {
                     date = date.plusMinutes(30);
                     Long timestamp = Timestamp.valueOf(date).getTime() / 1000L;
                     String userId = "user" + j;
-//                    Long seconds = 100L;
                     Log log = new Log(timestamp, userId, site, 100L);
                     logs.add(log);
                 }

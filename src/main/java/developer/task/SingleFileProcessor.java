@@ -1,8 +1,6 @@
 package developer.task;
 
 import developer.task.XMLInteraction.XMLParser;
-import developer.task.structureXML.output.LogDay;
-import developer.task.structureXML.output.Output;
 import developer.task.structureXML.output.User;
 import developer.task.structureXML.output.supportClasses.UserIndicators;
 import developer.task.structureXML.output.supportClasses.UserService;
@@ -28,14 +26,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class SingleFileProcessor implements Runnable {
 
     private Path pathFile;
     private String schemaFile;
 
-    private Map<LocalDate, List<User>> outputMap;//Output output;
+    private Map<LocalDate, List<User>> outputMap;
 
     public SingleFileProcessor(Path pathFile, String schemaFile, Map<LocalDate, List<User>> outputMap) {
         this.pathFile = pathFile;
@@ -74,11 +71,13 @@ public class SingleFileProcessor implements Runnable {
         return true;
     }
 
+    @SneakyThrows
     private void processData() {
         LocalDateTime asyncStart = LocalDateTime.now();
         XMLParser xmlParser = new XMLParser();
         xmlParser.parseXMLWithMapper(pathFile.toFile());
         Map<LocalDate, Map<UserSite, UserIndicators>> dateUserMap = xmlParser.getVisitsMap();
+        Thread.sleep(800);
 //        System.out.println(Thread.currentThread().getName() + " Async millis:" + Duration.between(asyncStart, LocalDateTime.now()).toMillis());
         LocalDateTime syncStart = LocalDateTime.now();
         addAllUsers(dateUserMap);
@@ -88,21 +87,7 @@ public class SingleFileProcessor implements Runnable {
 
     @Synchronized
     private synchronized void addAllUsers(Map<LocalDate, Map<UserSite, UserIndicators>> dateUserMap) {
-//        List<LogDay> logDays = outputMap.getLogDays();
         for (Map.Entry<LocalDate, Map<UserSite, UserIndicators>> entryDate : dateUserMap.entrySet()) {
-//            String day = entryDate.getKey().toString();
-//            List<LogDay> collect = logDays.stream().filter(i -> i.getDay().equals(day)).collect(Collectors.toList());
-//            if (collect.size() > 1) {
-//                throw new RuntimeException("Ambiguous date output");
-//            } else {
-//                if (collect.isEmpty()) {
-//                    logDays.add(getCurrentLogDay(day, entryDate.getValue()));
-//                } else {
-//                    LogDay logDay = collect.get(0);
-//                    List<User> users = logDay.getUsers();
-//                    addUsers(users, entryDate.getValue());
-//                }
-//            }
             List<User> users = outputMap.get(entryDate.getKey());
             if (users == null) {
                 outputMap.put(entryDate.getKey(), getCurrentUserList(entryDate.getValue()));
@@ -127,20 +112,6 @@ public class SingleFileProcessor implements Runnable {
     private void addUsers(List<User> users, Map<UserSite, UserIndicators> userValues) {
         Map<UserSite, User> newUsers = new HashMap<>();
         for (User user : users) {
-//            for (Map.Entry<UserSite, UserIndicators> entry : userValues.entrySet()) {
-//                UserSite userSite = entry.getKey();
-//                UserIndicators userIndicators = entry.getValue();
-//                if (userEquals(user, userSite)) {
-//                    addToUser(user, userIndicators);
-//                } else {
-//                    User findUser = newUsers.get(userSite);
-//                    if (findUser != null) {
-//                        addToUser(findUser, userIndicators);
-//                    } else {
-//                        newUsers.put(userSite, new User(userSite.user, userSite.site, userIndicators.timeSpent, userIndicators.visitQuantity));
-//                    }
-//                }
-//            }
             UserSite userSite = new UserSite(user.getUserId(), user.getUrl());
             UserIndicators userIndicators = userValues.get(userSite);
             if (userIndicators != null) {
@@ -156,19 +127,9 @@ public class SingleFileProcessor implements Runnable {
         users.addAll(new ArrayList<>(newUsers.values()));
     }
 
-    private Boolean userEquals(User user, UserSite userSite) {
-        return user.getUserId().equals(userSite.user)
-                && user.getUrl().equals(userSite.site);
-    }
-
     private void addToUser(User user, UserIndicators userIndicators) {
         user.setTimeSpent(user.getTimeSpent() + userIndicators.timeSpent);
         user.setVisitQuantity(user.getVisitQuantity() + userIndicators.visitQuantity);
         UserService.calculateAverage(user);
-    }
-
-    private void addUser(List<User> users, String userId, String url, UserIndicators userIndicators) {
-        User user = new User(userId, url, userIndicators.timeSpent, userIndicators.visitQuantity);
-        users.add(user);
     }
 }

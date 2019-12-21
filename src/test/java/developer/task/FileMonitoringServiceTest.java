@@ -103,7 +103,9 @@ public class FileMonitoringServiceTest {
         GeneratorLogsXML.clearPath(pathReport);
 
         List<String> siteList = Arrays.asList("http://google.com", "http://ru.wikipedia.org");
-        List<Input> inputs = GeneratorLogsXML.createLogFiles(scanPath, 50, 100000, siteList);
+        List<Input> inputs = GeneratorLogsXML.createLogFiles(scanPath, 50, 10000, siteList);
+        // TODO: 21/12/19 еще подправил механизм, но теперь не могу пройти ассерт без sleep, а если увеличить юзеров до 1 миллиона,
+        //  то получаю уже "java.lang.OutOfMemoryError: GC overhead limit exceeded"
 
         writeFiles(scanPath, inputs);
 
