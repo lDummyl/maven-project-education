@@ -24,6 +24,8 @@ public class Office {
 
 	void invitePeople(Secretary human){
 		manager.inputKPI(human);
+		// TODO: 1/8/20 теперь попробуй сделать так. Диретор не будет выбирать из одного акндидата, поэтому пока у хр в папочке не будет
+		//  5ти претедентов серетаря не наймут. При этом директор не лох, он выберет лучшего по КПЙ.
 		secretary = human;
 		//System.out.println(secretary.name );
 	}
