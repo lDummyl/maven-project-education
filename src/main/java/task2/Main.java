@@ -31,7 +31,7 @@ public class Main {
 			office.invitePeople(secretary);
 		}
 
-		System.out.println(office.manager.kpis);
+		System.out.println(office.manager.kpis);  // to output the string: "{Victor= , Zina= , Oleg=  , Alla= }"
 
 
 		office.createTable();

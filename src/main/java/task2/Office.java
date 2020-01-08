@@ -25,7 +25,7 @@ public class Office {
 	void invitePeople(Secretary human){
 		manager.inputKPI(human);
 		secretary = human;
-		System.out.println(secretary.name );
+		//System.out.println(secretary.name );
 	}
 
 	void chooseDirector(Director human){
@@ -35,6 +35,8 @@ public class Office {
 	void createTable(){
 		Map<String, Double> kpis = manager.kpis;
 		System.out.println(hr.phrase2);
+		System.out.println("");
+		System.out.println(hr.phrase3);
 		hr.createTable(kpis);
 	}
 
@@ -43,6 +45,7 @@ public class Office {
 	}
 
 	public void applyBonus() {
-		director.giveBonus();
+		Map<String, Double> kpis = manager.kpis;
+		director.giveBonus(kpis);
 	}
 }

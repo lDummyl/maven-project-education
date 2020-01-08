@@ -14,8 +14,9 @@ public class HR extends Manager{
     public void createTable(Map<String, Double> kpis) {
         printHeader();
         for (Map.Entry<String, Double> pair : kpis.entrySet()) { // iter
-            System.out.println(pair.getKey() +" "+ pair.getValue());
+            System.out.println("|  "+ pair.getKey() +"                "+ pair.getValue());
         }
+        System.out.println("+------------------+---------+");
     }
 
     private void printHeader() {
