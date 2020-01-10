@@ -15,10 +15,13 @@ public class Office {
 
 	//претенденты идут по одному, когда их достаточно,
 	// то диретор принимает решение и берет одного в штат
-
-	void inviteHr(HR hr){
+	void inviteHr0(HR hr) {
 		this.hr = hr;
-		System.out.println(this.hr.phrase1);
+		System.out.print(this.hr.phrase0);
+	}
+
+	void inviteHr(HR hr, int inEmployees){
+		System.out.println(this.hr.createPhrase1(inEmployees));
 	}
 
 
