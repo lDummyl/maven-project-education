@@ -1,13 +1,10 @@
 package task2;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Manager {
 
-    Map<String, Double> kpis = new HashMap<>();
+    Map<String, Double> kpis = new TreeMap<>();
 
     public void inputKPI(Secretary secretary){
         System.out.print("Input KPI of employee "+ secretary.name +": ");

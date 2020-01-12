@@ -12,42 +12,39 @@ public class Main {
 	public static void main(String[] args) {
 		Office office = new Office();
 		HR hr = new HR();
-		List<Secretary> secretaries = new ArrayList<>();
+		Manager manager = new Manager();
+		Director director = new Director();
 
-		office.inviteHr0(hr);  //делает "Please, input the number of new employees: "
+		List<Secretary> secretaries = new ArrayList<>();
+		List<String> names = Arrays.asList("Alla", "Zina", "Oleg", "Victor");
+		Random random = new Random();
+
+		office.invite(hr);  //делает "Please, input the number of new employees: "
 
 		Scanner inputEmployees = new Scanner(System.in);
 		int inEmployees = inputEmployees.nextInt();
 
-		office.inviteHr(hr, inEmployees); // делает "HR: "Manager A, look at the list of 6 employee and fill up their KPI" "
+		office.invite(hr, inEmployees); // делает "HR: "Manager A, look at the list of 6 employee and fill up their KPI" "
 
 		for (int i = 1; i <= inEmployees; i++){
-			Secretary i = new Secretary(i);
-			secretaries.add(i);
+			String name = names.get(random.nextInt(names.size()));
+			Secretary secretary = new Secretary(name + i);
+			secretaries.add(secretary);
 		}
 
-		/*Secretary alla = new Secretary("Alla");
-		Secretary zina = new Secretary("Zina");
-		Secretary oleg = new Secretary("Oleg");
 
-		secretaries.add(alla);
-		secretaries.add(zina);
-		secretaries.add(oleg);
-		secretaries.add(new Secretary("Victor"));*/
+		office.invite(manager);
 
-		Manager manager = new Manager();
-		office.inviteManager(manager);
 
-		Director director = new Director();
 		for (Secretary secretary : secretaries) {      // iter
-			office.invitePeople(secretary);
+			office.invite(secretary);
 		}
 
 		System.out.println(office.manager.kpis);  // to output the string: "{Victor= , Zina= , Oleg=  , Alla= }"
 
 
-		office.createTable();
-		office.chooseDirector(director);
-		office.applyBonus();
+		office.startWorkDay();
+		office.invite(director);
+
 	}
 }
