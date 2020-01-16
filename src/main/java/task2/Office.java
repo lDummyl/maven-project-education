@@ -27,11 +27,11 @@ public class Office {
 
 		// TODO: 1/16/20 ты реализовала выдачу премий, здесь же аналогичная задача но результат выбор директором назначенца на пост секретаря
 		//  вот тебе подсказка.
-		/*List<Secretary> candidates = hr.conciderCandidate(human);
+		List<Secretary> candidates = hr.conciderCandidate(human);
 		Secretary chosenOne = director.chooseCandidate(candidates);
 		if(chosenOne != null){
 			secretary = chosenOne;
-		}*/
+		}
 
 
 	}
@@ -53,8 +53,8 @@ public class Office {
 		System.out.println(hr.phrase3);   // фраза: "Mr Director, check this table with employee's KPI:"
 		hr.createTable(kpis, expYears);
 
-		/*director.giveBonus(kpis);
-		director.chooseCandidate(expYears);*/
+		director.giveBonus(kpis);
+		director.chooseCandidate(expYears);
 	}
 
 	void answer(){

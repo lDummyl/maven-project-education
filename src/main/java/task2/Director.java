@@ -39,7 +39,6 @@ public class Director {
 
     public static void chooseCandidate(Map<String, Double> expYears) {
         // TODO: 1/16/20 implement
-        double max = -1.0;
         String futureCandidate = "";
         ArrayList<Double> values = new ArrayList<>();
         ArrayList<String> winners = new ArrayList<>();
@@ -54,6 +53,33 @@ public class Director {
             // Xотим найти ключ от максимального опыта
             for (String key : expYears.keySet()) {
                 double res = expYears.get(key);
+                if (key != null) {
+                    if (result == res) {
+                        futureCandidate = key;// нашли ключ при котором максимальный опыт у кандидата
+                        winners.add(key);
+                    }
+                }
+            }
+
+            System.out.println("Director: \"Работу секретарем получает " + winners + "\"");
+        }
+    }
+
+    public Secretary chooseCandidate(List<Secretary> candidates) {
+        Secretary futureCandidate;
+        ArrayList<Double> values = new ArrayList<>();
+        ArrayList<String> winners = new ArrayList<>();
+
+
+        if (candidates.size() >= 5) {
+            for (Secretary s : candidates) {
+                values.add(candidates.get(s));
+            }
+            double result = Collections.max(values);   //нашли максимальный опыт
+
+            // Xотим найти ключ от максимального опыта
+            for (Secretary key : candidates) {
+                double res = candidates.get(key);
                 if (key != null) {
                     if (result == res) {
                         futureCandidate = key;// нашли ключ при котором максимальный опыт у кандидата
