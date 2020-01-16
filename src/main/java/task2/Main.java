@@ -1,9 +1,5 @@
 package task2;
 
-//Сделать 10 секретарей 1 hr и директора котторый
-// выбирает рандомно секретаря в штат, которого ему пердлагает HR,
-// все это происходит в офисе
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.*;
@@ -16,7 +12,7 @@ public class Main {
 		Director director = new Director();
 
 		List<Secretary> secretaries = new ArrayList<>();
-		List<String> names = Arrays.asList("Alla", "Zina", "Oleg", "Victor");
+		List<String> names = Arrays.asList("Alla", "Zina", "Oleg", "Victor", "Olya", "Anna", "Semen", "Sasha");
 		Random random = new Random();
 
 		office.invite(hr);  //делает "Please, input the number of new employees: "

@@ -12,9 +12,4 @@ public class Manager {
         double kpi = input.nextDouble();
         kpis.put(secretary.name, kpi);
     }
-
-    Manager(){
-
-    }
-
 }

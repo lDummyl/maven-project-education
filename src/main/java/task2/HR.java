@@ -14,9 +14,6 @@ public class HR extends Manager{
     String phrase2 = "HR: \"Thank you, Manager A, I'll prepare this information to the Director.\"";
     String phrase3 = "HR: \"Mr Director, check this table with employee's KPI: \"";
 
-    //HR(Manager KPI1, Manager KPI2, Manager KPI3) {
-    //    super(KPI1, KPI2, KPI3);
- //   }
 
     public void createTable(Map<String, Double> kpis) {
         printHeader();

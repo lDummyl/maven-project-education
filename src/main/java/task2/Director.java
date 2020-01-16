@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Director {
 
-    public void giveBonus(Map<String, Double> kpis){
+    public static void giveBonus(Map<String, Double> kpis){
         double max = -1.0;
         String winner = "";
         ArrayList<String> winners = new ArrayList<>();
@@ -19,7 +19,6 @@ public class Director {
                 Double currentMaxKPI = pair.getValue();
                 if (currentMaxKPI > max) {
                     max = currentMaxKPI;
-               //     winner = pair.getKey();  //Что делать, если два максимальных КПИ?
                 }
             }
             for (Map.Entry<String, Double> pair : kpis.entrySet()) {
@@ -32,7 +31,7 @@ public class Director {
         }
         else
         {
-            System.out.println("Director: \"Сотрудников должно быть >= 5\"");
+            System.out.println("Director: \"Сотрудников должно быть не меньше 5! \"");
         }
     }
 }
