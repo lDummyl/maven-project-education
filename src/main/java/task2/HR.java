@@ -1,5 +1,6 @@
 package task2;
 
+import java.util.List;
 import java.util.Map;
 
 public class HR extends Manager{
@@ -27,5 +28,10 @@ public class HR extends Manager{
         System.out.println("+------------------+---------+");
         System.out.println("|      Name        +   KPI   +");
         System.out.println("+------------------+---------+");
+    }
+
+    public List<Secretary> conciderCandidate(Secretary human) {
+        // TODO: 1/16/20 implement
+        return null;
     }
 }

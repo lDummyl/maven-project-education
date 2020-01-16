@@ -1,5 +1,6 @@
 package task2;
 
+import java.util.List;
 import java.util.Map;
 
 public class Office {
@@ -21,8 +22,16 @@ public class Office {
 
 	void invite(Secretary human){
 		manager.inputKPI(human);
-		secretary = human;
+		// TODO: 1/8/20 теперь попробуй сделать так. Диретор не будет выбирать из одного акндидата, поэтому пока у хр в папочке не будет
+		//  5ти претедентов серетаря не наймут. При этом директор не лох, он выберет лучшего по КПЙ.
 
+		// TODO: 1/16/20 ты реализовала выдачу премий, здесь же аналогичная задача но результат выбор директором назначенца на пост секретаря
+		//  вот тебе подсказка.
+		List<Secretary> candidates = hr.conciderCandidate(human);
+		Secretary chosenOne = director.chooseCandidate(candidates);
+		if(chosenOne != null){
+			secretary = chosenOne;
+		}
 	}
 
 	void invite(Director human){
@@ -42,6 +51,6 @@ public class Office {
 		System.out.println(hr.phrase3);
 		hr.createTable(kpis);
 
-		Director.giveBonus(kpis);
+		director.giveBonus(kpis);
 	}
 }

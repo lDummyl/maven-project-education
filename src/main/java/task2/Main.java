@@ -39,7 +39,11 @@ public class Main {
 		System.out.println(office.manager.kpis);  // to output the string: "{Victor= , Zina= , Oleg=  , Alla= }"
 
 
+
 		office.startWorkDay();
+		// TODO: 1/16/20 еще подказка если начинаешь рабочий день до того как приглашаешь директора, то его може и не оказаться на месте когда он потребутея,
+		//  например, чтобы раздать бонус.
+
 		office.invite(director);
 
 	}

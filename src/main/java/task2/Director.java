@@ -3,11 +3,12 @@ package task2;
 import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Director {
 
-    public static void giveBonus(Map<String, Double> kpis){
+    public void giveBonus(Map<String, Double> kpis){
         double max = -1.0;
         String winner = "";
         ArrayList<String> winners = new ArrayList<>();
@@ -33,6 +34,11 @@ public class Director {
         {
             System.out.println("Director: \"Сотрудников должно быть не меньше 5! \"");
         }
+    }
+
+    public Secretary chooseCandidate(List<Secretary> candidates) {
+        // TODO: 1/16/20 implement
+        return null;
     }
 }
 
