@@ -46,6 +46,7 @@ public class Main {
 		//  например, чтобы раздать бонус.
 
 		office.invite(director);
+		office.answer();
 
 	}
 }

@@ -50,8 +50,16 @@ public class Office {
 
 		System.out.println(hr.phrase2);
 		System.out.println("");
-		System.out.println(hr.phrase3);
+		System.out.println(hr.phrase3);   // фраза: "Mr Director, check this table with employee's KPI:"
 		hr.createTable(kpis, expYears);
+
+		/*director.giveBonus(kpis);
+		director.chooseCandidate(expYears);*/
+	}
+
+	void answer(){
+		Map<String, Double> kpis = manager.kpis;
+		Map<String, Double> expYears = manager.expYears;
 
 		director.giveBonus(kpis);
 		director.chooseCandidate(expYears);
