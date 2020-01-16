@@ -36,9 +36,10 @@ public class Main {
 			office.invite(secretary);
 		}
 
-		System.out.println(office.manager.kpis);  // to output the string: "{Victor= , Zina= , Oleg=  , Alla= }"
-
-
+		System.out.println("");
+		System.out.println("KPI result: " + office.manager.kpis);  // to output the string: "{Victor= , Zina= , Oleg=  , Alla= }"
+		System.out.println("Experience result: " + office.manager.expYears);
+		System.out.println("");
 
 		office.startWorkDay();
 		// TODO: 1/16/20 еще подказка если начинаешь рабочий день до того как приглашаешь директора, то его може и не оказаться на месте когда он потребутея,

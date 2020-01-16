@@ -16,22 +16,28 @@ public class HR extends Manager{
     String phrase3 = "HR: \"Mr Director, check this table with employee's KPI: \"";
 
 
-    public void createTable(Map<String, Double> kpis) {
+    public void createTable(Map<String, Double> kpis, Map<String, Double> expYears) {
         printHeader();
-        for (Map.Entry<String, Double> pair : kpis.entrySet()) { // iter
-            System.out.println("|  "+ pair.getKey() +"                "+ pair.getValue());
+
+        for (Map.Entry<String, Double> pair0 : expYears.entrySet()) {
+            for (Map.Entry<String, Double> pair : kpis.entrySet()) { // iter
+                if (pair0.getKey().equals(pair.getKey())) {
+                    System.out.println("|  " + pair.getKey() + "               " + pair.getValue()
+                            + "           " +  pair0.getValue()) ;
+                }
+            }
+            System.out.println("+------------------+-----------+-------------");
         }
-        System.out.println("+------------------+---------+");
     }
 
     private void printHeader() {
-        System.out.println("+------------------+---------+");
-        System.out.println("|      Name        +   KPI   +");
-        System.out.println("+------------------+---------+");
+        System.out.println("+------------------+-----------+-------------");
+        System.out.println("|      Name        +    KPI    +  Exp Years  |");
+        System.out.println("+------------------+-----------+-------------");
     }
 
-    public List<Secretary> conciderCandidate(Secretary human) {
+  /*  public List<Secretary> conciderCandidate(Secretary human) {
         // TODO: 1/16/20 implement
         return null;
-    }
+    }*/
 }
