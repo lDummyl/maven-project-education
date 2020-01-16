@@ -9,7 +9,8 @@ public class Main {
 		Office office = new Office();
 		HR hr = new HR();
 		Manager manager = new Manager();
-		Director director = new Director();
+		Director director = new Director(5, "Viktor Ivanjch");
+		Director director2 = new Director(2, "Petr Ivanjch");
 
 		List<Secretary> secretaries = new ArrayList<>();
 		List<String> names = Arrays.asList("Alla", "Zina", "Oleg", "Victor", "Olya", "Anna", "Semen", "Sasha");
@@ -30,6 +31,7 @@ public class Main {
 
 
 		office.invite(manager);
+		office.invite(director);
 
 
 		for (Secretary secretary : secretaries) {      // iter
@@ -41,7 +43,6 @@ public class Main {
 		System.out.println("Experience result: " + office.manager.expYears);
 		System.out.println("");
 
-        office.invite(director);
 
 		office.startWorkDay();
 		// TODO: 1/16/20 еще подказка если начинаешь рабочий день до того как приглашаешь директора, то его може и не оказаться на месте когда он потребутея,

@@ -1,15 +1,23 @@
 package task2;
 
-import org.w3c.dom.ls.LSOutput;
-
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Director {
 
-    public static void giveBonus(Map<String, Double> kpis){
+    public static final int enoughCandidates1 = 5;
+    String name;
+    private int enoughCandidates;
+
+    public Director(int enoughCandidates, String name) {
+        this.enoughCandidates = enoughCandidates;
+        this.name = name;
+    }
+
+    public void giveBonus(Map<String, Double> kpis) {
         double max = -1.0;
         String winner = "";
         ArrayList<String> winners = new ArrayList<>();
@@ -24,71 +32,37 @@ public class Director {
                 }
             }
             for (Map.Entry<String, Double> pair : kpis.entrySet()) {
-                if (pair.getValue() == max){
+                if (pair.getValue() == max) {
                     String winnersName = pair.getKey();
                     winners.add(winnersName);
                 }
             }
             System.out.println("Director: \"По результатам таблицы сотрудник " + winners + " получит премию\"");
-        }
-        else
-        {
+        } else {
             System.out.println("Director: \"Сотрудников должно быть не меньше 5! \"");
         }
     }
 
-    public static void chooseCandidate(Map<String, Double> expYears) {
-        // TODO: 1/16/20 implement
-        String futureCandidate = "";
-        ArrayList<Double> values = new ArrayList<>();
-        ArrayList<String> winners = new ArrayList<>();
-
-
-        if (expYears.size() >= 5) {
-            for (String s : expYears.keySet()) {
-                values.add(expYears.get(s));
-            }
-            double result = Collections.max(values);   //нашли максимальный опыт
-
-            // Xотим найти ключ от максимального опыта
-            for (String key : expYears.keySet()) {
-                double res = expYears.get(key);
-                if (key != null) {
-                    if (result == res) {
-                        futureCandidate = key;// нашли ключ при котором максимальный опыт у кандидата
-                        winners.add(key);
-                    }
-                }
-            }
-
-            System.out.println("Director: \"Работу секретарем получает " + winners + "\"");
-        }
-    }
-
     public Secretary chooseCandidate(List<Secretary> candidates) {
-        Secretary futureCandidate;
-        ArrayList<Double> values = new ArrayList<>();
-        ArrayList<String> winners = new ArrayList<>();
+        ArrayList<Secretary> winners = new ArrayList<>();
+        Map<Integer, Secretary> expCandidates = new HashMap<>();
+        for (Secretary candidate : candidates) {
+            expCandidates.put(candidate.experienceYears, candidate);
+        }
 
-
-        if (candidates.size() >= 5) {
-            for (Secretary s : candidates) {
-                values.add(candidates.get(s));
-            }
-            double result = Collections.max(values);   //нашли максимальный опыт
-
+        if (candidates.size() >= enoughCandidates) {
+            int result = Collections.max(expCandidates.keySet());   //нашли максимальный опыт
             // Xотим найти ключ от максимального опыта
-            for (Secretary key : candidates) {
-                double res = candidates.get(key);
-                if (key != null) {
-                    if (result == res) {
-                        futureCandidate = key;// нашли ключ при котором максимальный опыт у кандидата
-                        winners.add(key);
-                    }
+            for (Secretary secretary : candidates) {
+                if (secretary.experienceYears == result) {
+                    winners.add(secretary);
                 }
             }
-
-            System.out.println("Director: \"Работу секретарем получает " + winners + "\"");
+            Secretary secretary = winners.get(0);
+            System.out.println("Director: \"Работу секретарем получает " + secretary.name + "\"");
+            return secretary;
+        } else {
+            return null;
         }
     }
 }

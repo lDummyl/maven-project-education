@@ -17,12 +17,12 @@ public class HR extends Manager {
     String phrase3 = "HR: \"Mr Director, check this table with employee's KPI: \"";
 
 
-    ArrayList<Secretary> list = new ArrayList<Secretary>();
+    ArrayList<Secretary> list = new ArrayList<>();
 
-    public void createTable(Map<String, Double> kpis, Map<String, Double> expYears) {
+    public void createTable(Map<String, Double> kpis, Map<String, Integer> expYears) {
         printHeader();
 
-        for (Map.Entry<String, Double> pair0 : expYears.entrySet()) {
+        for (Map.Entry<String, Integer> pair0 : expYears.entrySet()) {
             for (Map.Entry<String, Double> pair : kpis.entrySet()) { // iter
                 if (pair0.getKey().equals(pair.getKey())) {
                     System.out.println("|  " + pair.getKey() + "               " + pair.getValue()

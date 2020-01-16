@@ -32,8 +32,6 @@ public class Office {
 		if(chosenOne != null){
 			secretary = chosenOne;
 		}
-
-
 	}
 
 	void invite(Director human){
@@ -46,22 +44,16 @@ public class Office {
 
 	 void startWorkDay(){
 		Map<String, Double> kpis = manager.kpis;
-		Map<String, Double> expYears = manager.expYears;
+		Map<String, Integer> expYears = manager.expYears;
 
 		System.out.println(hr.phrase2);
 		System.out.println("");
 		System.out.println(hr.phrase3);   // фраза: "Mr Director, check this table with employee's KPI:"
 		hr.createTable(kpis, expYears);
-
 		director.giveBonus(kpis);
-		director.chooseCandidate(expYears);
+
+
 	}
 
-	void answer(){
-		Map<String, Double> kpis = manager.kpis;
-		Map<String, Double> expYears = manager.expYears;
 
-		director.giveBonus(kpis);
-		director.chooseCandidate(expYears);
-	}
 }

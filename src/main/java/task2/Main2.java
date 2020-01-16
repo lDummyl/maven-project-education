@@ -24,5 +24,6 @@ public class Main2 {
         Integer kpiAgain = map.get(petya);
         System.out.println("kpiAgain = " + kpiAgain);
 
+
     }
 }
