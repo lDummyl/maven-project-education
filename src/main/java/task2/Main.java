@@ -5,8 +5,12 @@ import java.util.List;
 import java.util.*;
 
 public class Main {
+
+
+	// TODO: 1/17/20 настсало время все это перенести в тесты. Вот сюда src/test/java/task2/OfficeTest.java
+
 	public static void main(String[] args) {
-		Office office = new Office();
+		Office office = new Office(Office.Mode.CONSOLE);
 		HR hr = new HR();
 		Manager manager = new Manager();
 		Director director = new Director(5, "Viktor Ivanjch");

@@ -5,6 +5,18 @@ import java.util.Map;
 
 public class Office {
 
+	// TODO: 1/17/20 в зависимости от того какое значение используется мы либо запрашиваем данные из консоли либо подмахиваем
+	//  их сами рандомно, скорей всего у тебя не получится это сделать, но я хочу посмотреть на твой best shot, удачи.
+	enum Mode{
+		CONSOLE,
+		RANDOM
+	}
+
+	public Office(Mode mode) {
+		this.mode = mode;
+	}
+
+	final Mode mode;
 	Secretary secretary;
 	Director director;
 	Manager manager;
@@ -22,11 +34,6 @@ public class Office {
 
 	void invite(Secretary human){
 		manager.inputKPI(human);
-		// TODO: 1/8/20 теперь попробуй сделать так. Диретор не будет выбирать из одного акндидата, поэтому пока у хр в папочке не будет
-		//  5ти претедентов серетаря не наймут. При этом директор не лох, он выберет лучшего по КПЙ.
-
-		// TODO: 1/16/20 ты реализовала выдачу премий, здесь же аналогичная задача но результат выбор директором назначенца на пост секретаря
-		//  вот тебе подсказка.
 		List<Secretary> candidates = hr.conciderCandidate(human);
 		Secretary chosenOne = director.chooseCandidate(candidates);
 		if(chosenOne != null){
