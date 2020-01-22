@@ -55,12 +55,12 @@ public class ExecutorsStop {
 	}
 
 	private static void runForever() {
-		while (true) {
-			try {
+		try {
+			while (true) {
 				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
 		}
 	}
 }
