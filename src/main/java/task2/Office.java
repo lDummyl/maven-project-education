@@ -24,6 +24,16 @@ public class Office {
     public void createEmployees() {
     	employees.put(director.name, director);
     	employees.put(hr.name, hr);
+    	employees.put("Сandidate1",secretaries);
+    	employees.put("Сandidate2",secretaries);
+    	employees.put("Сandidate3",secretaries);
+    	employees.put("Сandidate4",secretaries);
+    	employees.put("Сandidate5",secretaries);
+    	employees.put("Сandidate6",secretaries);
+    	employees.put("Сandidate7",secretaries);
+    	employees.put("Сandidate8",secretaries);
+    	employees.put("Сandidate9",secretaries);
+    	employees.put("Сandidate10",secretaries);
 
     }
 
@@ -32,7 +42,17 @@ public class Office {
         List<String> keys = new ArrayList<String>(employees.keySet());
         String randomKey = keys.get(random.nextInt(keys.size()));
         CompanyEmployees value = employees.get(randomKey);
-        System.out.println(randomKey);
+        if(randomKey == director.name){
+
+            System.out.println("I will think more");
+        }
+        else if(randomKey == hr.name){
+            System.out.println("I will think more");
+        }
+        else {
+            System.out.println("I choose a " + randomKey);
+        }
+
     }
 
     public void random() {
