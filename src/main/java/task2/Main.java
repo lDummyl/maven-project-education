@@ -8,8 +8,8 @@ public class Main {
     public static void main(String[] args) {
 
         Office office = new Office();
-        office.createEmployees();
-        office.random2();
-        System.out.println();
+        office.seeAllSecretaries();
+
+
     }
 }
