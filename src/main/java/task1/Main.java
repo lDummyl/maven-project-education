@@ -5,10 +5,21 @@ package task1;
 public class Main {
 
 	public static void main(String[] args) {
+		first();
+		second();
+
+	}
+
+	public static void first(){
 		// TODO: 1/26/20 ПЕРВЫЙ ЭТАП создать 5 разных человек и вывести имя старшего
 
-		// TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
 	}
+
+	public static void second(){
+		// TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
+
+	}
+
 }
 
 class Name {
