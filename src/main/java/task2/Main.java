@@ -10,6 +10,12 @@ public class Main {
 	// TODO: 1/17/20 настсало время все это перенести в тесты. Вот сюда src/test/java/task2/OfficeTest.java
 
 	public static void main(String[] args) {
+
+		/*System.out.println("Please, input \"CONSOLE\" to fill out next forms manually ");
+		System.out.println("OR input \"RANDOM\" to fill out all forms automatically: ");
+		Scanner in = new Scanner(System.in);
+		String inputMode = in.nextLine();*/
+
 		Office office = new Office(Office.Mode.CONSOLE);
 		HR hr = new HR();
 		Manager manager = new Manager();

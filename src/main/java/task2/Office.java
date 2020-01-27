@@ -9,7 +9,7 @@ public class Office {
 	//  их сами рандомно, скорей всего у тебя не получится это сделать, но я хочу посмотреть на твой best shot, удачи.
 	enum Mode{
 		CONSOLE,
-		RANDOM
+		RANDOM;
 	}
 
 	public Office(Mode mode) {

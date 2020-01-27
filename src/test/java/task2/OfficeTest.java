@@ -15,9 +15,10 @@ public class OfficeTest {
 
 	@Test
 	public void inviteSecretarySuccess() {
-//		List<Secretary> candidates = EmployeeSupplier.getSecretaries(10);
+		//EmployeeSupplier employeeSupplier = new EmployeeSupplier();
+		//List<Secretary> candidates = EmployeeSupplier.getSecretaries(10);
 		Office office = new Office(Office.Mode.RANDOM);
-//		office.invite();
+	//	office.invite();
 		assertTrue(office.secretary != null);
 
 	}
