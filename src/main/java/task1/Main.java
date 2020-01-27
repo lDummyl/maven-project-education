@@ -41,20 +41,20 @@ public class Main {
 			put(age3, name3);
 			put(age4, name4);
 		}};
+
 		ArrayList<Name> winners = new ArrayList<>();
-		Name name = null;
 		int min =  2020;
 
-		for (Map.Entry<Age, Name> person : persons.entrySet()) {
-
-			Age ages = person.getKey();      //создаем переменную ages, в которую кладем age0,age1,...
-			int year = ages.year;            //создаем переменную year, в которую кладем год из age0,age1,...
-
-			if (year < min){
-				min = year;
-				name = person.getValue();  //когда наименьший год, то запоминаем имя
+		for (Age age : persons.keySet()) {
+			if(age.year < min){
+				min = age.year;
 			}
-			winners.add(name);
+		}
+		// TODO: 1/27/20 теперь тебе осталось только проработать месяцы и дни.
+		for (Map.Entry<Age, Name> entry : persons.entrySet()) {
+			if(entry.getKey().year == min){
+				winners.add(entry.getValue());
+			}
 		}
 		System.out.println(winners);
 	}
@@ -70,6 +70,14 @@ class Name {
 
 	String firstName;
 	String lastName;
+
+	@Override
+	public String toString() {
+		return "Name{" +
+				"firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				'}';
+	}
 
 	Name(String firstName, String lastName){
 		this.firstName = firstName;
