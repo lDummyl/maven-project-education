@@ -123,7 +123,7 @@ public class Main {
 			randomPersons.add(person);
 
 		}
-		System.out.println(randomPersons);
+		System.out.println(randomPersons.toString());
 	}
 
 }
