@@ -7,97 +7,100 @@ public class Main {
 
 	public static void main(String[] args) {
 		first();
-		second();
+	//	second();
 
 	}
 
 	public static void first(){
 		// TODO: 1/26/20 ПЕРВЫЙ ЭТАП создать 5 разных человек и вывести имя старшего
 
-		Age age0 = new Age(1995,06,12);
+		Age age0 = new Age(2010,01,10);
 		Name name0 = new Name("Olga ", "Petrova");
 		Person person0 = new Person(name0, age0);
 
-		Age age1 = new Age(1994,05,11);
+		Age age1 = new Age(1956,01,10);
 		Name name1 = new Name("Victor ", "Nabokov");
 		Person person1 = new Person(name1, age1);
 
-		Age age2 = new Age(1993,04,10);
+		Age age2 = new Age(1956,01,10);
 		Name name2 = new Name("Semen ", "Ylyich");
 		Person person2 = new Person(name2, age2);
 
-		Age age3 = new Age(1991,03,9);
+		Age age3 = new Age(1995,03,9);
 		Name name3 = new Name("Anna ", "Ivanova");
 		Person person3 = new Person(name3, age3);
 
-		Age age4 = new Age(1991,02,8);
+		Age age4 = new Age(1984,01,10);
 		Name name4 = new Name("Maria", "Torova");
 		Person person4 = new Person(name4, age4);
 
-		Map<Age, Name> persons = new HashMap<Age, Name>() {{
-			put(age0, name0);
+		HashMap<Age, Name> persons1 = new HashMap<Age, Name>(){{ put(age0, name0);
 			put(age1, name1);
 			put(age2, name2);
 			put(age3, name3);
 			put(age4, name4);
 		}};
-
-		Map<Age, Name> yearWinners = new HashMap<>();
-		Map<Age, Name> monthWinners = new HashMap<>();
-		Map<Age, Name> dayWinners = new HashMap<>();
-		int minYear =  2020;
-		int minMonth = 12;
-		int minDay = 31;
+		HashMap<Name, Integer> personWinners = new HashMap<>();
 
 
-		for (Age age : persons.keySet()) {
-			if(age.year < minYear){
-				minYear = age.year;
+		int daysResult = 0;
+		int minDays = 10000000;
+		ArrayList<Name> winners = new ArrayList<>();
+
+			for (Age age : persons1.keySet()) {
+
+
+				int[] daysInMonths = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+				int counter1 = 0;
+				int counter2 = 0;
+
+				    for (int i = 1900; i <= age.year ; i++) { // подсчет дней за каждый месяц
+
+						boolean isLeapYear = (i % 4 == 0) && (i % 100 != 0 || i % 400 == 0); // учет високосного года
+
+						if(i != age.year) {
+							for (int j = 0; j < daysInMonths.length; j++) {
+								if (isLeapYear) {
+									daysInMonths[1] = 29;
+								}
+								counter1 = counter1 + daysInMonths[j];  // подсчет дней за  год
+							}
+						}
+
+						if (i == age.year) {
+							for (int k = 0; k < age.month; k++){
+								if (isLeapYear) {
+									daysInMonths[1] = 29;
+								}
+								counter2 = counter2 + daysInMonths[k];  // подсчет дней за остаточный месяц
+							}
+						}
+						daysResult = counter1 + counter2 + age.day; // суммарный подсчет от 1900 до даты рождения
+
+
+				    }
+				if (daysResult < minDays){ // находим минимальное кол-во дней
+					minDays = daysResult;
+				}
+				System.out.println("Количество дней с 1900 года: " + daysResult + "   Имя человека: " + persons1.get(age));
+				personWinners.put(persons1.get(age), daysResult);
+
+			}
+
+		for (Map.Entry<Name, Integer> entry : personWinners.entrySet()) { // если неск человек с одинаковой датой рождения
+			if (entry.getValue() == minDays){
+				winners.add(entry.getKey());
 			}
 		}
-		// TODO: 1/27/20 теперь тебе осталось только проработать месяцы и дни.
-		for (Map.Entry<Age, Name> entry : persons.entrySet()) {
-			if(entry.getKey().year == minYear){
-				yearWinners.put(entry.getKey(), entry.getValue());  // нашли одногодок с наибольшим возрастом
-			}
-		}
-		System.out.println("Наибольший возраст у человека / Родились в один год: " + yearWinners);
 
-		if (yearWinners.size() > 1) { // если не менее 2 человек с одинаковым годом рождения
-			for (Age age : yearWinners.keySet()) {
-				if (age.month < minMonth) {
-					minMonth = age.month;   // находим чувака с наименьшим месяцем рождения. Т.е. он старший
-				}
-			}
-			for (Map.Entry<Age, Name> entry1 : yearWinners.entrySet()) {
-				if (entry1.getKey().month == minMonth) {
-					monthWinners.put(entry1.getKey(), entry1.getValue());  // на случай, если одногодки родились в одном месяце
-				}
-				else {
+		System.out.println("");
+		System.out.println("Наименьшее кол-во дней2 : " + minDays + "    Наибольший возраст: " + winners);
+		System.out.println("");
 
-				}
-			}
 
-			if (monthWinners.size() > 1){     // если не менее 2 человек с одинаковым месяцем рождения
-				for (Age age : monthWinners.keySet()) {
-					if (age.day < minDay) {
-						minDay = age.day;     // находим дату рождения старшего чувака.
-					}
-				}
-				for(Map.Entry<Age, Name> entry2 : monthWinners.entrySet()){
-					if (entry2.getKey().day == minDay) {
-						dayWinners.put(entry2.getKey(), entry2.getValue());  // если родились  однim числоm
-						System.out.println("День Рождения в один день: " + dayWinners);
-					}
-					else {
-
-					}
-				}
-			}
-		}
-
-		System.out.println(person0.age);
 	}
+
+
 
 	public static void second(){
 		// TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
