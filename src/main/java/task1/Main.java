@@ -14,23 +14,23 @@ public class Main {
 	public static void first(){
 		// TODO: 1/26/20 ПЕРВЫЙ ЭТАП создать 5 разных человек и вывести имя старшего
 
-		Age age0 = new Age(2010,01,10);
+		Age age0 = new Age(2010,01,10);   //ребенок
 		Name name0 = new Name("Olga ", "Petrova");
 		Person person0 = new Person(name0, age0);
 
-		Age age1 = new Age(1956,01,10);
+		Age age1 = new Age(1956,01,10);   //отец
 		Name name1 = new Name("Victor ", "Nabokov");
 		Person person1 = new Person(name1, age1);
 
-		Age age2 = new Age(1956,01,10);
+		Age age2 = new Age(1956,01,10);   //отец
 		Name name2 = new Name("Semen ", "Ylyich");
 		Person person2 = new Person(name2, age2);
 
-		Age age3 = new Age(1995,03,9);
+		Age age3 = new Age(1984,01,10);   //ребенок
 		Name name3 = new Name("Anna ", "Ivanova");
 		Person person3 = new Person(name3, age3);
 
-		Age age4 = new Age(1984,01,10);
+		Age age4 = new Age(1984,01,10);   //ребенок
 		Name name4 = new Name("Maria", "Torova");
 		Person person4 = new Person(name4, age4);
 
@@ -103,7 +103,24 @@ public class Main {
 
 		// TODO: 2/3/20 или просто создай 10 животных в классе universe. Причем чтобы была как минимум тройная вложенность(хотябы в одном случае) ну и поведение и свойства соответсвующие.
 
+		HashMap<Integer, Name> childrenList = new HashMap<>();
 
+		for (Map.Entry<Name, Integer> entry : personWinners.entrySet()) { // уберем отца из списка, оставим только детей
+			if (entry.getValue() != minDays){
+				childrenList.put(entry.getValue(), entry.getKey()); //формат childrenList{ число, имя}
+			}
+		}
+		System.out.println("Вывод всех детей:  " + childrenList);
+
+		//Дети с одинаковым количеством лет дерутся насмерть, победителя выбирает бог уникальности Set:
+
+		HashSet<Name> survivingChildren = new HashSet<>();
+
+			for (Integer integer : childrenList.keySet()) {
+				survivingChildren.add(childrenList.get(integer));
+			}
+
+		System.out.println("Вывод выживших детей: " + survivingChildren);
 	}
 
 
@@ -195,5 +212,12 @@ class Person {
 				"name='" + name + '\'' +
 				", age='" + age + '\'' +
 				'}';
+	}
+}
+
+class Children extends Person{
+
+	Children(Name name, Age age) {
+		super(name, age); //??????????????
 	}
 }
