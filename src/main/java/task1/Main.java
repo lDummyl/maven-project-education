@@ -47,9 +47,10 @@ public class Main {
         }
 
         int  minDays = 1000000;
+
         for (Person person : people) {
             if (person.age.fullYearToDays() < minDays) { // находим минимальное кол-во дней
-                 minDays = person.age.fullYearToDays();
+                minDays = person.age.fullYearToDays();
                   }
         }
 
