@@ -4,69 +4,50 @@ import java.util.*;
 
 public class Office {
 
-	/*
-	Secretary secretary;
-
-	Director director;
-
-	Hr hr;
-	*/
 
     //претенденты идут по одному, когда их достаточно,
     // то диретор принимает решение и берет одного в штат
 
-    Map<String, CompanyEmployees> employees = new HashMap<>();
+    Map<String, CompanyEmployee> companyEmployeeMap = new HashMap<>();
 
-    Secretaries secretaries = new Secretaries();
-    Director director = new Director("Big Boss");
+    Secretary secretary;
+    AllCandidate allCandidate;
+    Loader loader;
+    Director director = new Director("Big Boss", 4);
     HR hr = new HR("Elena");
 
-    public void seeAllSecretaries() {
-        java.util.Scanner input = new Scanner(System.in);
-        System.out.println(hr.name + ": Посмотрите всех кандидатов?" + System.lineSeparator() + " -Скажите 'Yes' для просмотра всех кандидатов");
-        String answer = input.nextLine();
-        if (answer.equals("Yes")) {
-            System.out.println("Вот все кандидаты:");
-            hr.seeAll();
-            candidateSelection();
-        } else if (answer != "Y") {
-            System.out.println(hr.name + ": Прошу прощения, я зайду позже..." + System.lineSeparator() + " -Перезапустите программу");
+    public void inviteSecretary(Secretary candidate) {
+
+        if (this.secretary != null) {
+            System.out.println("Sorry no vacancy!");
+            return;
         }
+        hr.makeAudition(candidate);
+        Secretary secretary = director.considerCandidates(hr.successCandidates);
+        this.secretary = secretary;
     }
 
-    public void candidateSelection() {
-        Scanner input = new Scanner(System.in);
-        System.out.println(director.name + ": Так, сейчас посмотрим кто нам больше всех подходит." + System.lineSeparator() + " -Скажите 'Yes' если думаете что директору кто то понравился");
-        String answer = input.nextLine();
-        if (answer.equals("Yes")) {
-            director.random();
-        } else if (answer != "Y") {
-            System.out.println("Посмотрю позже... " + System.lineSeparator() + " -Перезапустите программу");
+    public void inviteAllCandidate(AllCandidate candidate) {
+        if (this.allCandidate != null) {
+            System.out.println(candidate.name + " Нет вакансий на данный момент");
+            return;
         }
+//        hr.makeAudition2(candidate);
+//        AllCandidate allCandidate = director.considerCandidates2(hr.successAllCandidates);
+        this.allCandidate = allCandidate;
     }
 
-
-    public void createEmployees() {
-
-        // TODO: 1/23/20 не уверен что ты понимаешь что делаешь
-        // TODO: 1/23/20 и знаешь что самое интересное по сути secretaries это один и тот же объект на всех, гляди
-        Collection<CompanyEmployees> values = new ArrayList<>(employees.values());
-        values.remove(hr);
-        values.remove(director);
-        for (CompanyEmployees value : values) {
-            if (secretaries == value) {
-                System.out.println("Its the same object!");
-            }
+    public void InviteLoader(Loader candidate) {
+        if (this.loader != null) {
+            System.out.println(candidate.name + " Нет вакансии грузчика, попробуйте себя в охране");
+            return;
         }
-        // TODO: 1/23/20 в данном случае map тебе не нужен. Заведи List с кандидатами в методе main и передавай его в офис.
-        //  Где ты видел офис в котором рождаются люди? Они туда приходят извне.
+        hr.makeAuditionLoader(candidate);
+        Loader loader = director.considerCandidateLoader(hr.successLoadSec);
+        this.loader = loader;
     }
 
-
-    //Приглашение людей
-    void invitePeaople(Object human) {
-
+    public void invite(CompanyEmployee companyEmployee) {
+        hr.considerCandidate(companyEmployee);
     }
-
-
 }
