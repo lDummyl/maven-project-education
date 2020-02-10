@@ -138,38 +138,46 @@ class Age {
         this.month = month;
         this.year = year;
     }
+    private static final int[] DAYS_IN_MONTHS = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     int fullYearToDays() {
-        int[] daysInMonths = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        int counter1 = 0;
-        int counter2 = 0;
-        int daysResult = 0;
 
+        int daysInFullYears = countDaysInFullYears();
+
+        int daysInLastYear = countDaysInLastYear();
+
+        return daysInFullYears + daysInLastYear; // суммарный подсчет от 1900 до даты рождения
+    }
+
+    private int countDaysInFullYears() {
+        int counter1 = 0;
         for (int i = 1900; i <= year; i++) { // подсчет дней за каждый месяц
 
             boolean isLeapYear = (i % 4 == 0) && (i % 100 != 0 || i % 400 == 0); // учет високосного года
 
             if (i != year) {
-                for (int j = 0; j < daysInMonths.length; j++) {
+                for (int j = 0; j < DAYS_IN_MONTHS.length; j++) {
                     if (isLeapYear) {
-                        daysInMonths[1] = 29;
+                        DAYS_IN_MONTHS[1] = 29;
                     }
-                    counter1 = counter1 + daysInMonths[j];  // подсчет дней за  год
+                    counter1 = counter1 + DAYS_IN_MONTHS[j];  // подсчет дней за  год
                 }
             }
-
-            if (i == year) {
-                for (int k = 0; k < month - 1; k++) {
-                    if (isLeapYear) {
-                        daysInMonths[1] = 29;
-                    }
-                    counter2 = counter2 + daysInMonths[k];  // подсчет дней за остаточный месяц
-                }
-            }
-            daysResult = counter1 + counter2 + day; // суммарный подсчет от 1900 до даты рождения
-
         }
-        return daysResult;
+        return counter1;
+    }
+
+    private int countDaysInLastYear() {
+        int counter2 = 0;
+        boolean isLeapYear = (year % 4 == 0) && (year % 100 != 0 || year % 400 == 0); // учет високосного года
+
+        for (int k = 0; k < month - 1; k++) {
+            if (isLeapYear) {
+                DAYS_IN_MONTHS[1] = 29;
+            }
+            counter2 = counter2 + DAYS_IN_MONTHS[k];  // подсчет дней за остаточный месяц
+        }
+        return counter2 + day;
     }
 }
 
