@@ -46,32 +46,31 @@ public class Main {
             System.out.println("Количество дней от 1900: " + peopleCounter.age.fullYearToDays() + "       Имя: " + peopleCounter.name);
         }
 
-        int  minDays = 1000000;
+        int minDays = 1000000;
 
         for (Person person : people) {
             if (person.age.fullYearToDays() < minDays) { // находим минимальное кол-во дней
                 minDays = person.age.fullYearToDays();
-                  }
+            }
         }
 
         for (Person person : people) {
-            if (person.age.fullYearToDays() == minDays){
+            if (person.age.fullYearToDays() == minDays) {
                 System.out.println("Наибольший возраст: " + person.name + person.age.fullYearToDays());
             }
         }
-        }
+    }
 
 
-        // TODO: 2/3/20 теперь старший это быдет отец, у которого должна быть коллекция всех детишек(все кто младше него). За исключением тех кто того же возраста
-        //  они должны дратся несмерть и there can be only one т.е. Падшие воены в список детей не попадают. А каждому ребенку проставляется отец. Создай новый класс
-        //  для этого, он будет наследвоать Person и включать новые поля List<Person> children и Person parent.
+    // TODO: 2/3/20 теперь старший это быдет отец, у которого должна быть коллекция всех детишек(все кто младше него). За исключением тех кто того же возраста
+    //  они должны дратся несмерть и there can be only one т.е. Падшие воены в список детей не попадают. А каждому ребенку проставляется отец. Создай новый класс
+    //  для этого, он будет наследвоать Person и включать новые поля List<Person> children и Person parent.
 
-        // TODO: 2/3/20 или просто создай 10 животных в классе universe. Причем чтобы была как минимум тройная вложенность(хотябы в одном случае) ну и поведение и свойства соответсвующие.
-
+    // TODO: 2/3/20 или просто создай 10 животных в классе universe. Причем чтобы была как минимум тройная вложенность(хотябы в одном случае) ну и поведение и свойства соответсвующие.
 
 
     public static void second() {
-       //  TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
+        //  TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
         Name name0 = new Name("Olga ", "Petrova");
         Name name1 = new Name("Victor ", "Nabokov");
         Name name2 = new Name("Semen ", "Ylyich");
@@ -190,12 +189,5 @@ class Person {
                 "name='" + name + '\'' +
                 ", age='" + age + '\'' +
                 '}';
-    }
-}
-
-class Children extends Person {
-
-    Children(Name name, Age age) {
-        super(name, age); //??????????????
     }
 }
