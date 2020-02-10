@@ -12,15 +12,15 @@ public class SmallTaskDividing {
         //  в каждом методе в том чилсе main должно быть не более 10 строк кода. Можно иметь не ограниченно число методов и вспомогательных классов.
         //  Например, ShapesProvider, SquareComparator и тд
 
-		????createObjects();
-	?????deleteTwoLastElements();
+//		????createObjects();
+//	?????deleteTwoLastElements();
 
     }
+
 
     public static ArrayList<Shape> createObjects() {     //создаем коллекцию объектов с рандомными значениями
         Random random = new Random();
         ArrayList<Shape> shapes = new ArrayList<>();
-
         for (int i = 0; i < 4; i++) {
             Shape circle = new Circle(i, random.nextDouble()); //порядковый номер круга + рандомн. радиус
             Shape rectangle = new Rectangle(i + 4, random.nextDouble(), random.nextDouble());   // порядковый номер + 2 стороны рандомно
@@ -32,7 +32,12 @@ public class SmallTaskDividing {
         return shapes;   // коллекция объектов
     }
 
+
     public static ArrayList<Shape> deleteTwoLastElements(ArrayList<Shape> shapes) {  // в предыдущем методе мы создали 12 объектов, удалим лишние
+        // TODO: 2/10/20 чтож приходит такой Герман Оскарович и говорит, ну что Agile же тут у нас да, давайте короче будет 20,
+        //  нет 383 фигуры теперь сравниваться, да, это ведь не проблема? А еще, дайте подумать, чтобы не меньше половины были кругами, да,
+        //  наравятся они мне очень в смысле наши клиенты этого хотят, это же тоже легко сделать?
+
         shapes.remove(12);
         shapes.remove(11);
 		System.out.println(shapes);
@@ -45,6 +50,14 @@ class Shape {
     double width;
     double length;
     double radius;
+
+    public static void main(String[] args) {
+        Rectangle rectangle = new Rectangle(2, 2, 2);
+        rectangle.radius = 20; // TODO: 2/10/20 упс!
+
+        Shape shape = new Shape(); // TODO: 2/10/20 абстрактным искусством повеяло.
+
+    }
     int number;
 
     int returnNumber() { //возврат порядкового номера фигуры
