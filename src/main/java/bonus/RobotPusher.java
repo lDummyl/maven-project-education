@@ -1,5 +1,6 @@
 package bonus;
 
+import lombok.Cleanup;
 import lombok.SneakyThrows;
 
 import java.awt.*;
@@ -14,26 +15,29 @@ import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+
+/** Данный класс иллюстрирует возможности по автоматизации работы, которая по какой-то причине не может быть выполнена средствами IDE или ее плагинов,
+ *  например, применение автоматического рефакторинга от ломбок возможно только для конкретного класса, а не для пакета или всего проекта, неприоритетность
+ *  этой задачи понятна с одной стороны, но в отдельных случаях такое ограничение является однозначно неприятным недостатком. Следует отметить что создание
+ *  boilerPlate не является необходимым для того чтобы в классе были сгенерированы аннотации, но позволяют шире продемонстрировать возможности данного подхода
+ */
 public class RobotPusher {
 
 
-    public static final String ROOT_PACKAGE = "/media/ludovd/F63AAD3A3AACF8AF/Users/mi/Desktop/REPETITION/maven-project-education/src/main/java/bonus/refactor/lombok";
+    public static final String ROOT_PACKAGE = "./src/main/java/bonus/refactor/lomb";
     private static final int START_SEC_DELAY = 3;
     private static Robot robot;
 
-    public static void main(String[] args) throws AWTException, InterruptedException, IOException {
 
+    @SneakyThrows
+    public static void main(String[] args)  {
         robot = new Robot();
         TimeUnit.SECONDS.sleep(START_SEC_DELAY);
-//        Runnable sl4fjToNext = () -> {
-//            moveToNextFile();
-//            addLombokLog();
-//        };
-//        doNtimes(sl4fjToNext, 2);
-
-        List<Path> classes = Files.walk(Paths.get(ROOT_PACKAGE)).map(Path::getFileName).peek(System.out::println).filter(p -> p.toString().endsWith(".java")).collect(Collectors.toList());
-//        classes.forEach(RobotPusher::addBoilerplate);
+        @Cleanup Stream<Path> stream = Files.walk(Paths.get(ROOT_PACKAGE));
+        List<Path> classes = stream.map(Path::getFileName).peek(System.out::println).filter(p -> p.toString().endsWith(".java")).collect(Collectors.toList());
+        classes.forEach(RobotPusher::addBoilerplate);
         classes.forEach(RobotPusher::addLombokDataToClass);
 
     }
@@ -54,6 +58,8 @@ public class RobotPusher {
         keysHoldCombination(KeyEvent.VK_ALT, KeyEvent.VK_INSERT);
         keysPressFastCombination(KeyEvent.VK_DOWN, KeyEvent.VK_DOWN, KeyEvent.VK_DOWN, KeyEvent.VK_DOWN, KeyEvent.VK_DOWN);
         enter(2);
+        keysHoldCombination(KeyEvent.VK_ALT, KeyEvent.VK_CONTROL, KeyEvent.VK_L);
+
     }
 
     private static void navigateToClass(Path path) {
@@ -67,6 +73,8 @@ public class RobotPusher {
         navigateToClass(path);
         addLombokData();
         hold(Duration.ofSeconds(2));
+        keysHoldCombination(KeyEvent.VK_ALT, KeyEvent.VK_CONTROL, KeyEvent.VK_L);
+
     }
 
     private static void addLombokData() {

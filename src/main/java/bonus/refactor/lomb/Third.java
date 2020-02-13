@@ -1,4 +1,4 @@
-package bonus.refactor.lombok;
+package bonus.refactor.lomb;
 
 public class Third {
 
