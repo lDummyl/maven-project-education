@@ -10,6 +10,9 @@ public class First {
     int f;
     int g;
     int h;
+    String f3;
+    String g2;
+    String h1;
 
 
 

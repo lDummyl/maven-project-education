@@ -10,6 +10,9 @@ public class Second {
     int f6;
     int g7;
     int h8;
+    String f;
+    String g;
+    String h;
 
 
 
