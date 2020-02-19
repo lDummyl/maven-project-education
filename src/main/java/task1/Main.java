@@ -1,36 +1,28 @@
 package task1;
 
+
 import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        //Task1:
-        ArrayList<Person> people = createPersons();
-        outputGeneralListWithNamesAndNumbersOfDaysFrom1900(people);
-        findMaxAge(people);
-        int minDays = findMaxAge(people);
-        ArrayList<Person> peopleWithMaxAge = outputPersonsWithMaxAge(minDays, people);
-        System.out.println("Наибольший возраст: " + peopleWithMaxAge);
-        System.out.println("Родитель с наибольшим кол-вом букв: " + chooseOneParent(outputPersonsWithMaxAge(minDays, people)));
+        first();
+        //	second();
 
-        //Task2:
-        createListOfRandomPersons();
     }
 
-
-    public static ArrayList<Person> createPersons() {
+    public static void first() {
         // TODO: 1/26/20 ПЕРВЫЙ ЭТАП создать 5 разных человек и вывести имя старшего
 
         Age age0 = new Age(1902, 02, 10);   //ребенок
         Name name0 = new Name("Olga ", "Petrova");
         Person person0 = new Person(name0, age0);
 
-        Age age1 = new Age(1956, 02, 10);   //отец
+        Age age1 = new Age(1902, 02, 10);   //отец
         Name name1 = new Name("Victor ", "Nabokov");
         Person person1 = new Person(name1, age1);
 
-        Age age2 = new Age(1902, 02, 10);   //ребенок
+        Age age2 = new Age(1956, 01, 10);   //ребенок
         Name name2 = new Name("Misha ", "Sidorov");
         Person person2 = new Person(name2, age2);
 
@@ -50,16 +42,10 @@ public class Main {
             add(person4);
         }};
 
-        return people;
-    }
-
-    public static void outputGeneralListWithNamesAndNumbersOfDaysFrom1900(ArrayList<Person> people) {
         for (Person peopleCounter : people) {
             System.out.println("Количество дней от 1900: " + peopleCounter.age.fullYearToDays() + "       Имя: " + peopleCounter.name);
         }
-    }
 
-    public static int findMaxAge(ArrayList<Person> people) {
         int minDays = 1000000;
 
         for (Person person : people) {
@@ -67,30 +53,13 @@ public class Main {
                 minDays = person.age.fullYearToDays();
             }
         }
-        return minDays;
-    }
 
-    public static ArrayList<Person> outputPersonsWithMaxAge(int minDays, ArrayList<Person> people) {
-        ArrayList<Person> personsOfPersonsWithMaxAge = new ArrayList<>();
         for (Person person : people) {
             if (person.age.fullYearToDays() == minDays) {
-                personsOfPersonsWithMaxAge.add(person);
+                System.out.println("Наибольший возраст: " + person.name + person.age.fullYearToDays());
             }
         }
-        return personsOfPersonsWithMaxAge;
     }
-
-
-    public static Person chooseOneParent(ArrayList<Person> personsOfPersonsWithMaxAge){ //критерий выбора родителя: у кого больше букв имя + фамилия
-        HashMap<Integer, Person> personsWithMaxSymbolsQuantityInNames = new HashMap<>();
-        for (Person person1 : personsOfPersonsWithMaxAge) {
-            personsWithMaxSymbolsQuantityInNames.put(person1.name.firstName.length() + person1.name.lastName.length() - 1, person1);
-        }
-        int numberOfMaxSymbol = Collections.max(personsWithMaxSymbolsQuantityInNames.keySet());
-        return personsWithMaxSymbolsQuantityInNames.get(numberOfMaxSymbol);
-    }
-
-
 
 
     // TODO: 2/3/20 теперь старший это быдет отец, у которого должна быть коллекция всех детишек(все кто младше него). За исключением тех кто того же возраста
@@ -100,45 +69,34 @@ public class Main {
     // TODO: 2/3/20 или просто создай 10 животных в классе universe. Причем чтобы была как минимум тройная вложенность(хотябы в одном случае) ну и поведение и свойства соответсвующие.
 
 
-    public static List<Name> createRandomNames() {
+    public static void second() {
         //  TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
         Name name0 = new Name("Olga ", "Petrova");
         Name name1 = new Name("Victor ", "Nabokov");
         Name name2 = new Name("Semen ", "Ylyich");
 
-        List<Name> names = Arrays.asList(name0, name1, name2);
-        return names;
-    }
-
-    public static List<Age> createRandomAges() {
         Age age0 = new Age(1995, 06, 12);
         Age age1 = new Age(1994, 05, 11);
         Age age2 = new Age(1993, 04, 10);
 
+        List<Name> names = Arrays.asList(name0, name1, name2);
         List<Age> ages = Arrays.asList(age0, age1, age2);
-        return ages;
-    }
-
-    public static void createListOfRandomPersons() {
         ArrayList<Person> randomPersons = new ArrayList();
+
         Random random = new Random();
 
-        List<Name> names = createRandomNames();
-        List<Age> ages = createRandomAges();
         for (int i = 0; i < names.size(); i++) {
             Name name = names.get(random.nextInt(names.size()));
             Age age = ages.get(random.nextInt(ages.size()));
 
             Person person = new Person(name, age);
             randomPersons.add(person);
+
         }
-        System.out.println("________________________");
-        System.out.println("Задача 2:");
         System.out.println(randomPersons.toString());
     }
+
 }
-
-
 
 class Name {
 
@@ -180,7 +138,6 @@ class Age {
         this.month = month;
         this.year = year;
     }
-
     private static final int[] DAYS_IN_MONTHS = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     int fullYearToDays() {

@@ -17,6 +17,7 @@ public class SmallTaskDividing {
         //  в каждом методе в том чилсе main должно быть не более 10 строк кода. Можно иметь не ограниченно число методов и вспомогательных классов.
         //  Например, ShapesProvider, SquareComparator и тд
 
+        SmallTaskDividing smallTaskDividing = new SmallTaskDividing();
         inputNumberOfShapes();
 
         ArrayList<Shape> listOfShapes = createListOfShapes();
