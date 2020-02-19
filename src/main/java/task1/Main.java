@@ -79,6 +79,10 @@ public class Main {
         Age age1 = new Age(1994, 05, 11);
         Age age2 = new Age(1993, 04, 10);
 
+        // TODO: 2/19/20 создай список строк имен, и потом создавай уже из них персонажей, иначе у тебя может быть объект имя или дата один и тот же в хипе для разных людей
+        //  и если один решит сменить имя то второй его тоже сменит автоматом, а он может быть не готов к таким сюрпризам.
+
+
         List<Name> names = Arrays.asList(name0, name1, name2);
         List<Age> ages = Arrays.asList(age0, age1, age2);
         ArrayList<Person> randomPersons = new ArrayList();
@@ -147,6 +151,8 @@ class Age {
         int daysInLastYear = countDaysInLastYear();
 
         return daysInFullYears + daysInLastYear; // суммарный подсчет от 1900 до даты рождения
+        // TODO: 2/19/20 правильный комментарий всегда отвечает на вопрос почему? а не как или что. Лучше назвать метод более корректно чем полныйГодВДни,
+        //  если тяжело с английским неймингом я разрешаю использовать методы на русском, пока.
     }
 
     private int countDaysInFullYears() {

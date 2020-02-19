@@ -17,7 +17,7 @@ public class SmallTaskDividing {
         //  в каждом методе в том чилсе main должно быть не более 10 строк кода. Можно иметь не ограниченно число методов и вспомогательных классов.
         //  Например, ShapesProvider, SquareComparator и тд
 
-        SmallTaskDividing smallTaskDividing = new SmallTaskDividing();
+        SmallTaskDividing smallTaskDividing = new SmallTaskDividing(); // TODO: 2/19/20 нигде не используется
         inputNumberOfShapes();
 
         ArrayList<Shape> listOfShapes = createListOfShapes();
@@ -102,8 +102,8 @@ public class SmallTaskDividing {
     public static ArrayList<Shape> createListOfShapes() {
 
         ArrayList<Shape> shapes = new ArrayList<>();
-        shapes.addAll(createCircleObjects(SmallTaskDividing.circleNumber));
-        shapes.addAll(createRectangleObjects(SmallTaskDividing.rectangleNumber));
+        shapes.addAll(createCircleObjects(circleNumber)); // TODO: 2/19/20 если вызов внутри класса, класс указывать не обязательно
+        shapes.addAll(createRectangleObjects(rectangleNumber));
         shapes.addAll(createSquareObjects(SmallTaskDividing.squareNumber));
 
         return shapes;
