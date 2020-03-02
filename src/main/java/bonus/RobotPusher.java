@@ -34,6 +34,8 @@ public class RobotPusher {
     @SneakyThrows
     public static void main(String[] args)  {
         robot = new Robot();
+
+
         TimeUnit.SECONDS.sleep(START_SEC_DELAY);
         @Cleanup Stream<Path> stream = Files.walk(Paths.get(ROOT_PACKAGE));
         List<Path> classes = stream.map(Path::getFileName).peek(System.out::println).filter(p -> p.toString().endsWith(".java")).collect(Collectors.toList());
