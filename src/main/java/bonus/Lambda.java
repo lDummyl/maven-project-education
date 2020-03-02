@@ -50,7 +50,7 @@ public class Lambda {
 		List<Integer> strings = Arrays.asList(1, 2, 3);
 		int result  = 0;
 		for (int i : strings) {
-			result += func.add1(i );
+		//	result += func.add1(i);
  		}
 		System.out.println("result = " + result);
 	}
