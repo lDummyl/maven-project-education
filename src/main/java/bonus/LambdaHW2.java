@@ -9,17 +9,20 @@ public class LambdaHW2 {
     public static void main(String[] args) {
         List<Integer> integers = Arrays.asList(1, 2, 3, 14, -4);
         Calculation2 operation = (a, b) -> a+b;
-        getSumOfEvenNumbers(integers, operation);
+        int sumOfEvenNumbers = getSumOfEvenNumbers(integers, operation);
+        System.out.println("sumOfEvenNumbers = " + sumOfEvenNumbers);
+        int multiplication = getSumOfEvenNumbers(integers, (a, b) -> a * b);// TODO: 3/8/20 а если так, будет не сумма а произведение. Сделай метод более универсальным.
+        System.out.println("multiplication = " + multiplication);
     }
 
-    private static void getSumOfEvenNumbers(List<Integer> integers, Calculation2 operation) {
-       int result = 0;
+    private static int getSumOfEvenNumbers(List<Integer> integers, Calculation2 operation) {
+        int result = 0; // TODO: 3/8/20 чтобы сильно тебя не мучать, вот подсказка. Если лист не пустой, то инициализировать можно первым элементом.
         for (Integer integer : integers) {
             if (integer % 2 == 0){
                 result = operation.calculate2(result, integer);
             }
         }
-        System.out.println(result);
+        return result;
     }
 
 }
