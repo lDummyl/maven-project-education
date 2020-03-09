@@ -36,6 +36,7 @@ public class LambdaHW2 {
         return result;
     }
 
+    // TODO: 3/9/20 как видишь параметры и возвращаемые значения этих методов   
     public static boolean isPrimeNumber(int n) {  // метод для нахождения простых чисел
         boolean prime = true;
         for (long i = 3; i <= Math.sqrt(n); i += 2) {
@@ -51,6 +52,12 @@ public class LambdaHW2 {
         return (n % 2 != 0 && prime && n > 2) || n == 2;
     }
 
+    // TODO: 3/9/20 одинаковые, значит можно сказать что для них обоих сгодится один ф- интерфейс. 
+    public static boolean isEvenNumber(int n) {  // метод для нахождения простых чисел
+        return n % 2 == 0;
+    }
+
+    // TODO: 3/9/20 он позовлит тебе уйти от этой копипасты и объединить getOperationResultOfEvenNumbers  и getOperationResultOfPrimes если ты добавишь еще один функциональный аргумент, на манер Calculation2
     private static int getOperationResultOfEvenNumbers(List<Integer> integers, Calculation2 operation) {  //для четных чисел
         //integers.removeIf(element -> element % 2 != 0);   // удалим нечетные элементы из коллекции
         Integer result = null;
