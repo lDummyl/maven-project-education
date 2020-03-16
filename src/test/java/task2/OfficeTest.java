@@ -1,8 +1,7 @@
 package task2;
 
 import org.junit.Test;
-
-import java.util.List;
+import task2.oldOffice.Office;
 
 import static org.junit.Assert.assertTrue;
 

@@ -1,4 +1,4 @@
-package task2;
+package task2.oldOffice;
 
 public class Secretary {
 

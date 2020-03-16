@@ -3,32 +3,37 @@ package bonus;
 import java.util.Arrays;
 
 import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Predicate;
 
 
 public class LambdaHW2 {
     public static void main(String[] args) {
         List<Integer> integers = Arrays.asList(-2, 2, -1, 5, 12, -4, 11);
-        Calculation2 operation = (a, b) -> a + b;
-        int sumOfEvenNumbers = getOperationResultOfEvenNumbers(integers, operation); //находим сумму четных чисел
-        int sumOfPrimes = getOperationResultOfPrimes(integers, operation);     //находим сумму простых чисел
+        BiFunction<Integer, Integer, Integer> operation = Integer::sum;
+        int sumOfEvenNumbers = getOperationResultOfPrimes(integers, operation, LambdaHW2::isEvenNumber); //находим сумму четных чисел
+        int sumOfPrimes = getOperationResultOfPrimes(integers, operation, LambdaHW2::isPrimeNumber);     //находим сумму простых чисел
         System.out.println("Сумма четных чисел коллекции: " + sumOfEvenNumbers);
         System.out.println("Сумма простых чисел коллекции: " + sumOfPrimes);
 
-        int multiplication = getOperationResultOfEvenNumbers(integers, (a, b) -> a * b); //находим произведение четных
-        int multiplicationOfPrimes = getOperationResultOfPrimes(integers, (a, b) -> a * b);  //находим произведение простых
+        int multiplication = getOperationResultOfPrimes(integers, (a, b) -> a * b, LambdaHW2::isEvenNumber); //находим произведение четных
+        int multiplicationOfPrimes = getOperationResultOfPrimes(integers, (a, b) -> a * b, LambdaHW2::isPrimeNumber);  //находим произведение простых
         System.out.println("Произведение четных чисел коллекции:" + multiplication);
         System.out.println("Произведение простых чисел коллекции: " + multiplicationOfPrimes);
+
+        int sumOfPrimes1 = getOperationResultOfPrimes(integers, operation, a -> true);     //находим сумму простых чисел
+        System.out.println(sumOfPrimes1);
     }
 
-    private static int getOperationResultOfPrimes(List<Integer> integers, Calculation2 operation) {  // для простых чисел
+    private static int getOperationResultOfPrimes(List<Integer> integers, BiFunction<Integer, Integer, Integer> operation, Predicate<Integer> operation2) {  // для простых чисел
         Integer result = null;
 
         for (Integer integer : integers) {
-            if (isPrimeNumber(integer)) {
+            if (operation2.test(integer)) {
                 if (result == null) {
                     result = integer;
                 } else {
-                    result = operation.calculate2(result, integer);
+                    result = operation.apply(result, integer);
                 }
             }
         }
@@ -58,23 +63,5 @@ public class LambdaHW2 {
     }
 
     // TODO: 3/9/20 он позовлит тебе уйти от этой копипасты и объединить getOperationResultOfEvenNumbers  и getOperationResultOfPrimes если ты добавишь еще один функциональный аргумент, на манер Calculation2
-    private static int getOperationResultOfEvenNumbers(List<Integer> integers, Calculation2 operation) {  //для четных чисел
-        //integers.removeIf(element -> element % 2 != 0);   // удалим нечетные элементы из коллекции
-        Integer result = null;
-        for (Integer integer : integers) {
-            if (integer % 2 == 0) {
-                if (result == null) {
-                    result = integer;
-                } else {
-                    result = operation.calculate2(result, integer);
-                }
-            }
-        }
-        return result;
-    }
-}
 
-@FunctionalInterface
-interface Calculation2 {
-    int calculate2(int a, int b);
 }
