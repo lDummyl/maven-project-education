@@ -3,22 +3,34 @@ package task2;
 import java.util.Random;
 
 public class Employee {
-    Random random = new Random();
 
-
-    int tellAccountantQuantityOfWorkingDays() { // сказать количество рабочих дней за месяц
+    static int tellAccountantQuantityOfWorkingDays() { // сказать количество рабочих дней за месяц
+        Random random = new Random();
         int quantityOfWorkingDays = random.nextInt(22);
 
         return quantityOfWorkingDays;
     }
 
-    int tellAccountantQuantityOfOvertimeInHours() { // //сказать количество часов с переработкой
+    static int tellAccountantQuantityOfOvertimeInHours() { // //сказать количество часов с переработкой
+        Random random = new Random();
         int quantityOfOvertimeHours = random.nextInt(20);
 
         return quantityOfOvertimeHours;
     }
 
-    int getRatePerHour() {  //получить ставку в тыс.руб./час за сотрудника
-        return random.nextInt(10);
+    static int getRatePerHour() {  //получить ставку в руб./час за сотрудника
+        Random random = new Random();
+        return random.nextInt(1500);
+    }
+
+    String name;
+    int rate;
+    int workingHours;
+    int overtimeHours;
+    Employee(String name, int rate, int workingHours, int overtimeHours){
+        this.name = name;
+        this.rate = rate;
+        this.workingHours = workingHours;
+        this.overtimeHours = overtimeHours;
     }
 }
