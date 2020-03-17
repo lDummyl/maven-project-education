@@ -2,11 +2,13 @@ package task2;
 
 public class Boss {
 
-    public static void getKpiFromHrToEstimateRating(){ //Взять у HR KPI для проставления рейтинга по которому сотрудники получат бонус
-
+    double getKpiFromHrToEstimateFactor(double KPI) { //Взять у HR KPI для проставления рейтинга по которому сотрудники получат бонус
+        return KPI;
     }
 
-    public static void  tellAccountantRatingForBonus(){   //сообщить какой коэффициент у сотрудника для распределения премии
+    double tellAccountantFactorForBonus(double KPI) {   //сообщить какой коэффициент у сотрудника для распределения премии
 
+        double factorForBonus = 22.5 * getKpiFromHrToEstimateFactor(KPI);   // получить коэффициенты для выставления бонуса
+        return factorForBonus;
     }
 }
