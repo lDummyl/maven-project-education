@@ -1,11 +1,10 @@
 package task2;
 
-import lombok.NonNull;
-
 public class Office {
 
     Boss boss;
     Accountant accountant;
+    Security security;
     Employee employee;
     HR hr;
 
@@ -19,7 +18,11 @@ public class Office {
         System.out.println("\nМеня зовут: " + boss.name);
     }
 
-    void startWorkingDay() {
+    void startWorkingDay(DayOfWeek dayOfWeek) {
+        // TODO: 3/21/20 работаем или выходной if(dayOfWeek...){
+
+
+
         everybodyDrinksCoffee();
         hireEmployee();
         giveBonus();
@@ -28,12 +31,26 @@ public class Office {
         callCustomers();
         boss.goToBathroom();
         doRegularWork();
-        hr.fireEmployee();
+        fireEmployee();
         haveLunch();
         doRegularWork();
         takeBreak();
         procrastinate();
         finishWorkingDay();
+    }
+
+    private void fireEmployee() {
+        if (imIToOldForThisShit(accountant)){
+            accountant = null;
+        }
+        // TODO: 3/21/20 и так далее
+
+    }
+
+    private boolean imIToOldForThisShit(Employee employee) {
+        // TODO: 3/21/20 придумай  if (employee)
+        return false;
+
     }
 
     private void finishWorkingDay() {
@@ -73,6 +90,14 @@ public class Office {
     }
 
     private void hireEmployee() {
+        if (accountant == null){
+            accountant = hr.hireEmployee(Accountant.class);
+        }
+        if (security == null){
+            // TODO: 3/21/20  и так далее
+        }
+
+
     }
 
     private void everybodyDrinksCoffee() {

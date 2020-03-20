@@ -1,17 +1,29 @@
 package task2;
 
-import java.util.*;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Boss hugoBoss = new Boss("Victor",40,1000,30,0,10.5);
-        System.out.println( hugoBoss.tellAccountantFactorForBonus(4));
+        Boss hugoBoss = new Boss("Victor", 40, 1000, 30, 0, 10.5);
+        System.out.println(hugoBoss.tellAccountantFactorForBonus(4));
 
 
-       Scanner input = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         Random random = new Random();
-
+        LaibourMarket laibourMarket = new LaibourMarket(); // TODO: 3/21/20 рунок труда можно передать ХРу в конструктор например или отдельным методом
         Office office = new Office();
+
+        List<Accountant> accountants = laibourMarket.provideEmployee(3, Accountant.class); // TODO: 3/21/20 получаем 3 готовых бухгалтера
+        List<Manager> managers = laibourMarket.provideEmployee(1, Manager.class);// TODO: 3/21/20 получаем 1 менеджера
+
+
+
+
+
+
+
      /*   HR hr = new HR(HR.tellBossKPIOfEmployees());
      //   Boss boss = new Boss(Boss.tellAccountantFactorForBonus(hr.KPI));
       //  Employee employee = new Employee("Victor", Employee.getRatePerHour(), Employee.tellAccountantQuantityOfWorkingDays(), Employee.tellAccountantQuantityOfOvertimeInHours());
@@ -19,7 +31,10 @@ public class Main {
 
      //   office.assign(boss);
       //  office.assign(hr);*/
-        office.startWorkingDay(); //ДЗ: enum на дни недели
+        for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
+            office.startWorkingDay(dayOfWeek); //ДЗ: enum на дни недели
+        }
+
 
         // TODO: 3/17/20 сделай такую очередность, сначала люди устраиваются на места, как птички рассаживаются по веткам после этого начинается рабочий день.
         //  Сделай так чтобы в новый день не нужно было назначать всех по новой но можно было бы запустить рабочий день опять и опять.

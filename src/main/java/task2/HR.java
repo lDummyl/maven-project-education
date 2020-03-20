@@ -16,6 +16,14 @@ public class HR extends Employee {
         super(name, age, rate, workingHours, overtimeHours);
         this.KPI = KPI;
     }
-    void fireEmployee() {
+
+
+    public<T> T hireEmployee(Class<T> emplClass) {
+        if (emplClass.equals(Accountant.class)){
+
+        }
+        return null;
     }
+
+
 }
