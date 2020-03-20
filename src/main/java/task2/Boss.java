@@ -1,18 +1,20 @@
 package task2;
 
-public class Boss {
+public class Boss extends Employee {
 
    /* static double getKpiFromHrToEstimateFactor(double KPI) { //Взять у HR KPI для проставления рейтинга по которому сотрудники получат бонус
         return KPI;
     }*/
 
-    static double tellAccountantFactorForBonus(double KPI) {   //сообщить какой коэффициент у сотрудника для распределения премии
+    double tellAccountantFactorForBonus(double KPI) {   //сообщить какой коэффициент у сотрудника для распределения премии
 
-        double factorForBonus = 10.5 * KPI;   // получить коэффициенты для выставления бонуса
-        return factorForBonus;
+         // получить коэффициенты для выставления бонуса
+        return factorForBonus * KPI;
     }
     double factorForBonus;
-    Boss(double factorForBonus){
+
+    public Boss(String name, int age, int rate, int workingHours, int overtimeHours, double factorForBonus) {
+        super(name, age, rate, workingHours, overtimeHours);
         this.factorForBonus = factorForBonus;
     }
 }

@@ -2,7 +2,7 @@ package task2;
 
 import java.util.Random;
 
-public class Employee {
+public abstract class Employee extends Person {
 
     static int tellAccountantQuantityOfWorkingDays() { // сказать количество рабочих дней за месяц
         Random random = new Random();
@@ -23,14 +23,21 @@ public class Employee {
         return random.nextInt(1500);
     }
 
-    String name;
     int rate;
     int workingHours;
     int overtimeHours;
-    Employee(String name, int rate, int workingHours, int overtimeHours){
-        this.name = name;
+    Employee(String name, int age, int rate, int workingHours, int overtimeHours){
+        super(name, age);
         this.rate = rate;
         this.workingHours = workingHours;
         this.overtimeHours = overtimeHours;
+    }
+
+    @Override
+    public String toString() {
+        return "Name{" +
+                name + '\'' +
+                ", rate='" + rate + '\'' + ", workingHours= " + workingHours + '\'' + ", overtimeHours= " + overtimeHours +
+                '}';
     }
 }

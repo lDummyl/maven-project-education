@@ -9,34 +9,73 @@ public class Office {
     Employee employee;
     HR hr;
 
-    void work(HR hr) {
+    void assign(HR hr) {
         this.hr = hr;
-        System.out.println("HR говорит KPI сотрудника боссу: " + hr.KPI);
+        System.out.println("Меня зовут: " + hr.name);
     }
 
-    void work(Boss boss) {
+    void assign(Boss boss) {
         this.boss = boss;
-        System.out.println("");
-        System.out.println("Босс на основе KPI говорит бухгалтеру коэффициент сотрудника для дальнейшего подсчета премии: " + boss.tellAccountantFactorForBonus(hr.KPI));
+        System.out.println("\nМеня зовут: " + boss.name);
     }
 
-    void work(Employee employee) {
-        this.employee = employee;
-        System.out.println("");
-        System.out.println("Сотрудник сообщает ставку бухгалтеру: " + employee.rate);
-        System.out.println("Сотрудник сообщает кол-во отработанных дней бухгалтеру: " + employee.workingHours);
-        System.out.println("Сотрудник сообщает кол-во часов переработки бухгалтеру: " + employee.overtimeHours);
-
+    void startWorkingDay() {
+        everybodyDrinksCoffee();
+        hireEmployee();
+        giveBonus();
+        doRegularWork();
+        checkBirthdays();
+        callCustomers();
+        boss.goToBathroom();
+        doRegularWork();
+        hr.fireEmployee();
+        haveLunch();
+        doRegularWork();
+        takeBreak();
+        procrastinate();
+        finishWorkingDay();
     }
 
-    @NonNull
-    void work(Accountant accountant, Employee employee) {
-        this.accountant = accountant;
-        this.employee = employee;
-        System.out.println("");
-        System.out.println("Бухгалтер считает зарплату сотрудника: " + accountant.countSalary(employee.workingHours, employee.rate));
-        System.out.println("Бухгалтер считает надбавки за переработанные часы: " + accountant.countOvertimeBonus(employee.overtimeHours, employee.rate));
-        System.out.println("Бухгалтер считает бонус за проект: " + accountant.countProjectBonus(employee.rate, boss.factorForBonus));
+    private void finishWorkingDay() {
+    }
+
+    private void takeBreak() {
+    }
+
+    private void procrastinate() {
+    }
+
+    private void haveLunch() {
+    }
+
+
+    private void callCustomers() {
+    }
+
+    private void checkBirthdays() {
+        if(somebodyHasBirthday()){
+            celebrateBirthday();
+        }
+    }
+
+    private boolean somebodyHasBirthday() {
+
+        return true;
+    }
+
+    private void celebrateBirthday() {
+    }
+
+    private void doRegularWork() {
+    }
+
+    private void giveBonus() {
+    }
+
+    private void hireEmployee() {
+    }
+
+    private void everybodyDrinksCoffee() {
     }
 
 }

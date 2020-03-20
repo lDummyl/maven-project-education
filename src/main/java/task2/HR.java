@@ -2,16 +2,20 @@ package task2;
 
 import java.util.Random;
 
-public class HR {
+public class HR extends Employee {
 
-   static double tellBossKPIOfEmployees() {
+    double tellBossKPIOfEmployees() {
        Random random = new Random();
 
-       return random.nextInt(20) * 1.0;
+       return random.nextDouble() * 20;
     }
 
     double KPI;
-    HR(double KPI){
-       this.KPI = KPI;
+
+    public HR(String name, int age, int rate, int workingHours, int overtimeHours, double KPI) {
+        super(name, age, rate, workingHours, overtimeHours);
+        this.KPI = KPI;
+    }
+    void fireEmployee() {
     }
 }

@@ -1,7 +1,10 @@
 package task2;
 
-public class Accountant {
+public class Accountant extends Employee {
 
+    Accountant(String name, int age, int rate, int workingHours, int overtimeHours) {
+        super(name, age, rate, workingHours, overtimeHours);
+    }
 
     int countSalary(int workingDays, int rate) {   //бухгалтер считает обычную зарплату сотрудника по обычной ставке (умножение отработанных дней на ставку за день)
 
@@ -19,5 +22,6 @@ public class Accountant {
         return rate * factorForBonus;
         //бонус = ставка сотрудника * коэффициент от босса
     }
+
 
 }
