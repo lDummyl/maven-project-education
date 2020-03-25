@@ -7,6 +7,7 @@ public class Office {
     Security security;
     Employee employee;
     HR hr;
+    Meteorologist meteorologist;
 
     void assign(HR hr) {
         this.hr = hr;
@@ -18,7 +19,7 @@ public class Office {
         System.out.println("\nМеня зовут: " + boss.name);
     }
 
-    void startWorkingDay(DayOfWeek dayOfWeek) {
+    void startWorkingDay(DayOfWeek dayOfWeek) throws Exception {
         // TODO: 3/21/20 работаем или выходной if(dayOfWeek...){
 
 
@@ -26,6 +27,7 @@ public class Office {
         everybodyDrinksCoffee();
         hireEmployee();
         giveBonus();
+        meteorologist.getWeather();
         doRegularWork();
         checkBirthdays();
         callCustomers();
