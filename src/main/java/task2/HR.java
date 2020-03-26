@@ -21,12 +21,10 @@ public class HR extends Employee {
     }
 
 
-    public<T> T hireEmployee(Class<T> emplClass) throws Exception {
-        labourMarket.provideEmployee(1, emplClass);
-        if (emplClass.equals(Accountant.class)){
-            List<T> accountants = labourMarket.provideEmployee(1, emplClass);
-        }
-        return null;
+    public<T extends Employee> T hireEmployee(Class<T> emplClass) throws Exception {
+
+        List<T> ts = labourMarket.provideEmployee(1, emplClass);
+        return ts.get(0);
     }
 
 

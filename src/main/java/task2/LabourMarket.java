@@ -1,6 +1,5 @@
 package task2;
 
-import java.io.SequenceInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,16 +11,18 @@ public class LabourMarket {
 
     public <T extends Employee> List<T> provideEmployee(int qty, Class<T> tClass) throws Exception {    //Т – это тип, который должен быть определён позже (при создании объекта класса)
 
+
+
         if (tClass == Accountant.class) {   //? действительно ли элемент из этого списка является экземпляром класса: if(accountant instanceof Accountant){}
             // TODO: 3/21/20 сделай N бухгалтеров и положи в этот лист
-            ArrayList<Accountant> accountantList = new ArrayList<>();
+            List<T> accountantList = new ArrayList<>();
 
             for (int i = 0; i < qty; i++) {
-                Accountant accountant = new Accountant(getRandomCollectionElement(randomNames), getRandom(18, 65), getRandom(800, 1500), getRandom(10, 40), getRandom(1, 20));
+                T accountant = (T) new Accountant(getRandomCollectionElement(randomNames), getRandom(18, 65), getRandom(800, 1500), getRandom(10, 40), getRandom(1, 20));
                  accountantList.add(accountant);  //доделать
             }
 
-            return (List<T>) accountantList;
+            return  accountantList;
         }
 
         if (tClass == Boss.class) {
