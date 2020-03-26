@@ -1,5 +1,7 @@
 package task2;
 
+import java.util.Scanner;
+
 public class Office {
 
     Boss boss;
@@ -19,26 +21,36 @@ public class Office {
         System.out.println("\nМеня зовут: " + boss.name);
     }
 
-    void startWorkingDay(DayOfWeek dayOfWeek) throws Exception {
+    String inputDayOfWeek(){
+        System.out.println("Введите день недели на англ: ");
+        Scanner input = new Scanner(System.in);
+        String day = input.nextLine();
+
+        return day;
+    }
+    void startWorkingDay(String inputDayOfWeek) throws Exception {
         // TODO: 3/21/20 работаем или выходной if(dayOfWeek...){
 
-
-
-        everybodyDrinksCoffee();
-        hireEmployee();
-        giveBonus();
-        meteorologist.getWeather();
-        doRegularWork();
-        checkBirthdays();
-        callCustomers();
-        boss.goToBathroom();
-        doRegularWork();
-        fireEmployee();
-        haveLunch();
-        doRegularWork();
-        takeBreak();
-        procrastinate();
-        finishWorkingDay();
+//        if(DayOfWeek.SUNDAY || DayOfWeek.SATURDAY) {
+//            System.out.println("Weekend");
+//
+//        else {
+            everybodyDrinksCoffee();
+            hireEmployee();
+            giveBonus();
+        //    meteorologist.getWeather();
+            doRegularWork();
+            checkBirthdays();
+            callCustomers();
+            boss.goToBathroom();
+            doRegularWork();
+            fireEmployee();
+            haveLunch();
+            doRegularWork();
+            takeBreak();
+            procrastinate();
+            finishWorkingDay();
+  //      }
     }
 
     private void fireEmployee() {
@@ -51,6 +63,10 @@ public class Office {
 
     private boolean imIToOldForThisShit(Employee employee) {
         // TODO: 3/21/20 придумай  if (employee)
+        if (employee.age > 65 ){
+            System.out.println("Fuck you all, I'm resigning!");
+        }
+
         return false;
 
     }

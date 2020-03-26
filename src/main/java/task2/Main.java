@@ -10,16 +10,18 @@ public class Main {
         System.out.println(hugoBoss.tellAccountantFactorForBonus(4));
 
 
-        Scanner input = new Scanner(System.in);
         Random random = new Random();
         LabourMarket labourMarket = new LabourMarket(); // TODO: 3/21/20 рунок труда можно передать ХРу в конструктор например или отдельным методом
         Office office = new Office();
         Meteorologist meteorologist = new Meteorologist();
 
-        List<Accountant> accountants = labourMarket.provideEmployee(3, Accountant.class); // TODO: 3/21/20 получаем 3 готовых бухгалтера
+        List<Accountant> accountants = labourMarket.provideEmployee(4, Accountant.class); // TODO: 3/21/20 получаем 3 готовых бухгалтера
         List<Manager> managers = labourMarket.provideEmployee(1, Manager.class);// TODO: 3/21/20 получаем 1 менеджера
 
-        meteorologist.getWeather();
+        List<HR> hrs = labourMarket.provideEmployee(1, HR.class);
+        HR hr = hrs.get(0);
+        hr.labourMarket = labourMarket;
+        office.hr = hr;
 
 
 

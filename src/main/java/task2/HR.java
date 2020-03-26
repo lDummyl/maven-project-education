@@ -1,8 +1,11 @@
 package task2;
 
+import java.util.List;
 import java.util.Random;
 
 public class HR extends Employee {
+
+    public LabourMarket labourMarket;
 
     double tellBossKPIOfEmployees() {
        Random random = new Random();
@@ -18,9 +21,10 @@ public class HR extends Employee {
     }
 
 
-    public<T> T hireEmployee(Class<T> emplClass) {
+    public<T> T hireEmployee(Class<T> emplClass) throws Exception {
+        labourMarket.provideEmployee(1, emplClass);
         if (emplClass.equals(Accountant.class)){
-
+            List<T> accountants = labourMarket.provideEmployee(1, emplClass);
         }
         return null;
     }
