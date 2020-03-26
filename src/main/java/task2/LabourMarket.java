@@ -55,6 +55,7 @@ public class LabourMarket {
                 Manager manager = new Manager();  //доделать
                 managerList.add(manager);
             }
+            return (List<T>) managerList;
         }
 
         if (tClass == Security.class) {
@@ -66,6 +67,7 @@ public class LabourMarket {
                     securityList.add(security);
                 }
             }
+            return (List<T>) securityList;
         }
 
         // TODO: 3/21/20 по всем остальным классам аналогично
