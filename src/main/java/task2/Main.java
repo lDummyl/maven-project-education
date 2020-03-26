@@ -12,12 +12,12 @@ public class Main {
 
         Scanner input = new Scanner(System.in);
         Random random = new Random();
-        LaibourMarket laibourMarket = new LaibourMarket(); // TODO: 3/21/20 рунок труда можно передать ХРу в конструктор например или отдельным методом
+        LabourMarket labourMarket = new LabourMarket(); // TODO: 3/21/20 рунок труда можно передать ХРу в конструктор например или отдельным методом
         Office office = new Office();
         Meteorologist meteorologist = new Meteorologist();
 
-        List<Accountant> accountants = laibourMarket.provideEmployee(3, Accountant.class); // TODO: 3/21/20 получаем 3 готовых бухгалтера
-        List<Manager> managers = laibourMarket.provideEmployee(1, Manager.class);// TODO: 3/21/20 получаем 1 менеджера
+        List<Accountant> accountants = labourMarket.provideEmployee(3, Accountant.class); // TODO: 3/21/20 получаем 3 готовых бухгалтера
+        List<Manager> managers = labourMarket.provideEmployee(1, Manager.class);// TODO: 3/21/20 получаем 1 менеджера
 
         meteorologist.getWeather();
 

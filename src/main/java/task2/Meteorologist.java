@@ -51,7 +51,7 @@ public class Meteorologist {
 
     private static Pattern patternRegion = Pattern.compile("([^a-zA-Z])\\D{2,}");
     private static Pattern patternTime = Pattern.compile("\\d{2}\\:\\d{2}");
-    private static Pattern patternTemperature = Pattern.compile("\\D\\d+");
+    private static Pattern patternTemperature = Pattern.compile("\\D?\\d+");
 
     private static String getTimeFromString(String stringTime) throws Exception {
         Matcher matcherTime = patternTime.matcher(stringTime);
