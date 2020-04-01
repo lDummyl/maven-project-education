@@ -6,11 +6,11 @@ public abstract class Person {
 
     //  String sex;
 
-  /*  public Person(String name, int age) {
+    public Person(String name, int age) {
         this.name = name;
         this.age = age;
       //  this.sex = sex;
-    }*/
+    }
 
     public abstract void tellWhatYouDoForALiving();
 
@@ -18,19 +18,19 @@ public abstract class Person {
         System.out.println("Good job");
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
+  //  public String getName() {
+  //      return name;
+  //  }
+//
+  //  public void setName(String name) {
+  //      this.name = name;
+  //  }
+//
+  //  public int getAge() {
+  //      return age;
+  //  }
+//
+  //  public void setAge(int age) {
+  //      this.age = age;
+  //  }
 }

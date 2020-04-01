@@ -13,12 +13,13 @@ public class Main {
         HR hr = hrs.get(0);
         Manager manager = hr.hireEmployee(Manager.class); // TODO: вот для чего это делалось а чтобы у тебя больше не возникало желяния использовать лайфхаки типа {} я кое что добавлю.
 
-        Person person = new Person(){};
-        person.setName(hrs.get(0).name);
-        person.setAge(hrs.get(0).age);
-
+        manager.setName(manager.name);
+        manager.setAge(manager.age);
+        manager.setRate(manager.rate);
+        manager.setOvertimeHours(manager.overtimeHours);
+        manager.setWorkingHours(manager.workingHours);
         ObjectMapper objectMapper = new ObjectMapper();
-        String result = objectMapper.writeValueAsString(person);
+        String result = objectMapper.writeValueAsString(manager);
         System.out.println(result);
         // TODO: 4/1/20 твой джейсон великолепен, но если ты хочешь погрузится в сериализацию, то не стоит останавливать себя от десериализации, сделай объект на основании своего джейсона через маппер.
 

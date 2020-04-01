@@ -65,7 +65,7 @@ public class LabourMarket {
 
         // TODO: 3/21/20 по всем остальным классам аналогично
 
-        throw new Exception("Введите класс-наследник Employee"); // TODO: 3/21/20 это заменить
+        throw new Exception("Введите класс-наследник Employee");
     }
 
     private <T> T getRandomCollectionElement(List<T> list) {
