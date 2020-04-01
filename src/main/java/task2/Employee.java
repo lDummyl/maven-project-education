@@ -7,8 +7,26 @@ public class Employee extends Person {
     private int workingHours;
     private int overtimeHours;
 
-    public Employee(String name, int i, int rate, int workingHours, int age) {
+    public Employee(String name, int age, int rate, int workingHours, int overtimeHours) {
         super(name, age);
+        this.rate = rate;
+        this.workingHours = workingHours;
+        this.overtimeHours = overtimeHours;
+    }
+
+    public Employee() {
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public int getWorkingHours() {
+        return workingHours;
+    }
+
+    public int getOvertimeHours() {
+        return overtimeHours;
     }
 
     static int tellAccountantQuantityOfWorkingDays() { // сказать количество рабочих дней за месяц

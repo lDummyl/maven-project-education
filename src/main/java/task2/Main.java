@@ -1,6 +1,7 @@
 package task2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.util.List;
 
@@ -14,17 +15,14 @@ public class Main {
         hr.labourMarket = labourMarket;
         Manager manager = hr.hireEmployee(Manager.class); // TODO: вот для чего это делалось а чтобы у тебя больше не возникало желяния использовать лайфхаки типа {} я кое что добавлю.
 
-        manager.setName(manager.name);
-        manager.setAge(manager.age);
-        manager.setRate(manager.rate);
-        manager.setOvertimeHours(manager.overtimeHours);
-        manager.setWorkingHours(manager.workingHours);
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS,false);
         String result = objectMapper.writeValueAsString(manager);
         System.out.println(result);
         // TODO: 4/1/20 твой джейсон великолепен, но если ты хочешь погрузится в сериализацию, то не стоит останавливать себя от десериализации, сделай объект на основании своего джейсона через маппер.
 
-
+        Manager manager1 = objectMapper.readValue(result, Manager.class);
+        System.out.println(manager1);
 
 
         /*Random random = new Random();
