@@ -1,5 +1,8 @@
 package task2;
 
+import lombok.Data;
+
+
 public class Boss extends Employee {
 
    /* static double getKpiFromHrToEstimateFactor(double KPI) { //Взять у HR KPI для проставления рейтинга по которому сотрудники получат бонус
@@ -17,4 +20,6 @@ public class Boss extends Employee {
         super(name, age, rate, workingHours, overtimeHours);
         this.factorForBonus = factorForBonus;
     }
+
+
 }

@@ -12,7 +12,9 @@ public abstract class Person {
       //  this.sex = sex;
     }*/
 
-    void goToBathroom(){
+    public abstract void tellWhatYouDoForALiving();
+
+    void goToBathroom() {
         System.out.println("Good job");
     }
 

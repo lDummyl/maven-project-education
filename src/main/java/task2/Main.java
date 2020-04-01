@@ -1,14 +1,8 @@
 package task2;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -16,14 +10,18 @@ public class Main {
         System.out.println(hugoBoss.tellAccountantFactorForBonus(5));*/
         LabourMarket labourMarket = new LabourMarket();
         List<HR> hrs = labourMarket.provideEmployee(1, HR.class);
+        HR hr = hrs.get(0);
+        Manager manager = hr.hireEmployee(Manager.class); // TODO: вот для чего это делалось а чтобы у тебя больше не возникало желяния использовать лайфхаки типа {} я кое что добавлю.
 
         Person person = new Person(){};
-       person.setName(hrs.get(0).name);
-       person.setAge(hrs.get(0).age);
+        person.setName(hrs.get(0).name);
+        person.setAge(hrs.get(0).age);
 
         ObjectMapper objectMapper = new ObjectMapper();
         String result = objectMapper.writeValueAsString(person);
         System.out.println(result);
+        // TODO: 4/1/20 твой джейсон великолепен, но если ты хочешь погрузится в сериализацию, то не стоит останавливать себя от десериализации, сделай объект на основании своего джейсона через маппер.
+
 
 
 
@@ -51,7 +49,7 @@ public class Main {
 
      //   office.assign(boss);
       //  office.assign(hr);*/
-     //   for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
+        //   for (DayOfWeek dayOfWeek : DayOfWeek.values()) {
         //    office.startWorkingDay(dayOfWeek); //ДЗ: enum на дни недели
         //}
 
