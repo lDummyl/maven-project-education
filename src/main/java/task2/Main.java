@@ -11,6 +11,7 @@ public class Main {
         LabourMarket labourMarket = new LabourMarket();
         List<HR> hrs = labourMarket.provideEmployee(1, HR.class);
         HR hr = hrs.get(0);
+        hr.labourMarket = labourMarket;
         Manager manager = hr.hireEmployee(Manager.class); // TODO: вот для чего это делалось а чтобы у тебя больше не возникало желяния использовать лайфхаки типа {} я кое что добавлю.
 
         manager.setName(manager.name);
