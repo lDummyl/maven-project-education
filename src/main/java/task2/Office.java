@@ -109,7 +109,7 @@ public class Office {
 
     private void hireEmployee() {
         if (accountant == null){
-            accountant = hr.hireEmployee(Accountant.class);
+          //  accountant = hr.hireEmployee(Accountant.class);
         }
         if (security == null){
             // TODO: 3/21/20  и так далее

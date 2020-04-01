@@ -3,6 +3,9 @@ package task2;
 import java.util.Random;
 
 public abstract class Employee extends Person {
+    private int rate;
+    private int workingHours;
+    private int overtimeHours;
 
     static int tellAccountantQuantityOfWorkingDays() { // сказать количество рабочих дней за месяц
         Random random = new Random();
@@ -23,11 +26,10 @@ public abstract class Employee extends Person {
         return random.nextInt(1500);
     }
 
-    int rate;
-    int workingHours;
-    int overtimeHours;
     Employee(String name, int age, int rate, int workingHours, int overtimeHours){
-        super(name, age);
+        //super(name, age);
+        this.name = name;
+        this.age = age;
         this.rate = rate;
         this.workingHours = workingHours;
         this.overtimeHours = overtimeHours;

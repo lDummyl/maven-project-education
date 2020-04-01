@@ -13,54 +13,54 @@ public class LabourMarket {
 
 
 
-        if (tClass == Accountant.class) {   //? действительно ли элемент из этого списка является экземпляром класса: if(accountant instanceof Accountant){}
+        if (tClass == Accountant.class) {
             // TODO: 3/21/20 сделай N бухгалтеров и положи в этот лист
             List<T> accountantList = new ArrayList<>();
 
             for (int i = 0; i < qty; i++) {
                 T accountant = (T) new Accountant(getRandomCollectionElement(randomNames), getRandom(18, 65), getRandom(800, 1500), getRandom(10, 40), getRandom(1, 20));
-                 accountantList.add(accountant);  //доделать
+                 accountantList.add(accountant);
             }
 
-            return  accountantList;
+            return accountantList;
         }
 
         if (tClass == Boss.class) {
-            ArrayList<Boss> bossList = new ArrayList<>();
+            ArrayList<T> bossList = new ArrayList<>();
             for (int i = 0; i < qty; i++) {
-                //   Boss boss = new Boss(); //доделать
-                //  bossList.add(boss);
+                T boss = (T) new Boss(getRandomCollectionElement(randomNames), getRandom(18, 65), getRandom(800, 1500), getRandom(10, 40), getRandom(1, 20), getRandom(1,8));
+                bossList.add(boss);
             }
-            return (List<T>) bossList;
+            return bossList;
         }
 
         if (tClass == HR.class) {
-            ArrayList<HR> HRlist = new ArrayList<>();
+            ArrayList<T> HRlist = new ArrayList<>();
             for (int i = 0; i < qty; i++) {
-                //  HR hr = new HR();  //доделать
-                //  HRlist.add(hr);
+                 T hr = (T) new HR(getRandomCollectionElement(randomNames), getRandom(18, 65), getRandom(800, 1500), getRandom(10, 40), getRandom(1, 20), getRandom(1,10));
+                 HRlist.add(hr);
             }
-            return (List<T>) HRlist;
+            return HRlist;
         }
 
         if (tClass == Manager.class) {
-            ArrayList<Manager> managerList = new ArrayList<>();
+            ArrayList<T> managerList = new ArrayList<>();
             for (int i = 0; i < qty; i++) {
-                //  Manager manager = new Manager();  //доделать
-                //  managerList.add(manager);
+                T manager = (T) new Manager(getRandomCollectionElement(randomNames), getRandom(18, 65), getRandom(800, 1500), getRandom(10, 40), getRandom(1, 20));
+                managerList.add(manager);
             }
-            return (List<T>) managerList;
+            return managerList;
         }
 
         if (tClass == Security.class) {
-            ArrayList<Security> securityList = new ArrayList<>();
+            ArrayList<T> securityList = new ArrayList<>();
             for (int i = 0; i < qty; i++) {
                 for (int j = 0; j < qty; j++) {
-                    // Security security = new Security();  // доделать
-                    //   securityList.add(security);
+                    T security =(T) new Security(getRandomCollectionElement(randomNames), getRandom(18, 65), getRandom(800, 1500), getRandom(10, 40), getRandom(1, 20));
+                    securityList.add(security);
                 }
             }
-            return (List<T>) securityList;
+            return securityList;
         }
 
         // TODO: 3/21/20 по всем остальным классам аналогично

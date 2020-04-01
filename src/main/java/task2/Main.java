@@ -1,17 +1,34 @@
 package task2;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Boss hugoBoss = new Boss("Victor", 40, 1000, 30, 0, 10.5);
-        System.out.println(hugoBoss.tellAccountantFactorForBonus(4));
+        /*Boss hugoBoss = new Boss("Victor", 40, 1000, 30, 0, 10.5);
+        System.out.println(hugoBoss.tellAccountantFactorForBonus(5));*/
+        LabourMarket labourMarket = new LabourMarket();
+        List<HR> hrs = labourMarket.provideEmployee(1, HR.class);
+
+        Person person = new Person(){};
+       person.setName(hrs.get(0).name);
+       person.setAge(hrs.get(0).age);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String result = objectMapper.writeValueAsString(person);
+        System.out.println(result);
 
 
-        Random random = new Random();
-        LabourMarket labourMarket = new LabourMarket(); // TODO: 3/21/20 рунок труда можно передать ХРу в конструктор например или отдельным методом
+
+        /*Random random = new Random();
+        // TODO: 3/21/20 рунок труда можно передать ХРу в конструктор например или отдельным методом
         Office office = new Office();
         Meteorologist meteorologist = new Meteorologist();
 
@@ -21,7 +38,7 @@ public class Main {
         List<HR> hrs = labourMarket.provideEmployee(1, HR.class);
         HR hr = hrs.get(0);
         hr.labourMarket = labourMarket;
-        office.hr = hr;
+        office.hr = hr;*/
 
 
 
