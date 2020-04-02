@@ -12,4 +12,7 @@ public abstract class MusicalInstrument {
 
     String brandName;
     String color;
+
+
+    public abstract Sound play();
 }

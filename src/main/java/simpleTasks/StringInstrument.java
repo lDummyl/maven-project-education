@@ -1,5 +1,5 @@
 package simpleTasks;
 
-public class StringInstrument extends MusicalInstrument {
+public abstract class StringInstrument extends MusicalInstrument {
     int numberOfStrings;  //кол-во струн
 }
