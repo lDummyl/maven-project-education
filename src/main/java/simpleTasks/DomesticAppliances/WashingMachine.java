@@ -1,12 +1,12 @@
 package simpleTasks.DomesticAppliances;
 
-public class WashingMachine extends MajorAppliance {
+public class WashingMachine extends DomesticAppliance {
     public WashingMachine(String madeBy) {
         super(madeBy);
     }
 
     @Override
-    public ElectricityCost pay() {
+    public ElectricityCost consumeElectricity() {
         return null;
     }
 }

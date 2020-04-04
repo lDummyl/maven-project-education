@@ -7,7 +7,7 @@ public class Telephone extends DomesticAppliance {
     }
 
     @Override
-    public ElectricityCost pay() {
+    public ElectricityCost consumeElectricity() {
         return null;
     }
 }
