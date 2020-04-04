@@ -1,6 +1,6 @@
 package simpleTasks.Cosmetics;
 
-public class CosmeticsApplying {
+public class CosmeticsApplying { // TODO: 4/5/20 транные промежуточные классы, опять не абстрактыные, и не ясно зачем.
     private Cosmetics cosmetics;
     private String makeUpSatisfaction;
 
