@@ -10,6 +10,7 @@ public class GlamorousPerson extends Person {
 
     Set<Cosmetics> allCosmetics = new HashSet<>();
 
+
     public void applyCosmetics(Cosmetics cosmetics){
         allCosmetics.add(cosmetics);
     }
