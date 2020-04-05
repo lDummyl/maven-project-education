@@ -1,6 +1,7 @@
 package simpleTasks.Cosmetics;
 
 import org.w3c.dom.ls.LSOutput;
+import simpleTasks.DomesticAppliances.MyVersion.Water;
 
 public class Shop {
 
@@ -14,6 +15,9 @@ public class Shop {
         kardashian.apply(Parfum.class, parfum2.aroma);
         kardashian.apply(Lipstick.class, lipstick1.color);
         kardashian.apply(Lipstick.class, lipstick2.color);
+        kardashian.apply(Parfum.class, new Water(99)); // TODO: 4/6/20 бедняжке Ким будет очень больно если такое случится
+        kardashian.apply(lipstick1);
+        kardashian.apply(parfum);   // TODO: 4/6/20 а тут такого не случится
 
 
         //  kardashian.applyCosmetics(parfum);
