@@ -1,15 +1,11 @@
 package simpleTasks.Cosmetics;
 
-public class Cream extends Cosmetics {
+public abstract class Cream extends Cosmetics {
     private String skinType;
 
-    public Cream(String brand, String skinType) {
-        super(brand);
+    public Cream(String brand, double price, String skinType) {
+        super(brand, price);
         this.skinType = skinType;
     }
 
-    @Override
-    public CosmeticsApplying apply() {
-        return null;
-    }
 }

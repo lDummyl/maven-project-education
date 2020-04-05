@@ -1,15 +1,15 @@
 package simpleTasks.Cosmetics;
 
 public class Lipstick extends Cosmetics{
-    private String color;
+    public String color;
 
-    public Lipstick(String brand, String color) {
-        super(brand);
+    public Lipstick(String brand, double price, String color) {
+        super(brand, price);
         this.color = color;
     }
 
     @Override
-    public CosmeticsApplying apply() {
-        return null;
+    public void apply() {
+
     }
 }

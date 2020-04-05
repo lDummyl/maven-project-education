@@ -1,20 +1,15 @@
 package simpleTasks.Cosmetics;
 
-public class Parfum extends Cosmetics{
-    private String aroma;
+public class Parfum extends Cosmetics {
+    public String aroma;
 
-    public Parfum(String brand, String aroma) {
-        super(brand);
+    public Parfum(String brand, double price, String aroma) {
+        super(brand, price);
         this.aroma = aroma;
     }
 
     @Override
-    public CosmeticsApplying apply() {
-        if (aroma.equals("Flowers")){
-            return new CosmeticsApplying(this, "Nice choice");
-        }
-        else{
-            return new CosmeticsApplying(this, "So-so");
-        }
+    public void apply() {
     }
 }
+

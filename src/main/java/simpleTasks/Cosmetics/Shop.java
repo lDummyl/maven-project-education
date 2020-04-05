@@ -3,11 +3,21 @@ package simpleTasks.Cosmetics;
 import org.w3c.dom.ls.LSOutput;
 
 public class Shop {
-    public static void main(String[] args) {
-        Parfum parfum = new Parfum("Armani", "Flowers");
+
+    public static void main(String[] args) throws Exception {
+        Parfum parfum = new Parfum("Armani", 6000, "Flowers");
+        Parfum parfum2 = new Parfum("Armani", 6000, "Citrus");
+        Lipstick lipstick1 = new Lipstick("Lancome",2000, "Red");
+        Lipstick lipstick2 = new Lipstick("Lancome", 1800, "Peach");
         GlamorousPerson kardashian = new GlamorousPerson("Kim Kardashian");
-        kardashian.applyCosmetics(parfum);
-        kardashian.allCosmetics.forEach(System.out::println);
+        kardashian.apply(Parfum.class, parfum.aroma);
+        kardashian.apply(Parfum.class, parfum2.aroma);
+        kardashian.apply(Lipstick.class, lipstick1.color);
+        kardashian.apply(Lipstick.class, lipstick2.color);
+
+
+        //  kardashian.applyCosmetics(parfum);
+        //kardashian.allCosmetics.forEach(System.out::println);
     }
     // TODO: 4/5/20 запомни метод должен отвечать на простой вопрос.
     //  Что я делаю? Я(Человек) применяю на себя косметику. Прибор не может платить за себя, косметика не накладывает себя сама
