@@ -9,7 +9,7 @@ public class Parfum extends Cosmetics {
     }
 
     @Override
-    public void apply() { // TODO: 4/6/20 зачем тогда эти методы?
+    public void apply() {
     }
 }
 
