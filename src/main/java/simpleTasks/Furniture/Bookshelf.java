@@ -1,4 +1,4 @@
 package simpleTasks.Furniture;
 
-public class Bookshelf extends Furniture {
+public class Bookshelf extends Furniture implements DustWipeable{
 }

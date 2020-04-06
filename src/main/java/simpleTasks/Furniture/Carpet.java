@@ -1,4 +1,4 @@
 package simpleTasks.Furniture;
 
-public class Carpet extends Furniture {
+public class Carpet extends Furniture implements VacuumCleanable {
 }
