@@ -1,4 +1,4 @@
 package simpleTasks.Products;
 
-public interface Eat {
+public interface Boilable  {
 }

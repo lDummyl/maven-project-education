@@ -1,4 +1,4 @@
 package simpleTasks.Products;
 
-public class Fork extends Dishes implements NotEatable {
+public class Fork extends Dishes {
 }
