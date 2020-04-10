@@ -1,4 +1,6 @@
 package simpleTasks.Homework;
 
-public interface Checker {  //проверяющий ДЗ
+public interface Checker {
+
+    void checkTask(int chosenTask);  //проверяющий ДЗ
 }
