@@ -52,6 +52,7 @@ public class Child extends Person {
     }
 
     public String chooseFavoriteStory(Story story) {
+        // TODO: 4/12/20  как то жиденько, медот говорит что мы что-то вбираем, а мы просто имя достаем. Либо выбор так же как с задачей, либо метод другое имя должен иметь.
         return story.storyName;
     }
 }
