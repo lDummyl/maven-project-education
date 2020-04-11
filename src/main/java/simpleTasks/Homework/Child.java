@@ -37,5 +37,22 @@ public class Child extends Person {
             System.out.println("We've already had " + taskInNotebook.getClass().getSimpleName() + " in the notebook");
         }
     }
+
+    public void attemptDoTask(Task task) { // TODO: 4/11/20 и это тоже странно, задача сама себя не делает. Хочешь придумать ей поведение, она может распечататься или сравнится с другой посложности, раз, два.
+        int times = 5;
+        if(task.isDone){
+            times = -1;
+            System.out.println("The task is done. Time for fairy tale");
+        }
+        if (!task.isDone) {
+            for (int i = 0; i < times; i++) {
+                System.out.println("Annoying sound of child crying");
+            }
+        }
+    }
+
+    public String chooseFavoriteStory(Story story) {
+        return story.storyName;
+    }
 }
 

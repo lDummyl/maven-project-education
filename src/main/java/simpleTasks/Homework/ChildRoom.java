@@ -1,7 +1,6 @@
 package simpleTasks.Homework;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class ChildRoom {
     private final Child child;
@@ -31,30 +30,38 @@ public class ChildRoom {
     }
 
     private void timeForFairyTale() {
-
+        Story story = new Story("xxxxxxxxxxxxxxx");
+        String chosenStory = child.chooseFavoriteStory(story);
+        mother.readStory(chosenStory); // ? почему-то не выводится текст
     }
 
     private void timeToMakeHomework() throws Exception {
 
         Task task = new Task(0, "");
-        Task task0 = new Task(29,"Find multiplication of two numbers: ");
-        Task task1 = new Task(26,"Find xxxxxxxxxxxxxxxxxx: ");
-        Task task2 = new Task(27,"Find xxxxxxxxxxxxxxxxxx: ");
-        Task task3 = new Task(28,"Find xxxxxxxxxxxxxxxxxx: ");
+        Task task0 = new Task(29, "Find multiplication of two numbers: ");
+        Task task1 = new Task(26, "Find xxxxxxxxxxxxxxxxxx: ");
+        Task task2 = new Task(27, "Find xxxxxxxxxxxxxxxxxx: ");
+        Task task3 = new Task(28, "Find xxxxxxxxxxxxxxxxxx: ");
         // TODO: 4/10/20 создай коллекцию помести задачи в нее
-      //  int numberOfTask = mother.chooseTask(task); // помести коллекцию сюда и сделай выбор одной задачи, по индексу сложности например.
-        task.tasksCollection.add(task0);
-        task.tasksCollection.add(task1);
-        task.tasksCollection.add(task2);
-        task.tasksCollection.add(task3);
+        //  int numberOfTask = mother.chooseTask(task); // помести коллекцию сюда и сделай выбор одной задачи, по индексу сложности например.
+        ArrayList<Task> tasksCollection = new ArrayList<>();
+        tasksCollection.add(task0);
+        tasksCollection.add(task1);
+        tasksCollection.add(task2);
+        tasksCollection.add(task3);
 
-        Task chosenTask = child.chooseMostSimpleTask(task.tasksCollection);
+        Task chosenTask = child.chooseMostSimpleTask(tasksCollection);
         child.writeTaskInNotebook(chosenTask);
         child.askHelp(father);
-        System.out.println("Is this task done? " + task.isDone);
-        task.attemptDoTask();
-       // mother.checkTask();
+        System.out.println("Is this task done? " + chosenTask.isDone);
+        child.attemptDoTask(chosenTask);
+        doTaskDone(chosenTask);
+        System.out.println("Is this task done now?" + chosenTask.isDone);
+        child.attemptDoTask(chosenTask);
+    }
 
+    private static void doTaskDone(Task task) {
+        task.isDone = true;
     }
 
 
