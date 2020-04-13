@@ -7,8 +7,8 @@ public class Child extends Person {
 
     public void askHelp(Checker checker){
         if (checker.getClass() == Father.class){
-            System.out.println("Ask mother" + "\n");
-           // askHelp(mother);
+            System.out.println("Ask mother" );
+            askHelp(new Mother());
         }
         if (checker.getClass() == Mother.class){
             System.out.println("Try harder. You should do your best");
