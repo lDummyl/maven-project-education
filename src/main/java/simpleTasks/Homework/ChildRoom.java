@@ -17,9 +17,9 @@ public class ChildRoom {
 
     // TODO: 4/10/20 помни коментарии это хорошо, но хороший коментарий отвечает на вопрос почему, а не что.
     public static void main(String[] args) throws Exception {
-        Child child = new Child();
         Father father = new Father();
         Mother mother = new Mother();
+        Child child = new Child(father, mother);
         ChildRoom childRoom = new ChildRoom(child, mother, father);
         childRoom.timeToMakeHomework();
         childRoom.timeForFairyTale();
@@ -48,6 +48,8 @@ public class ChildRoom {
 
     private void timeToMakeHomework() throws Exception {
 
+
+
         Task task = new Task(0, "");
         Task task0 = new Task(29, "Find multiplication of two numbers: ");
         Task task1 = new Task(26, "Find xxxxxxxxxxxxxxxxxx: ");
@@ -70,6 +72,8 @@ public class ChildRoom {
         System.out.println("Is this task done now?" + chosenTask.isDone);
         child.attemptDoTask(chosenTask);
     }
+
+
 
     private static void doTaskDone(Task task) {
         task.isDone = true;

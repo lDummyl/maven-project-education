@@ -4,11 +4,19 @@ import java.util.*;
 
 public class Child extends Person {
     Task taskInNotebook;
+    Father father;
+    Mother mother;
+
+    public Child(Father father, Mother mother) {
+        this.father = father;
+        this.mother = mother;
+    }
 
     public void askHelp(Checker checker){
         if (checker.getClass() == Father.class){
             System.out.println("Ask mother" );
-            askHelp(new Mother());
+            askHelp(mother);
+//            askHelp(new Mother());
         }
         if (checker.getClass() == Mother.class){
             System.out.println("Try harder. You should do your best");
