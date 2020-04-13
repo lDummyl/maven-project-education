@@ -15,7 +15,6 @@ public class Kitchen {
         Table table = new Table();
         table.putPlate(plate);
 
-        Fork fork = new Fork();
         System.out.println(pelmeni.done);
         cook(pelmeni);
         System.out.println(pelmeni.done);

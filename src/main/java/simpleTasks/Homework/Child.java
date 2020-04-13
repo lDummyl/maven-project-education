@@ -1,21 +1,19 @@
 package simpleTasks.Homework;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
+import java.util.*;
 
 public class Child extends Person {
     Task taskInNotebook;
 
-    public String askHelp(Checker checker) throws Exception{
+    public void askHelp(Checker checker){
         if (checker.getClass() == Father.class){
-           return "Ask mother";
+            System.out.println("Ask mother" + "\n");
+           // askHelp(mother);
         }
         if (checker.getClass() == Mother.class){
-            return "Try harder. You should do your best";
+            System.out.println("Try harder. You should do your best");
         }
-       throw new Exception("Don't know you mr " +  checker.getClass().getName()); // TODO: 4/10/20 делай эксепшены более информативными
+       // TODO: 4/10/20 делай эксепшены более информативными
     }
 
     public Task chooseMostSimpleTask(ArrayList<Task> tasksCollection) {   //находим миним номер задачи, потому что обычно сложность задач идет по возрастающей
@@ -51,9 +49,16 @@ public class Child extends Person {
         }
     }
 
-    public String chooseFavoriteStory(Story story) {
+    public String chooseFavoriteStory(List<Story> listOfStories) {
         // TODO: 4/12/20  как то жиденько, медот говорит что мы что-то вбираем, а мы просто имя достаем. Либо выбор так же как с задачей, либо метод другое имя должен иметь.
-        return story.storyName;
+        Story longestStory = listOfStories.get(0);
+        for (Story listOfStory : listOfStories) {  // выбор самой длинной сказки
+            if(listOfStory.pagesQuantity > longestStory.pagesQuantity){
+                longestStory = listOfStory;
+            }
+        }
+
+        return longestStory.storyName;
     }
 }
 

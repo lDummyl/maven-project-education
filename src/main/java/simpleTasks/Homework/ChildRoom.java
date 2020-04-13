@@ -1,6 +1,7 @@
 package simpleTasks.Homework;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class ChildRoom {
     private final Child child;
@@ -30,9 +31,19 @@ public class ChildRoom {
     }
 
     private void timeForFairyTale() {
-        Story story = new Story("xxxxxxxxxxxxxxx");
-        String chosenStory = child.chooseFavoriteStory(story);
-        mother.readStory(chosenStory); // ? почему-то не выводится текст
+        Story story = new Story(2,"Name1", "Text1");
+        Story story2 = new Story(11,"Name2", "Text2");
+        Story story3 = new Story(5, "Name3", "Text3");
+        StoryBook storyBook = new StoryBook();
+        storyBook.listOfStories.add(story);
+        storyBook.listOfStories.add(story2);
+        storyBook.listOfStories.add(story3);
+
+        String chosenStoryName = child.chooseFavoriteStory(storyBook.listOfStories);
+        System.out.println("Story name: " + chosenStoryName);
+        mother.readStory(chosenStoryName, storyBook.listOfStories);
+        //doTaskDone(); допилить
+        System.out.println("The story was told" + story.isRead);
     }
 
     private void timeToMakeHomework() throws Exception {
@@ -63,6 +74,7 @@ public class ChildRoom {
     private static void doTaskDone(Task task) {
         task.isDone = true;
     }
-
-
+    private static void doStoryRead(Story story) {
+        story.isRead = true;
+    }
 }
