@@ -2,6 +2,8 @@ package simpleTasks.School;
 
 public abstract class Person {
 
+    // TODO: 4/15/20 поля, поля где?
+
     public void goToDirectorsOffice() {
     }
 

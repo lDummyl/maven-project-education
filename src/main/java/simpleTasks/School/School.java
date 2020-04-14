@@ -1,6 +1,15 @@
 package simpleTasks.School;
 
 public class School {
+
+    int stateNum;
+    String address;
+    GrageLevel grageLevel;
+
+    public School(GrageLevel grageLevel) {
+        this.grageLevel = grageLevel;
+    }
+
     public static void main(String[] args) {
         Director director = new Director();
         Student student1 = new Student();
@@ -47,5 +56,9 @@ public class School {
     }
 
     private void comeToSchool(Person person) {
+    }
+
+    private enum GrageLevel {
+        ELEMENTARY, MID, HIGH;
     }
 }
