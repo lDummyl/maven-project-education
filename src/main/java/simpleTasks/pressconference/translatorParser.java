@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 public class translatorParser {
     private static Document translateFromRusToEng() throws IOException {
+
         System.out.println("Введите предложение для перевода на русском: ");
         Scanner input = new Scanner(System.in);
         String inputSentenceInRussian = input.nextLine();
