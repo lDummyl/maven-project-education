@@ -4,10 +4,16 @@ import java.util.List;
 
 public class Teacher extends Person{
 
-    List<SchoolDiscipline> canTeach;
+    final List<SchoolDiscipline> canTeach;
 
-    public Teacher(List<SchoolDiscipline> canTeach) {
+    public Teacher(List<SchoolDiscipline> canTeach, String name) {
+        this.name = name;
         this.canTeach = canTeach;
+    }
+
+    @Override
+    public void introduce(){
+        System.out.println("My name is " + name + " I will teach you " + canTeach);
     }
 
     public void writeSmthOnBlackBoard() {

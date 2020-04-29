@@ -1,5 +1,5 @@
 package simpleTasks.School;
 
 public enum SchoolDiscipline {
-    CHEMISTRY;
+    CHEMISTRY, PHYSICS, LANGUAGE, MATH, LITERATURE, BIOLOGY;
 }

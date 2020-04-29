@@ -1,7 +1,14 @@
 package simpleTasks.School;
 
 public abstract class Person {
+    String name;
 
+    public Person() {
+    }
+
+    public Person(String name) {
+        this.name = name;
+    }
     // TODO: 4/15/20 поля, поля где?
 
     public void goToDirectorsOffice() {
@@ -28,5 +35,9 @@ public abstract class Person {
     }
 
     public void backToWork() {
+    }
+
+    public void introduce(){
+        System.out.println("My name is" + name);
     }
 }
