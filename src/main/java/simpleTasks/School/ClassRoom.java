@@ -10,8 +10,9 @@ public class ClassRoom {
     boolean geraniumOnTheWindowsill = true;
     short roomNumber;
 
-    public ClassRoom(List<FaimousScientistPortrait> portretsOnWalls) {
+    public ClassRoom(List<FaimousScientistPortrait> portretsOnWalls, short roomNumber) {
         this.portretsOnWalls = portretsOnWalls;
+        this.roomNumber = roomNumber;
     }
 
 

@@ -40,13 +40,14 @@ public class School {
         teacherList.add(teacher2);
         school11.teacherList = teacherList;
         school11.director = director;
-        school11.startSchoolDay();
+
 
         List<FaimousScientistPortrait> portretsOnWalls = new ArrayList<>();
         portretsOnWalls.add(new FaimousScientistPortrait(new Scientist("Pavlov", SchoolDiscipline.BIOLOGY)));
-        ClassRoom classroom = new ClassRoom(portretsOnWalls);
+        ClassRoom classroom = new ClassRoom(portretsOnWalls, (short) 15);
         school11.classRooms.add(classroom);
 
+        school11.startSchoolDay();
 //        Laboratory laboratory = new Laboratory();
 
 
