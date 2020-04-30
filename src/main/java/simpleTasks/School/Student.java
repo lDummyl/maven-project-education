@@ -3,8 +3,15 @@ package simpleTasks.School;
 
 public class Student extends Person {
 
-   // Diary diary;
+    int grade;
+//    Diary diary;
  //   Schoolbag schoolbag;
+
+
+    public Student(String name, int grade) {
+        super(name);
+        this.grade = grade;
+    }
 
     public void openTextBook() {
   //    SchoolBook schoolbook = schoolbag.findBookForDiscipline(SchoolDiscipline.CHEMISTRY);

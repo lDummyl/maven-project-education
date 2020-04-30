@@ -1,10 +1,13 @@
 package simpleTasks.School;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Teacher extends Person{
 
     final List<SchoolDiscipline> canTeach;
+    public School school;
+    List<Student> favourite = new ArrayList<>();
 
     public Teacher(List<SchoolDiscipline> canTeach, String name) {
         this.name = name;

@@ -2,7 +2,9 @@ package simpleTasks.School;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class School {
 
@@ -10,8 +12,10 @@ public class School {
     String address;
     GrageLevel grageLevel;
     List<Teacher> teacherList;
-    private Director director;
     List<ClassRoom> classRooms = new ArrayList<>();
+    Map<Integer, List<Student>> allStudentsByGrade = new HashMap<>();
+
+    private Director director;
 
     public School(GrageLevel grageLevel) {
         this.grageLevel = grageLevel;
@@ -31,15 +35,25 @@ public class School {
         listDiscipl.add(SchoolDiscipline.CHEMISTRY);
 
         Director director = new Director();
-        Student student1 = new Student();
-        Student student2 = new Student();
+        Student student1 = new Student("Petya", 2);
+        Student student2 = new Student("Styopa",2);
+        Student student3 = new Student("Kolja", 2);
+        Student student4 = new Student("Fedya", 2);
+
+        director.acceptStudents(student1, student2, student3, student4);
+
         Teacher teacher1 = new Teacher(Arrays.asList(SchoolDiscipline.LANGUAGE, SchoolDiscipline.BIOLOGY), "Maria Petrovna");
+        teacher1.favourite.add(student4);
+        teacher1.favourite.add(student3);
         Teacher teacher2 = new Teacher(Arrays.asList(SchoolDiscipline.CHEMISTRY, SchoolDiscipline.PHYSICS), "Anna Olegovna");
         List<Teacher> teacherList = new ArrayList<>();
         teacherList.add(teacher1);
         teacherList.add(teacher2);
         school11.teacherList = teacherList;
         school11.director = director;
+//        кроме этого мы сообщаем и директору и учителю в какой школе они трудятся
+        director.school = school11;
+        teacher1.school = school11;
 
 
         List<FaimousScientistPortrait> portretsOnWalls = new ArrayList<>();
@@ -48,6 +62,7 @@ public class School {
         school11.classRooms.add(classroom);
 
         school11.startSchoolDay();
+        school11.director.checkStudentsMarks();
 //        Laboratory laboratory = new Laboratory();
 
 
@@ -95,24 +110,35 @@ public class School {
             teacher.introduce();
         }
         for (Teacher teacher : teacherList) {
-            if(teacher.canTeach.contains(schoolDiscipline)){
+            if (teacher.canTeach.contains(schoolDiscipline)) {
                 teacher1 = teacher;
             }
         }
         for (ClassRoom classRoom : classRooms) {
             for (FaimousScientistPortrait portrait : classRoom.portretsOnWalls) {
-                if(portrait.scientist.schoolDiscipline.equals(schoolDiscipline)){
+                if (portrait.scientist.schoolDiscipline.equals(schoolDiscipline)) {
                     classRoom1 = classRoom;
-                };
+                }
+                ;
             }
         }
-        startLesson(teacher1, schoolDiscipline, classRoom1);
+        startLesson(teacher1, schoolDiscipline, classRoom1, 2);
     }
 
-    private void startLesson(Teacher teacher, SchoolDiscipline schoolDiscipline, ClassRoom classRoom) {
+    private void startLesson(Teacher teacher, SchoolDiscipline schoolDiscipline, ClassRoom classRoom, int grade) {
         teacher.introduce();
         System.out.println(" Today we will study " + schoolDiscipline);
         System.out.println(classRoom.roomNumber);
+        System.out.println("teacher doing lesson");
+        List<Student> students = teacher.school.allStudentsByGrade.get(grade);
+        for (Student student : students) {
+            if (teacher.favourite.contains(student)){
+                // TODO: 4/30/20 значит в журнал получает 5 ку
+            }else{
+                // TODO: 4/30/20 получает другую оценку
+            }
+        }
+
     }
 
 
