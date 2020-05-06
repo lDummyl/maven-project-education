@@ -41,6 +41,12 @@ public class Main {
 
         System.out.println("Старший это - " + oldest);
     }
+
+    // TODO: 5/6/20 вот 3 метода с точки зрения логики одинаковые, только 2 параметра переменные, 
+    //  как бы это исправить чтобы один метод был при том универсальный? Крохотная подсказка по IDE,
+    //  удобней всего выделить строки (52-55) и нажать ctrl+alt+m придумать название общего метода, 
+    //  а дубликаты идея найдет и заменит сама. Тогда будет 4 метода, но все разные и без копипасты.
+    
     public static int randomYear ()
     {
         int min = 1920;
@@ -72,15 +78,18 @@ public class Main {
     public static void second() {
         // TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
 
-        // TODO: 5/4/20 Привет!
+        // TODO: 5/6/20 вообще я имел в виду скорей коллекцию имен, строковых. Фамилии к слову можно сделать из тех же имен Lastname = Firstname + "son"
+        //  так получиться намного больше вариантов/комбинаций уникальных. Сейчас у тебя создается обычно 3-4 человека в итоге. А нужно стабильно 5.
         ArrayList<Name> listOfNames = new ArrayList<>();
         listOfNames.add(new Name("Ella", "Brown"));
         listOfNames.add(new Name("Kate", "Stevenson"));
         listOfNames.add(new Name("Mike", "Berry"));
         listOfNames.add(new Name("Harry", "Kane"));
         listOfNames.add(new Name("Kevin", "Smith"));
-        HashMap<Name, Age> persons = new HashMap<>(listOfNames.size());
+        HashMap<Name, Age> persons = new HashMap<>(listOfNames.size()); // TODO: 5/6/20 задавать размер коллекции лишнее, там нормальные механизмы расширения 
 
+
+        // TODO: 5/6/20 круто, с точки зрения практики можно, но обычный for в данном случае существенно проще его шаблон можно вызвать командой itar.
         int i = 0;
         do {
             Random random = new Random();
@@ -92,6 +101,9 @@ public class Main {
         for (Map.Entry<Name, Age> nameAgeEntry : persons.entrySet()) {
             System.out.println(nameAgeEntry);
         }
+
+        // TODO: 5/6/20 в заключении не будет большого страха если ты переиспользуешь кусок кода который из листа кандидатов выбирал нужного,
+        //  только лучше обойтись без копирования а вынести это в отдельную функцию.
 
     }
 
