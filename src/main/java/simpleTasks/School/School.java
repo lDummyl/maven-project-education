@@ -40,7 +40,10 @@ public class School {
         Student student3 = new Student("Kolja", 2);
         Student student4 = new Student("Fedya", 2);
 
+
+        director.school = school2;
         director.acceptStudents(student1, student2, student3, student4);
+
 
         Teacher teacher1 = new Teacher(Arrays.asList(SchoolDiscipline.LANGUAGE, SchoolDiscipline.BIOLOGY), "Maria Petrovna");
         teacher1.favourite.add(student4);
@@ -61,6 +64,7 @@ public class School {
         ClassRoom classroom = new ClassRoom(portretsOnWalls, (short) 15);
         school11.classRooms.add(classroom);
 
+  //      school11.allStudentsByGrade.put(2, allStudentsByGrade)
         school11.startSchoolDay();
         school11.director.checkStudentsMarks();
 //        Laboratory laboratory = new Laboratory();
@@ -127,9 +131,10 @@ public class School {
 
     private void startLesson(Teacher teacher, SchoolDiscipline schoolDiscipline, ClassRoom classRoom, int grade) {
         teacher.introduce();
-        System.out.println(" Today we will study " + schoolDiscipline);
+        System.out.println("Today we will study " + schoolDiscipline);
         System.out.println(classRoom.roomNumber);
         System.out.println("teacher doing lesson");
+
         List<Student> students = teacher.school.allStudentsByGrade.get(grade);
         for (Student student : students) {
             if (teacher.favourite.contains(student)){

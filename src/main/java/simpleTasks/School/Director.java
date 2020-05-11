@@ -30,6 +30,7 @@ public class Director extends Person {
         for (Student student : students) {
             if(school.allStudentsByGrade.get(student.grade) == null){
                 // TODO: 4/30/20 то что?
+
             }else {
                 // TODO: 4/30/20  то что?
             }
