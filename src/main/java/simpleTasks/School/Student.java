@@ -3,7 +3,7 @@ package simpleTasks.School;
 
 public class Student extends Person {
 
-    int grade;
+    final int grade;
 //    Diary diary;
  //   Schoolbag schoolbag;
 
