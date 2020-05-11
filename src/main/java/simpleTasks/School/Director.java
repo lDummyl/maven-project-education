@@ -12,8 +12,9 @@ public class Director extends Person {
     public void doPaperWork() {
     }
     public void expelStudent(Student student) {
-
-
+        Map<Integer, List<Student>> allStudentsByGrade = school.allStudentsByGrade;
+        List<Student> students = allStudentsByGrade.get(student.grade);
+        students.remove(student);
     }
 
     public void checkStudentsMarks() {
