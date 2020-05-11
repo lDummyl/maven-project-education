@@ -51,28 +51,27 @@ public class Main {
     {
         int min = 1920;
         int max = 2010;
+        return randomDate(min, max);
+    }
+
+    public static int randomDate(int min, int max) {
         int diff = max - min;
         Random random = new Random();
         int i = random.nextInt(diff);
         return i + min;
     }
+
     public static int randomMonth ()
     {
         int min = 1;
         int max = 12;
-        int diff = max - min;
-        Random random = new Random();
-        int i = random.nextInt(diff);
-        return i + min;
+        return randomDate(min, max);
     }
     public static int randomDay ()
     {
         int min = 1;
         int max = 30;
-        int diff = max - min;
-        Random random = new Random();
-        int i = random.nextInt(diff);
-        return i+ min;
+        return randomDate(min, max);
     }
 
     public static void second() {
@@ -86,18 +85,16 @@ public class Main {
         listOfNames.add(new Name("Mike", "Berry"));
         listOfNames.add(new Name("Harry", "Kane"));
         listOfNames.add(new Name("Kevin", "Smith"));
-        HashMap<Name, Age> persons = new HashMap<>(listOfNames.size()); // TODO: 5/6/20 задавать размер коллекции лишнее, там нормальные механизмы расширения 
+        HashMap<Name, Age> persons = new HashMap<>(); // TODO: 5/6/20 задавать размер коллекции лишнее, там нормальные механизмы расширения
 
 
         // TODO: 5/6/20 круто, с точки зрения практики можно, но обычный for в данном случае существенно проще его шаблон можно вызвать командой itar.
-        int i = 0;
-        do {
-            Random random = new Random();
-            persons.put(listOfNames.get(random.nextInt(listOfNames.size())), new Age (randomYear(), randomMonth(), randomDay()));
-            i++;
+        while (persons.size() != listOfNames.size()) {
+            for (int j = 0; j < listOfNames.size(); j++) {
+                Random random = new Random();
+                persons.put(listOfNames.get(random.nextInt(listOfNames.size())), new Age(randomYear(), randomMonth(), randomDay()));
+            }
         }
-        while (i<listOfNames.size());
-
         for (Map.Entry<Name, Age> nameAgeEntry : persons.entrySet()) {
             System.out.println(nameAgeEntry);
         }
