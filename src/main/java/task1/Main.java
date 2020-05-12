@@ -6,8 +6,8 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        first();
-        second();
+   // first();
+       second();
 
     }
 
@@ -29,17 +29,24 @@ public class Main {
         list.add(person3);
         list.add(person4);
         list.add(person5);
+        Person oldest = getOldest(list);
 
-        Person oldest = list.get(0);
-        for (Person person : list) {
+        System.out.println("Старший это - " + oldest);
+    }
+//    public static Person getOldest(List<Person> people){ contract
+//    public static Person return type
+//    getOldest(List<Person> people){ signature of method
+
+    public static Person getOldest(List<Person> people){
+
+        Person oldest = people.get(0);
+        for (Person person : people) {
             System.out.println(person);
             if (person.isOlderThan(oldest)) {
                 oldest = person;
             }
-
         }
-
-        System.out.println("Старший это - " + oldest);
+        return oldest;
     }
 
     // TODO: 5/6/20 вот 3 метода с точки зрения логики одинаковые, только 2 параметра переменные, 
@@ -95,9 +102,16 @@ public class Main {
                 persons.put(listOfNames.get(random.nextInt(listOfNames.size())), new Age(randomYear(), randomMonth(), randomDay()));
             }
         }
+
+        List<Person> people = new ArrayList<>();
         for (Map.Entry<Name, Age> nameAgeEntry : persons.entrySet()) {
-            System.out.println(nameAgeEntry);
+            people.add(new Person(nameAgeEntry.getKey(), nameAgeEntry.getValue()));
         }
+
+        Person oldest = getOldest(people);
+        System.out.println("Старший это - " + oldest);
+
+
 
         // TODO: 5/6/20 в заключении не будет большого страха если ты переиспользуешь кусок кода который из листа кандидатов выбирал нужного,
         //  только лучше обойтись без копирования а вынести это в отдельную функцию.
