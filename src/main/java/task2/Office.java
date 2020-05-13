@@ -2,6 +2,10 @@ package task2;
 
 public class Office {
 
+	Hr hr = new Hr();
+
+	Director director = new Director();
+
 	/*
 	Secretary secretary;
 
@@ -16,5 +20,17 @@ public class Office {
 	void invitePeaople(Object human){
 
 	}
+
+}
+
+class Secretary{
+
+}
+
+class Director{
+
+}
+
+class Hr{
 
 }
