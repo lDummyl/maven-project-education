@@ -4,6 +4,8 @@ package task2;
 // выбирает рандомно секретаря в штат, которого ему пердлагает HR,
 // все это происходит в офисе
 
+import task1.Person;
+
 import java.util.*;
 
 public class Main2 {
@@ -12,7 +14,7 @@ public class Main2 {
     }
 }
 
-class Secretary {
+class Secretary /*extends Person */{
     String name;
     String surname;
 
