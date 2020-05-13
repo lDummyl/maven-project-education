@@ -15,6 +15,7 @@ public class Main {
     public static void first() {
         // TODO: 1/26/20 ПЕРВЫЙ ЭТАП создать 5 разных человек и вывести имя старшего
 
+        // TODO: 5/13/20 Hithere!
         List<Person> personList = new ArrayList<>();
         personList.add(new Person(new Name("Fedor", "Ivanov"), new Age(15, 1, 1967)));
         personList.add(new Person(new Name("Egor", "Smirnov"), new Age(23, 9, 1952)));
