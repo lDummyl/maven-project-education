@@ -1,15 +1,70 @@
 package task1;
 
 
+
 import java.util.*;
 
 public class Main {
+
+    static List<String> firstN = new ArrayList<>();
+    static Random random = new Random();
+    public static final int DAY = 30;
+    public static final int MONTH = 12;
+    public static final int YEAR = 80;
+
+    static {
+        firstN.add("Ivan");
+        firstN.add("Oleg");
+        firstN.add("Nikita");
+        firstN.add("Roman");
+        firstN.add("Nikolay");
+        firstN.add("Dmitry");
+        firstN.add("Alexander");
+        firstN.add("Stanislav");
+        firstN.add("Konstantin");
+        firstN.add("Sergey");
+    }
+
+    static List<String> lastN = new ArrayList<>();
+
+    static {
+        lastN.add("Ivanov");
+        lastN.add("Smirnov");
+        lastN.add("Sidorov");
+        lastN.add("Petrov");
+        lastN.add("Vodkin");
+        lastN.add("Nikitin");
+        lastN.add("Orlov");
+        lastN.add("Kruglov");
+        lastN.add("Jiglov");
+        lastN.add("Djigurda");
+    }
 
     public static void main(String[] args) {
         first();
         second();
 
 
+    }
+
+    public static Person searchOldest(List<Person> people) {
+        List<Date> dates = new ArrayList<>();
+
+        int index = 0;
+        for (Person p : people) {
+            dates.add(new Date(people.get(index).getAge().getYear(),
+                    people.get(index).getAge().getMonth() - 1,
+                    people.get(index).getAge().getDay()));
+            index++;
+        }
+        int old = 0;
+        for (int i = 0; i < dates.size() - 1; i++) {
+            int compare = dates.get(old).compareTo(dates.get(i + 1));
+            if (compare == 1) {
+                old = i + 1;
+            }
+        }
+        return people.get(old);
     }
 
     public static void first() {
@@ -23,58 +78,36 @@ public class Main {
         personList.add(new Person(new Name("Semen", "Sidorov"), new Age(30, 5, 2016)));
         personList.add(new Person(new Name("Igor", "Petrenko"), new Age(7, 7, 1963)));
 
+        System.out.println(searchOldest(personList));
 
-        List<Calendar> calendars = new ArrayList<>();
-
-
-        for (int i = 0; i < personList.size(); i++) {
-            calendars.add(new GregorianCalendar(personList.get(i).getAge().getYear(),
-                    personList.get(i).getAge().getMonth() - 1,
-                    personList.get(i).getAge().getDay()));
-        }
-        int old = 0;
-        for (int i = 0; i < calendars.size() - 1; i++) {
-            int compare = calendars.get(old).compareTo(calendars.get(i + 1));
-            if (compare == 1) {
-                old = i + 1;
-            }
-        }
-        System.out.println(personList.get(old).getName().getFirstName() + " " + personList.get(old).getName().getLastName());
 
     }
 
     public static void second() {
         // TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
-        List<String> firstN = new ArrayList<>();
-        firstN.add("Ivan");
-        firstN.add("Oleg");
-        firstN.add("Nikita");
-        firstN.add("Roman");
-        firstN.add("Nikolay");
-        firstN.add("Dmitry");
-        firstN.add("Alexander");
-        firstN.add("Stanislav");
-        firstN.add("Konstantin");
-        firstN.add("Sergey");
 
-        List<String> lastN = new ArrayList<>();
-        lastN.add("Ivanov");
-        lastN.add("Smirnov");
-        lastN.add("Sidorov");
-        lastN.add("Petrov");
-        lastN.add("Vodkin");
-        lastN.add("Nikitin");
-        lastN.add("Orlov");
-        lastN.add("Kruglov");
-        lastN.add("Jiglov");
-        lastN.add("Djigurda");
 
-        Random random = new Random();
+        List<Person> personList2 = new ArrayList<>();
 
-        for (int i = 0; i < 30; i++) {
-            System.out.println(new Person(new Name(firstN.get(random.nextInt(10)), lastN.get(random.nextInt(10))), new Age(random.nextInt(30) + 1, random.nextInt(12) + 1, random.nextInt(80) + 1940)));
+        personList2.addAll(getSomePerson(20));
+        System.out.println(personList2);
+        System.out.println(searchOldest(personList2));
+
+
+    }
+
+    private static Person getSomePerson() {
+        return new Person(new Name(firstN.get(random.nextInt(firstN.size())), lastN.get(random.nextInt(lastN.size()))),
+                new Age(random.nextInt(30)+1, random.nextInt(12)+1, random.nextInt(80)+1940));
+    }
+    private static List<Person> getSomePerson(int j) {
+        List<Person> list = new ArrayList<>();
+        for (int i = 0; i < j; i++) {
+            list.add(new Person(new Name(firstN.get(random.nextInt(firstN.size())), lastN.get(random.nextInt(lastN.size()))),
+                    new Age(random.nextInt(30)+1, random.nextInt(12)+1, random.nextInt(80)+1940)));
         }
 
+        return list;
     }
 
 }
