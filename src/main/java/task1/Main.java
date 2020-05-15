@@ -1,16 +1,21 @@
 package task1;
 
 
-
-import java.util.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 public class Main {
 
-    static List<String> firstN = new ArrayList<>();
-    static Random random = new Random();
     public static final int DAY = 30;
     public static final int MONTH = 12;
     public static final int YEAR = 80;
+    static List<String> firstN = new ArrayList<>();
+    static Random random = new Random();
+    static List<String> lastN = new ArrayList<>();
 
     static {
         firstN.add("Ivan");
@@ -24,8 +29,6 @@ public class Main {
         firstN.add("Konstantin");
         firstN.add("Sergey");
     }
-
-    static List<String> lastN = new ArrayList<>();
 
     static {
         lastN.add("Ivanov");
@@ -64,8 +67,25 @@ public class Main {
                 old = i + 1;
             }
         }
+
+//        // TODO: 5/16/20 можно тот же подход, в одном цикле
+//        Person oldest = people.get(0);
+//        for (Person person : people) {
+//            if (getDate(person.age).before(getDate(oldest.age))) {
+//                oldest = person;
+//            }
+//        }
+        // TODO: 5/16/20 но это не очень ООПшный подход, скорее процедурный, готовый вариант ООП можно посмотреть в ветке V-maker-hash
+
         return people.get(old);
     }
+
+    private static Date getDate(Age age) {
+        return new Date(age.getYear(), age.getMonth() - 1, age.getDay());
+    }
+
+
+
 
     public static void first() {
         // TODO: 1/26/20 ПЕРВЫЙ ЭТАП создать 5 разных человек и вывести имя старшего
@@ -98,13 +118,14 @@ public class Main {
 
     private static Person getSomePerson() {
         return new Person(new Name(firstN.get(random.nextInt(firstN.size())), lastN.get(random.nextInt(lastN.size()))),
-                new Age(random.nextInt(30)+1, random.nextInt(12)+1, random.nextInt(80)+1940));
+                new Age(random.nextInt(30) + 1, random.nextInt(12) + 1, random.nextInt(80) + 1940));
     }
+
     private static List<Person> getSomePerson(int j) {
         List<Person> list = new ArrayList<>();
         for (int i = 0; i < j; i++) {
             list.add(new Person(new Name(firstN.get(random.nextInt(firstN.size())), lastN.get(random.nextInt(lastN.size()))),
-                    new Age(random.nextInt(30)+1, random.nextInt(12)+1, random.nextInt(80)+1940)));
+                    new Age(random.nextInt(30) + 1, random.nextInt(12) + 1, random.nextInt(80) + 1940)));
         }
 
         return list;
