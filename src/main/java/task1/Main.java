@@ -1,13 +1,16 @@
 package task1;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Main {
 
+
     public static void main(String[] args) {
-   // first();
-       second();
+        //first();
+        second();
 
     }
 
@@ -30,6 +33,7 @@ public class Main {
         list.add(person4);
         list.add(person5);
         Person oldest = getOldest(list);
+        System.out.println(toDate(person2.age.year, person2.age.month, person2.age.day));
 
         System.out.println("Старший это - " + oldest);
     }
@@ -37,7 +41,7 @@ public class Main {
 //    public static Person return type
 //    getOldest(List<Person> people){ signature of method
 
-    public static Person getOldest(List<Person> people){
+    public static Person getOldest(List<Person> people) {
 
         Person oldest = people.get(0);
         for (Person person : people) {
@@ -48,14 +52,18 @@ public class Main {
         }
         return oldest;
     }
+    public static int max (int a, int b)
+    {
+        return Math.max(a, b);
+    }
+
 
     // TODO: 5/6/20 вот 3 метода с точки зрения логики одинаковые, только 2 параметра переменные, 
     //  как бы это исправить чтобы один метод был при том универсальный? Крохотная подсказка по IDE,
     //  удобней всего выделить строки (52-55) и нажать ctrl+alt+m придумать название общего метода, 
     //  а дубликаты идея найдет и заменит сама. Тогда будет 4 метода, но все разные и без копипасты.
-    
-    public static int randomYear ()
-    {
+
+    public static int randomYear() {
         int min = 1920;
         int max = 2010;
         return randomDate(min, max);
@@ -68,17 +76,30 @@ public class Main {
         return i + min;
     }
 
-    public static int randomMonth ()
-    {
-        int min = 1;
-        int max = 12;
+    public static int randomMonth() {
+        int min = 0;
+        int max = 11;
         return randomDate(min, max);
     }
-    public static int randomDay ()
-    {
+
+    public static int randomDay() {
         int min = 1;
         int max = 30;
         return randomDate(min, max);
+    }
+    static Date date = new Date();
+
+    public static Date toDate (int year, int month, int day)
+    {
+        Calendar calendar = new GregorianCalendar();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DATE, day);
+        return calendar.getTime();
+    }
+    public static int difference (Date date, Date date2)
+    {
+        return (int)( (date.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24));
     }
 
     public static void second() {
@@ -86,23 +107,19 @@ public class Main {
 
         // TODO: 5/6/20 вообще я имел в виду скорей коллекцию имен, строковых. Фамилии к слову можно сделать из тех же имен Lastname = Firstname + "son"
         //  так получиться намного больше вариантов/комбинаций уникальных. Сейчас у тебя создается обычно 3-4 человека в итоге. А нужно стабильно 5.
-        ArrayList<Name> listOfNames = new ArrayList<>();
-        listOfNames.add(new Name("Ella", "Brown"));
-        listOfNames.add(new Name("Kate", "Stevenson"));
-        listOfNames.add(new Name("Mike", "Berry"));
-        listOfNames.add(new Name("Harry", "Kane"));
-        listOfNames.add(new Name("Kevin", "Smith"));
-        HashMap<Name, Age> persons = new HashMap<>(); // TODO: 5/6/20 задавать размер коллекции лишнее, там нормальные механизмы расширения
+        List<String> listOfFirstNames = Arrays.asList("Ella", "Harry", "Artur", "Kevin", "Kate");
+        List<String> listOFLastNames = Arrays.asList("Brown", "Harrison", "Stevenson", "Gibson", "Smith");
 
+        Map<Name,Age> persons = new HashMap<>(); // TODO: 5/6/20 задавать размер коллекции лишнее, там нормальные механизмы расширения
 
         // TODO: 5/6/20 круто, с точки зрения практики можно, но обычный for в данном случае существенно проще его шаблон можно вызвать командой itar.
-        while (persons.size() != listOfNames.size()) {
-            for (int j = 0; j < listOfNames.size(); j++) {
-                Random random = new Random();
-                persons.put(listOfNames.get(random.nextInt(listOfNames.size())), new Age(randomYear(), randomMonth(), randomDay()));
-            }
-        }
 
+        for (int i = 0; i < listOfFirstNames.size(); i++) {
+            Random random = new Random();
+            Name name = new Name(listOfFirstNames.get(random.nextInt(listOfFirstNames.size())), listOFLastNames.get(random.nextInt(listOFLastNames.size())));
+            Age age = new Age(randomYear(), randomMonth(), randomDay());
+            persons.put(name,age);
+        }
         List<Person> people = new ArrayList<>();
         for (Map.Entry<Name, Age> nameAgeEntry : persons.entrySet()) {
             people.add(new Person(nameAgeEntry.getKey(), nameAgeEntry.getValue()));
@@ -111,6 +128,16 @@ public class Main {
         Person oldest = getOldest(people);
         System.out.println("Старший это - " + oldest);
 
+        for (Map.Entry <Name, Age> person: persons.entrySet()) {
+            List<Age> personsAge = new ArrayList<>();
+            personsAge.add(person.getValue());
+            for (Age age : personsAge) {
+                Date date2 = toDate(age.year, age.month , age.day);
+                System.out.println(date2);
+                difference(date,date2);
+                System.out.println();
+            }
+        }
 
 
         // TODO: 5/6/20 в заключении не будет большого страха если ты переиспользуешь кусок кода который из листа кандидатов выбирал нужного,
@@ -182,8 +209,7 @@ class Person {
                 ", age=" + age +
                 '}';
     }
-
-    public boolean isOlderThan(Person oldest) {
+        public boolean isOlderThan(Person oldest) {
 //		oldest 1900 this 1990
         return oldest.age.year > age.year || oldest.age.month >= age.month || oldest.age.day >= age.day;
     }
