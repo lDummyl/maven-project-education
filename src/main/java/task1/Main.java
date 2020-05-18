@@ -91,17 +91,28 @@ public class Main {
         calendar.set(Calendar.DATE, day);
         return calendar.getTime();
     }
+
+    // TODO: 5/18/20 можно использовать контракт проще. Можно так же использовать всмето Date класс LocalDate. Его проще получить сравнивать и прочее
+    public static Date toDate (Age age)
+    {
+        Calendar calendar = new GregorianCalendar();
+//        ....
+        return calendar.getTime();
+    }
+
+
     public static int difference (Date date, Date date2)
     {
-        return (int)( (date.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24));
+        return (int)( (date.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24)); // TODO: 5/18/20 вот тут можно почитать что не так http://www.8bytes.net/2018/04/18/antipattern-1-magicheskoe-chislo/
     }
     public static Person getOldestPerson(List<Person> people)
     {
         Person oldest = people.get(0);
+        // TODO: 5/18/20 если уже вынули из коллекции локальную ссылку, зачем делать это еще 3 раза ниже 
         Date date1 = toDate(people.get(0).age.year, people.get(0).age.month, people.get(0).age.day);
         int maxAge = difference(date, date1);
 
-        for (int i=0; i<people.size(); i++)
+        for (int i=0; i<people.size(); i++) // TODO: 5/18/20 лучше заменить на простой forEach через iter 
         {
             int age2 = difference(date, toDate(people.get(i).age.year, people.get(i).age.month, people.get(i).age.day));
             if (maxAge <= age2)
@@ -218,10 +229,14 @@ class Person {
 
     public boolean isOlderThan(Person oldest) {
 //		oldest 1900 this 1990
+        // TODO: 5/18/20 if не нужен в таком случае сработает так return !oldest.age.year < age.year или так return oldest.age.year >= age.year  
+        
         if (oldest.age.year < age.year)
             return false;
         else {
             return true;
         }
+
+
     }
 }
