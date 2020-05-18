@@ -3,6 +3,7 @@ package task1;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 
 public class Main {
@@ -71,8 +72,8 @@ public class Main {
     }
 
     public static int randomMonth() {
-        int min = 0;
-        int max = 11;
+        int min = 1;
+        int max = 12;
         return randomDate(min, max);
     }
 
@@ -83,7 +84,7 @@ public class Main {
     }
     static Date date = new Date();
 
-    public static Date toDate (int year, int month, int day)
+   /* public static Date toDate (int year, int month, int day)
     {
         Calendar calendar = new GregorianCalendar();
         calendar.set(Calendar.YEAR, year);
@@ -91,28 +92,48 @@ public class Main {
         calendar.set(Calendar.DATE, day);
         return calendar.getTime();
     }
+    */
 
     // TODO: 5/18/20 можно использовать контракт проще. Можно так же использовать всмето Date класс LocalDate. Его проще получить сравнивать и прочее
-    public static Date toDate (Age age)
+   /* public static Date toDate (Age age)
     {
         Calendar calendar = new GregorianCalendar();
 //        ....
         return calendar.getTime();
     }
+    */
 
-
-    public static int difference (Date date, Date date2)
+    LocalDate localDate = LocalDate.now();
+    public static LocalDate toDate (Age age)
     {
-        return (int)( (date.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24)); // TODO: 5/18/20 вот тут можно почитать что не так http://www.8bytes.net/2018/04/18/antipattern-1-magicheskoe-chislo/
+        return LocalDate.of(age.year,age.month,age.day);
     }
+
+
+    public static boolean isOlder (LocalDate date, LocalDate date2) {
+        return date2.isBefore(date);
+    }
+
+       // return (int)( (date.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24)); // TODO: 5/18/20 вот тут можно почитать что не так http://www.8bytes.net/2018/04/18/antipattern-1-magicheskoe-chislo/
+
     public static Person getOldestPerson(List<Person> people)
     {
         Person oldest = people.get(0);
-        // TODO: 5/18/20 если уже вынули из коллекции локальную ссылку, зачем делать это еще 3 раза ниже 
+        LocalDate date = toDate(oldest.age);
+        for (Person person : people) {
+            if (isOlder(date, toDate(person.age)))
+            {
+                oldest = person;
+            }
+        }
+        return oldest;
+    }
+    /* Person oldest = people.get(0);
+        // TODO: 5/18/20 если уже вынули из коллекции локальную ссылку, зачем делать это еще 3 раза ниже
         Date date1 = toDate(people.get(0).age.year, people.get(0).age.month, people.get(0).age.day);
         int maxAge = difference(date, date1);
 
-        for (int i=0; i<people.size(); i++) // TODO: 5/18/20 лучше заменить на простой forEach через iter 
+        for (int i=0; i<people.size(); i++) // TODO: 5/18/20 лучше заменить на простой forEach через iter
         {
             int age2 = difference(date, toDate(people.get(i).age.year, people.get(i).age.month, people.get(i).age.day));
             if (maxAge <= age2)
@@ -123,9 +144,8 @@ public class Main {
         }
         //System.out.println(maxAge);
         return oldest;
-    }
-    // от этого задания мозг расплавился, заранее боюсь ваших комментариев)
-    // P.S про остальное домашнее задание помню, сделаю.
+
+        */
 
     public static void second() {
         // TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
@@ -230,13 +250,8 @@ class Person {
     public boolean isOlderThan(Person oldest) {
 //		oldest 1900 this 1990
         // TODO: 5/18/20 if не нужен в таком случае сработает так return !oldest.age.year < age.year или так return oldest.age.year >= age.year  
-        
-        if (oldest.age.year < age.year)
-            return false;
-        else {
-            return true;
-        }
 
+        return oldest.age.year >= age.year;
 
     }
 }
