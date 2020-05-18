@@ -13,7 +13,6 @@ public class Main {
 		Hr hr = new Hr();
 	    Director director = new Director();
         Office office = new Office();
-
         office.work(director, hr, createSecretary(10));
 
 

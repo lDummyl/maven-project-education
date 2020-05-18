@@ -18,6 +18,7 @@ public class Office {
 	}
 
 
+	// TODO: 5/18/20 эти поля должны получить свои объекты.
 	/*
 	Secretary secretary;
 
@@ -64,9 +65,9 @@ class Hr implements OfficeWorker{
 
 	Random random = new Random();
 
+	// TODO: 5/18/20 в условии все немного иначе, рандомное решение принимает директор. ХР проводит интервью с каждым кондидатом и отбирает подходящих или отсеивает.
 	public OfficeWorker proposeWorker (List<OfficeWorker> officeWorkers){
 		return officeWorkers.get(random.nextInt(officeWorkers.size()));
 	}
-
 
 }
