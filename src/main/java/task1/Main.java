@@ -33,7 +33,6 @@ public class Main {
         list.add(person4);
         list.add(person5);
         Person oldest = getOldest(list);
-        System.out.println(toDate(person2.age.year, person2.age.month, person2.age.day));
 
         System.out.println("Старший это - " + oldest);
     }
@@ -52,11 +51,6 @@ public class Main {
         }
         return oldest;
     }
-    public static int max (int a, int b)
-    {
-        return Math.max(a, b);
-    }
-
 
     // TODO: 5/6/20 вот 3 метода с точки зрения логики одинаковые, только 2 параметра переменные, 
     //  как бы это исправить чтобы один метод был при том универсальный? Крохотная подсказка по IDE,
@@ -64,7 +58,7 @@ public class Main {
     //  а дубликаты идея найдет и заменит сама. Тогда будет 4 метода, но все разные и без копипасты.
 
     public static int randomYear() {
-        int min = 1920;
+        int min = 1980;
         int max = 2010;
         return randomDate(min, max);
     }
@@ -101,6 +95,26 @@ public class Main {
     {
         return (int)( (date.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24));
     }
+    public static Person getOldestPerson(List<Person> people)
+    {
+        Person oldest = people.get(0);
+        Date date1 = toDate(people.get(0).age.year, people.get(0).age.month, people.get(0).age.day);
+        int maxAge = difference(date, date1);
+
+        for (int i=0; i<people.size(); i++)
+        {
+            int age2 = difference(date, toDate(people.get(i).age.year, people.get(i).age.month, people.get(i).age.day));
+            if (maxAge <= age2)
+            {
+                maxAge = age2;
+                oldest = people.get(i);
+            }
+        }
+        //System.out.println(maxAge);
+        return oldest;
+    }
+    // от этого задания мозг расплавился, заранее боюсь ваших комментариев)
+    // P.S про остальное домашнее задание помню, сделаю.
 
     public static void second() {
         // TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
@@ -114,6 +128,7 @@ public class Main {
 
         // TODO: 5/6/20 круто, с точки зрения практики можно, но обычный for в данном случае существенно проще его шаблон можно вызвать командой itar.
 
+        // переделала коллекцию - добавила рандомный выбор фамилий
         for (int i = 0; i < listOfFirstNames.size(); i++) {
             Random random = new Random();
             Name name = new Name(listOfFirstNames.get(random.nextInt(listOfFirstNames.size())), listOFLastNames.get(random.nextInt(listOFLastNames.size())));
@@ -123,20 +138,12 @@ public class Main {
         List<Person> people = new ArrayList<>();
         for (Map.Entry<Name, Age> nameAgeEntry : persons.entrySet()) {
             people.add(new Person(nameAgeEntry.getKey(), nameAgeEntry.getValue()));
+            System.out.println(nameAgeEntry);
         }
 
-        Person oldest = getOldest(people);
+       // Person oldest = getOldest(people);
+        Person oldest = getOldestPerson(people);
         System.out.println("Старший это - " + oldest);
-
-        for (Map.Entry <Name, Age> person: persons.entrySet()) {
-            List<Age> personsAge = new ArrayList<>();
-            personsAge.add(person.getValue());
-            for (Age age : personsAge) {
-                Date date2 = toDate(age.year, age.month , age.day);
-                System.out.println(date2);
-                difference(date,date2);
-                System.out.println();
-            }
         }
 
 
@@ -145,7 +152,6 @@ public class Main {
 
     }
 
-}
 
 class Name {
 
@@ -209,8 +215,13 @@ class Person {
                 ", age=" + age +
                 '}';
     }
-        public boolean isOlderThan(Person oldest) {
+
+    public boolean isOlderThan(Person oldest) {
 //		oldest 1900 this 1990
-        return oldest.age.year > age.year || oldest.age.month >= age.month || oldest.age.day >= age.day;
+        if (oldest.age.year < age.year)
+            return false;
+        else {
+            return true;
+        }
     }
 }
