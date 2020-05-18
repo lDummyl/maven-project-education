@@ -1,50 +1,75 @@
 package task3;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Oracul {
+    Random random = new Random();
+    String text = new Scanner(System.in).nextLine();
+
+    Map<String, List<String>> map = new HashMap<String, List<String>>();
+
     // TODO: 5/15/20 оракул не должен быть статическим он может менять ключевые аспекты поведения в зависимости от того какими полями инициализирован его инстанс
-    public static void oraculAnswer() {
-        int x = questionLength();
-        if (x > 1) {
-            System.out.println("Ты задаешь слишком много вопросов!");
-        } else if (x == 1) {
-            try {
-                if (new Random().nextInt(3) == 2) {
-                    int z = new Random().nextInt(6000); // TODO: 5/15/20 каждый раз создавать новый рандом плохая практика
-                    System.out.println("Дай подумать оракулу " +  z/100 + " секунд!"); // TODO: 5/15/20 сколько оракул думает это не плохая характеристика(поле) его как объекта класса
-                    Thread.sleep(z);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println(getAnswer());
-        } else if (x == 0) { // TODO: 5/15/20 сделай методы проверки checkForLength, ... и вынеси в них логику
-            System.out.println("Не слышу вопроса в твоих речах");
-        }
+    public void oraculAnswer() throws InterruptedException {
+        int x = checkForLength();
+        checkForAnswer(x);
+        text = new Scanner(System.in).nextLine();
         oraculAnswer();
     }
 
-    public static int questionLength() {
-        String s = new Scanner(System.in).nextLine();
-        if (s.length() > 50) {
-            // TODO: 5/15/20 всегда нужно отделать ввод-логика-вывод. что если нужно будет версию в выводом в окно, везде sout менять придется?
-            System.out.println("Будь лаконичней!");
-            return -1;
-        }
-        if (s.length() < 15) {
-            System.out.println("Будь красноречивее!");
-            return -1;
-        } else {
-            return quantityOfQuestions(s);
+    public void checkForAnswer(int x) {
+        if (x > 1) {
+            firstAnswer();
+        } else if (x == 1) {
+            timeToAnswer();
+            answer();
+        } else if (x == 0) { // TODO: 5/15/20 сделай методы проверки checkForLength, ... и вынеси в них логику
+            secondAnswer();
         }
     }
 
-    public static int quantityOfQuestions(String s) {
-        String[] q = s.trim().replaceAll("\\pP", "").split(" ");
+    public void firstAnswer() {
+        System.out.println("Ты задаешь слишком много вопросов!");
+    }
+
+    public void secondAnswer() {
+        System.out.println("Не слышу вопроса в твоих речах");
+    }
+
+    public void timeToAnswer() {
+        try {
+            int z = random.nextInt(6000); // TODO: 5/15/20 каждый раз создавать новый рандом плохая практика (создал рандом в классе Оракул)
+            System.out.printf("Дай подумать оракулу %d  секунд!\n", z / 1000); // TODO: 5/15/20 сколько оракул думает это не плохая характеристика(поле) его как объекта класса
+            Thread.sleep(z);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int checkForLength() {
+        if (this.text.length() > 50) {
+            // TODO: 5/15/20 всегда нужно отделать ввод-логика-вывод. что если нужно будет версию в выводом в окно, везде sout менять придется?
+            longAnswer();
+            return -1;
+        }
+        if (this.text.length() < 15) {
+            shortAnswer();
+            return -1;
+        } else {
+            return quantityOfQuestions();
+        }
+    }
+
+    public void longAnswer() {
+        System.out.println("Будь лаконичней!");
+    }
+
+    public void shortAnswer() {
+        System.out.println("Будь красноречивее!");
+    }
+
+
+    public int quantityOfQuestions() {
+        String[] q = stringArrayOfQuestion();
         int count = 0;
         // TODO: 5/15/20  бы сделал лучше мапу соответствия вопрос ответ или вопрос-список ответов
         for (int i = 0; i < q.length; i++) {
@@ -70,20 +95,25 @@ public class Oracul {
         return count;
     }
 
-    public static String getAnswer() {
-        List<String> answers = new ArrayList<>();
-        answers.add("Не ищи счастье – оно всегда у тебя внутри.");
-        answers.add("Лучше помолчать, чем  говорить без смысла.");
-        answers.add("Тому, кто никуда не плывёт, — не бывает попутного ветра!");
-        answers.add("Кто сражается с чудовищами, тому следует остерегаться, чтобы самому при этом не стать чудовищем. " +
-                "И если ты долго смотришь в бездну, то бездна тоже смотрит в тебя.");
-        answers.add("Не бойся, что не знаешь — бойся, что не учишься.");
-        answers.add("Незнание — это не проблема, если есть желание учиться.");
-        answers.add("Зачем ты задаешь такие странные вопросы, глупец?!!");
+    public String[] stringArrayOfQuestion() {
+        String[] q = text.trim().replaceAll("\\pP", "").split(" ");
+        return q;
+    }
+
+    public void answer() {
         // TODO: 5/15/20 все же должно быть соответствие на вопрос как не стоит отвечат так же как на когда,
         //  но вариантов ответа на каждый вопрос может быть несколько, например так Map<Question, List<Answer>>
-        return answers.get(new Random().nextInt(answers.size()));
+        System.out.println(getMap().get(stringArrayOfQuestion()[0]).get(random.nextInt(3)));
     }
 
 
+    public Map<String, List<String>> getMap() {
+        map.put("Что", new Answer().getAnswersWhat());
+        map.put("Где", new Answer().getanswersWhere());
+        map.put("Когда", new Answer().getanswersWhen());
+        map.put("Зачем", new Answer().getanswersWherefore());
+        map.put("Почему", new Answer().getanswersWhy());
+        map.put("Кто", new Answer().getanswersWho());
+        return map;
+    }
 }

@@ -20,8 +20,8 @@ package task3;
 */
 
 public class Main {
-	public static void main(String[] args) {
-		Oracul.oraculAnswer();
+	public static void main(String[] args) throws InterruptedException {
+		new Oracul().oraculAnswer();
 	}
 }
 
