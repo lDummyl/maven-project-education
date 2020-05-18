@@ -4,23 +4,26 @@ package task2;
 // выбирает рандомно секретаря в штат, которого ему пердлагает HR,
 // все это происходит в офисе
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 	public static void main(String[] args) {
 
+	    createSecretary(10);
 
-        Secretary secretary0 = new Secretary();
-        Secretary secretary1 = new Secretary();
-        Secretary secretary2 = new Secretary();
-        Secretary secretary3 = new Secretary();
-        Secretary secretary4 = new Secretary();
-        Secretary secretary5 = new Secretary();
-        Secretary secretary6 = new Secretary();
-        Secretary secretary7 = new Secretary();
-        Secretary secretary8 = new Secretary();
-        Secretary secretary9 = new Secretary();
-
+	    Hr hr = new Hr();
+	    Director director = new Director();
         Office office = new Office();
-        office.invitePeaople(secretary0);
+
+
+    }
+
+    public static void createSecretary(int secretarialJobs){
+	    List<Secretary> secretaries = new ArrayList<>();
+	    for(int i = 0; i<secretarialJobs; i++){
+	        secretaries.add(new Secretary());
+        }
 
     }
 }

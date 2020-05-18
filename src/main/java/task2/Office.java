@@ -1,10 +1,10 @@
 package task2;
 
+import java.util.List;
+
 public class Office {
 
-	Hr hr = new Hr();
 
-	Director director = new Director();
 
 	/*
 	Secretary secretary;
@@ -23,14 +23,37 @@ public class Office {
 
 }
 
-class Secretary{
+class Secretary implements OfficeWorker{
+
+	public void sendMail() {
+		System.out.println("Mail has been sent");
+	}
+
+	@Override
+	public void work() {
+		sendMail();
+	}
+}
+
+class Director implements OfficeWorker{
+
+
+	@Override
+	public void work() {
+
+	}
+
 
 }
 
-class Director{
+class Hr implements OfficeWorker{
 
-}
+	public Secretary propose (List<Secretary> secretaryList){
 
-class Hr{
+	}
 
+	@Override
+	public void work() {
+
+	}
 }
