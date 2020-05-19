@@ -60,6 +60,7 @@ public class Oracul {
     }
 
     public void longAnswer() {
+        // TODO: 5/19/20 это не то что я имел в виду, это будет легко понять когда примешься за тестирование. Но я бы начал с задачи 1 и 2 упражняться в написании unit тестов
         System.out.println("Будь лаконичней!");
     }
 
@@ -103,11 +104,14 @@ public class Oracul {
     public void answer() {
         // TODO: 5/15/20 все же должно быть соответствие на вопрос как не стоит отвечат так же как на когда,
         //  но вариантов ответа на каждый вопрос может быть несколько, например так Map<Question, List<Answer>>
+
+        // TODO: 5/19/20 читаемость такого кода довольно затруднительна
         System.out.println(getMap().get(stringArrayOfQuestion()[0]).get(random.nextInt(3)));
     }
 
 
     public Map<String, List<String>> getMap() {
+        // TODO: 5/19/20 каждый раз создавать новый экземпляр одинакового объекта не оченшь хорошо, как и наполнять коллекцию одновременно с ее выдачей.
         map.put("Что", new Answer().getAnswersWhat());
         map.put("Где", new Answer().getanswersWhere());
         map.put("Когда", new Answer().getanswersWhen());

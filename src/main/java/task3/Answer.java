@@ -4,12 +4,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Answer {
+
     List<String> answersWhat = new ArrayList<>();
     List<String> answersWhere = new ArrayList<>();
     List<String> answersWhen = new ArrayList<>();
     List<String> answersWherefore = new ArrayList<>();
     List<String> answersWhy = new ArrayList<>();
     List<String> answersWho = new ArrayList<>();
+
+    // TODO: 5/19/20 любопытный подход, но имеет недостатки. Можешь попробовать блоки инициализации.
+    public static void main(String[] args) {
+        Answer answer = new Answer();
+        List<String> answersWhat = answer.getAnswersWhat();
+        System.out.println(answersWhat.size());
+        List<String> answersWhat1 = answer.getAnswersWhat();
+        System.out.println(answersWhat1.size());
+    }
 
     public List<String> getAnswersWhat() {
         answersWhat.add("Что могу сказать тебе я?.... Подумай....");
