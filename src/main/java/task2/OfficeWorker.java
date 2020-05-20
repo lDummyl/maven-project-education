@@ -1,8 +1,14 @@
 package task2;
 
-import java.util.List;
+public abstract class OfficeWorker {
+    String name;
+    int skill;
 
-// TODO: 5/20/20 возможно есть какие-то методы характерные для любого офисного работнка, можно здесь продекларировать их контракты
-public interface OfficeWorker {
+    public String getName() {
+        return name;
+    }
 
+    public int getSkill() {
+        return skill;
+    }
 }

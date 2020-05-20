@@ -1,6 +1,7 @@
 package task2;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+
+import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +9,28 @@ import java.util.Random;
 
 public class Office {
 
+	List<OfficeWorker> officeWorkers;
+	public Office(Director director, Hr hr, List<OfficeWorker> officeWorkers) {
+		this.director = director;
+		this.hr = hr;
+		this.officeWorkers = officeWorkers;
+	}
 
 	// TODO: 5/18/20 эти поля должны получить свои объекты.
-	Director director = Director.getDirector();
+	Director director;
 
-	Hr hr = Hr.getHr();
+	Hr hr;
 
-	Secretary secretary = director.invite(hr.filterSecretary(Main.createSecretary(50)));
+
+//	Secretary secretary = (Secretary) director.invite(hr.filterOfficeWorker(officeWorkers));
+//	Почему-то в этом местя я ловлю NPE. Хотя если просто выводить на печать выбранного директором секретаря, то он видит этот объект.
+
+	public void listWorkers(){
+		System.out.println(director);
+		System.out.println(hr);
+		//System.out.println(secretary);
+		System.out.println(director.invite(hr.filterOfficeWorker(officeWorkers)));
+	}
 
 	/*
 	Код я причесал, но он мне очень не нравится по той причине, что он перестал быть гибким. Если раньше я все ссылочные
@@ -39,83 +55,3 @@ public class Office {
 
 }
 
-class Secretary implements OfficeWorker{
-	// TODO: 5/20/20 эти поля характерны только для Секретарей или можно вынести в какой-то родительский класс?
-	String name;
-	int skill;
-
-	public Secretary(String name, int skill) {
-
-		this.name = name;
-		this.skill = skill;
-	}
-
-	// TODO: 5/20/20 старайся не иметь useless методов
-	public void sendMail() {
-		System.out.println("Mail has been sent");
-	}
-
-	public int getSkill() {
-		return skill;
-	}
-
-	@Override
-	public String toString() {
-		return name;
-	}
-}
-
-class Director implements OfficeWorker{
-
-	private static Director director;
-
-	private Director(){}
-// TODO: 5/20/20 почему ты думаешь что директор может быть только один? Сингольтон это конечно круто, но вот тебе модификаця задачи: Нужно создать 2 офиса и в них разный персонал, конкуренты.
-	public static Director getDirector(){
-		if(director == null){
-			director = new Director();
-		}
-		return director;
-	}
-
-
-	public Secretary invite(List<Secretary> secretaries){
-		Random random = new Random();
-		int index = random.nextInt(secretaries.size());
-		System.out.println(secretaries.get(index)+", You are accepted!");
-		return secretaries.get(index);
-	}
-
-}
-
-// TODO: 5/20/20 пора повыносить в отдельные фаилы эти классы. Hint добавь модификатор public и тогда через alt+Enter это будет легко сделать.
-class Hr implements OfficeWorker{
-
-	private static Hr hr;
-
-	private Hr() {
-
-	}
-
-
-	public static Hr getHr(){
-		if(hr == null){
-			hr = new Hr();
-		}
-		return hr;
-	}
-
-
-	// TODO: 5/18/20 в условии все немного иначе, рандомное решение принимает директор. ХР проводит интервью с каждым кондидатом и отбирает подходящих или отсеивает.
-	public List<Secretary> filterSecretary (List<Secretary> secretaries){
-		List<Secretary> approveSecretary = new ArrayList<>();
-		for (int i=0; i<secretaries.size(); i++) {
-			if(secretaries.get(i).getSkill() > 4){
-				approveSecretary.add(secretaries.get(i));
-			}
-		}
-		return approveSecretary;
-	}
-
-
-}
