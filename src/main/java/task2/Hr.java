@@ -6,8 +6,9 @@ import java.util.List;
 // TODO: 5/20/20 пора повыносить в отдельные фаилы эти классы. Hint добавь модификатор public и тогда через alt+Enter это будет легко сделать.
 public class Hr extends OfficeWorker{
 
-	public Hr(String name) {
-		this.name = name;
+	public Hr(String fName, String lName) {
+		this.fName = fName;
+		this.lName = lName;
 	}
 
 	// TODO: 5/18/20 в условии все немного иначе, рандомное решение принимает директор. ХР проводит интервью с каждым кондидатом и отбирает подходящих или отсеивает.
@@ -24,7 +25,8 @@ public class Hr extends OfficeWorker{
 	@Override
 	public String toString() {
 		return "Hr{" +
-				"name='" + name + '\'' +
+				"fName='" + fName + '\'' +
+				", lName='" + lName + '\'' +
 				'}';
 	}
 }

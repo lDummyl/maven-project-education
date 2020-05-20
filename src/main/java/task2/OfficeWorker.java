@@ -1,11 +1,14 @@
 package task2;
 
 public abstract class OfficeWorker {
-    String name;
+    String fName, lName;
     int skill;
 
-    public String getName() {
-        return name;
+    public String getfName() {
+        return fName;
+    }
+    public String getlName() {
+        return lName;
     }
 
     public int getSkill() {

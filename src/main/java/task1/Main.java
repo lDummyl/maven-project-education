@@ -44,6 +44,14 @@ public class Main {
         lastN.add("Djigurda");
     }
 
+    public static List<String> getFirstN(){
+        return firstN;
+    }
+
+    public static List<String> getLastN(){
+        return lastN;
+    }
+
     public static void main(String[] args) {
         first();
         second();

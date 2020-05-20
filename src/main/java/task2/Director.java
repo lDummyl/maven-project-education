@@ -5,9 +5,9 @@ import java.util.Random;
 
 public class Director extends OfficeWorker{
 
-	public Director(String name, int skill) {
-		this.name = name;
-		this.skill = skill;
+	public Director(String fName, String lName) {
+		this.fName = fName;
+		this.lName = lName;
 	}
 
 	// TODO: 5/20/20 почему ты думаешь что директор может быть только один? Сингольтон это конечно круто, но вот тебе модификаця задачи: Нужно создать 2 офиса и в них разный персонал, конкуренты.
@@ -23,7 +23,8 @@ public class Director extends OfficeWorker{
 	@Override
 	public String toString() {
 		return "Director{" +
-				"name='" + name + '\'' +
+				"fName='" + fName + '\'' +
+				", lName='" + lName + '\'' +
 				'}';
 	}
 }
