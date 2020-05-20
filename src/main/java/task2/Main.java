@@ -11,17 +11,14 @@ import java.util.Random;
 public class Main {
 	public static void main(String[] args) {
 
-		Hr hr = new Hr();
-	    Director director = new Director();
-        Office office = new Office();
-        office.work(director, hr, createSecretary(10));
-
+		Office office = new Office();
+		System.out.println(office.secretary);
 
     }
 
-    public static List<OfficeWorker> createSecretary(int secretarialJobs){
+    public static List<Secretary> createSecretary(int secretarialJobs){
 		Random random = new Random();
-		List<OfficeWorker> secretaries = new ArrayList<>();
+		List<Secretary> secretaries = new ArrayList<>();
 	    for(int i = 0; i<secretarialJobs; i++){
 	        secretaries.add(new Secretary("Secretary"+i, random.nextInt(10)));
         }

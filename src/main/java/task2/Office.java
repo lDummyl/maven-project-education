@@ -6,26 +6,26 @@ import java.util.Random;
 
 public class Office {
 
-	public Secretary secretarialChoice(Director director, Hr hr, List<Secretary> secretaries){
-		Random random = new Random();
-		boolean flag = true;
-		while (flag){
-			int result = random.nextInt(10);
-			if(result > 5 && result < 10){
-				flag = false;
-				return (Secretary) director.invite(hr.proposeSecretary(secretaries));
-			}
-		}
-	}
-
 
 	// TODO: 5/18/20 эти поля должны получить свои объекты.
-
-	Secretary secretary = secretarialChoice(Director.getDirector(), Hr.getHr(), );
-
 	Director director = Director.getDirector();
 
 	Hr hr = Hr.getHr();
+
+	Secretary secretary = director.invite(hr.filterSecretary(Main.createSecretary(50)));
+
+	/*
+	Код я причесал, но он мне очень не нравится по той причине, что он перестал быть гибким. Если раньше я все ссылочные
+	типы мог указать через общий интерфейс OfficeWorker и мог создать нового офисного работника (например, программиста),
+	список которых hr так же предлагал бы директору, то теперь мне нужно для этого писать отдельный метод.
+	Получилось так потому, что я ввел критерий отсева. У класса Secretary теперь есть поле skill, по которому hr фильтрует
+	кандидатов. И если я на вход метода фильтра работников подам список OfficeWorker'ов, то не смогу вытащить эту переменную, чтобы провести сравнение.
+
+	 */
+
+
+
+
 
 
 	//претенденты идут по одному, когда их достаточно,
@@ -75,10 +75,11 @@ class Director implements OfficeWorker{
 	}
 
 
-	public OfficeWorker invite(OfficeWorker officeWorker){
-
-		System.out.println(officeWorker+", You are accepted!");
-		return officeWorker;
+	public Secretary invite(List<Secretary> secretaries){
+		Random random = new Random();
+		int index = random.nextInt(secretaries.size());
+		System.out.println(secretaries.get(index)+", You are accepted!");
+		return secretaries.get(index);
 	}
 
 }
@@ -101,8 +102,8 @@ class Hr implements OfficeWorker{
 
 
 	// TODO: 5/18/20 в условии все немного иначе, рандомное решение принимает директор. ХР проводит интервью с каждым кондидатом и отбирает подходящих или отсеивает.
-	public List<OfficeWorker> proposeSecretary (List<Secretary> secretaries){
-		List<OfficeWorker> approveSecretary = new ArrayList<>();
+	public List<Secretary> filterSecretary (List<Secretary> secretaries){
+		List<Secretary> approveSecretary = new ArrayList<>();
 		for (int i=0; i<secretaries.size(); i++) {
 			if(secretaries.get(i).getSkill() > 4){
 				approveSecretary.add(secretaries.get(i));
