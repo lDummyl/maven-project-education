@@ -11,11 +11,13 @@ import java.util.Random;
 public class Main {
 	public static void main(String[] args) {
 
+		// TODO: 5/20/20 не очень выразительные имена, помему не использовать функционал первой задчи? Скажем расширить и адаптировать затем просто ипортировать тамошние классы без КП.
 		Director director1 = new Director("Director1", 10);
 		Director director2 = new Director("Director2", 10);
 		Hr hr1 = new Hr("Hr1");
 		Hr hr2 = new Hr("Hr2");
 
+		// TODO: 5/20/20 кроме того мы же делали это чтобы не приходилось дальше ваять такие небоскребы, что если в задании было бы скажем 100 кандидатов, вполне жизненная ситуация.
 		List<OfficeWorker> candidatesSecretary1= new ArrayList<>();
 		Secretary secretary10 = new Secretary("Secretary10", 0);
 		Secretary secretary11 = new Secretary("Secretary11", 1);
