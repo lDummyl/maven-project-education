@@ -103,13 +103,12 @@ public class Main {
     }
     */
 
-    LocalDate localDate = LocalDate.now();
     public static LocalDate toDate (Age age)
     {
         return LocalDate.of(age.year,age.month,age.day);
     }
 
-
+    // можно так? или нужно высчитывать количество прожитых дней и сравнивать их?
     public static boolean isOlder (LocalDate date, LocalDate date2) {
         return date2.isBefore(date);
     }
