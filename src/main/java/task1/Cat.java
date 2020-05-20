@@ -47,6 +47,8 @@ public class Cat {
             System.out.println("Meaow");
         }
     }
+
+    // TODO: 5/20/20 а если все возможные действия в коллекцию предварительно при инициализации? И потом по рандому без else if?
     public void action ()
     {
         Random random = new Random();
@@ -70,8 +72,9 @@ public class Cat {
         {
             System.out.println(this.name + " гуляет по балкону");
         }
-
     }
+
+
     public static void sleep()
     {
         System.out.println("Коты спят");

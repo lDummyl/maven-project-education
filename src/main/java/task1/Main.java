@@ -108,6 +108,7 @@ public class Main {
         return LocalDate.of(age.year,age.month,age.day);
     }
 
+    // TODO: 5/20/20 так не просто можно а оптимально, за исключением того что мы изучаем ООП а в нем статик ругательное слово, сделай больше похожим на equals метод можно модифицировать isOlderThan
     // можно так? или нужно высчитывать количество прожитых дней и сравнивать их?
     public static boolean isOlder (LocalDate date, LocalDate date2) {
         return date2.isBefore(date);
@@ -127,6 +128,7 @@ public class Main {
         }
         return oldest;
     }
+    // TODO: 5/20/20 стоит избавляться от закоментированных кусков кода, все это хранится в контроле версий
     /* Person oldest = people.get(0);
         // TODO: 5/18/20 если уже вынули из коллекции локальную ссылку, зачем делать это еще 3 раза ниже
         Date date1 = toDate(people.get(0).age.year, people.get(0).age.month, people.get(0).age.day);
