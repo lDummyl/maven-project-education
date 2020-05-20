@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+// TODO: 5/20/20 для начала я бы тут порядок навел
 public class Main {
 
     public static final int DAY = 30;

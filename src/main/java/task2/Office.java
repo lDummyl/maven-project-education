@@ -1,5 +1,7 @@
 package task2;
 
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -38,6 +40,7 @@ public class Office {
 }
 
 class Secretary implements OfficeWorker{
+	// TODO: 5/20/20 эти поля характерны только для Секретарей или можно вынести в какой-то родительский класс?
 	String name;
 	int skill;
 
@@ -47,6 +50,7 @@ class Secretary implements OfficeWorker{
 		this.skill = skill;
 	}
 
+	// TODO: 5/20/20 старайся не иметь useless методов
 	public void sendMail() {
 		System.out.println("Mail has been sent");
 	}
@@ -66,7 +70,7 @@ class Director implements OfficeWorker{
 	private static Director director;
 
 	private Director(){}
-
+// TODO: 5/20/20 почему ты думаешь что директор может быть только один? Сингольтон это конечно круто, но вот тебе модификаця задачи: Нужно создать 2 офиса и в них разный персонал, конкуренты.
 	public static Director getDirector(){
 		if(director == null){
 			director = new Director();
@@ -84,6 +88,7 @@ class Director implements OfficeWorker{
 
 }
 
+// TODO: 5/20/20 пора повыносить в отдельные фаилы эти классы. Hint добавь модификатор public и тогда через alt+Enter это будет легко сделать.
 class Hr implements OfficeWorker{
 
 	private static Hr hr;
