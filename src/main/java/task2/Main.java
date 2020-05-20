@@ -6,6 +6,7 @@ package task2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
 	public static void main(String[] args) {
@@ -19,9 +20,10 @@ public class Main {
     }
 
     public static List<OfficeWorker> createSecretary(int secretarialJobs){
-	    List<OfficeWorker> secretaries = new ArrayList<>();
+		Random random = new Random();
+		List<OfficeWorker> secretaries = new ArrayList<>();
 	    for(int i = 0; i<secretarialJobs; i++){
-	        secretaries.add(new Secretary("Secretary"+i));
+	        secretaries.add(new Secretary("Secretary"+i, random.nextInt(10)));
         }
 		return secretaries;
     }
