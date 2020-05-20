@@ -2,12 +2,12 @@ package task1;
 
 public class  Person {
 
-    Name name;
-    BirthDate birthDate;
+    Main.Name name;
+    Main.BirthDate birthDate;
 
     public Person(Object name, Object age) {
-        this.name = (Name) name;
-        this.birthDate = (BirthDate) age;
+         name = this.name;
+         age = this.birthDate;
     }
 
     @Override
