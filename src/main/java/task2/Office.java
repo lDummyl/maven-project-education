@@ -9,6 +9,8 @@ import java.util.Random;
 
 public class Office {
 
+	// TODO: 5/21/20 ну что ж похоже нам предстоит организовать энергичное расширение нашего офиса,
+	//  пожалуй не помешает добавить юриста, охранника, и бухгалтеров(в одном офисе 2х с другом 3х).
 	List<OfficeWorker> officeWorkers;
 	public Office(Director director, Hr hr, List<OfficeWorker> officeWorkers) {
 		this.director = director;
@@ -22,6 +24,7 @@ public class Office {
 	Hr hr;
 
 
+	// TODO: 5/21/20 нет лучшего средства против NPE как дебаг режим
 //	Secretary secretary = (Secretary) director.invite(hr.filterOfficeWorker(officeWorkers));
 //	Почему-то в этом местя я ловлю NPE. Хотя если просто выводить на печать выбранного директором секретаря, то он видит этот объект.
 

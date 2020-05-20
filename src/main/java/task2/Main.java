@@ -34,6 +34,7 @@ public class Main {
 
     }
 
+
     public static List<OfficeWorker> createSecretary(int amountOfSecretary){
 		Random random = new Random();
 		List<OfficeWorker> secretaries = new ArrayList<>();
