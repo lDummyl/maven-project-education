@@ -13,10 +13,3 @@ public class Main {
     }
 }
 
-class Director {
-    public static Person finalChoose() {
-        List<Person>list = Secretary.getPersons();
-        final int luckyChoice = new Random().nextInt(list.size());
-        return list.get(luckyChoice);
-    }
-}
