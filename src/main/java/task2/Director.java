@@ -16,8 +16,8 @@ public class Director extends OfficeWorker{
 
 	public OfficeWorker invite(List<OfficeWorker> officeWorkers){
 		Random random = new Random();
-		int index = random.nextInt(officeWorkers.size());
-		return officeWorkers.get(index);
+			int index = random.nextInt(officeWorkers.size());
+			return officeWorkers.get(index);
 	}
 
 	@Override
