@@ -43,7 +43,9 @@ public class Office {
 	//претенденты идут по одному, когда их достаточно,
 	// то диретор принимает решение и берет одного в штат
 
-	//void invitePeaople(Object human){
+	void invitePeaople(Object human){
+
+	}
 
 
 

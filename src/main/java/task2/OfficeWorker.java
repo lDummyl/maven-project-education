@@ -1,6 +1,6 @@
 package task2;
 
-public abstract class OfficeWorker {
+public abstract class OfficeWorker  {
     String fName, lName;
     int skill;
 

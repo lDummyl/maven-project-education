@@ -1,5 +1,7 @@
 package task2;
 
+import task1.Person;
+
 public class Secretary extends OfficeWorker{
 	// TODO: 5/20/20 эти поля характерны только для Секретарей или можно вынести в какой-то родительский класс?
 
@@ -10,6 +12,9 @@ public class Secretary extends OfficeWorker{
 		this.skill = skill;
 	}
 
+//	public Secretary(Person person) {
+//		this(person.name)
+//	}
 
 
 	// TODO: 5/20/20 старайся не иметь useless методов
