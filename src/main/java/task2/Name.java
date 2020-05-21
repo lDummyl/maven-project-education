@@ -19,7 +19,6 @@ public class Name {
         this.lastName = lastName;
     }
 
-    public static List<Name> names;
 
     public static List<Name> getNames() {
         List<Name> names;
