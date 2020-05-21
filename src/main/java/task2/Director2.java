@@ -6,6 +6,7 @@ import java.time.temporal.Temporal;
 import java.time.temporal.TemporalAccessor;
 import java.util.*;
 
+// TODO: 5/21/20 ответ не верный, чтобы сделать разных директоров не обязательно делать разные классы. Ты же не делаешь классы PesonIvan, PersonNikolai
 public class Director2 {
 
     public long age(int year, int month, int day) {

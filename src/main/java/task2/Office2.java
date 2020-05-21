@@ -1,5 +1,6 @@
 package task2;
 
+// TODO: 5/21/20 то же самое
 public class Office2 {
     static void invitePeople(Object human) {
         if (human == null) {
