@@ -13,6 +13,7 @@ public class Main {
 
 		Random random = new Random();
 		// TODO: 5/20/20 не очень выразительные имена, помему не использовать функционал первой задчи? Скажем расширить и адаптировать затем просто ипортировать тамошние классы без КП.
+
 		Director director1 = new Director(task1.Main.getFirstN().get(random.nextInt(task1.Main.getFirstN().size())),
 				task1.Main.getLastN().get(random.nextInt(task1.Main.getLastN().size())));
 		Director director2 = new Director(task1.Main.getFirstN().get(random.nextInt(task1.Main.getFirstN().size())),
@@ -23,6 +24,9 @@ public class Main {
 				task1.Main.getLastN().get(random.nextInt(task1.Main.getLastN().size())));
 
 		// TODO: 5/20/20 кроме того мы же делали это чтобы не приходилось дальше ваять такие небоскребы, что если в задании было бы скажем 100 кандидатов, вполне жизненная ситуация.
+
+
+		// TODO: 5/21/20 ну а что директора и HR какие-то особенные? Такие же офисные сотрудники как и все прочие, зачем нам 2 разных способа создания?
 		List<OfficeWorker> candidatesSecretary1 = createWorker("Secretary", 50);
 		List<OfficeWorker> candidatesSecretary2 = createWorker("Secretary", 50);
 
