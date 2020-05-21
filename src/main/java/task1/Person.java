@@ -6,7 +6,8 @@ public class  Person {
     Main.BirthDate birthDate;
 
     public Person(Object name, Object age) {
-         name = this.name;
+        // TODO: 5/21/20 o_0 !?!
+        name = this.name;
          age = this.birthDate;
     }
 
