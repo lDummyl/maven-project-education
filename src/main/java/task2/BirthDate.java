@@ -18,6 +18,15 @@ public class BirthDate {
     }
     public static List<BirthDate> birthDates;
 
+    @Override
+    public String toString() {
+        return "BirthDate{" +
+                "year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                '}';
+    }
+
     public static List<BirthDate> getBirthDates() {
         List<BirthDate> birthDates;
         birthDates = new ArrayList<>();
