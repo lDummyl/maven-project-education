@@ -15,6 +15,7 @@ public class Main {
 
 class Director {
     public static Person finalChoose() {
+        // TODO: 5/21/20 Secretry class не попал в репозиторий
         List<Person>list = Secretary.getPersons();
         final int luckyChoice = new Random().nextInt(list.size());
         return list.get(luckyChoice);
