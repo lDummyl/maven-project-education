@@ -1,11 +1,9 @@
 package task2;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class Office {
-    public static Person firstHiredHuman = Director.finalChoose();
+
+    public static Person firstHiredHuman = Director.firstFinalChoose();
+    public static Person secondHiredHuman = new Director().secondFinalChoose();
 	/*
 	Secretary secretary;
 
@@ -16,9 +14,17 @@ public class Office {
 
     //претенденты идут по одному, когда их достаточно,
     // то диретор принимает решение и берет одного в штат
-
     static void invitePeople(Object human) {
-        System.out.println("DIRECTOR 1: I like you and you are welcome, " + human);
+        if (human.equals(firstHiredHuman)) {
+            System.out.println("DIRECTOR1: You are welcome, " + human);
+        }
+
+        if (secondHiredHuman == null && human.equals(secondHiredHuman)) {
+            System.out.println("DIRECTOR2: Everyone get out!!! No one I need!");
+        } else if (secondHiredHuman != null && human.equals(secondHiredHuman)){
+            System.out.println("DIRECTOR2: You are the most experience person!\n" +
+                    "and you've graduated university, so You Are Welcome " + human);
+        }
         // TODO: 5/15/20 офис не создает секретарей, это работа для вселенной, бога или колледжа, офис только принимает
         //  и отбирает их
         // TODO: 5/15/20 не забываем дженерики для интерфейса и даймонд оператор для конструктора
@@ -30,7 +36,7 @@ public class Office {
         // TODO: 5/21/20 ну что ж сделаем так что офисов теперь у нас будет 2, в них работают разные директора, причем с разным поведением
 
         invitePeople(firstHiredHuman);
-
+        invitePeople(secondHiredHuman);
 
     }
 }

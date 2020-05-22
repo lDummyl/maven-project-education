@@ -11,7 +11,7 @@ public class Secretary extends Person {
     }
 
     // TODO: 5/21/20 подобные статические методы это не очень хорошо.
-    public static List<Person> getPersons() {
+    public List<Person> getPersons() {
         List<Person> secretaries;
         secretaries = new ArrayList<>();
         for (int i = 0; i < Name.getNames().size(); i++) {

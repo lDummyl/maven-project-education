@@ -7,23 +7,23 @@ import java.time.temporal.TemporalAccessor;
 import java.util.*;
 
 // TODO: 5/21/20 ответ не верный, чтобы сделать разных директоров не обязательно делать разные классы. Ты же не делаешь классы PesonIvan, PersonNikolai
-public class Director2 {
+public interface SecondTypeOfDirector {
 
-    public long age(int year, int month, int day) {
+    public default long age(int year, int month, int day) {
         LocalDate birthday = LocalDate.of(year, month, day);
         long exp = ChronoUnit.YEARS.between(birthday, LocalDate.now());
         return exp;
     }
 
 
-    public boolean compare(Person p, Person p1) {
+    public default boolean compare(Person p, Person p1) {
         if (p.birthDate.year == p1.birthDate.year && p.birthDate.day == p1.birthDate.day &&
                 p.birthDate.day == p1.birthDate.day) {
             return true;
         } else return false;
     }
 
-    public List<Person> getPersonsWhoAreGraduatedUniversity() {
+    public default List<Person> getPersonsWhoAreGraduatedUniversity() {
         List<Person> graduatedUniversity = new ArrayList<>();
         for (Person p : new Hr().chooseSecretary()
         ) {
@@ -36,7 +36,7 @@ public class Director2 {
     }
 
 
-    public Map<Integer, Person> changeExperience() {
+    public default Map<Integer, Person> changeExperience() {
         Random random = new Random();
         Map<Integer, Person> topPersons = new TreeMap<>();
         List<Person> list = getPersonsWhoAreGraduatedUniversity();
@@ -49,22 +49,17 @@ public class Director2 {
     }
 
 
-    public Person finalChoose() {
+    public default Person secondFinalChoose() {
         int choice = 0;
         Map<Integer, Person> map = changeExperience();
         for (Map.Entry<Integer, Person> personEntry : map.entrySet()) {
             if (choice < personEntry.getKey()) {
                 choice = personEntry.getKey();
             }
-            System.out.printf("Experience %d years, name %s\n", personEntry.getKey(), personEntry.getValue());
         }
-        System.out.println("Most experience is " + choice + " years");
         return map.get(choice);
     }
 
-    public static void main(String[] args) {
-        new Director2().finalChoose();
-    }
 }
 
 

@@ -14,25 +14,10 @@ public class Person {
         this.birthDate = age;
     }
 
+
     @Override
     public String toString() {
-        return "Person{" +
-                "name=" + name +
-                ", birthDate=" + birthDate +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(name, person.name) &&
-                Objects.equals(birthDate, person.birthDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, birthDate);
+        return  "name=" + name +
+                ", birthDate=" + birthDate;
     }
 }
