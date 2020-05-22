@@ -7,7 +7,9 @@ import java.time.temporal.TemporalAccessor;
 import java.util.*;
 
 // TODO: 5/21/20 ответ не верный, чтобы сделать разных директоров не обязательно делать разные классы. Ты же не делаешь классы PesonIvan, PersonNikolai
+// TODO: 5/21/20 снова не верный, один класс - разные объекты. И в интерфейсах только декларации. Дефолтные методы, они в общем очень специальный инструмент.
 public interface SecondTypeOfDirector {
+
 
     public default long age(int year, int month, int day) {
         LocalDate birthday = LocalDate.of(year, month, day);

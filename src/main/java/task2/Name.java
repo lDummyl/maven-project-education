@@ -3,6 +3,8 @@ package task2;
 import java.util.ArrayList;
 import java.util.List;
 
+
+// TODO: 5/22/20 этот класс живет в 1й таске, его ну нужно переносить чтобы использовать
 public class Name {
 
     public String firstName;
@@ -19,7 +21,7 @@ public class Name {
         this.lastName = lastName;
     }
 
-
+    // TODO: 5/22/20 пойбирай статические методы отовсюду
     public static List<Name> getNames() {
         List<Name> names;
         names = new ArrayList<>();

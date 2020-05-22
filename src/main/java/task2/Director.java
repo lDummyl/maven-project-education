@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class Director implements SecondTypeOfDirector {
 
+    // TODO: 5/22/20 не и спользуй статические методы
     public static Person firstFinalChoose() {
         List<Person> list = new Secretary(null,null).getPersons();
         final int luckyChoice = new Random().nextInt(list.size());

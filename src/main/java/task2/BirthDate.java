@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: 5/22/20 этот класс живет в 1й таске, его ну нужно переносить чтобы использовать
 public class BirthDate {
     public int year;
     public int month;

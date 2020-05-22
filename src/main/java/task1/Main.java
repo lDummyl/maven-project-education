@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class Main {
 
-
+    // TODO: 5/22/20 приведи этот класс в соответствие с SRP, и переиспользуй во второй задаче(переносить не обязательно, public дает межпакетный доступ)
     public static void main(String[] args) {
 //        first();
         new Main().second();

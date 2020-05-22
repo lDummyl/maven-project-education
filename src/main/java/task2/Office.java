@@ -14,6 +14,7 @@ public class Office {
 
     //претенденты идут по одному, когда их достаточно,
     // то диретор принимает решение и берет одного в штат
+    // TODO: 5/22/20  
     static void invitePeople(Object human) {
         if (human.equals(firstHiredHuman)) {
             System.out.println("DIRECTOR1: You are welcome, " + human);
