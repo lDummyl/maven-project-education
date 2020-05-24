@@ -1,4 +1,6 @@
 package task2;
+import task1.BirthDate;
+import task1.Name;
 
 import java.util.ArrayList;
 import java.util.List;

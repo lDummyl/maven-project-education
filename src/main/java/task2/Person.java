@@ -1,5 +1,5 @@
 package task2;
-
+import task1.*;
 import java.time.LocalDate;
 import java.util.Objects;
 

@@ -10,4 +10,12 @@ public class OfficeTest {
 		Office office = new Office();
 
 	}
+
+    @Test
+    public void invitePeople() {
+    }
+
+    @Test
+    public void main() {
+    }
 }

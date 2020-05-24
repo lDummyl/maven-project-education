@@ -1,15 +1,16 @@
 package task1;
 
-public class  Person {
+public class Person {
 
-    Main.Name name;
-    Main.BirthDate birthDate;
+    Name name;
+    BirthDate birthDate;
 
-    public Person(Object name, Object age) {
+    public Person(Name name, BirthDate age) {
         // TODO: 5/21/20 o_0 !?!
-        name = this.name;
-         age = this.birthDate;
+        this.name = name;
+        this.birthDate = age;
     }
+
 
     @Override
     public String toString() {

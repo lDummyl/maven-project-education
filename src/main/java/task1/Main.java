@@ -117,47 +117,7 @@ public class Main {
         return listBirthDates;
     }
 
-    class BirthDate {
-        int year;
-        int month;
-        int day;
-
-
-        public BirthDate(int year, int month, int day) {
-            this.year = year;
-            this.month = month;
-            this.day = day;
-        }
-
-
-        public LocalDate toLocalDate() {
-            return LocalDate.of(year, month, day);
-        }
-    }
-
-    static class Name {
-
-        String firstName;
-        String lastName;
-
-        @Override
-        public String toString() {
-            return "firstName='" + firstName + '\'' +
-                    ", lastName='" + lastName + '\'';
-        }
-
-        public Name(String firstName, String lastName) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-        }
-
-
-    }
 }
 
 // TODO: 13.05.2020 YAGNI
-
-
-
-
 
