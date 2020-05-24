@@ -1,14 +1,17 @@
 package task2;
 
+import task1.Person;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // TODO: 5/20/20 пора повыносить в отдельные фаилы эти классы. Hint добавь модификатор public и тогда через alt+Enter это будет легко сделать.
 public class Hr extends OfficeWorker{
 
-	public Hr(String fName, String lName) {
-		this.fName = fName;
-		this.lName = lName;
+	private Person person;
+
+	public Hr(Person person) {
+		this.person = person;
 	}
 
 	// TODO: 5/18/20 в условии все немного иначе, рандомное решение принимает директор. ХР проводит интервью с каждым кондидатом и отбирает подходящих или отсеивает.

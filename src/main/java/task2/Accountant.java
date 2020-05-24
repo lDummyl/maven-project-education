@@ -1,12 +1,12 @@
 package task2;
 
+import task1.Person;
+
 public class Accountant extends OfficeWorker {
 
-    public Accountant(String fName, String lName, int skill) {
+    private Person person;
 
-        this.fName = fName;
-        this.lName = lName;
-        this.skill = skill;
+    public Accountant(Person person) {
+        this.person = person;
     }
-
 }

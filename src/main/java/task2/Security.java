@@ -1,11 +1,12 @@
 package task2;
 
-public class Security extends OfficeWorker{
+import task1.Person;
 
-    public Security(String fName, String lName, int skill) {
+public class Security extends OfficeWorker {
 
-        this.fName = fName;
-        this.lName = lName;
-        this.skill = skill;
+    private Person person;
+
+    public Security(Person person) {
+        this.person = person;
     }
 }

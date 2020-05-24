@@ -1,12 +1,15 @@
 package task1;
 
+import task2.Accountant;
+import task2.Jurist;
 import task2.Secretary;
+import task2.Security;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PersonProvider{
+public class PersonProvider {
 
     static List<String> firstN = new ArrayList<>();
     static Random random = new Random();
@@ -38,13 +41,6 @@ public class PersonProvider{
         lastN.add("Djigurda");
     }
 
-    public static List<String> getFirstN(){
-        return firstN;
-    }
-
-    public static List<String> getLastN(){
-        return lastN;
-    }
 
     public Person getSomePerson() {
         return new Person(new Name(firstN.get(random.nextInt(firstN.size())), lastN.get(random.nextInt(lastN.size()))),
@@ -58,12 +54,41 @@ public class PersonProvider{
         }
         return list;
     }
-    public List<Secretary> getSomeSecretaries(int qty){
+
+    public List<Secretary> getSomeSecretaries(int qty) {
         List<Person> somePerson = getSomePerson(qty);
+        List<Secretary> secretaries = new ArrayList<>();
         for (Person person : somePerson) {
-            new Secretary(person);
+            secretaries.add(new Secretary(person));
         }
+        return secretaries;
     }
 
+    public List<Security> getSomeSecurities(int qty) {
+        List<Person> somePerson = getSomePerson(qty);
+        List<Security> securities = new ArrayList<>();
+        for (Person person : somePerson) {
+            securities.add(new Security(person));
+        }
+        return securities;
+    }
+
+    public List<Jurist> getSomeJurists(int qty) {
+        List<Person> somePerson = getSomePerson(qty);
+        List<Jurist> jurists = new ArrayList<>();
+        for (Person person : somePerson) {
+            jurists.add(new Jurist(person));
+        }
+        return jurists;
+    }
+
+    public List<Accountant> getSomeAccountants(int qty) {
+        List<Person> somePerson = getSomePerson(qty);
+        List<Accountant> accountants = new ArrayList<>();
+        for (Person person : somePerson) {
+            accountants.add(new Accountant(person));
+        }
+        return accountants;
+    }
 
 }
