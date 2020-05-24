@@ -15,6 +15,7 @@ public class Main {
     public void first() {
         // TODO: 1/26/20 ПЕРВЫЙ ЭТАП создать 5 разных человек и вывести имя старшего
         List<Person> listPersons = new ArrayList<>();
+        // TODO: 5/24/20 куда то пропали классы Name BirthDate может в VCS не попали.
         Person person = new Person(new Name("Vasily", "S"), new BirthDate(1989, 11, 11));
         Person person2 = new Person(new Name("Ivan", "K"), new BirthDate(2010, 11, 5));
         Person person3 = new Person(new Name("Sergey", "M"), new BirthDate(1980, 9, 2));

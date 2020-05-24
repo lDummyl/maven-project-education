@@ -1,7 +1,8 @@
 package task2;
 
 public class Office {
-    @Test
+
+    @Test // TODO: 5/24/20 зачем эта аннотация?
     public static Person firstHiredHuman = new Director().firstFinalChoice();
     public static Person secondHiredHuman = new Director().secondFinalChoice();
 	/*
