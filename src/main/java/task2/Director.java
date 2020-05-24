@@ -77,9 +77,6 @@ public class Director  {
 
     // TODO: 5/24/20 точка запуска должна быть одна в задаче, если хочешь протестировать переноси в тесты
     public static void main(String[] args) {
-        Director firstDirector = new Director();
-        firstDirector.firstFinalChoice();
-        Director secondDirector = new Director();
-        secondDirector.secondFinalChoice();
+
     }
 }
