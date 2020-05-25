@@ -1,27 +1,16 @@
 package task2;
 
+import task1.Person;
+
 public abstract class OfficeWorker  {
-    String fName, lName;
-    int skill;
 
-    public OfficeWorker(String fName, String lName, int skill) {
-        this.fName = fName;
-        this.lName = lName;
-        this.skill = skill;
+    private Person person;
+
+    public OfficeWorker(Person person) {
+        this.person = person;
     }
 
-    public OfficeWorker() {
-
-    }
-
-    public String getfName() {
-        return fName;
-    }
-    public String getlName() {
-        return lName;
-    }
-
-    public int getSkill() {
-        return skill;
+    public Person getPerson() {
+        return person;
     }
 }

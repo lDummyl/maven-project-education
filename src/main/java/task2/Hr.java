@@ -5,7 +5,6 @@ import task1.Person;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: 5/20/20 пора повыносить в отдельные фаилы эти классы. Hint добавь модификатор public и тогда через alt+Enter это будет легко сделать.
 public class Hr{
 
 	private Person person;
@@ -14,11 +13,38 @@ public class Hr{
 		this.person = person;
 	}
 
-	// TODO: 5/18/20 в условии все немного иначе, рандомное решение принимает директор. ХР проводит интервью с каждым кондидатом и отбирает подходящих или отсеивает.
+	public Object oldFilter(OfficeWorker officeWorker){
+		if(officeWorker.getPerson().getAge().getYear() < 1999){
+			return officeWorker;
+		}
+		return null;
+	}
+
+	public List<Object> filterWorker (List<Object> humans){
+		if(humans.get(0) instanceof Secretary){
+			List<Secretary> approvedSecretaries = new ArrayList<>();
+				for (int i = 0; i < humans.size(); i++){
+					approvedSecretaries.add((Secretary) oldFilter((OfficeWorker) humans.get(i)));
+				}
+				return approvedSecretaries;
+		}
+
+		List<Secretary> approveSecretary = new ArrayList<>();
+		for (int i=0; i < secretaries.size(); i++) {
+			if(secretaries.get(i).getPerson().getAge().getYear() > 1999){
+				approveSecretary.add(secretaries.get(i));
+			}
+		}
+		return approveSecretary;
+	}
+
+
 	public List<Secretary> filterSecretary (List<Secretary> secretaries){
 		List<Secretary> approveSecretary = new ArrayList<>();
-		for (int i=0; i<20; i++) {
+		for (int i=0; i < secretaries.size(); i++) {
+			if(secretaries.get(i).getPerson().getAge().getYear() > 1999){
 				approveSecretary.add(secretaries.get(i));
+			}
 		}
 		return approveSecretary;
 	}

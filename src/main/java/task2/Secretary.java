@@ -3,7 +3,7 @@ package task2;
 import task1.Name;
 import task1.Person;
 
-public class Secretary {
+public class Secretary extends OfficeWorker{
 
 	private Person person;
 
@@ -15,6 +15,10 @@ public class Secretary {
 	// TODO: 5/20/20 а что сразу удалять мтожно же наоборот использовать
 	public void sendMail() {
 		System.out.println("Mail has been sent");
+	}
+
+	public Person getPerson() {
+		return person;
 	}
 
 	@Override
