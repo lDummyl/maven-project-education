@@ -67,6 +67,7 @@ public class Office {
 	// то диретор принимает решение и берет одного в штат
 
 	void invitePeaople(Object human){
+        // TODO: 5/26/20 офис это простаранство, всю работу в нем делают люди, на чью похожа эта?
         if(human instanceof Secretary){
             setSecretaries((Secretary) human);
         }else if (human instanceof Security){

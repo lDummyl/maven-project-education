@@ -2,9 +2,12 @@ package task1;
 
 import task2.Accountant;
 import task2.Jurist;
+import task2.OfficeWorker;
 import task2.Secretary;
 import task2.Security;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -91,4 +94,15 @@ public class PersonProvider {
         return accountants;
     }
 
+    // TODO: 5/26/20 вот тебе бонус с примененеием черной магии, но работать он будет не сразу, нужно понять чего и где не хватает.
+    public <T extends OfficeWorker> List<T> getSomeOf(Class<T> clazz, int qty) throws Exception {
+        List<Person> somePerson = new PersonProvider().getSomePerson(qty);
+        List<T> list = new ArrayList<>();
+        for (Person person : somePerson) {
+            Constructor<T> constructor = clazz.getConstructor(Person.class);
+            T t = constructor.newInstance(person);
+            list.add(t);
+        }
+        return list;
+    }
 }

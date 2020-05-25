@@ -16,6 +16,7 @@ public class Main {
 
 		PersonProvider personProvider = new PersonProvider();
 
+		// TODO: 5/26/20 как думашь стоит уже убрать копипасту, или может создать бизнес центр?
 		List<Secretary> secretaries1 = personProvider.getSomeSecretaries(50);
 		List<Security> securities1 = personProvider.getSomeSecurities(50);
 		List<Jurist> jurists1 = personProvider.getSomeJurists(50);
@@ -26,7 +27,7 @@ public class Main {
 		Office office1 = new Office();
 		office1.setDirector(d1);
 		office1.setHr(hr1);
-		office1.invitePeaople(d1.inviteSecretary(hr1.filterSecretary(secretaries1)));
+		office1.invitePeaople(d1.inviteSecretary(hr1.filterSecretary(secretaries1)));// TODO: 5/26/20 что это у тебя hr такой бойкий не доехав до офиса уже отбирает, не порядок
 		office1.invitePeaople(d1.inviteSecurity(hr1.filterSecurity(securities1)));
 		office1.invitePeaople(d1.inviteJurist(hr1.filterJurist(jurists1)));
 		office1.invitePeaople(3, d1.inviteAccountant(hr1.filterAccountant(accountants1)),
@@ -44,6 +45,7 @@ public class Main {
 		List<Jurist> jurists2 = personProvider.getSomeJurists(50);
 		List<Accountant> accountants2 = personProvider.getSomeAccountants(50);
 
+		// TODO: 5/26/20 какие-то они у тебя бездушные, давай один директор будет добрый а другой капризный, только не на совах а на деле.
 		Director d2 = new Director(personProvider.getSomePerson());
 		Hr hr2 = new Hr(personProvider.getSomePerson());
 		Office office2 = new Office();
@@ -59,6 +61,7 @@ public class Main {
 		Готово. Метод, который добавляет несколько сотрудников тоже простыня. И Hr фильтрует не по критериям,
 		а просто берет первые 20 человек из 50 сгенерированных людей и дает их директору.
 		 */
+		// TODO: 5/26/20 ну так не пойдет, все должно быть как в жизни, интервью с каждым, а директор принимает решение из оставшихся вариантов.
 
 		office2.listWorkers();
 
