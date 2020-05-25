@@ -16,74 +16,57 @@ public class Main {
 
 		PersonProvider personProvider = new PersonProvider();
 
-		List<Secretary> secretaries = personProvider.getSomeSecretaries(20);
-		List<Security> securities = personProvider.getSomeSecurities(20);
-		List<Jurist> jurists = personProvider.getSomeJurists(20);
-		List<Accountant> accountants = personProvider.getSomeAccountants(20);
+		List<Secretary> secretaries1 = personProvider.getSomeSecretaries(50);
+		List<Security> securities1 = personProvider.getSomeSecurities(50);
+		List<Jurist> jurists1 = personProvider.getSomeJurists(50);
+		List<Accountant> accountants1 = personProvider.getSomeAccountants(50);
 
-		Director director = new Director(personProvider.getSomePerson());
-		Hr hr = new Hr(personProvider.getSomePerson());
+		Director d1 = new Director(personProvider.getSomePerson());
+		Hr hr1 = new Hr(personProvider.getSomePerson());
+		Office office1 = new Office();
+		office1.setDirector(d1);
+		office1.setHr(hr1);
+		office1.invitePeaople(d1.inviteSecretary(hr1.filterSecretary(secretaries1)));
+		office1.invitePeaople(d1.inviteSecurity(hr1.filterSecurity(securities1)));
+		office1.invitePeaople(d1.inviteJurist(hr1.filterJurist(jurists1)));
+		office1.invitePeaople(3, d1.inviteAccountant(hr1.filterAccountant(accountants1)),
+				d1.inviteAccountant(hr1.filterAccountant(accountants1)),
+				d1.inviteAccountant(hr1.filterAccountant(accountants1)));
 
-		Office office = new Office();
-		office.setDirector(director);
-		office.setHr(hr);
-		office.invitePeaople(director.invite(hr.filterOfficeWorker(secretaries)));
+
+
+		office1.listWorkers();
+
+
+
+		List<Secretary> secretaries2 = personProvider.getSomeSecretaries(50);
+		List<Security> securities2 = personProvider.getSomeSecurities(50);
+		List<Jurist> jurists2 = personProvider.getSomeJurists(50);
+		List<Accountant> accountants2 = personProvider.getSomeAccountants(50);
+
+		Director d2 = new Director(personProvider.getSomePerson());
+		Hr hr2 = new Hr(personProvider.getSomePerson());
+		Office office2 = new Office();
+		office2.setDirector(d2);
+		office2.setHr(hr2);
+		office2.invitePeaople(d2.inviteSecretary(hr2.filterSecretary(secretaries2)));
+		office2.invitePeaople(d2.inviteSecurity(hr2.filterSecurity(securities2)));
+		office2.invitePeaople(d2.inviteJurist(hr2.filterJurist(jurists2)));
+		office2.invitePeaople(2, d2.inviteAccountant(hr2.filterAccountant(accountants2)),
+				d2.inviteAccountant(hr2.filterAccountant(accountants2)));
 
 		/*
-		Я пока еще не закончил. Вроде разобрался с созданием людей разных должностей, но сейчас уперся в приведение типов.
-		Я хотел сделать у Hr метод фильтрации, через который можно было бы прогонять людей любой должности и отсеивать
-		часть по какому-либо критерию (был skill). Далее отфильтрованный список работников попадал в метод к директору и он
-		случайно выбирал одного. Сейчас я не могу принять какого-либо человека, так как фильтр ожидает от меня OfficeWorker,
-		а я ему передаю лист Secretary. То есть мне либо писать фильтр на каждый тип сотрудников у Hr (и у директора тоже,
-		что мне кажется очень нелогичным), либо еще подумать над тем, как привести один тип к другому.
+		Готово. Метод, который добавляет несколько сотрудников тоже простыня. И Hr фильтрует не по критериям,
+		а просто берет первые 20 человек из 50 сгенерированных людей и дает их директору.
 		 */
+
+		office2.listWorkers();
+
+
 
 		// TODO: 5/21/20 ну а что директора и HR какие-то особенные? Такие же офисные сотрудники как и все прочие, зачем нам 2 разных способа создания?
 
 
 
     }
-
-
-
-//	public static List<OfficeWorker> createWorker(String position, int amountOfPosition){
-//		Random random = new Random();
-//		switch (position){
-//			case "Secretary":
-//				List<OfficeWorker> secretaries = new ArrayList<>();
-//				for(int i=0; i<amountOfPosition; i++){
-//					secretaries.add(new Secretary(task1.Main.getFirstN().get(random.nextInt(task1.Main.getFirstN().size())),
-//							task1.Main.getLastN().get(random.nextInt(task1.Main.getLastN().size())), random.nextInt(10)));
-//				}
-//				return secretaries;
-//				//break;
-//			case "Security":
-//				List<OfficeWorker> securities = new ArrayList<>();
-//				for(int i=0; i<amountOfPosition; i++){
-//					securities.add(new Security(task1.Main.getFirstN().get(random.nextInt(task1.Main.getFirstN().size())),
-//							task1.Main.getLastN().get(random.nextInt(task1.Main.getLastN().size())), random.nextInt(10)));
-//				}
-//				return securities;
-//			//break;
-//			case "Jurist":
-//				List<OfficeWorker> jurists = new ArrayList<>();
-//				for(int i=0; i<amountOfPosition; i++){
-//					jurists.add(new Jurist(task1.Main.getFirstN().get(random.nextInt(task1.Main.getFirstN().size())),
-//							task1.Main.getLastN().get(random.nextInt(task1.Main.getLastN().size())), random.nextInt(10)));
-//				}
-//				return jurists;
-//			//break;
-//			case "Accountant":
-//				List<OfficeWorker> accountants = new ArrayList<>();
-//				for(int i=0; i<amountOfPosition; i++){
-//					accountants.add(new Accountant(task1.Main.getFirstN().get(random.nextInt(task1.Main.getFirstN().size())),
-//							task1.Main.getLastN().get(random.nextInt(task1.Main.getLastN().size())), random.nextInt(10)));
-//				}
-//				return accountants;
-//			//break;
-//		}
-//        return null;
-//	}
-
-
 }

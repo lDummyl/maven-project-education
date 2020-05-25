@@ -17,13 +17,13 @@ public class Office {
 
 	Hr hr;
 
-	List<Secretary> secretaries;
+	List<Secretary> secretaries = new ArrayList();
 
-	List<Security> securities;
+	List<Security> securities = new ArrayList();
 
-	List<Jurist> jurists;
+	List<Jurist> jurists = new ArrayList();
 
-    List<Accountant> accountants;
+    List<Accountant> accountants = new ArrayList();
 
 
 
@@ -51,13 +51,15 @@ public class Office {
         this.accountants.add(accountant);
     }
 
-    // TODO: 5/21/20 нет лучшего средства против NPE как дебаг режим
-//	Secretary secretary = (Secretary) director.invite(hr.filterOfficeWorker(officeWorkers));
-//	Почему-то в этом местя я ловлю NPE. Хотя если просто выводить на печать выбранного директором секретаря, то он видит этот объект.
+
 
 		public void listWorkers () {
 			System.out.println(director);
 			System.out.println(hr);
+            System.out.println(secretaries);
+            System.out.println(securities);
+            System.out.println(jurists);
+            System.out.println(accountants);
 
 		}
 
@@ -75,6 +77,12 @@ public class Office {
             setAccountants((Accountant) human);
         }
 	}
+
+	void invitePeaople(int qty, Object ...human){
+        for(int i = 0; i < qty; i++){
+            invitePeaople(human[i]);
+        }
+    }
 
 
 

@@ -3,7 +3,7 @@ package task2;
 import task1.Name;
 import task1.Person;
 
-public class Secretary extends OfficeWorker {
+public class Secretary {
 
 	private Person person;
 
@@ -17,6 +17,10 @@ public class Secretary extends OfficeWorker {
 		System.out.println("Mail has been sent");
 	}
 
-
-
+	@Override
+	public String toString() {
+		return "Secretary{" +
+				 person +
+				'}';
+	}
 }
