@@ -1,8 +1,5 @@
 package task1;
 
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -58,41 +55,7 @@ public class Main {
     //  удобней всего выделить строки (52-55) и нажать ctrl+alt+m придумать название общего метода, 
     //  а дубликаты идея найдет и заменит сама. Тогда будет 4 метода, но все разные и без копипасты.
 
-    public static int randomYear() {
-        int min = 1980;
-        int max = 2010;
-        return randomDate(min, max);
-    }
 
-    public static int randomDate(int min, int max) {
-        int diff = max - min;
-        Random random = new Random();
-        int i = random.nextInt(diff);
-        return i + min;
-    }
-
-    public static int randomMonth() {
-        int min = 1;
-        int max = 12;
-        return randomDate(min, max);
-    }
-
-    public static int randomDay() {
-        int min = 1;
-        int max = 30;
-        return randomDate(min, max);
-    }
-    static Date date = new Date();
-
-   /* public static Date toDate (int year, int month, int day)
-    {
-        Calendar calendar = new GregorianCalendar();
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DATE, day);
-        return calendar.getTime();
-    }
-    */
 
     // TODO: 5/18/20 можно использовать контракт проще. Можно так же использовать всмето Date класс LocalDate. Его проще получить сравнивать и прочее
    /* public static Date toDate (Age age)
@@ -103,156 +66,46 @@ public class Main {
     }
     */
 
-    public static LocalDate toDate (Age age)
-    {
-        return LocalDate.of(age.year,age.month,age.day);
+    public LocalDate toDate(Age age) {
+        return LocalDate.of(age.year, age.month, age.day);
     }
 
     // TODO: 5/20/20 так не просто можно а оптимально, за исключением того что мы изучаем ООП а в нем статик ругательное слово, сделай больше похожим на equals метод можно модифицировать isOlderThan
     // можно так? или нужно высчитывать количество прожитых дней и сравнивать их?
-    public static boolean isOlder (LocalDate date, LocalDate date2) {
+    public boolean isOlder(LocalDate date, LocalDate date2) {
         return date2.isBefore(date);
     }
 
-       // return (int)( (date.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24)); // TODO: 5/18/20 вот тут можно почитать что не так http://www.8bytes.net/2018/04/18/antipattern-1-magicheskoe-chislo/
+    // return (int)( (date.getTime() - date2.getTime()) / (1000 * 60 * 60 * 24)); // TODO: 5/18/20 вот тут можно почитать что не так http://www.8bytes.net/2018/04/18/antipattern-1-magicheskoe-chislo/
 
-    public static Person getOldestPerson(List<Person> people)
-    {
+    public Person getOldestPerson(List<Person> people) {
         Person oldest = people.get(0);
         LocalDate date = toDate(oldest.age);
         for (Person person : people) {
-            if (isOlder(date, toDate(person.age)))
-            {
+            if (isOlder(date, toDate(person.age))) {
+                date = toDate(person.age);
                 oldest = person;
             }
         }
         return oldest;
     }
-    // TODO: 5/20/20 стоит избавляться от закоментированных кусков кода, все это хранится в контроле версий
-    /* Person oldest = people.get(0);
-        // TODO: 5/18/20 если уже вынули из коллекции локальную ссылку, зачем делать это еще 3 раза ниже
-        Date date1 = toDate(people.get(0).age.year, people.get(0).age.month, people.get(0).age.day);
-        int maxAge = difference(date, date1);
-
-        for (int i=0; i<people.size(); i++) // TODO: 5/18/20 лучше заменить на простой forEach через iter
-        {
-            int age2 = difference(date, toDate(people.get(i).age.year, people.get(i).age.month, people.get(i).age.day));
-            if (maxAge <= age2)
-            {
-                maxAge = age2;
-                oldest = people.get(i);
-            }
-        }
-        //System.out.println(maxAge);
-        return oldest;
-
-        */
 
     public static void second() {
         // TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
 
         // TODO: 5/6/20 вообще я имел в виду скорей коллекцию имен, строковых. Фамилии к слову можно сделать из тех же имен Lastname = Firstname + "son"
         //  так получиться намного больше вариантов/комбинаций уникальных. Сейчас у тебя создается обычно 3-4 человека в итоге. А нужно стабильно 5.
-        List<String> listOfFirstNames = Arrays.asList("Ella", "Harry", "Artur", "Kevin", "Kate");
-        List<String> listOFLastNames = Arrays.asList("Brown", "Harrison", "Stevenson", "Gibson", "Smith");
+        PersonProvider personProvider = new PersonProvider();
+        List<Person> people = personProvider.getPeople();
+        Main main = new Main();
 
-        Map<Name,Age> persons = new HashMap<>(); // TODO: 5/6/20 задавать размер коллекции лишнее, там нормальные механизмы расширения
-
-        // TODO: 5/6/20 круто, с точки зрения практики можно, но обычный for в данном случае существенно проще его шаблон можно вызвать командой itar.
-
-        // переделала коллекцию - добавила рандомный выбор фамилий
-        for (int i = 0; i < listOfFirstNames.size(); i++) {
-            Random random = new Random();
-            Name name = new Name(listOfFirstNames.get(random.nextInt(listOfFirstNames.size())), listOFLastNames.get(random.nextInt(listOFLastNames.size())));
-            Age age = new Age(randomYear(), randomMonth(), randomDay());
-            persons.put(name,age);
-        }
-        List<Person> people = new ArrayList<>();
-        for (Map.Entry<Name, Age> nameAgeEntry : persons.entrySet()) {
-            people.add(new Person(nameAgeEntry.getKey(), nameAgeEntry.getValue()));
-            System.out.println(nameAgeEntry);
-        }
-
-       // Person oldest = getOldest(people);
-        Person oldest = getOldestPerson(people);
+        // Person oldest = getOldest(people);
+        Person oldest = main.getOldestPerson(people);
         System.out.println("Старший это - " + oldest);
-        }
-
-
-        // TODO: 5/6/20 в заключении не будет большого страха если ты переиспользуешь кусок кода который из листа кандидатов выбирал нужного,
-        //  только лучше обойтись без копирования а вынести это в отдельную функцию.
-
     }
 
 
-class Name {
+    // TODO: 5/6/20 в заключении не будет большого страха если ты переиспользуешь кусок кода который из листа кандидатов выбирал нужного,
+    //  только лучше обойтись без копирования а вынести это в отдельную функцию.
 
-    String firstName;
-    String lastName;
-
-    public Name(String name) {
-        firstName = name;
-    }
-
-    public Name(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Name{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
-}
-
-class Age {
-
-    int year;
-    int month;
-    int day;
-
-    public Age(int year, int month, int day) {
-        this.year = year;
-        this.month = month;
-        this.day = day;
-    }
-
-    @Override
-    public String toString() {
-        return "Age{" +
-                "year=" + year +
-                ", month=" + month +
-                ", day=" + day +
-                '}';
-    }
-}
-
-class Person {
-    public Person(Name name, Age age) {
-        this.name = name;
-        this.age = age;
-    }
-
-    Name name;
-    Age age;
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "name=" + name +
-                ", age=" + age +
-                '}';
-    }
-
-    public boolean isOlderThan(Person oldest) {
-//		oldest 1900 this 1990
-        // TODO: 5/18/20 if не нужен в таком случае сработает так return !oldest.age.year < age.year или так return oldest.age.year >= age.year  
-
-        return oldest.age.year >= age.year;
-
-    }
 }
