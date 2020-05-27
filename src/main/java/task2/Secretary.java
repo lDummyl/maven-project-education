@@ -5,7 +5,7 @@ import task1.Person;
 
 public class Secretary extends OfficeWorker{
 
-	private Person person;
+	Person person;
 
 	public Secretary(Person person) {
 		this.person = person;

@@ -2,13 +2,12 @@ package task2;
 
 import task1.Person;
 
-public abstract class OfficeWorker  {
+import java.util.ArrayList;
+import java.util.List;
 
-    private Person person;
+public abstract class OfficeWorker<T>  {
 
-    public OfficeWorker(Person person) {
-        this.person = person;
-    }
+    Person person;
 
     public Person getPerson() {
         return person;
