@@ -31,6 +31,7 @@ public class Main {
 		System.out.println(hr.filter(securities1));
 
 		Director director = new Director(personProvider.getSomePerson());
+		// TODO: 5/28/20 вот эти все гармошечки нужно убрать, в Main только создаются и ассйнятся объекты. Для всех действий предназначен офис куда он пропал кстати?
 		System.out.println(director.invite(hr.filter(secretaries1)));
 		System.out.println(director.invite(hr.filter(securities1)));
 
