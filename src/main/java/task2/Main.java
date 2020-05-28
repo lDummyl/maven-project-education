@@ -21,6 +21,19 @@ public class Main {
 		List<Security> securities1 = personProvider.getSomeSecurities(50);
 		List<Jurist> jurists1 = personProvider.getSomeJurists(50);
 		List<Accountant> accountants1 = personProvider.getSomeAccountants(50);
+
+		//Тесты
+
+		Hr2 hrExp = new Hr2(personProvider.getSomePerson());
+		Hr hr = new Hr(personProvider.getSomePerson());
+
+		System.out.println(hrExp.filter(secretaries1));
+		System.out.println(hr.filter(securities1));
+
+		Director director = new Director(personProvider.getSomePerson());
+		System.out.println(director.invite(hr.filter(secretaries1)));
+		System.out.println(director.invite(hr.filter(securities1)));
+
 //
 //		Director d1 = new Director(personProvider.getSomePerson());
 //		Hr hr1 = new Hr(personProvider.getSomePerson());
@@ -34,10 +47,6 @@ public class Main {
 //				d1.inviteAccountant(hr1.filterAccountant(accountants1)),
 //				d1.inviteAccountant(hr1.filterAccountant(accountants1)));
 
-		Hr2 hrExp = new Hr2(personProvider.getSomePerson());
-
-        System.out.println(hrExp.filter(secretaries1));
-        System.out.println(hrExp.filter(securities1));
 
 
 

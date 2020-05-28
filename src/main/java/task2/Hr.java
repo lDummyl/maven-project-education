@@ -10,45 +10,25 @@ public class Hr extends OfficeWorker{
 	Person person;
 
 
+	public static final int YEAR_OF_BIRTH = 2000;
+
+
+	public Hr(Person person) {
+		this.person = person;
+	}
+
+	public <T extends OfficeWorker>List<T> filter(List<T> officeWorkers){
+		List<T> approved = new ArrayList<>();
+		for(int i = 0; i < officeWorkers.size(); i++){
+			if(officeWorkers.get(i).getPerson().getAge().getYear() < YEAR_OF_BIRTH){
+				approved.add(officeWorkers.get(i));
+			}
+		}
+		return approved;
+	}
 
 
 
-
-
-
-//	public List<Secretary> filterSecretary (List<Secretary> secretaries){
-//		List<Secretary> approveSecretary = new ArrayList<>();
-//		for (int i=0; i < secretaries.size(); i++) {
-//			if(secretaries.get(i).getPerson().getAge().getYear() > 1999){
-//				approveSecretary.add(secretaries.get(i));
-//			}
-//		}
-//		return approveSecretary;
-//	}
-//
-//	public List<Security> filterSecurity (List<Security> securities){
-//		List<Security> approveSecurity = new ArrayList<>();
-//		for (int i=0; i<20; i++) {
-//			approveSecurity.add(securities.get(i));
-//		}
-//		return approveSecurity;
-//	}
-//
-//	public List<Jurist> filterJurist (List<Jurist> jurists){
-//		List<Jurist> approveJurist = new ArrayList<>();
-//		for (int i=0; i<20; i++) {
-//			approveJurist.add(jurists.get(i));
-//		}
-//		return approveJurist;
-//	}
-//
-//	public List<Accountant> filterAccountant (List<Accountant> accountants){
-//		List<Accountant> approveAccountant = new ArrayList<>();
-//		for (int i=0; i<20; i++) {
-//			approveAccountant.add(accountants.get(i));
-//		}
-//		return approveAccountant;
-//	}
 
 	@Override
 	public String toString() {
