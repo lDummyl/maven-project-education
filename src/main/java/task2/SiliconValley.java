@@ -4,32 +4,38 @@ package task2;
 // выбирает рандомно секретаря в штат, которого ему пердлагает HR,
 // все это происходит в офисе
 
+import task1.Age;
+import task1.Name;
 import task1.PersonProvider;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.List;
 
 public class SiliconValley {
 	public static void main(String[] args) {
 		Office apple = new Office();
 		Office google = new Office();
-		Director steveJobs = new Director("Steve Jobs" );
+		Director steveJobs = new Director(new Name("Steve", "Jobs"), new Age(1955,1,24) );
 		apple.director = steveJobs;
-		Director sergeyBrin = new Director("Sergey Brin");
+		Director sergeyBrin = new Director(new Name("Sergey", "Brin"), new Age(1973, 7, 21));
 		google.director = sergeyBrin;
 
-		Hr oscar = new Hr("Oscar");
+		Hr oscar = new Hr(new Name("Oscar"), new Age(LocalDate.of(1994, 4, 15)));
 		apple.hr = oscar;
 		PersonProvider personProvider = new PersonProvider();
 		List<Secretary> secretaries = personProvider.getSecretaries(100);
 
 		for (Secretary secretary : secretaries) {
 			apple.invitePeople(secretary);
+			//System.out.println(secretary);
+			//secretary.interview(secretary);
+
 		}
+		System.out.println(oscar.passInterview(secretaries).size());
+		System.out.println(oscar.passInterview(secretaries));
+
 
 		System.out.println(apple.secretary != null);
-
-
 
 	}
 }

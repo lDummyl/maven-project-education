@@ -1,21 +1,44 @@
 package task2;
 
-public class Secretary
+import task1.Age;
+import task1.Name;
+import task1.Person;
+
+import java.util.Random;
+
+public class Secretary extends Person
 {
-	private String name;
 	public static int secretaryCount = 0;
-	public Secretary(String name) {
-		this.name = name;
+	public Secretary(Name name, Age age) {
+		super(name,age);
 	}
 	public void count ()
 	{
 		secretaryCount ++;
 	}
-	public void setName(String name) {
+	public void setName(Name name) {
 		this.name = name;
 	}
-	public String getName() {
+	public Name getName() {
 		return name;
 	}
+	public void setAge(Age age)
+	{
+		this.age = age;
+	}
+	public Age getAge (){return age;}
+
+
+	public boolean interview (Secretary secretary)
+	{
+		Random random = new Random();
+		int x = random.nextInt(100);
+		if (x > 50) {
+			return true;
+		}
+		else
+			return false;
+	}
+
 
 }

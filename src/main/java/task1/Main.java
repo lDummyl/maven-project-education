@@ -70,6 +70,8 @@ public class Main {
         return LocalDate.of(age.year, age.month, age.day);
     }
 
+
+
     // TODO: 5/20/20 так не просто можно а оптимально, за исключением того что мы изучаем ООП а в нем статик ругательное слово, сделай больше похожим на equals метод можно модифицировать isOlderThan
     // можно так? или нужно высчитывать количество прожитых дней и сравнивать их?
     public boolean isOlder(LocalDate date, LocalDate date2) {
@@ -96,11 +98,14 @@ public class Main {
         // TODO: 5/6/20 вообще я имел в виду скорей коллекцию имен, строковых. Фамилии к слову можно сделать из тех же имен Lastname = Firstname + "son"
         //  так получиться намного больше вариантов/комбинаций уникальных. Сейчас у тебя создается обычно 3-4 человека в итоге. А нужно стабильно 5.
         PersonProvider personProvider = new PersonProvider();
-        List<Person> people = personProvider.getPeople();
+        List<Person> people = new ArrayList<>();
+        while (people.size() != 5) {
+            people.add(personProvider.getPeople());
+        }
         Main main = new Main();
 
-        // Person oldest = getOldest(people);
-        Person oldest = main.getOldestPerson(people);
+        Person oldest = getOldest(people);
+        Person oldest2 = main.getOldestPerson(people);
         System.out.println("Старший это - " + oldest);
     }
 
