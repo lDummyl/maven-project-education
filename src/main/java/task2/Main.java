@@ -17,6 +17,7 @@ public class Main {
     public static void main(String[] args) {
     	PersonProvider personProvider = new PersonProvider();
     	BusinessCenter sova = new BusinessCenter();
+	    // TODO: 5/31/20 ну и зачем дефолтные значения прописывать explicitly?
 		Office sovaOffice1 = sova.createOffice(1, 1, 1, 3);
 		Office sovaOffice2 = sova.createOffice(1, 1, 1, 2);
 
@@ -44,6 +45,7 @@ public class Main {
 		sovaOffice1.listWorkers();
 
 		try{
+			// TODO: 5/31/20 что делает этот метод?
 			sovaOffice2.work(secretaries);
 			sovaOffice2.work(securities);
 			sovaOffice2.work(jurists);
@@ -51,7 +53,8 @@ public class Main {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		sovaOffice2.listWorkers();
+		sovaOffice2.listWorkers();// TODO: 5/31/20 каждый метод это действие, действие это глагол, в каждм методе должен быть глагол
+
 
 
 		// TODO: 5/31/20 да и 5 тоже
