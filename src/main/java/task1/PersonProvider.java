@@ -1,10 +1,6 @@
 package task1;
 
-import task2.Accountant;
-import task2.Jurist;
-import task2.OfficeWorker;
-import task2.Secretary;
-import task2.Security;
+import task2.*;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -56,6 +52,14 @@ public class PersonProvider {
             list.add(getSomePerson());
         }
         return list;
+    }
+
+    public Director getSomeDirector(){
+        return new Director(getSomePerson());
+    }
+
+    public Hr getSomeHr(){
+        return new Hr(getSomePerson());
     }
 
     public List<Secretary> getSomeSecretaries(int qty) {

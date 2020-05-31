@@ -10,21 +10,25 @@ import java.util.Random;
 
 public class Office {
 
-	// TODO: 5/21/20 ну что ж похоже нам предстоит организовать энергичное расширение нашего офиса,
-	//  пожалуй не помешает добавить юриста, охранника, и бухгалтеров(в одном офисе 2х с другом 3х).
+    // TODO: 5/21/20 ну что ж похоже нам предстоит организовать энергичное расширение нашего офиса,
+    //  пожалуй не помешает добавить юриста, охранника, и бухгалтеров(в одном офисе 2х с другом 3х).
 
-	Director director;
+    Director director;
 
-	Hr hr;
+    Hr hr;
 
-	List<Secretary> secretaries = new ArrayList();
+    public Office(Director director, Hr hr) {
+        this.director = director;
+        this.hr = hr;
+    }
 
-	List<Security> securities = new ArrayList();
+    List<Secretary> secretaries = new ArrayList();
 
-	List<Jurist> jurists = new ArrayList();
+    List<Security> securities = new ArrayList();
+
+    List<Jurist> jurists = new ArrayList();
 
     List<Accountant> accountants = new ArrayList();
-
 
 
     public void setDirector(Director director) {
@@ -51,39 +55,50 @@ public class Office {
         this.accountants.add(accountant);
     }
 
+    <T extends OfficeWorker> void work(List<? extends T>... tList) {
+        for (int i = 0; i < tList.length; i++) {
+            if (tList[i].get(0) instanceof Secretary) {
+                setSecretaries((Secretary) director.invite(hr.filter(tList[i])));
+            } else if (tList[i].get(0) instanceof Security) {
+                setSecurities((Security) director.invite(hr.filter(tList[i])));
+            } else if (tList[i].get(0) instanceof Jurist) {
+                setJurists((Jurist) director.invite(hr.filter(tList[i])));
+            } else if (tList[i].get(0) instanceof Accountant) {
+                setAccountants((Accountant) director.invite(hr.filter(tList[i])));
+            }
+        }
+    }
 
-
-		public void listWorkers () {
-			System.out.println(director);
-			System.out.println(hr);
+        public void listWorkers(){
+            System.out.println(director);
+            System.out.println(hr);
             System.out.println(secretaries);
             System.out.println(securities);
             System.out.println(jurists);
             System.out.println(accountants);
-
-		}
-
-	//претенденты идут по одному, когда их достаточно,
-	// то диретор принимает решение и берет одного в штат
-
-	void invitePeaople(Object human){
-        // TODO: 5/26/20 офис это простаранство, всю работу в нем делают люди, на чью похожа эта?
-        if(human instanceof Secretary){
-            setSecretaries((Secretary) human);
-        }else if (human instanceof Security){
-            setSecurities((Security) human);
-        }else if (human instanceof Jurist) {
-            setJurists((Jurist) human);
-        }else if (human instanceof Accountant) {
-            setAccountants((Accountant) human);
         }
-	}
 
-	void invitePeaople(int qty, Object ...human){
-        for(int i = 0; i < qty; i++){
-            invitePeaople(human[i]);
+        //претенденты идут по одному, когда их достаточно,
+        // то диретор принимает решение и берет одного в штат
+
+        void invitePeaople (Object human){
+            // TODO: 5/26/20 офис это простаранство, всю работу в нем делают люди, на чью похожа эта?
+            if (human instanceof Secretary) {
+                setSecretaries((Secretary) human);
+            } else if (human instanceof Security) {
+                setSecurities((Security) human);
+            } else if (human instanceof Jurist) {
+                setJurists((Jurist) human);
+            } else if (human instanceof Accountant) {
+                setAccountants((Accountant) human);
+            }
         }
-    }
+
+        void invitePeaople ( int qty, Object ...human){
+            for (int i = 0; i < qty; i++) {
+                invitePeaople(human[i]);
+            }
+        }
 
 
 
