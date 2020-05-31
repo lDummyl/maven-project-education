@@ -2,18 +2,14 @@ package task2;
 
 import task1.PersonProvider;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class BusinessCenter {
 
-    public List<Office> createOffice(int qty){
+    public Office createOffice(int requiredQtyOfSecretary, int requiredQtyOfSecurity,
+                               int requiredQtyOfJurist, int requiredQtyOfAccountants){
         PersonProvider personProvider = new PersonProvider();
-        List<Office> offices = new ArrayList<>();
-        for (int i = 0; i < qty; i++){
-            offices.add(new Office(personProvider.getSomeDirector(), personProvider.getSomeHr()));
-        }
-        return offices;
+        return new Office(personProvider.getSomeDirector(), personProvider.getSomeHr(), requiredQtyOfSecretary,
+                requiredQtyOfSecurity, requiredQtyOfJurist, requiredQtyOfAccountants);
     }
 
 }

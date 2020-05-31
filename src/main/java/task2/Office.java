@@ -10,6 +10,11 @@ import java.util.Random;
 
 public class Office {
 
+    int requiredQtyOfAccountants;
+    int requiredQtyOfJurist;
+    int requiredQtyOfSecretary;
+    int requiredQtyOfSecurity;
+
     // TODO: 5/21/20 ну что ж похоже нам предстоит организовать энергичное расширение нашего офиса,
     //  пожалуй не помешает добавить юриста, охранника, и бухгалтеров(в одном офисе 2х с другом 3х).
 
@@ -17,7 +22,12 @@ public class Office {
 
     Hr hr;
 
-    public Office(Director director, Hr hr) {
+    public Office(Director director, Hr hr, int requiredQtyOfSecretary, int requiredQtyOfSecurity,
+                  int requiredQtyOfJurist, int requiredQtyOfAccountants) {
+        this.requiredQtyOfAccountants = requiredQtyOfAccountants;
+        this.requiredQtyOfJurist = requiredQtyOfJurist;
+        this.requiredQtyOfSecretary = requiredQtyOfSecretary;
+        this.requiredQtyOfSecurity = requiredQtyOfSecurity;
         this.director = director;
         this.hr = hr;
     }
@@ -55,16 +65,30 @@ public class Office {
         this.accountants.add(accountant);
     }
 
-    <T extends OfficeWorker> void work(List<? extends T>... tList) {
+//    <T extends OfficeWorker> void work(List<? extends T>... tList) {
+//        for (int i = 0; i < tList.length; i++) {
+//            if (tList[i].get(0) instanceof Secretary) {
+//                setSecretaries((Secretary) director.invite(hr.filter(tList[i])));
+//            } else if (tList[i].get(0) instanceof Security) {
+//                setSecurities((Security) director.invite(hr.filter(tList[i])));
+//            } else if (tList[i].get(0) instanceof Jurist) {
+//                setJurists((Jurist) director.invite(hr.filter(tList[i])));
+//            } else if (tList[i].get(0) instanceof Accountant) {
+//                setAccountants((Accountant) director.invite(hr.filter(tList[i])));
+//            }
+//        }
+//    }
+
+    <T extends OfficeWorker> void work(List<? extends T>... tList) throws Exception {
         for (int i = 0; i < tList.length; i++) {
             if (tList[i].get(0) instanceof Secretary) {
-                setSecretaries((Secretary) director.invite(hr.filter(tList[i])));
+                secretaries = (List<Secretary>) director.invite(hr.filter(tList[i]), requiredQtyOfSecretary);
             } else if (tList[i].get(0) instanceof Security) {
-                setSecurities((Security) director.invite(hr.filter(tList[i])));
+                securities = (List<Security>) director.invite(hr.filter(tList[i]), requiredQtyOfSecurity);
             } else if (tList[i].get(0) instanceof Jurist) {
-                setJurists((Jurist) director.invite(hr.filter(tList[i])));
+                jurists = (List<Jurist>) director.invite(hr.filter(tList[i]), requiredQtyOfJurist);
             } else if (tList[i].get(0) instanceof Accountant) {
-                setAccountants((Accountant) director.invite(hr.filter(tList[i])));
+                accountants = (List<Accountant>) director.invite(hr.filter(tList[i]), requiredQtyOfAccountants);
             }
         }
     }

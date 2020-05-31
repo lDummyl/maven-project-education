@@ -21,12 +21,12 @@ public class Director{
 		return filteredWorkers.get(index);
 	}
 
-	public <T extends OfficeWorker>List<T> invite(List<T> filteredWorkers, int qty) throws Exception {
+	public <T extends OfficeWorker>List<T> invite(List<? extends T> filteredWorkers, int qty) throws Exception {
 		if(filteredWorkers.size() < qty){
 			throw new Exception("Need to recruit more employees");
 		}else {
 			List<T> accepted = new ArrayList<>();
-			for (int i = 0; i < filteredWorkers.size(); i++){
+			for (int i = 0; i < qty; i++){
 				int index = random.nextInt(filteredWorkers.size());
 				accepted.add(filteredWorkers.get(index));
 			}

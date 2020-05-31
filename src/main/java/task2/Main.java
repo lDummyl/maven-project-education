@@ -17,7 +17,8 @@ public class Main {
     public static void main(String[] args) {
     	PersonProvider personProvider = new PersonProvider();
     	BusinessCenter sova = new BusinessCenter();
-		List<Office> sovaOffice = sova.createOffice(2);
+		Office sovaOffice1 = sova.createOffice(1, 1, 1, 3);
+		Office sovaOffice2 = sova.createOffice(1, 1, 1, 2);
 
 		// TODO: 5/26/20 как думашь стоит уже убрать копипасту, или может создать бизнес центр?
 		List<Secretary> secretaries = personProvider.getSomeSecretaries(1000);
@@ -29,25 +30,31 @@ public class Main {
 	    //  и потом почему 3 раза бухгалтера? а понял, жесть? Как насчет завсети поле в офисе requiredQtyOfAccountants и инициализировать его при создании объекта офис
 	    //  и потом все было нормально, создание офиса нужно было просто вывести в отдельный метод и все(офиса а не офисов!)
 
-
-		sovaOffice.get(0).work(secretaries, securities, jurists, accountants, accountants, accountants);
-	    // TODO: 5/31/20 да и 5 тоже
-
-		sovaOffice.get(1).work(secretaries, securities, jurists, accountants, accountants);
 		/*
-			Понимаю прекрасно, что если офисов будет 1000, то будет весьма сложно. И если было бы во всех
-			офисах одинаковое количество сотрудников по каждой специальности, то можно это все делать в цикле.
-			Однако, с учетом того, что в одном офисе 3 бухгалтера, а в другом 2, то не получается сделать цикл.
-
-			Секретари фильтруют всех кандидатов по возрасту. С методом из области черной магии не разобрался,
-			хотя похоже на рефлексию, про нее почитал. Метод, я так понял, нужен для того, чтобы он был один
-			и избавиться от различных методов getSomeДолжность. Что касается характеров директоров, то тоже не
-			совсем ясно, что имеется ввиду.
+		Хорошо, вот 2 способа заполнения офисов (методы используются одинаковые). В одном случае я могу
+		использовать сколько угодно аргументов, в другом сколько угодно строчек метода с одним аргументом.
+		Как правильно?
 		 */
 
-		for(int i = 0; i < sovaOffice.size(); i++){
-			sovaOffice.get(i).listWorkers();
+		try {
+			sovaOffice1.work(secretaries, securities, jurists, accountants);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		sovaOffice1.listWorkers();
+
+		try{
+			sovaOffice2.work(secretaries);
+			sovaOffice2.work(securities);
+			sovaOffice2.work(jurists);
+			sovaOffice2.work(accountants);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		sovaOffice2.listWorkers();
+
+
+		// TODO: 5/31/20 да и 5 тоже
 
 
 
