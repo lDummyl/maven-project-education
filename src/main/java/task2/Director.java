@@ -1,9 +1,16 @@
 package task2;
+import task1.BirthDate;
+import task1.Name;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-public class Director  {
+public class Director extends Person  {
+
+    public Director(String name) {
+        super(new Name(name, ""), new BirthDate());
+    }
 
     // TODO: 5/22/20 не и спользуй статические методы
     public Person firstFinalChoice() {

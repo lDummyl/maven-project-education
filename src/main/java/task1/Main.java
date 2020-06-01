@@ -49,11 +49,10 @@ public class Main {
         //  Все они должны быть уникальными сочетанию ФИО + дате рождения. Имена и фамилии без цифр, обычные человеческие. Возраст от начала 1900 года.
         //  Ну и определим старшего для смеха.
 
-        List<BirthDate> listBirthDates = BirthDate.getBirthDates();
-        List<Name> listNames = Name.getNames();
-        Map<Name, BirthDate> map = getMap(listBirthDates, listNames);
-        logPairs(map);
-        Person oldest = findOldestPerson(map);
+
+        PersonProvider personProvider = new PersonProvider();
+        List<Person> list = new ArrayList<>(personProvider.getPersons(10));
+        Person oldest = findOldest(list);
         System.out.println("oldest = " + oldest);
     }
 

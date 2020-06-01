@@ -1,13 +1,34 @@
 package task1;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Name {
 
     String firstName;
     String lastName;
+
+    static List<String> names = new ArrayList<>();
+    static List<String> lastNames = new ArrayList<>();
+    static Random random = new Random();
+
+    static {
+        names.addAll(Arrays.asList("Nina", "Masha", "Sergey", "Ivan", "Vasily", "Ruslan", "Irina", "Tanya"));
+        for (String name : names) {
+            lastNames.add(name+"son");
+        }
+//        8*8 = 64
+    }
+
+    public Name() {
+        this.firstName = names.get(random.nextInt(names.size()));
+        this.lastName = lastNames.get(random.nextInt(lastNames.size()));
+    }
+
+
+    public static List<Name> getNames() {
+        return null;
+    }
 
     @Override
     public String toString() {
@@ -20,18 +41,17 @@ public class Name {
         this.lastName = lastName;
     }
 
-    public static List<Name> getNames() {
-        List<Name> names;
-        names = new ArrayList<>();
-        names.add(new Name("Nina", "I"));
-        names.add(new Name("Masha", "O"));
-        names.add(new Name("Sergey", "M"));
-        names.add(new Name("Ivan", "K"));
-        names.add(new Name("Vasily", "S"));
-        names.add(new Name("Ruslan", "Z"));
-        names.add(new Name("Irina", "P"));
-        names.add(new Name("Tanya", "E"));
-        return names;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Name name = (Name) o;
+        return Objects.equals(firstName, name.firstName) &&
+                Objects.equals(lastName, name.lastName);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
+    }
 }

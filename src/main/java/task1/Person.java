@@ -1,5 +1,7 @@
 package task1;
 
+import java.util.Objects;
+
 public class Person {
 
     Name name;
@@ -22,5 +24,19 @@ public class Person {
 
     public boolean isYounferThan(Person person) {
         return this.birthDate.toLocalDate().isAfter(person.birthDate.toLocalDate());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(name, person.name) &&
+                Objects.equals(birthDate, person.birthDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, birthDate);
     }
 }
