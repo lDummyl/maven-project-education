@@ -4,13 +4,15 @@ import task1.Person;
 
 public class Security extends OfficeWorker{
 
+    public OfficeWorker pal;
+
     private Person person;
 
     public Security(Person person) {
         this.person = person;
     }
 
-    @Override
+//    @Override
     public Person getPerson() {
         return person;
     }
@@ -20,5 +22,10 @@ public class Security extends OfficeWorker{
         return "Security{" +
                 person +
                 '}';
+    }
+
+//    @Override
+    void abs() {
+
     }
 }

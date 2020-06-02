@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class Office {
 
-    int requiredQtyOfAccountants;
+    int requiredQtyOfAccountants =1;
     int requiredQtyOfJurist;
     int requiredQtyOfSecretary;
     int requiredQtyOfSecurity;
@@ -30,6 +30,10 @@ public class Office {
         this.requiredQtyOfSecurity = requiredQtyOfSecurity;
         this.director = director;
         this.hr = hr;
+    }
+
+    public Office(Director director, Hr hr, int requiredQtyOfAccountants) {
+       this(director,hr, 1,1,1,requiredQtyOfAccountants);
     }
 
     List<Secretary> secretaries = new ArrayList();
@@ -79,7 +83,7 @@ public class Office {
 //        }
 //    }
 
-    <T extends OfficeWorker> void work(List<? extends T>... tList) throws Exception {
+    <T extends OfficeWorker> void work(List<? extends T>... tList)  {
         for (int i = 0; i < tList.length; i++) {
             if (tList[i].get(0) instanceof Secretary) {
                 secretaries = (List<Secretary>) director.invite(hr.filter(tList[i]), requiredQtyOfSecretary);
@@ -106,7 +110,11 @@ public class Office {
         // то диретор принимает решение и берет одного в штат
 
         void invitePeaople (Object human){
-            // TODO: 5/26/20 офис это простаранство, всю работу в нем делают люди, на чью похожа эта?
+            List<OfficeWorker> officeWorkers = hr.invite(human);
+            director.
+
+
+        // TODO: 5/26/20 офис это простаранство, всю работу в нем делают люди, на чью похожа эта?
             if (human instanceof Secretary) {
                 setSecretaries((Secretary) human);
             } else if (human instanceof Security) {
@@ -123,6 +131,7 @@ public class Office {
                 invitePeaople(human[i]);
             }
         }
+
 
 
 

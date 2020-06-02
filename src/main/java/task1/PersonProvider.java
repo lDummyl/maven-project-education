@@ -109,4 +109,38 @@ public class PersonProvider {
         }
         return list;
     }
+    // TODO: 5/26/20 вот тебе бонус с примененеием черной магии, но работать он будет не сразу, нужно понять чего и где не хватает.
+    public List<OfficeWorker> getSomeOfNoGen(Class<?> clazz, int qty) throws Exception {
+        List<Person> somePerson = new PersonProvider().getSomePerson(qty);
+        List<OfficeWorker> list = new ArrayList<>();
+        for (Person person : somePerson) {
+            Constructor<?> constructor = clazz.getConstructor(Person.class);
+            OfficeWorker t =(OfficeWorker) constructor.newInstance(person);
+            list.add(t);
+            addSecurityInit(clazz, t);
+        }
+
+        return list;
+    }
+
+    private void addSecurityInit(Class<?> clazz, OfficeWorker t) {
+        if (clazz.equals(Security.class)){
+            Security security = (Security) t;
+            security.pal = new Security(new Person());
+        }
+    }
+
+    public static void main(String[] args) throws Exception{
+        PersonProvider personProvider = new PersonProvider();
+//        List<Security> securities = personProvider.getSomeOf(Office.class, 10);
+//        for (Security security : securities) {
+//            System.out.println(security.getClass());
+//        }
+        List<OfficeWorker> someOfNoGen = personProvider.getSomeOfNoGen(Age.class, 10);
+        for (OfficeWorker officeWorker : someOfNoGen) {
+            System.out.println(officeWorker.getClass());
+        }
+
+
+    }
 }
