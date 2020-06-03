@@ -5,29 +5,24 @@ import java.util.*;
 
 public class Name {
 
-    String firstName;
-    String lastName;
-
-    static List<String> names = new ArrayList<>();
-    static List<String> lastNames = new ArrayList<>();
-    static Random random = new Random();
-
-    static {
-        names.addAll(Arrays.asList("Nina", "Masha", "Sergey", "Ivan", "Vasily", "Ruslan", "Irina", "Tanya"));
-        for (String name : names) {
-            lastNames.add(name+"son");
-        }
-//        8*8 = 64
-    }
+    public String firstName;
+    public String lastName;
 
     public Name() {
         this.firstName = names.get(random.nextInt(names.size()));
         this.lastName = lastNames.get(random.nextInt(lastNames.size()));
     }
 
+    public static List<String> names = new ArrayList<>();
+    public static List<String> lastNames = new ArrayList<>();
+    static Random random = new Random();
 
-    public static List<Name> getNames() {
-        return null;
+    static {
+        names.addAll(Arrays.asList("Migel", "Mark", "Berger", "Johan", "Laser", "Mohamed", "Jack", "Gilbert"));
+        for (String name : names) {
+            lastNames.add(name + "son");
+        }
+//        8*8 = 64
     }
 
     @Override
@@ -36,10 +31,6 @@ public class Name {
                 ", lastName='" + lastName + '\'';
     }
 
-    public Name(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
 
     @Override
     public boolean equals(Object o) {

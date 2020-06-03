@@ -2,15 +2,15 @@ package task1;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Main {
 
     // TODO: 5/22/20 приведи этот класс в соответствие с SRP, и переиспользуй во второй задаче(переносить не обязательно, public дает межпакетный доступ)
     public static void main(String[] args) {
-//        new Main().first();
+        new Main().first();
         new Main().second();
     }
+
 
     public void first() {
         // TODO: 1/26/20 ПЕРВЫЙ ЭТАП создать 5 разных человек и вывести имя старшего
@@ -21,8 +21,8 @@ public class Main {
 
     public ArrayList<Person> getPersons() {
         ArrayList<Person> people = new ArrayList<>();
-        for (int i = 0; i < Name.getNames().size() && i < BirthDate.getBirthDates().size(); i++) {
-            people.add(new Person(Name.getNames().get(i), BirthDate.getBirthDates().get(i)));
+        for (int i = 0; i < 10; i++) {
+            people.add(new Person(new Name(), new BirthDate()));
         }
         return people;
     }
@@ -42,6 +42,9 @@ public class Main {
         System.out.println(listPersons.get(number).name + "\n");
     }
 
+
+
+
     public void second() {
         // TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
 
@@ -51,47 +54,22 @@ public class Main {
 
 
         PersonProvider personProvider = new PersonProvider();
-        List<Person> list = new ArrayList<>(personProvider.getPersons(10));
+        List<Person> list = new ArrayList<>(personProvider.getPersons(10000));
         Person oldest = findOldest(list);
         System.out.println("oldest = " + oldest);
-    }
-
-    private Person findOldestPerson(Map<Name, BirthDate> map) {
-        List<Person> people = pairsToPersons(map);
-        return findOldest(people);
     }
 
     private Person findOldest(List<Person> people) {
         // TODO: 13.05.2020 implement
         Person oldest = people.get(0);
         for (Person person : people) {
-            if (oldest.isYounferThan(person)) {
+            if (oldest.isYoungerThan(person)) {
                 oldest = person;
             }
         }
         return oldest;
     }
 
-    private List<Person> pairsToPersons(Map<Name, BirthDate> map) {
-        // TODO: 13.05.2020 implement
-        return map.entrySet().stream()
-                .map(e -> new Person(e.getKey(), e.getValue()))
-                .collect(Collectors.toList());
-    }
-
-    public void logPairs(Map<Name, BirthDate> map) {
-        for (Map.Entry<Name, BirthDate> entry : map.entrySet()) {
-            System.out.println(entry);
-        }
-    }
-
-    private Map<Name, BirthDate> getMap(List<BirthDate> listBirthDates, List<Name> listNames) {
-        HashMap<Name, BirthDate> map = new HashMap<>();
-        for (int i = 0; i < 20; i++) {
-            map.put(listNames.get(new Random().nextInt(7)), listBirthDates.get(new Random().nextInt(7)));
-        }
-        return map;
-    }
 
 }
 

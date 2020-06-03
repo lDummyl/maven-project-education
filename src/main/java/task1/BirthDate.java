@@ -15,7 +15,7 @@ public class BirthDate {
     public BirthDate() {
         this.year = 1900 + random.nextInt(120);
         this.month = 1 + random.nextInt(11);
-        this.day = 1 + random.nextInt(27) ;
+        this.day = 1 + random.nextInt(27);
 //        8 * 8 * 120 * 12 *28
     }
 
@@ -23,15 +23,6 @@ public class BirthDate {
         this.year = year;
         this.month = month;
         this.day = day;
-    }
-
-    @Override
-    public String toString() {
-        return "BirthDate{" +
-                "year=" + year +
-                ", month=" + month +
-                ", day=" + day +
-                '}';
     }
 
     public static List<BirthDate> getBirthDates() {
@@ -50,6 +41,15 @@ public class BirthDate {
 
     public LocalDate toLocalDate() {
         return LocalDate.of(year, month, day);
+    }
+
+    @Override
+    public String toString() {
+        return "BirthDate{" +
+                "year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                '}';
     }
 
     @Override

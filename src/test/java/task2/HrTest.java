@@ -9,7 +9,7 @@ public class HrTest {
     @Test
     public void chooseSecretary() {
 
-        Hr hr = new Hr();
+        Hr hr = new Hr("");
 //        hr.chooseSecretary()
         assertTrue(false);
 

@@ -1,29 +1,29 @@
 package task2;
 
-import java.util.ArrayList;
+import task1.BirthDate;
+import task1.Name;
+import task1.Person;
+import task1.PersonProvider;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
-public class Hr {
+public class Hr extends Person{
 
-    Random random = new Random();
-    final int sizeOfListHr;
-
-    {
-        sizeOfListHr = random.nextInt(new Secretary(null, null).getPersons().size());
+    public Hr(String name) {
+        super(null, new BirthDate());
     }
 
-    public List<Person> chooseSecretary() {
-        List<Person> choosen = new ArrayList();
-        for (int i = 0; i < new Secretary(null, null).getPersons().size(); i++) {
-            choosen.add(new Secretary(null,null).getPersons().get(i));
-            if (choosen.size() == sizeOfListHr) {
-                break;
-
-            }
-        }
-        return choosen;
+    public Set<? extends Person> selectedPeople(int n) {
+        Set<? extends Person> people = new PersonProvider().getPersons(n);
+        return people;
     }
 
 
 }
+
+
+
+

@@ -16,18 +16,8 @@ public class PersonProvider {
     }
 
     private Person getPerson() {
-        Name name = new Name();
-        return new Person(name, new BirthDate());
+        return new Person(new Name(), new BirthDate());
     }
 
-    public Set<Secretary> getSecretaries(int qty){
-        Set<Secretary> result = new HashSet<>();
-        Set<Person> persons = getPersons(qty);
-        for (Person person : persons) {
-            Secretary secretary = new Secretary(person.name, person.birthDate);
-            result.add(secretary);
-        }
-        return result;
-    }
 
 }

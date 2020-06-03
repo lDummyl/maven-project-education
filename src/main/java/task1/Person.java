@@ -1,11 +1,12 @@
 package task1;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Person {
 
-    Name name;
-    BirthDate birthDate;
+    public Name name;
+    public BirthDate birthDate;
 
     public Person(Name name, BirthDate age) {
         // TODO: 5/21/20 o_0 !?!
@@ -14,16 +15,15 @@ public class Person {
     }
 
 
+    public boolean isYoungerThan(Person person) {
+        return this.birthDate.toLocalDate().isAfter(person.birthDate.toLocalDate());
+    }
+
     @Override
     public String toString() {
         return "firstName='" + name.firstName + '\'' +
                 ", lastName='" + name.lastName + '\'' +
                 ", age=" + birthDate.year + " " + birthDate.month + " " + birthDate.day + '\'';
-    }
-
-
-    public boolean isYounferThan(Person person) {
-        return this.birthDate.toLocalDate().isAfter(person.birthDate.toLocalDate());
     }
 
     @Override
