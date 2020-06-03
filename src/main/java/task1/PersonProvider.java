@@ -1,7 +1,5 @@
 package task1;
 
-import task2.Secretary;
-
 import java.util.HashSet;
 import java.util.Set;
 

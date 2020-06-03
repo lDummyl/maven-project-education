@@ -1,10 +1,5 @@
 package task2;
 
-import task1.Person;
-import task1.PersonProvider;
-
-import java.util.Set;
-
 public class Main {
 
     public static void main(String[] args) {
