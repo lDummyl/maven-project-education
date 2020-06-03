@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
+// TODO: 6/3/20 все не правильно, интерфейс совсем не так используется.
 public class BadBehavior implements Behavior {
     public int numberOfStaff = 20;
     Random random = new Random();

@@ -1,15 +1,19 @@
 package task2;
 
 
+import task1.PersonProvider;
+
 public class Office {
 
-    // TODO: 5/24/20 зачем эта аннотация?
+
+    String companyName;
 
     public Secretary secretary;
 
-    public Director appleDirector;
+    // TODO: 6/3/20 один директор, пойми разницу между классом и объектом
+    public Director director;
 
-    public Director amazonDirector;
+//    public Director amazonDirector;
 
     public Hr hr;
 
@@ -19,6 +23,8 @@ public class Office {
 
     void invitePeople(Object human) {
 
+        couldSomebodySendMyMail(director);
+        couldSomebodySendMyMail(new PersonProvider().getSecretaries(1));
 
     }
     // TODO: 5/15/20 офис не создает секретарей, это работа для вселенной, бога или колледжа, офис только принимает
@@ -34,4 +40,10 @@ public class Office {
 
 
     }
+
+    private  void couldSomebodySendMyMail(MailSender mailSender) {
+        mailSender.sendMail(new Mail("на деревню дедушке"));
+    }
+
+
 }

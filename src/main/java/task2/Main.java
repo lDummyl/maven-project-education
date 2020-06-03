@@ -1,5 +1,7 @@
 package task2;
 
+import task1.PersonProvider;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -18,7 +20,8 @@ public class Main {
 //        apple.hr =
 
         Office office = new Office();
-        office.appleDirector = new Director("Steve");
+        Director steve = new Director("Steve", office);
+        office.appleDirector = steve;
         office.amazonDirector = new Director("Jeffrey");
         office.hr = new Hr("Marina");
 
@@ -28,5 +31,5 @@ public class Main {
         System.out.println(office.hr.selectedPeople(8));
 
 
-    }
+
 }
