@@ -35,7 +35,4 @@ public class BadBehavior implements Behavior {
 //        return exp;
 //    }
 
-    public static void main(String[] args) {
-        System.out.println(new BadBehavior().doChoice());
-    }
 }
