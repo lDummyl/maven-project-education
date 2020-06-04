@@ -8,5 +8,10 @@ public class Main {
 
         cat.playBall(new Ball("blue ball"));
         dog.playBall(new Ball("red ball"));
+
+        new Home().couldSomebodyPlayingBall(cat);
+        new Home().couldSomebodyPlayingBall(dog);
+
+
     }
 }

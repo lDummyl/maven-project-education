@@ -17,6 +17,7 @@ public class Cat implements iPlayingBall{
 
     @Override
     public void playBall(Ball ball) {
-        System.out.println("I'm not playing ball");
+        System.out.println("I'm not playing ball " + ball);
     }
+
 }
