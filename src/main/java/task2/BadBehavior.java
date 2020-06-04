@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Random;
 
 // TODO: 6/3/20 все не правильно, интерфейс совсем не так используется.
-public class BadBehavior implements Behavior {
+public abstract class BadBehavior implements Behavior {
     public int numberOfStaff = 20;
     Random random = new Random();
     HashSet<Person> set;
 
     @Override
-    public HashSet<Person> doChoice() {
+    public HashSet<Person> badBehavior() {
         set = (HashSet<Person>) new Hr("").selectedPeople(1 + random.nextInt(numberOfStaff));
         casting();
         return set;

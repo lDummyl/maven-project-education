@@ -21,15 +21,15 @@ public class Main {
 
         Office office = new Office();
         Director steve = new Director("Steve", office);
-        office.appleDirector = steve;
-        office.amazonDirector = new Director("Jeffrey");
+//        office.appleDirector = steve;
+//        office.amazonDirector = new Director("Jeffrey");
         office.hr = new Hr("Marina");
 
-        System.out.println(office.appleDirector.getBadBehavior());
-        System.out.println(office.amazonDirector.getGoodBehavior());
+//        System.out.println(office.appleDirector.getBadBehavior());
+//        System.out.println(office.amazonDirector.getGoodBehavior());
 
         System.out.println(office.hr.selectedPeople(8));
 
 
-
+    }
 }

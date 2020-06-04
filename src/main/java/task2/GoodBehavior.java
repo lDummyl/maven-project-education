@@ -5,13 +5,13 @@ import task1.Person;
 import java.util.HashSet;
 import java.util.Random;
 
-public class GoodBehavior implements Behavior {
+public abstract class GoodBehavior implements Behavior {
     public final int numberOfStaff = 20;
     Random random = new Random();
 
 
     @Override
-    public HashSet<Person> doChoice() {
+    public HashSet<Person> goodBehavior() {
         HashSet<Person> set = (HashSet<Person>) new Hr("").selectedPeople(random.nextInt(numberOfStaff));
         return set;
     }

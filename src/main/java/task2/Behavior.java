@@ -6,5 +6,7 @@ import java.util.HashSet;
 
 public interface Behavior {
 
-    public HashSet<Person> doChoice();
+    HashSet<Person> goodBehavior ();
+    HashSet<Person>  badBehavior ();
+
 }

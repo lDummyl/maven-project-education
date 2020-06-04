@@ -24,7 +24,7 @@ public class Office {
     void invitePeople(Object human) {
 
         couldSomebodySendMyMail(director);
-        couldSomebodySendMyMail(new PersonProvider().getSecretaries(1));
+        couldSomebodySendMyMail((MailSender) new PersonProvider().getPersons(1));
 
     }
     // TODO: 5/15/20 офис не создает секретарей, это работа для вселенной, бога или колледжа, офис только принимает

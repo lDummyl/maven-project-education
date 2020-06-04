@@ -3,18 +3,17 @@ package task2;
 import task1.BirthDate;
 import task1.Person;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
-public class Director extends Person implements DirectorBehavior, MailSender {
+public class Director extends Person implements MailSender{
     BadBehavior badBehavior;
     GoodBehavior goodBehavior;
     private Office officeImIn;
 
     public Director(String name) {
         super(null, new BirthDate());
-        this.badBehavior = new BadBehavior();
-        this.goodBehavior = new GoodBehavior();
     }
 
     public Director(String name, Office office) {
@@ -30,18 +29,10 @@ public class Director extends Person implements DirectorBehavior, MailSender {
 
     }
 
-    @Override
-    public Set<Person> getBadBehavior() {
-        return this.badBehavior.doChoice();
-    }
-
-    @Override
-    public Set<Person> getGoodBehavior() {
-        return this.goodBehavior.doChoice();
-    }
 
     @Override
     public void sendMail(Mail mail) {
         officeImIn.secretary.sendMail(mail);
     }
+
 }
