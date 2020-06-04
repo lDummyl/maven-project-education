@@ -19,7 +19,6 @@ public class Dog implements iPlayingBall{
         System.out.println("I playing ball! " + ball);
     }
 
-    public void doSomebodyWantToPlay(iPlayingBall iPlayingBall){
-        iPlayingBall.playBall(new Ball("blue"));
-    }
+
+
 }
