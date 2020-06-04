@@ -3,16 +3,10 @@ package task2.Animals;
 public class Main {
     public static void main(String[] args) {
 
-        Owner owner = new Owner();
-        owner.catsPlayBall(new Cat("Tom"));
-        owner.dogsPlayBall(new Dog("Beam"));
+        Cat cat = new Cat("Tom");
+        Dog dog = new Dog("Beam");
 
-        OwnersWife ownersWife = new OwnersWife();
-        ownersWife.catsPlayBall(new Cat("Tom"));
-        ownersWife.dogsPlayBall(new Dog("Beam"));
-
-        People people = new People();
-        people.catsPlayBall(new Cat("Tom"));
-        people.dogsPlayBall(new Dog("Beam"));
+        cat.playBall(new Ball("blue ball"));
+        dog.playBall(new Ball("red ball"));
     }
 }

@@ -1,6 +1,6 @@
 package task2.Animals;
 
-public class Dog {
+public class Dog implements iPlayingBall{
     String name;
 
     public Dog(String name) {
@@ -12,5 +12,10 @@ public class Dog {
         return "Dog{" +
                 "name='" + name + '\'' +
                 '}';
+    }
+
+    @Override
+    public void playBall(Ball ball) {
+        System.out.println("I playing ball!");
     }
 }
