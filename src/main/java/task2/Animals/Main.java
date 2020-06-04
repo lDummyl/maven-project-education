@@ -6,7 +6,15 @@ public class Main {
         Cat cat = new Cat("Tom");
         Dog dog = new Dog("Beam");
 
-        cat.playBall(new Ball("blue ball"));
-        dog.playBall(new Ball("red ball"));
+        Ball blue_ball = new Ball("blue ball");
+        cat.playBall(blue_ball);
+        Ball red_ball = new Ball("red ball");
+        dog.playBall(red_ball);
+        // TODO: 6/4/20 не трогая ничего в этом классе, создай Playdrownd так, чтобы все поиграли со всеми мячиками
+        PlayGrownd playGrownd = new PlayGrownd();
+        playGrownd.balls.add(blue_ball);
+        playGrownd.balls.add(red_ball);
+        playGrownd.invite(dog);
+        playGrownd.invite(cat);
     }
 }
