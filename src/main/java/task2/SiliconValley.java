@@ -31,11 +31,12 @@ public class SiliconValley {
 			//secretary.interview(secretary);
 
 		}
-		System.out.println(oscar.passInterview(secretaries).size());
-		System.out.println(oscar.passInterview(secretaries));
+		System.out.println(Hr.passInterview(secretaries).size());
+		//System.out.println(oscar.passInterview(secretaries));
+		System.out.println(steveJobs.select(Hr.passInterview(secretaries)));
 
 
-		System.out.println(apple.secretary != null);
+		//System.out.println(apple.secretary != null);
 
 	}
 }

@@ -29,16 +29,7 @@ public class Secretary extends Person
 	public Age getAge (){return age;}
 
 
-	public boolean interview (Secretary secretary)
-	{
-		Random random = new Random();
-		int x = random.nextInt(100);
-		if (x > 50) {
-			return true;
-		}
-		else
-			return false;
+	public boolean interview(Secretary secretary) {
+		return super.interview(secretary);
 	}
-
-
 }

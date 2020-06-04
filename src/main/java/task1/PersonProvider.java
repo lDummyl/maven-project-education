@@ -25,6 +25,8 @@ public class PersonProvider {
         return i + min;
     }
 
+
+    //переделала метод, формирующий дату рождения
     public Age randomDate()
     {
         int year = difference(1960, 2000);

@@ -34,21 +34,38 @@ public class Director extends Person
 	{
 		listOfActions.add("Кандитатов слишком много!");
 		listOfActions.add("У меня нет на это времени!");
-		listOfActions.add("Список кандидатов необходимо уменьшить");
+		listOfActions.add("Список необходимо уменьшить");
 		listOfActions.add("Кандидат выбран");
 	}
 
+    //задумка была такова, что в случае, если список больше определенного значения, данный список должен передаваться обратно hr, который его отрабатывает
+	// и возвращает в сокращенном варианте. но метод passInterview у меня, конечно, не срабатывает и ничего не меняется. В общем, я совсем запуталась.
+	public Secretary select (List <Secretary> list) {
+			if (list.size() > 20) {
+				Hr.passInterview(list);
+				System.out.println(listOfActions.get(0));
+			}
+			else if (list.size() > 10) {
+				System.out.println(listOfActions.get(1));
+				Hr.passInterview(list);
+			}
+			else if (list.size() > 5) {
+				System.out.println(listOfActions.get(2));
+				Hr.passInterview(list);
+			}
+			else if (list.size() <= 3) {
+				System.out.println(listOfActions.get(3));
+			}
+			return null;
+		}
+
 	/*public Secretary select (List <Secretary> list)
 	{
-		if (list.size() > 50)
+		while (list.size() != 3)
 		{
-			listOfActions.get(0);
+			Hr.passInterview(list);
 		}
-		return Secretary;
+		return null;
 	}
-
 	 */
-
-
-
-}
+	}

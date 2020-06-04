@@ -25,7 +25,7 @@ public class Hr extends Person
 	}
 	public Age getAge (){return age;}
 
-	public List<Secretary> passInterview(List <Secretary> secretaries)
+public static List<Secretary> passInterview(List <Secretary> secretaries)
 	{
 		List <Secretary> list = new ArrayList<>();
 		for (Secretary secretary : secretaries) {
@@ -37,6 +37,5 @@ public class Hr extends Person
 			{}
 		}
 		return list;
-
 	}
 }
