@@ -29,7 +29,7 @@ public class Main {
 //        System.out.println(office.amazonDirector.getGoodBehavior());
 
         System.out.println(office.hr.selectedPeople(8));
-
+        steve.sendMail(new Mail("qwe"));
 
     }
 }
