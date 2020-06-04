@@ -31,6 +31,7 @@ public class SiliconValley {
 			//secretary.interview(secretary);
 
 		}
+		// TODO: 6/4/20 А в офисе никого? все вопросы смотрю тут решаются, трендово конешно, но не по условию
 		System.out.println(Hr.passInterview(secretaries).size());
 		//System.out.println(oscar.passInterview(secretaries));
 		System.out.println(steveJobs.select(Hr.passInterview(secretaries)));
