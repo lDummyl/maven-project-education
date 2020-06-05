@@ -4,6 +4,7 @@ import task1.Person;
 
 import java.util.HashSet;
 
+// TODO: 6/5/20 зачем 2 одиноквых по сути класса, если есть возможность сделать 1 класс и от него разные объекты
 public class AppleDirector extends Director {
     String name;
     int maxQuantityOfStuff;
