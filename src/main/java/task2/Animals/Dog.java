@@ -16,7 +16,7 @@ public class Dog implements iPlayingBall{
 
     @Override
     public void playBall(Ball ball) {
-        System.out.println("I playing ball! " + ball);
+        System.out.println("I'm playing ball! " + ball);
     }
 
 

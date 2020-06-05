@@ -27,9 +27,14 @@ public class Main {
 
 //        System.out.println(office.appleDirector.getBadBehavior());
 //        System.out.println(office.amazonDirector.getGoodBehavior());
+        AppleDirector appleDirector = new AppleDirector("",5);
+        AmazonDirector amazonDirector = new AmazonDirector("", 6);
+        appleDirector.makeChoice();
+        amazonDirector.makeChoice();
 
-        System.out.println(office.hr.selectedPeople(8));
-        steve.sendMail(new Mail("qwe"));
+        office.invitePeople(amazonDirector);
+
+
 
     }
 }
