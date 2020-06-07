@@ -14,51 +14,32 @@ import java.util.Random;
 public class Main {
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		PersonProvider personProvider = new PersonProvider();
 		BusinessCenter sova = new BusinessCenter();
 		Office sovaOffice1 = sova.createOffice(3);
 		Office sovaOffice2 = sova.createOffice(2);
 
-		// TODO: 5/26/20 как думашь стоит уже убрать копипасту, или может создать бизнес центр?
-		List<Secretary> secretaries = personProvider.getSomeSecretaries(1000);
-		List<Security> securities = personProvider.getSomeSecurities(1000);
-		List<Jurist> jurists = personProvider.getSomeJurists(1000);
-		List<Accountant> accountants = personProvider.getSomeAccountants(1000);
+		List<Secretary> secretaries = personProvider.getSomeOf(Secretary.class, 1000);
+		List<Security> securities = personProvider.getSomeOf(Security.class, 1000);
+		List<Jurist> jurists = personProvider.getSomeOf(Jurist.class, 1000);
+		List<Accountant> accountants = personProvider.getSomeOf(Accountant.class, 1000);
 
+		sovaOffice1.setSecretaries(secretaries, 1);
+		sovaOffice1.setSecurities(securities, 1);
+		sovaOffice1.setJurists(jurists, 1);
+		sovaOffice1.setAccountants(accountants, 3);
 
-//        List<Secretary> secretaries1 = new ArrayList<Secretary>();
-//        ArrayList<? extends OfficeWorker> officeWorkers = new ArrayList<Secretary>();
-
-
-
-		Hr hr = null;
-		hr.filterFirst(secretaries);
-
-		// TODO: 5/31/20 6 аргуменотв многовато бывают, офисы где должностей побольше, что будешь делать?
-		//  и потом почему 3 раза бухгалтера? а понял, жесть? Как насчет завсети поле в офисе requiredQtyOfAccountants и инициализировать его при создании объекта офис
-		//  и потом все было нормально, создание офиса нужно было просто вывести в отдельный метод и все(офиса а не офисов!)
-
-		/*
-		Хорошо, вот 2 способа заполнения офисов (методы используются одинаковые). В одном случае я могу
-		использовать сколько угодно аргументов, в другом сколько угодно строчек метода с одним аргументом.
-		Как правильно?
-		 */
-
-		sovaOffice1.work(secretaries, securities, jurists, accountants);
 		sovaOffice1.listWorkers();
 
-		sovaOffice2.work(secretaries);
-		sovaOffice2.work(securities);
-		sovaOffice2.work(jurists);
-		sovaOffice2.work(accountants);
-		sovaOffice2.listWorkers();
 
+		// Только не бей меня сильно за эту копипасту. Я не придумал, как вызывать сеттеры в офисе
+		// без использования логики. Я хотел написать один универсальный метод, в который я передаю
+		// лист кандидатов, а дальше директор и хр делают свое дело по отбору кандидатов.
+		// Основная проблема в том, что директор не знает о методах офиса и даже если он может понимать,
+		// лист каких кандидатов ему пришел, то он не может вызвать соответствующий сеттер на офисе.
+		// Поэтому я написал каждый сеттер отдельно. Теперь методы отбора не зависят от офиса, но появилась кописаста.
 
-		// TODO: 5/31/20 да и 5 тоже
-
-
-		// TODO: 5/26/20 какие-то они у тебя бездушные, давай один директор будет добрый а другой капризный, только не на совах а на деле.
 
 
 	}

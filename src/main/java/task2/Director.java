@@ -9,7 +9,6 @@ import java.util.Random;
 public class Director{
 
 	private Person person;
-	String character;
 	Random random = new Random();
 
 	public Director(Person person) {
@@ -21,13 +20,13 @@ public class Director{
 		return filteredWorkers.get(index);
 	}
 
-	public <T extends OfficeWorker>List<T> invite(List<? extends T> filteredWorkers, int qty) {
+	public <T extends OfficeWorker> List<T> invite(List<? extends T> filteredWorkers, int qty) {
 		int size = filteredWorkers.size();
-		if(size < qty){
+		if (size < qty) {
 			throw new RuntimeException("Need to recruit more employees Expected:" + qty + " but was: " + size);
-		}else {
+		} else {
 			List<T> accepted = new ArrayList<>();
-			for (int i = 0; i < qty; i++){
+			for (int i = 0; i < qty; i++) {
 				int index = random.nextInt(size);
 				accepted.add(filteredWorkers.get(index));
 			}

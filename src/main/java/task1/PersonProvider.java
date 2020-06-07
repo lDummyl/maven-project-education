@@ -117,7 +117,7 @@ public class PersonProvider {
             Constructor<?> constructor = clazz.getConstructor(Person.class);
             OfficeWorker t =(OfficeWorker) constructor.newInstance(person);
             list.add(t);
-            addSecurityInit(clazz, t);
+            //addSecurityInit(clazz, t);
         }
 
         return list;
@@ -130,17 +130,4 @@ public class PersonProvider {
         }
     }
 
-    public static void main(String[] args) throws Exception{
-        PersonProvider personProvider = new PersonProvider();
-//        List<Security> securities = personProvider.getSomeOf(Office.class, 10);
-//        for (Security security : securities) {
-//            System.out.println(security.getClass());
-//        }
-        List<OfficeWorker> someOfNoGen = personProvider.getSomeOfNoGen(Age.class, 10);
-        for (OfficeWorker officeWorker : someOfNoGen) {
-            System.out.println(officeWorker.getClass());
-        }
-
-
-    }
 }

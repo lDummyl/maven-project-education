@@ -12,4 +12,9 @@ public class BusinessCenter {
                 requiredQtyOfSecurity, requiredQtyOfJurist, requiredQtyOfAccountants);
     }
 
+    public Office createOffice(int requiredQtyOfAccountants){
+        PersonProvider personProvider = new PersonProvider();
+        return new Office(personProvider.getSomeDirector(), personProvider.getSomeHr(), requiredQtyOfAccountants);
+    }
+
 }
