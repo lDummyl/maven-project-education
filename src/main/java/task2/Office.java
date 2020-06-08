@@ -10,36 +10,37 @@ import java.util.List;
 import java.util.Random;
 
 public class Office {
-	Director director;
-	Hr hr;
+	final Director director;
+	final Hr hr;
 	Secretary secretary;
-
-	public Office() {
-	}
 
 	public Office(Director director, Hr hr) {
 		this.director = director;
 		this.hr = hr;
 	}
 
-	public void select (Director director, Hr hr, List <Secretary> list)
-	{
-		hr.passInterview(list);
-		while (!director.checkList(list))
-		{
-			list = hr.passInterview(list);
-		}
-		if (director.checkList(list))
-		{
-			Random random = new Random();
-			secretary = list.get(random.nextInt(list.size()));
-		}
-		invitePeople(secretary);
-	}
+	// TODO: 6/8/20 добавлю условие: класс Office неизвеняемый, ему можно добавлять только приватные методы,
+	//  ни новых публичных ни новых конструкторов ни добвалять и не модифицировать контракты существующих.
+	//  Так же он не должен содержать main метода.
+//	public void select (Director director, Hr hr, List <Secretary> list)
+//	{
+//		hr.passInterview(list);
+//		while (!director.checkList(list))
+//		{
+//			list = hr.passInterview(list);
+//		}
+//		if (director.checkList(list))
+//		{
+//			Random random = new Random();
+//			secretary = list.get(random.nextInt(list.size()));
+//		}
+//		invitePeople(secretary);
+//	}
 
 	void invitePeople (Object human){
 
 	}
+
 
 	public static void main(String[] args) {
 		Director steveJobs = new Director(new Name("Steve", "Jobs"), new Age(1955, 1, 24));
