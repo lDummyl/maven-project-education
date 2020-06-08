@@ -19,6 +19,8 @@ public class Main {
 
 //        apple.hr =
 
+        Director director =  new Director("asd", 2);
+        Director director2 = new Director("qqwe", 56);
         Office office = new Office();
         Director steve = new Director("Steve", office);
 //        office.appleDirector = steve;
