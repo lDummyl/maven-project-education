@@ -27,6 +27,7 @@ public class Hr extends OfficeWorker {
         return approved;
     }
 
+    // TODO: 6/8/20 не забудь использовать интервью
     public List<OfficeWorker> filterFirst(List<? extends OfficeWorker> people) {
         for (OfficeWorker officeWorker : people) {
             if(officeWorker.passInterview()){

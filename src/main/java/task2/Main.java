@@ -18,6 +18,7 @@ public class Main {
 		PersonProvider personProvider = new PersonProvider();
 		BusinessCenter sova = new BusinessCenter();
 		Office sovaOffice1 = sova.createOffice(3);
+		// TODO: 6/8/20 ну а он что простаивает?
 		Office sovaOffice2 = sova.createOffice(2);
 
 		List<Secretary> secretaries = personProvider.getSomeOf(Secretary.class, 1000);
@@ -38,6 +39,9 @@ public class Main {
 		// лист кандидатов, а дальше директор и хр делают свое дело по отбору кандидатов.
 		// Основная проблема в том, что директор не знает о методах офиса и даже если он может понимать,
 		// лист каких кандидатов ему пришел, то он не может вызвать соответствующий сеттер на офисе.
+
+		// TODO: 6/8/20  А кто мешает директору передать ссылку на офис в котором он работает в качестве поля?
+
 		// Поэтому я написал каждый сеттер отдельно. Теперь методы отбора не зависят от офиса, но появилась кописаста.
 
 
