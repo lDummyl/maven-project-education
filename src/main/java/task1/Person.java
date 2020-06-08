@@ -1,5 +1,7 @@
 package task1;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Person {
@@ -30,7 +32,7 @@ public class Person {
     {
         Random random = new Random();
         int x = random.nextInt(100);
-        if (x > 50) {
+        if (x > 70) {
             return true;
         }
         else
@@ -39,8 +41,8 @@ public class Person {
 
     //пыталась сделать метод Hr, который мог бы работать не только с секретарями, но и с любыми другими должностями. Компилятор ругается на несоответствие
     // классов Person и Secretary. Так сделать просто нельзя или я что-то делаю не так?
-
-   /* public List<Person> passInterview(List <Person> people)
+/*
+   public List<Person> passInterview(List <Person> people)
     {
         List <Person> list = new ArrayList<>();
         for (Person person : people) {
@@ -54,7 +56,5 @@ public class Person {
         return list;
     }
 
-    */
-
-
+ */
 }
