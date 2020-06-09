@@ -34,8 +34,8 @@ public class Main {
 
 
 
-        Hospital hospital = new Hospital();
-        hospital.invite(patients,playGrownd);
+        Hospital hospital = new Hospital(playGrownd);
+        hospital.invite(patients);
 
     }
 }
