@@ -7,6 +7,7 @@ import java.util.List;
 public class PlayGrownd {
 
     List<Ball> balls = new ArrayList<>();
+    // TODO: 6/9/20 ясно, теперь на площадке появился встроенный госпиталь, отдельно им не выжить
     Hospital hospital;
 
     public void invite(iPlayingBall iPlayingBall) {
