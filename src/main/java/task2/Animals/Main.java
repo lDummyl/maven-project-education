@@ -35,7 +35,7 @@ public class Main {
 
 
         Hospital hospital = new Hospital(playGrownd);
-        hospital.invite(patients);
+
 
     }
 }

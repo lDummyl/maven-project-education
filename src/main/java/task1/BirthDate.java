@@ -11,7 +11,7 @@ public class BirthDate {
     static Random random = new Random();
 
     public BirthDate() {
-        this.year = 1900 + random.nextInt(120);
+        this.year = 1950 + random.nextInt(50);
         this.month = 1 + random.nextInt(11);
         this.day = 1 + random.nextInt(27);
 //        8 * 8 * 120 * 12 *28

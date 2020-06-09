@@ -7,7 +7,7 @@ public class OfficeTest {
 
 	@Test
 	public void invitePeaople() {
-		Office office = new Office();
+		Office office = new Office("",new Director("Steve"));
 
 	}
 

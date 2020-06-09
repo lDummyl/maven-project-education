@@ -16,7 +16,6 @@ public class Hospital {
     public void invite(List <Animals> list) {
         for (int i = 0; i < list.size(); i++) {
             System.out.println("Vaccinated " + list.get(i));
-            playGrownd.invite(list.get(i));
         }
         }
 }

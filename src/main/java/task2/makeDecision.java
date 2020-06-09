@@ -11,8 +11,7 @@ import java.util.Random;
 // TODO: 6/3/20 все не правильно, интерфейс совсем не так используется.
 interface makeDecision {
 
-    HashSet<Person> makeChoice(Person person);
-
+   void invitePeople(Director director);
 
 
 

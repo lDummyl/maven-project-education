@@ -1,30 +1,36 @@
 package task2;
 
+import task1.Person;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
-public class Office{
+public class Office implements makeDecision{
+    public String companyName;
 
     public Secretary secretary;
 
     // TODO: 6/3/20 один директор, пойми разницу между классом и объектом
     public Director director;
 
-//    public Director amazonDirector;
-
     public Hr hr;
+
+
 
     //претенденты идут по одному, когда их достаточно,
     // то диретор принимает решение и берет одного в штат
     // TODO: 5/22/20
 
-    void invitePeople(Director director) {
-        List<Director> list = new ArrayList();
-        list.add(director);
-        makeDecision makeDecision = new Director("", 0);
-        makeDecision.makeChoice(list.get(0));
 
+    public Office(String companyName, Director director) {
+        this.companyName = companyName;
+        this.director = director;
+        invitePeople(director);
+    }
+
+    public void invitePeople(Director director) {
+        if (director.name.length()>6){
+            director.makeChoiceAsBadDirector();
+        }else director.makeChoiceAsPleasantDirector();
         }
 
 

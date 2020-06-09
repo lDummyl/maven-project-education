@@ -5,7 +5,7 @@ import task1.PersonProvider;
 public class Main {
 
     public static void main(String[] args) {
-        Office apple = new Office();
+
 //        apple.director = new Director("Steve Jobs");
 
 //        hr
@@ -17,24 +17,14 @@ public class Main {
 //        boolean b = apple.secretary == null;
 //        System.out.println("b = " + b);
 
-//        apple.hr =
 
-        Director director =  new Director("asd", 2);
-        Director director2 = new Director("qqwe", 56);
-        Office office = new Office();
-        Director steve = new Director("Steve", office);
-//        office.appleDirector = steve;
-//        office.amazonDirector = new Director("Jeffrey");
-        office.hr = new Hr("Marina");
+        Director director =  new Director("Steve", 7);
+        Director director2 =  new Director("Jeffrey", 6);
 
-//        System.out.println(office.appleDirector.getBadBehavior());
-//        System.out.println(office.amazonDirector.getGoodBehavior());
-        AppleDirector appleDirector = new AppleDirector("",5);
-        AmazonDirector amazonDirector = new AmazonDirector("", 6);
-        appleDirector.makeChoice();
-        amazonDirector.makeChoice();
 
-        office.invitePeople(amazonDirector);
+        new Office("Apple",director);
+        new Office("Amazon",director2);
+
 
 
 

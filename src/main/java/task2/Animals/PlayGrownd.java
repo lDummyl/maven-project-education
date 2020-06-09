@@ -7,7 +7,7 @@ import java.util.List;
 public class PlayGrownd {
 
     List<Ball> balls = new ArrayList<>();
-
+    Hospital hospital;
 
     public void invite(iPlayingBall iPlayingBall) {
         for (Ball ball : balls) {
