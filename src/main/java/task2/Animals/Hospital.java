@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Hospital {
 
+    // TODO: 6/9/20 хорошо, а теперь если площадка отдельно от госпиталя?
     public PlayGrownd playGrownd;
 
     public Hospital(PlayGrownd playGrownd) {
