@@ -7,13 +7,16 @@ import java.util.List;
 public class PlayGrownd {
 
     List<Ball> balls = new ArrayList<>();
-    // TODO: 6/9/20 ясно, теперь на площадке появился встроенный госпиталь, отдельно им не выжить
-    Hospital hospital;
 
-    public void invite(iPlayingBall iPlayingBall) {
+    public void inviteToPlay(iPlayingBall iPlayingBall) {
         for (Ball ball : balls) {
             iPlayingBall.playBall(ball);
         }
+    }
 
+    public void invite(Animal animal) {
+        if (animal.isVaccinated) {
+            inviteToPlay(animal);
+        }
     }
 }

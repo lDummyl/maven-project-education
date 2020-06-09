@@ -1,6 +1,6 @@
 package task2.Animals;
 
-public class Dog extends Animals implements iPlayingBall{
+public class Dog extends Animal implements iPlayingBall{
     String name;
 
     public Dog(String name) {

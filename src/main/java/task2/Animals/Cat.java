@@ -1,8 +1,9 @@
 package task2.Animals;
 
-public class Cat extends Animals implements iPlayingBall{
+public class Cat extends Animal implements iPlayingBall{
 
     String name;
+
 
     public Cat(String name) {
         this.name = name;

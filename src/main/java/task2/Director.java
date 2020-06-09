@@ -4,15 +4,13 @@ import task1.BirthDate;
 import task1.Person;
 
 import javax.crypto.spec.PSource;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 
 public class Director extends Person implements MailSender {
 
     private Office officeImIn;
+    int enoughCandidatesToDecide = 3;
 
     String name;
 
@@ -59,17 +57,28 @@ public class Director extends Person implements MailSender {
         boolean b = true;
         while (b) {
             set = (HashSet<Person>) new Hr("").selectedPeople(maxQuantityOfStuff);
-            INNER_LOOP: for (Person person : set) {
-                b = person.birthDate.year<1970?true:false;
-                if(b==false){
+            INNER_LOOP:
+            for (Person person : set) {
+                b = person.birthDate.year < 1970 ? true : false;
+                if (b == false) {
                     continue;
-                }else {
+                } else {
                     System.out.println("I don't need old candidates! Fetch me a new list!");
                     break INNER_LOOP;
                 }
             }
         }
         System.out.println(set + "\n");
+    }
+
+    public void makeChoise(List<Secretary> candidates) {
+        if (candidates.size() >= enoughCandidatesToDecide) {
+            Secretary secretary = candidates.get(0);
+            officeImIn.secretary = secretary;
+        } else {
+            System.out.println("Wat kind of candidates you gived me!" + officeImIn.hr.name);
+        }
+
     }
 
 //        boolean b = true;
@@ -81,5 +90,5 @@ public class Director extends Person implements MailSender {
 //            }
 //        }
 //        System.out.println(set + "\n");
-    }
+}
 

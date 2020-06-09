@@ -1,10 +1,8 @@
 package task2;
 
-import task1.Person;
+import java.util.List;
 
-import java.util.HashSet;
-
-public class Office implements makeDecision{
+public class Office implements makingDecision {
     public String companyName;
 
     public Secretary secretary;
@@ -27,13 +25,18 @@ public class Office implements makeDecision{
         invitePeople(director);
     }
 
-    public void invitePeople(Director director) {
-        if (director.name.length()>6){
-            director.makeChoiceAsBadDirector();
-        }else director.makeChoiceAsPleasantDirector();
-        }
+    public void invitePeople(Object vistor) {
+        hr.invite(vistor);
+        List<Secretary> candidates = hr.candidates;
+        director.makeChoise(candidates);
 
 
+//        if (director.name.length()>6){
+//            director.makeChoiceAsBadDirector();
+//        }else director.makeChoiceAsPleasantDirector();
+//        }
+
+    }
 
 
     // TODO: 5/15/20 офис не создает секретарей, это работа для вселенной, бога или колледжа, офис только принимает

@@ -17,7 +17,7 @@ public class Main {
         Dog dog2 = new Dog("Jim");
         Dog dog3 = new Dog("Mob");
 
-        List <Animals> patients = Arrays.asList(cat,cat2,cat3,dog,dog2,dog3);
+        List<Animal> patients = Arrays.asList(cat, cat2, cat3, dog, dog2, dog3);
 
 
 //        cat.playBall(new Ball("blue ball"));
@@ -33,8 +33,16 @@ public class Main {
 //        playGrownd.invite(cat);
 
 
+        Hospital hospital = new Hospital();
+        for (Animal patient : patients) {
+            hospital.invite(patient);
+        }
+        List<Animal> vacinatedAnimals = hospital.vacinatedAnimals;
+        for (Animal patient : vacinatedAnimals) {
 
-        Hospital hospital = new Hospital(playGrownd);
+            playGrownd.invite(patient);
+        }
+
 
 
     }

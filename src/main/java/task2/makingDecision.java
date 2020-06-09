@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 // TODO: 6/3/20 все не правильно, интерфейс совсем не так используется.
-interface makeDecision {
+interface makingDecision {
 
    void invitePeople(Director director);
 
