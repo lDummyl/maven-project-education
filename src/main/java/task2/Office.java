@@ -2,7 +2,7 @@ package task2;
 
 import java.util.List;
 
-public class Office implements makingDecision {
+public class Office {
     public String companyName;
 
     public Secretary secretary;
