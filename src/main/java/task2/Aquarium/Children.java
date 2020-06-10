@@ -18,11 +18,11 @@ public class Children {
 
     public void playWithSatisfiedFish (List <Fish> list){
         for (Fish fish : list) {
-        if(fish.countOfMeals>0 && fish.isHealty) {
-            System.out.println(fish + " is happy! Because isHealty = " + fish.isHealty +
+        if(fish.countOfMeals>0 && fish.isHealthy) {
+            System.out.println(fish + " is happy! Because isHealty = " + fish.isHealthy +
                     " and countOfMeals = " + fish.countOfMeals);
             }else {
-            System.out.println(fish + " is dyed! Because isHealty = " + fish.isHealty +
+            System.out.println(fish + " is dyed! Because isHealty = " + fish.isHealthy +
                     " and countOfMeals = " + fish.countOfMeals + ". Children didn't give us food!");
         }
         }

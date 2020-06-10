@@ -4,5 +4,8 @@ public abstract class Fish implements canEat{
 
     int countOfMeals;
 
-    boolean isHealty;
+    boolean isHealthy;
+
+
+
 }
