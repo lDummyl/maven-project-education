@@ -8,15 +8,16 @@ public class WaterTank {
     Water water;
 
     public WaterTank() {
-        water = new Water();
+        Water water = new Water();
     }
 
-    List <Fish> fishes = new ArrayList<>();
+    List<Fish> fishes = new ArrayList<>();
 
-    public void put(List <Fish> list){
-        if (water == null){
-//            throw ...
-        }
-        fishes.addAll(list);
+    public void put(List<Fish> list) {
+        if (water == null) {
+            list.clear();
+            System.out.println("We must fill in our Water Tank!!!");
+        } else
+            fishes.addAll(list);
     }
 }

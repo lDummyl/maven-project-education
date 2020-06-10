@@ -1,6 +1,10 @@
 package task2.Aquarium;
 
-public abstract class Fish implements canEat{
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Fish implements canEat {
 
     int countOfMeals;
 
@@ -8,4 +12,8 @@ public abstract class Fish implements canEat{
 
 
 
+    @Override
+    public void likeToEat(Food food) {
+
+    }
 }

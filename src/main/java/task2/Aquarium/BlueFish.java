@@ -1,13 +1,12 @@
 package task2.Aquarium;
 
-public class BlueFish extends Fish implements canEat{
+public class BlueFish extends Fish {
 
     String name;
 
     public BlueFish(String name) {
         this.name = name;
     }
-
 
 
     @Override
@@ -21,4 +20,5 @@ public class BlueFish extends Fish implements canEat{
                 "name='" + name + '\'' +
                 '}';
     }
+
 }

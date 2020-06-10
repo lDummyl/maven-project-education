@@ -1,13 +1,11 @@
 package task2.Aquarium;
 
-public class GoldFish extends Fish implements canEat{
+public class GoldFish extends Fish {
     String name;
 
     public GoldFish(String name) {
         this.name = name;
     }
-
-
 
     @Override
     public void likeToEat(Food food) {
