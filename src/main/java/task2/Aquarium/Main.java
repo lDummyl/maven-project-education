@@ -32,12 +32,14 @@ public class Main {
 
         father.giveSomePills(waterTank);
 
-        for (Fish fish : waterTank.weAreInTheWaterTank) {
+        // TODO: 6/10/20 в мейне всегда логика для бога, лучше его не перегружать работой,
+        //  циклами там разными и  ифами, и вообще сделай main в 10 строк
+        for (Fish fish : waterTank.fishes) {
             if (random.nextBoolean()) {
                 children.giveSomeMeal(fish);
             }
         }
-            children.playWithSatisfiedFish(waterTank.weAreInTheWaterTank);
+            children.playWithSatisfiedFish(waterTank.fishes);
 
         }
     }

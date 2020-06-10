@@ -11,9 +11,12 @@ public class WaterTank {
         water = new Water();
     }
 
-    List <Fish> weAreInTheWaterTank = new ArrayList<>();
+    List <Fish> fishes = new ArrayList<>();
 
     public void put(List <Fish> list){
-        weAreInTheWaterTank.addAll(list);
+        if (water == null){
+//            throw ...
+        }
+        fishes.addAll(list);
     }
 }
