@@ -5,10 +5,8 @@ import java.util.List;
 
 public class Father {
 
-    List <Fish> healthFish = new ArrayList<>();
-
-    public void giveSomePills (Fish fish){
-        fish.isHealty = true;
-        healthFish.add(fish);
+    public void giveSomePills (WaterTank waterTank){
+//        fish.isHealty = true;
+//        healthFish.add(fish);
     }
 }
