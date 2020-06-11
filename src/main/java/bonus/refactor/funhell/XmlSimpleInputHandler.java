@@ -2,11 +2,12 @@ package bonus.refactor.funhell;
 
 import bonus.refactor.funhell.readonly.NoteCustom;
 import bonus.refactor.funhell.readonly.NoteCustomSimple;
+
 import bonus.refactor.funhell.readonly.DetailsF;
 import org.xml.sax.SAXException;
 
 public class XmlSimpleInputHandler extends XmlInputHandler {
-    private NoteCustomSimple avviso = new NoteCustomSimple();
+    private final NoteCustomSimple avviso = new NoteCustomSimple();
 
     public XmlSimpleInputHandler() {
         super();
@@ -14,8 +15,7 @@ public class XmlSimpleInputHandler extends XmlInputHandler {
 
     public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
         super.endElement(namespaceURI, localName, qName);
-
-        currentActivity = -1; // So it doesn't overwrite element content with outside values
+        currentActivity = SpecActivities.NOT_ACTIVE.name(); // So it doesn't overwrite element content with outside values
     }
 
     public NoteCustom getNoteCustomMulti() {
