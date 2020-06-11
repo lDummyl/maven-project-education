@@ -26,49 +26,24 @@ public class Office {
     }
 
     List<Secretary> secretaries = new ArrayList();
-
     List<Security> securities = new ArrayList();
-
     List<Jurist> jurists = new ArrayList();
-
     List<Accountant> accountants = new ArrayList();
 
-    public void setDirector(Director director) {
-        this.director = director;
-    }
+    List<OfficeWorker> officeWorkers = new ArrayList<>();
 
-    public void setHr(Hr hr) {
-        this.hr = hr;
+    public void setOfficeWorkers(OfficeWorker officeWorker){
+        this.officeWorkers.add(officeWorker);
     }
 
     // TODO: 6/11/20 убери все эти сеттеры они тебе не нужны на данном этапе
-    public void setSecretaries(List<Secretary> secretaries) {
-        this.secretaries = secretaries;
-    }
 
-    public void setSecurities(List<Security> securities) {
-        this.securities = securities;
-    }
 
-    public void setJurists(List<Jurist> jurists) {
-        this.jurists = jurists;
-    }
-
-    public void setAccountants(List<Accountant> accountants) {
-        this.accountants = accountants;
-    }
-
-    public Director getDirector() {
-        return director;
-    }
 
     public void listWorkers(){
-            System.out.println(director);
-            System.out.println(hr);
-            System.out.println(secretaries);
-            System.out.println(securities);
-            System.out.println(jurists);
-            System.out.println(accountants);
+        System.out.println(director);
+        System.out.println(hr);
+        System.out.println(officeWorkers);
         }
 
         //претенденты идут по одному, когда их достаточно,
