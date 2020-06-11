@@ -30,7 +30,8 @@ public class Office {
     List<Jurist> jurists = new ArrayList();
     List<Accountant> accountants = new ArrayList();
 
-    List<OfficeWorker> officeWorkers = new ArrayList<>();
+    // TODO: 6/11/20 так не пойдет
+//    List<OfficeWorker> officeWorkers = new ArrayList<>();
 
     public void setOfficeWorkers(OfficeWorker officeWorker){
         this.officeWorkers.add(officeWorker);
@@ -39,7 +40,7 @@ public class Office {
     // TODO: 6/11/20 убери все эти сеттеры они тебе не нужны на данном этапе
 
 
-
+    // TODO: 6/11/20 тогда тут все делают свою офисную работу секретари варят, юристы судятся, бухгалтеры сводят баланс
     public void listWorkers(){
         System.out.println(director);
         System.out.println(hr);

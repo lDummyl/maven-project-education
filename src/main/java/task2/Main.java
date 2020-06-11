@@ -15,6 +15,7 @@ public class Main {
 
 
 	// TODO: 6/11/20 сделай  main макс в 10 строк и каждый метод макс в 10 строк
+	// TODO: 6/11/20 А что под снос попал 2й офис? следующее требование не отменяет предыдущего.
 	public static void main(String[] args) throws Exception {
 		PersonProvider personProvider = new PersonProvider();
 		Office office = new BusinessCenter().createOffice();
