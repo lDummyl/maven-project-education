@@ -3,12 +3,11 @@ package task2.Aquarium;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class Main {
     // TODO: 6/10/20 нормально, но рыбки без аквариума долго не протянут даже если их кормить.
     //  Против воды в нем они тоже не станут возражать, думаю.
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         WaterTank waterTank = new WaterTank();
         List<Fish> list = new ArrayList(Arrays.asList(new GoldFish("Flaunder"), new GoldFish("Mimi"),
                 new BlueFish("Zizi"), new GoldFish("Zolla"), new BlueFish("Ck"), new BlueFish("Pepe")));
