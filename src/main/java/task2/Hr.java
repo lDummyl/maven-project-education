@@ -7,7 +7,7 @@ import java.util.*;
 public class Hr extends OfficeWorker {
 
     Person person;
-    List<OfficeWorker> approved = new ArrayList<>();
+    //List<OfficeWorker> approved = new ArrayList<>();
 
     public static final int YEAR_OF_BIRTH = 2000;
 
@@ -20,7 +20,8 @@ public class Hr extends OfficeWorker {
         List<T> approved = new ArrayList<>();
         for (int i = 0; i < officeWorkers.size(); i++) {
             T t = officeWorkers.get(i);
-            if (officeWorkers.get(i).getPerson().getAge().getYear() < YEAR_OF_BIRTH) {
+            if (officeWorkers.get(i).getPerson().getAge().getYear() < YEAR_OF_BIRTH &&
+                    officeWorkers.get(i).passInterview()) {
                 approved.add(officeWorkers.get(i));
             }
         }
@@ -28,14 +29,14 @@ public class Hr extends OfficeWorker {
     }
 
     // TODO: 6/8/20 не забудь использовать интервью
-    public List<OfficeWorker> filterFirst(List<? extends OfficeWorker> people) {
-        for (OfficeWorker officeWorker : people) {
-            if(officeWorker.passInterview()){
-                approved.add(officeWorker);
-            }
-        }
-        return approved;
-    }
+//    public List<OfficeWorker> filterFirst(List<? extends OfficeWorker> people) {
+//        for (OfficeWorker officeWorker : people) {
+//            if(officeWorker.passInterview()){
+//                approved.add(officeWorker);
+//            }
+//        }
+//        return approved;
+//    }
 
 
     @Override

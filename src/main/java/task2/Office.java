@@ -10,11 +10,6 @@ import java.util.Random;
 
 public class Office {
 
-    int requiredQtyOfAccountants;
-    int requiredQtyOfJurist;
-    int requiredQtyOfSecretary;
-    int requiredQtyOfSecurity;
-
     // TODO: 5/21/20 ну что ж похоже нам предстоит организовать энергичное расширение нашего офиса,
     //  пожалуй не помешает добавить юриста, охранника, и бухгалтеров(в одном офисе 2х с другом 3х).
 
@@ -22,18 +17,12 @@ public class Office {
 
     Hr hr;
 
-    public Office(Director director, Hr hr, int requiredQtyOfSecretary, int requiredQtyOfSecurity,
-                  int requiredQtyOfJurist, int requiredQtyOfAccountants) {
-        this.requiredQtyOfAccountants = requiredQtyOfAccountants;
-        this.requiredQtyOfJurist = requiredQtyOfJurist;
-        this.requiredQtyOfSecretary = requiredQtyOfSecretary;
-        this.requiredQtyOfSecurity = requiredQtyOfSecurity;
+    public Office(Director director, Hr hr) {
         this.director = director;
         this.hr = hr;
     }
 
-    public Office(Director director, Hr hr, int requiredQtyOfAccountants) {
-       this(director,hr, 1,1,1,requiredQtyOfAccountants);
+    public Office() {
     }
 
     List<Secretary> secretaries = new ArrayList();
@@ -44,8 +33,6 @@ public class Office {
 
     List<Accountant> accountants = new ArrayList();
 
-    List<? extends OfficeWorker> officeWorkers = new ArrayList();
-
     public void setDirector(Director director) {
         this.director = director;
     }
@@ -54,39 +41,27 @@ public class Office {
         this.hr = hr;
     }
 
-//    public void setSecretaries(Secretary secretary) {
-//        this.secretaries.add(secretary);
-//    }
-//
-//    public void setSecurities(Security security) {
-//        this.securities.add(security);
-//    }
-//
-//    public void setJurists(Jurist jurist) {
-//        this.jurists.add(jurist);
-//    }
-//
-//    public void setAccountants(Accountant accountant) {
-//        this.accountants.add(accountant);
-//    }
-
-    public void setSecretaries(List<Secretary> secretaryList, int requiredQtyOfSecretary){
-        this.secretaries = director.invite(hr.filter(secretaryList), requiredQtyOfSecretary);
+    public void setSecretaries(List<Secretary> secretaries) {
+        this.secretaries = secretaries;
     }
 
-    public void setSecurities(List<Security> securityList, int requiredQtyOfSecurity){
-        this.securities = director.invite(hr.filter(securityList), requiredQtyOfSecurity);
+    public void setSecurities(List<Security> securities) {
+        this.securities = securities;
     }
 
-    public void setJurists(List<Jurist> juristList, int requiredQtyOfJurist){
-        this.jurists = director.invite(hr.filter(juristList), requiredQtyOfJurist);
+    public void setJurists(List<Jurist> jurists) {
+        this.jurists = jurists;
     }
 
-    public void setAccountants(List<Accountant> accountantList, int requiredQtyOfAccountants){
-        this.accountants = director.invite(hr.filter(accountantList), requiredQtyOfAccountants);
+    public void setAccountants(List<Accountant> accountants) {
+        this.accountants = accountants;
     }
 
-        public void listWorkers(){
+    public Director getDirector() {
+        return director;
+    }
+
+    public void listWorkers(){
             System.out.println(director);
             System.out.println(hr);
             System.out.println(secretaries);

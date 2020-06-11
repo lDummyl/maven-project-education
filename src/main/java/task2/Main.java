@@ -17,32 +17,33 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		PersonProvider personProvider = new PersonProvider();
 		BusinessCenter sova = new BusinessCenter();
-		Office sovaOffice1 = sova.createOffice(3);
-		// TODO: 6/8/20 ну а он что простаивает?
-		Office sovaOffice2 = sova.createOffice(2);
+
+		Director director1 = personProvider.getSomeDirector();
+		Director director2 = personProvider.getSomeDirector();
+		Hr hr1 = personProvider.getSomeHr();
+		Hr hr2 = personProvider.getSomeHr();
+
+		Office sovaOffice1 = sova.createOffice(director1, hr1);
+		Office sovaOffice2 = sova.createOffice(director2, hr2);
 
 		List<Secretary> secretaries = personProvider.getSomeOf(Secretary.class, 1000);
 		List<Security> securities = personProvider.getSomeOf(Security.class, 1000);
 		List<Jurist> jurists = personProvider.getSomeOf(Jurist.class, 1000);
 		List<Accountant> accountants = personProvider.getSomeOf(Accountant.class, 1000);
 
-		sovaOffice1.setSecretaries(secretaries, 1);
-		sovaOffice1.setSecurities(securities, 1);
-		sovaOffice1.setJurists(jurists, 1);
-		sovaOffice1.setAccountants(accountants, 3);
+		sovaOffice1.director.invite(sovaOffice1, hr1.filter(secretaries), hr1.filter(securities), hr1.filter(jurists));
+		sovaOffice1.director.invite(sovaOffice1, sovaOffice1.hr.filter(accountants), 2);
+		sovaOffice2.director.invite(sovaOffice2, hr2.filter(secretaries), hr2.filter(securities), hr2.filter(jurists));
+		sovaOffice2.director.invite(sovaOffice2, sovaOffice1.hr.filter(accountants), 3);
 
 		sovaOffice1.listWorkers();
+		sovaOffice2.listWorkers();
 
-
-		// Только не бей меня сильно за эту копипасту. Я не придумал, как вызывать сеттеры в офисе
-		// без использования логики. Я хотел написать один универсальный метод, в который я передаю
-		// лист кандидатов, а дальше директор и хр делают свое дело по отбору кандидатов.
-		// Основная проблема в том, что директор не знает о методах офиса и даже если он может понимать,
-		// лист каких кандидатов ему пришел, то он не может вызвать соответствующий сеттер на офисе.
-
-		// TODO: 6/8/20  А кто мешает директору передать ссылку на офис в котором он работает в качестве поля?
-
-		// Поэтому я написал каждый сеттер отдельно. Теперь методы отбора не зависят от офиса, но появилась кописаста.
+		/*
+		Пода дошел до этого. Метод интервью у Hr использую вместе с отсевом по дате рождения.
+		Мне здесь не нравится то, что я могу директору в качестве первого аргумента передать не тот офис, в котором он руководит,
+		и директор назначит там своих сотрудников. Как ограничить использование сеттера одним объектом?
+		 */
 
 
 

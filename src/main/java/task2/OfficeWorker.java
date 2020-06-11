@@ -11,8 +11,6 @@ import java.util.Random;
 //  же, единственная функция дженериков это перевод runtime ошибок в compiletime ошибки. Все! По объему кода где-то 5% сокращает за счет потери downcast.
 public abstract class OfficeWorker {
 
-//    abstract void abs();
-
     boolean passInterview(){
         Random random = new Random();
         return random.nextBoolean();

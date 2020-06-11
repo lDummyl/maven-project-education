@@ -34,6 +34,46 @@ public class Director{
 		}
 	}
 
+	public <T extends OfficeWorker> void invite(Office office, List<T> filteredWorkers, int qty) {
+		int size = filteredWorkers.size();
+		if (size > qty) {
+			List<T> accepted = new ArrayList<>();
+			for (int i = 0; i < qty; i++) {
+				int index = random.nextInt(size);
+				accepted.add(filteredWorkers.get(index));
+			}if(accepted.get(0) instanceof Secretary){
+				office.setSecretaries((List<Secretary>) accepted);
+			}else if (accepted.get(0) instanceof Security){
+				office.setSecurities((List<Security>) accepted);
+			}else if (accepted.get(0) instanceof Jurist){
+				office.setJurists((List<Jurist>) accepted);
+			}else if (accepted.get(0) instanceof Accountant){
+				office.setAccountants((List<Accountant>) accepted);
+			}
+		} else {
+			throw new RuntimeException("Need to recruit more employees Expected:" + qty + " but was: " + size);
+		}
+	}
+
+	public <T extends OfficeWorker> void invite(Office office, List<? extends OfficeWorker> ...filteredWorkers) {
+		int size = filteredWorkers.length;
+			for (int i = 0; i < size; i++) {
+				List<T> accepted = new ArrayList<>();
+				int index = random.nextInt(filteredWorkers[i].size());
+				accepted.add((T) filteredWorkers[i].get(index));
+				if (accepted.get(0) instanceof Secretary) {
+					office.setSecretaries((List<Secretary>) accepted);
+				} else if (accepted.get(0) instanceof Security) {
+					office.setSecurities((List<Security>) accepted);
+				} else if (accepted.get(0) instanceof Jurist) {
+					office.setJurists((List<Jurist>) accepted);
+				} else if (accepted.get(0) instanceof Accountant) {
+					office.setAccountants((List<Accountant>) accepted);
+				}
+			}
+		}
+
+
 	@Override
 	public String toString() {
 		return "Director{" +
