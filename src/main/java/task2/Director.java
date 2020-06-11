@@ -11,6 +11,7 @@ public class Director{
 	private Person person;
 	Random random = new Random();
 
+	// TODO: 6/11/20 смотрю больше всех работает директор, а это только кадровый вопрос.
 	public Director(Person person) {
 		this.person = person;
 	}

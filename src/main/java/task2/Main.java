@@ -14,6 +14,7 @@ import java.util.Random;
 public class Main {
 
 
+	// TODO: 6/11/20 сделай  main макс в 10 строк и каждый метод макс в 10 строк
 	public static void main(String[] args) throws Exception {
 		PersonProvider personProvider = new PersonProvider();
 		BusinessCenter sova = new BusinessCenter();
@@ -30,6 +31,7 @@ public class Main {
 		List<Security> securities = personProvider.getSomeOf(Security.class, 1000);
 		List<Jurist> jurists = personProvider.getSomeOf(Jurist.class, 1000);
 		List<Accountant> accountants = personProvider.getSomeOf(Accountant.class, 1000);
+
 
 		sovaOffice1.director.invite(sovaOffice1, hr1.filter(secretaries), hr1.filter(securities), hr1.filter(jurists));
 		sovaOffice1.director.invite(sovaOffice1, sovaOffice1.hr.filter(accountants), 2);

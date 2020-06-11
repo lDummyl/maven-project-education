@@ -41,6 +41,7 @@ public class Office {
         this.hr = hr;
     }
 
+    // TODO: 6/11/20 убери все эти сеттеры они тебе не нужны на данном этапе
     public void setSecretaries(List<Secretary> secretaries) {
         this.secretaries = secretaries;
     }
