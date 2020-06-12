@@ -17,4 +17,5 @@ public abstract class OfficeWorker extends Person {
         return new Random().nextBoolean();
     }
 
+
 }

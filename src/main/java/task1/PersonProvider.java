@@ -1,9 +1,11 @@
 package task1;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 public class PersonProvider {
+
     public Set<Person> getPersons(int qty) {
         Set<Person> result = new HashSet<>();
         while (result.size() != qty) {
@@ -12,6 +14,7 @@ public class PersonProvider {
         }
         return result;
     }
+
 
     private Person getPerson() {
         return new Person(new Name(), new BirthDate());

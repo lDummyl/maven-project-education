@@ -1,8 +1,12 @@
 package task1;
 
-import java.util.Objects;
 
-public class Person {
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+public class Person{
+
 
     public Name name;
     public BirthDate birthDate;
@@ -17,6 +21,22 @@ public class Person {
     public boolean isYoungerThan(Person person) {
         return this.birthDate.toLocalDate().isAfter(person.birthDate.toLocalDate());
     }
+
+
+    public Set<Person> getPersons(int qty) {
+        Set<Person> result = new HashSet<>();
+        while (result.size() != qty) {
+            Person person = getPerson();
+            result.add(person);
+        }
+        return result;
+    }
+
+
+    public Person getPerson() {
+        return new Person(new Name(), new BirthDate());
+    }
+
 
     @Override
     public String toString() {
@@ -38,4 +58,7 @@ public class Person {
     public int hashCode() {
         return Objects.hash(name, birthDate);
     }
+
+
+
 }
