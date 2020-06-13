@@ -7,7 +7,7 @@ import task1.Person;
 
 import java.util.*;
 
-
+// TODO: 6/13/20 опять HR stateless
 public class Hr extends OfficeWorker {
     String name;
     Random random = new Random();

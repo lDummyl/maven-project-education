@@ -14,6 +14,7 @@ public class Office {
     }
 
     public void invitePeople(Object visitor) {
+        // TODO: 6/13/20 опять работает офис а не его персонал
         if (visitor instanceof ApplyingForAJob && ((ApplyingForAJob) visitor).passAnInterview())
             secretary = (Secretary) visitor;
     }

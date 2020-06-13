@@ -8,6 +8,7 @@ public class Director extends Person {
 
     String name;
     Hr hr;
+    // TODO: 6/13/20 лишнее поле
     Secretary secretary;
     Office office;
 
