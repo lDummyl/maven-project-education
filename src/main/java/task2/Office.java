@@ -56,7 +56,7 @@ public class Office {
         jurists.get(0).sue();
         bankAccounts.add(accountants.get(0).createBankAccount(50000));
         for (Accountant accountant : accountants) {
-            accountant.toPay(bankAccounts.get(0), 500);
+            accountant.toPay(bankAccounts.get(0), toPay);
         }
         System.out.println(accountants.get(1).getBalance(bankAccounts.get(0)));
     }
