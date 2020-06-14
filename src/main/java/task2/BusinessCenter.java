@@ -9,15 +9,10 @@ import java.util.List;
 public class BusinessCenter {
     PersonProvider personProvider = new PersonProvider();
 
-    public Office createOffice(){
-        return new Office(personProvider.getSomeDirector(), personProvider.getSomeHr());
+    public Office createOffice(int requireOfSecretary, int requireOfSecurity, int requireOfJurist,
+                               int requireOfAccountant, List<? extends OfficeWorker> allCandidates){
+        return new Office(personProvider.getSomeDirector(), personProvider.getSomeHr(), requireOfSecretary,
+                requireOfSecurity, requireOfJurist, requireOfAccountant, allCandidates);
     }
 
-    public List<Office> createOffice(int qtyOffices){
-        List<Office> officeList = new ArrayList<>();
-        for (int i = 0; i < qtyOffices; i++){
-            officeList.add(new Office(personProvider.getSomeDirector(), personProvider.getSomeHr()));
-        }
-        return officeList;
-    }
 }

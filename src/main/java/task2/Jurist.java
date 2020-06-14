@@ -10,6 +10,10 @@ public class Jurist extends OfficeWorker{
         this.person = person;
     }
 
+    public void sue(){
+        System.out.println("O_o");
+    }
+
     @Override
     public Person getPerson() {
         return person;

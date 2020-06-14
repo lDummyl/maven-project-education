@@ -16,24 +16,18 @@ public class Director{
 		this.person = person;
 	}
 
-	public <T extends OfficeWorker> void invite(Office office, List<T> filteredWorkers, int qty) {
+	public <T extends OfficeWorker> List<T> invite(List<T> filteredWorkers, int qty) {
 		int size = filteredWorkers.size();
+		List<T> accepted = new ArrayList<>();
 		if (size > qty) {
 			for (int i = 0; i < qty; i++) {
 				int index = random.nextInt(size);
-				office.setOfficeWorkers(filteredWorkers.get(index));
+				accepted.add(filteredWorkers.get(index));
 			}
 		} else {
 			throw new RuntimeException("Need to recruit more employees Expected:" + qty + " but was: " + size);
 		}
-	}
-
-	public <T extends OfficeWorker> void invite(Office office, List<? extends OfficeWorker> ...filteredWorkers) {
-		int size = filteredWorkers.length;
-		for (int i = 0; i < size; i++) {
-			int index = random.nextInt(filteredWorkers[i].size());
-			office.setOfficeWorkers(filteredWorkers[i].get(index));
-		}
+		return accepted;
 	}
 
 

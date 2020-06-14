@@ -7,7 +7,10 @@ import java.util.*;
 public class Hr extends OfficeWorker {
 
     Person person;
-    //List<OfficeWorker> approved = new ArrayList<>();
+    List<Secretary> approvedSecretary = new ArrayList<>();
+    List<Security> approvedSecurity = new ArrayList<>();
+    List<Jurist> approvedJurist = new ArrayList<>();
+    List<Accountant> approvedAccountant = new ArrayList<>();
 
     public static final int YEAR_OF_BIRTH = 2000;
 
@@ -16,16 +19,25 @@ public class Hr extends OfficeWorker {
         this.person = person;
     }
 
-    public <T extends OfficeWorker> List<T> filter(List<T> officeWorkers) {
-        List<T> approved = new ArrayList<>();
+    public void sort(Object object){
+        if(object instanceof Secretary){
+            approvedSecretary.add((Secretary) object);
+        }else if (object instanceof Security){
+            approvedSecurity.add((Security) object);
+        }else if (object instanceof Jurist){
+            approvedJurist.add((Jurist) object);
+        }else if (object instanceof Accountant){
+            approvedAccountant.add((Accountant) object);
+        }
+    }
+
+    public void filter(List<? extends OfficeWorker> officeWorkers) {
         for (int i = 0; i < officeWorkers.size(); i++) {
-            T t = officeWorkers.get(i);
             if (officeWorkers.get(i).getPerson().getAge().getYear() < YEAR_OF_BIRTH &&
                     officeWorkers.get(i).passInterview()) {
-                approved.add(officeWorkers.get(i));
+                sort(officeWorkers.get(i));
             }
         }
-        return approved;
     }
 
     @Override

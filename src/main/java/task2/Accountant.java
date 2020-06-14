@@ -15,12 +15,16 @@ public class Accountant extends OfficeWorker{
         this.person = person;
     }
 
-    public void createBankAccount(int sum){
-        bankAccounts.add(new BankAccount(sum));
+    public BankAccount createBankAccount(int sum){
+        return new BankAccount(sum);
     }
 
-    public void toPay(int numberBankAccount, int price){
-        bankAccounts.get(numberBankAccount).remove(price);
+    public void toPay(BankAccount bankAccount, int price){
+        bankAccount.remove(price);
+    }
+
+    public int getBalance(BankAccount bankAccount){
+      return bankAccount.getSum();
     }
 
     @Override

@@ -43,7 +43,7 @@ public class Secretary extends OfficeWorker{
 		System.out.println("Mail has been sent");
 	}
 
-	private void changeColorNail(int colorNumber){
+	public void changeColorNail(int colorNumber){
 		if(colorNumber >= 0 && colorNumber <= 9){
 			colorNail = baseColor.get(colorNumber);
 		}else {

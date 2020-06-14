@@ -18,18 +18,17 @@ public class Main {
 	// TODO: 6/11/20 А что под снос попал 2й офис? следующее требование не отменяет предыдущего.
 	public static void main(String[] args) throws Exception {
 		PersonProvider personProvider = new PersonProvider();
-		Office office = new BusinessCenter().createOffice();
-		List<Secretary> secretaries = personProvider.getSomeOf(Secretary.class, 1000);
-		List<Security> securities = personProvider.getSomeOf(Security.class, 1000);
-		List<Jurist> jurists = personProvider.getSomeOf(Jurist.class, 1000);
-		List<Accountant> accountants = personProvider.getSomeOf(Accountant.class, 1000);
+		List<? extends OfficeWorker> allCandidates = personProvider.getSomeOf(1000, Secretary.class, Security.class,
+                Jurist.class, Accountant.class);
+        Office office1 = new BusinessCenter().createOffice(1, 1, 1, 2, allCandidates);
+        Office office2 = new BusinessCenter().createOffice(1, 1, 1, 3, allCandidates);
+        office1.init();
+        office2.init();
 
-		office.director.invite(office, office.hr.filter(secretaries), office.hr.filter(securities), office.hr.filter(jurists));
-		office.director.invite(office, office.hr.filter(accountants), 2);
+		office1.listWorkers();
+		office2.listWorkers();
 
-		office.listWorkers();
-
-
-
+		office1.work(4, office1.secretaries.get(0), 500);
+		office2.work(6, office2.securities.get(0), 600);
 	}
 }

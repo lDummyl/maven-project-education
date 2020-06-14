@@ -19,4 +19,7 @@ public class BankAccount {
             throw new RuntimeException("Not enough money");
         }
     }
+
+    public int getSum(){return sum;}
+
 }

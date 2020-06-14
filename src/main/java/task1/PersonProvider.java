@@ -109,6 +109,20 @@ public class PersonProvider {
         }
         return list;
     }
+
+    public <T extends OfficeWorker> List<T> getSomeOf(int qty, Class<? extends T> ...clazz) throws Exception {
+        List<Person> somePerson = new PersonProvider().getSomePerson(qty);
+        List<T> list = new ArrayList<>();
+        for(int i = 0; i < clazz.length; i++) {
+            for (Person person : somePerson) {
+                Constructor<T> constructor = (Constructor<T>) clazz[i].getConstructor(Person.class);
+                T t = constructor.newInstance(person);
+                list.add(t);
+            }
+        }
+        return list;
+    }
+
     // TODO: 5/26/20 вот тебе бонус с примененеием черной магии, но работать он будет не сразу, нужно понять чего и где не хватает.
     public List<OfficeWorker> getSomeOfNoGen(Class<?> clazz, int qty) throws Exception {
         List<Person> somePerson = new PersonProvider().getSomePerson(qty);
