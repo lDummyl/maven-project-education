@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
+// TODO: 6/14/20 стоит начать писать юнит тесты на примере этого класса ctrl + shift + t и вперед.
 public class PersonProvider {
 
     static List<String> firstN = new ArrayList<>();

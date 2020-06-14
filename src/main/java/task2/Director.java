@@ -8,6 +8,7 @@ import java.util.Random;
 
 public class Director{
 
+	// TODO: 6/14/20 заменить на наследование
 	private Person person;
 	Random random = new Random();
 
@@ -15,6 +16,7 @@ public class Director{
 	public Director(Person person) {
 		this.person = person;
 	}
+
 
 	public <T extends OfficeWorker> List<T> invite(List<T> filteredWorkers, int qty) {
 		int size = filteredWorkers.size();

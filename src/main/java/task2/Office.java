@@ -30,6 +30,7 @@ public class Office {
         this.requireOfSecurity = requireOfSecurity;
         this.requireOfJurist = requireOfJurist;
         this.requireOfAccountant = requireOfAccountant;
+        // TODO: 6/14/20 конструктор б. логики не содержит, только инициализация полей.
         this.hr.filter(allCandidates);
     }
 
@@ -37,7 +38,6 @@ public class Office {
     List<Security> securities = new ArrayList<>();
     List<Jurist> jurists = new ArrayList<>();
     List<Accountant> accountants = new ArrayList<>();
-
     List<BankAccount> bankAccounts = new ArrayList<>();
 
     public void init(){
@@ -69,6 +69,8 @@ public class Office {
         System.out.println(accountants);
         }
 
+    // TODO: 6/14/20 одиноко этот серенький метод в сторонке ждет своего часа. К сожалению это ключевое условие задания.
+    //  Этот контракт болжен быть неизменным. И это диственный путь трудоустройства.
         //претенденты идут по одному, когда их достаточно,
         // то диретор принимает решение и берет одного в штат
 

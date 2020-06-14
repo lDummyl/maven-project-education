@@ -1,5 +1,6 @@
 package task2;
 
+import org.w3c.dom.ls.LSInput;
 import task1.Person;
 
 import java.util.*;
@@ -7,13 +8,13 @@ import java.util.*;
 public class Hr extends OfficeWorker {
 
     Person person;
+
     List<Secretary> approvedSecretary = new ArrayList<>();
     List<Security> approvedSecurity = new ArrayList<>();
     List<Jurist> approvedJurist = new ArrayList<>();
     List<Accountant> approvedAccountant = new ArrayList<>();
 
     public static final int YEAR_OF_BIRTH = 2000;
-
 
     public Hr(Person person) {
         this.person = person;
