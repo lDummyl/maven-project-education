@@ -13,22 +13,19 @@ public class Office {
     // TODO: 5/21/20 ну что ж похоже нам предстоит организовать энергичное расширение нашего офиса,
     //  пожалуй не помешает добавить юриста, охранника, и бухгалтеров(в одном офисе 2х с другом 3х).
 
+
     Director director;
 
     Hr hr;
 
-    int requireOfSecretary;
-    int requireOfSecurity;
-    int requireOfJurist;
+    int requireOfSecretary = 1;
+    int requireOfSecurity = 1;
+    int requireOfJurist = 1;
     int requireOfAccountant;
 
-    public Office(Director director, Hr hr, int requireOfSecretary, int requireOfSecurity, int requireOfJurist,
-                  int requireOfAccountant, List<? extends OfficeWorker> allCandidates) {
+    public Office(Director director, Hr hr, int requireOfAccountant, List<? extends OfficeWorker> allCandidates) {
         this.director = director;
         this.hr = hr;
-        this.requireOfSecretary = requireOfSecretary;
-        this.requireOfSecurity = requireOfSecurity;
-        this.requireOfJurist = requireOfJurist;
         this.requireOfAccountant = requireOfAccountant;
         // TODO: 6/14/20 конструктор б. логики не содержит, только инициализация полей.
         this.hr.filter(allCandidates);

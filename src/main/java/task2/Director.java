@@ -1,22 +1,20 @@
 package task2;
 
+import task1.Age;
+import task1.Name;
 import task1.Person;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Director{
+public class Director extends Person{
 
-	// TODO: 6/14/20 заменить на наследование
-	private Person person;
-	Random random = new Random();
-
-	// TODO: 6/11/20 смотрю больше всех работает директор, а это только кадровый вопрос.
-	public Director(Person person) {
-		this.person = person;
+	public Director(Name name, Age age){
+		super(name, age);
 	}
-
+	// TODO: 6/14/20 заменить на наследование
+	Random random = new Random();
 
 	public <T extends OfficeWorker> List<T> invite(List<T> filteredWorkers, int qty) {
 		int size = filteredWorkers.size();
@@ -33,10 +31,4 @@ public class Director{
 	}
 
 
-	@Override
-	public String toString() {
-		return "Director{" +
-				person +
-				'}';
-	}
 }

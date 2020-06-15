@@ -57,7 +57,7 @@ public class PersonProvider {
     }
 
     public Director getSomeDirector(){
-        return new Director(getSomePerson());
+        return new Director(getSomePerson().getName(), getSomePerson().getAge());
     }
 
     public Hr getSomeHr(){

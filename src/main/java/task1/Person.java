@@ -2,16 +2,16 @@ package task1;
 
 public class Person {
 
-    Name name;
-    Age age;
+    public Name name;
+    public Age age;
 
-    Person(Name name, Age age) {
-        this.name = name;
-        this.age = age;
+    public Person(){
+
     }
 
-    public Person() {
-
+    public Person(Name name, Age age) {
+        this.name = name;
+        this.age = age;
     }
 
     public Name getName() {
