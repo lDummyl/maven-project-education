@@ -19,13 +19,16 @@ public class Main {
 	// TODO: 6/14/20 ну а теперь пусть будет 3 офиса с 2мя, 3мя и 4мя бухгалтерами, метод main по прежнему не более 10 сток. 
 	public static void main(String[] args) throws Exception {
 		PersonProvider personProvider = new PersonProvider();
-//		List<? extends OfficeWorker> allCandidates = personProvider.getSomeOf(1000, Secretary.class, Security.class,
-//                Jurist.class, Accountant.class);
-//        Office office1 = new BusinessCenter().createOffice(1, 1, 1, 2, allCandidates);
-//        Office office2 = new BusinessCenter().createOffice(1, 1, 1, 3, allCandidates);
-//
-//        office1.init();
-//        office2.init();
+		BusinessCenter businessCenter = new BusinessCenter();
+		List<? extends OfficeWorker> allCandidates = personProvider.getSomeOf(1000, Secretary.class, Security.class,
+                Jurist.class, Accountant.class);
+
+		List<Office> sova = businessCenter.createOffices(allCandidates, 2, 3, 4);
+		sova.get(1).init();
+		sova.get(1).listWorkers();
+
+
+
 //
 //		office1.listWorkers();
 //		office2.listWorkers();

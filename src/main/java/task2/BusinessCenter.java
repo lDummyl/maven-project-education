@@ -15,4 +15,13 @@ public class BusinessCenter {
         return new Office(personProvider.getSomeDirector(), personProvider.getSomeHr(), requireOfAccountant, allCandidates);
     }
 
+    public List<Office> createOffices(List<? extends OfficeWorker> allCandidates, int ...requireOfAccountant){
+        List<Office> officeList = new ArrayList<>();
+        for(int i = 0; i < requireOfAccountant.length; i++){
+            officeList.add(createOffice(requireOfAccountant[i], allCandidates));
+        }
+        return officeList;
+    }
 }
+
+

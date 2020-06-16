@@ -30,5 +30,11 @@ public class Director extends Person{
 		return accepted;
 	}
 
-
+	@Override
+	public String toString() {
+		return "Director{" +
+				name +
+				age +
+				'}';
+	}
 }
