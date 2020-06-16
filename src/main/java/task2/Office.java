@@ -21,14 +21,22 @@ public class Office {
     int requireOfSecretary = 1;
     int requireOfSecurity = 1;
     int requireOfJurist = 1;
-    int requireOfAccountant;
+    final int requireOfAccountant;
 
-    public Office(Director director, Hr hr, int requireOfAccountant, List<? extends OfficeWorker> allCandidates) {
+    public Office(Director director, Hr hr, int requireOfAccountant) {
         this.director = director;
         this.hr = hr;
         this.requireOfAccountant = requireOfAccountant;
         // TODO: 6/14/20 конструктор б. логики не содержит, только инициализация полей.
-        this.hr.filter(allCandidates);
+//        this.hr.filter(allCandidates);
+    }
+
+    public Office(Director director, Hr hr) {
+        this.director = director;
+        this.hr = hr;
+        this.requireOfAccountant = 1;
+        // TODO: 6/14/20 конструктор б. логики не содержит, только инициализация полей.
+//        this.hr.filter(allCandidates);
     }
 
     List<Secretary> secretaries = new ArrayList<>();
@@ -37,7 +45,7 @@ public class Office {
     List<Accountant> accountants = new ArrayList<>();
     List<BankAccount> bankAccounts = new ArrayList<>();
 
-    public void init(){
+    public void init() {
         secretaries = director.invite(hr.approvedSecretary, requireOfSecretary);
         securities = director.invite(hr.approvedSecurity, requireOfSecurity);
         jurists = director.invite(hr.approvedJurist, requireOfJurist);
@@ -46,7 +54,7 @@ public class Office {
     // TODO: 6/11/20 убери все эти сеттеры они тебе не нужны на данном этапе
 
     // TODO: 6/11/20 тогда тут все делают свою офисную работу секретари варят, юристы судятся, бухгалтеры сводят баланс
-    public void work(int colorNail, OfficeWorker pal, int toPay){
+    public void work(int colorNail, OfficeWorker pal, int toPay) {
         secretaries.get(0).changeColorNail(colorNail);
         System.out.println(secretaries.get(0).getColorNail());
         securities.get(0).speakWithSomeone(pal);
@@ -57,25 +65,25 @@ public class Office {
         }
         System.out.println(accountants.get(1).getBalance(bankAccounts.get(0)));
     }
-    public void listWorkers(){
+
+    public void listWorkers() {
         System.out.println(director);
         System.out.println(hr);
         System.out.println(secretaries);
         System.out.println(securities);
         System.out.println(jurists);
         System.out.println(accountants);
-        }
+    }
 
     // TODO: 6/14/20 одиноко этот серенький метод в сторонке ждет своего часа. К сожалению это ключевое условие задания.
     //  Этот контракт болжен быть неизменным. И это диственный путь трудоустройства.
-        //претенденты идут по одному, когда их достаточно,
-        // то диретор принимает решение и берет одного в штат
+    //претенденты идут по одному, когда их достаточно,
+    // то диретор принимает решение и берет одного в штат
 
-        void invitePeaople(Object human) {
+    void invitePeaople(Object human) {
+        hr.invite(human);
 
-        }
-
-
+    }
 
 
 }

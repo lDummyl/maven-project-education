@@ -15,7 +15,10 @@ public class BusinessCenter {
         return new Office(personProvider.getSomeDirector(), personProvider.getSomeHr(), requireOfAccountant, allCandidates);
     }
 
-    public List<Office> createOffices(List<? extends OfficeWorker> allCandidates, int ...requireOfAccountant){
+    public List<Office> createOffices(int ...requireOfAccountant) throws Exception {
+//        List<? extends OfficeWorker> allCandidates = personProvider.getSomeOf(1000, Secretary.class, Security.class,
+//                Jurist.class, Accountant.class);
+
         List<Office> officeList = new ArrayList<>();
         for(int i = 0; i < requireOfAccountant.length; i++){
             officeList.add(createOffice(requireOfAccountant[i], allCandidates));

@@ -18,15 +18,11 @@ public class Main {
 	// TODO: 6/11/20 А что под снос попал 2й офис? следующее требование не отменяет предыдущего.
 	// TODO: 6/14/20 ну а теперь пусть будет 3 офиса с 2мя, 3мя и 4мя бухгалтерами, метод main по прежнему не более 10 сток. 
 	public static void main(String[] args) throws Exception {
-		PersonProvider personProvider = new PersonProvider();
 		BusinessCenter businessCenter = new BusinessCenter();
-		List<? extends OfficeWorker> allCandidates = personProvider.getSomeOf(1000, Secretary.class, Security.class,
-                Jurist.class, Accountant.class);
-
-		List<Office> sova = businessCenter.createOffices(allCandidates, 2, 3, 4);
-		sova.get(1).init();
-		sova.get(1).listWorkers();
-
+		List<Office> sova = businessCenter.createOffices( 2, 3, 4);
+        for (Office office : sova){
+            doStuff(office);
+        }
 
 
 //
@@ -36,4 +32,9 @@ public class Main {
 //		office1.work(4, office1.secretaries.get(0), 500);
 //		office2.work(6, office2.securities.get(0), 600);
 	}
+
+    private static void doStuff(Office office) {
+        office.init();
+        office.listWorkers();
+    }
 }

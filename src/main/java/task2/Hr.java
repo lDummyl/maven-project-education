@@ -20,25 +20,30 @@ public class Hr extends OfficeWorker {
         this.person = person;
     }
 
-    public void sort(Object object){
-        if(object instanceof Secretary){
+    public void sort(Object object) {
+        if (object instanceof Secretary) {
             approvedSecretary.add((Secretary) object);
-        }else if (object instanceof Security){
+        } else if (object instanceof Security) {
             approvedSecurity.add((Security) object);
-        }else if (object instanceof Jurist){
+        } else if (object instanceof Jurist) {
             approvedJurist.add((Jurist) object);
-        }else if (object instanceof Accountant){
+        } else if (object instanceof Accountant) {
             approvedAccountant.add((Accountant) object);
         }
     }
 
+
     public void filter(List<? extends OfficeWorker> officeWorkers) {
-        for (int i = 0; i < officeWorkers.size(); i++) {
-            if (officeWorkers.get(i).getPerson().getAge().getYear() < YEAR_OF_BIRTH &&
-                    officeWorkers.get(i).passInterview()) {
-                sort(officeWorkers.get(i));
+        for (OfficeWorker officeWorker : officeWorkers) {
+            if (passedInterwiew(officeWorker)) {
+                sort(officeWorker);
             }
         }
+    }
+
+    private boolean passedInterwiew(OfficeWorker officeWorker) {
+        return officeWorker.getPerson().getAge().getYear() < YEAR_OF_BIRTH &&
+                officeWorker.passInterview();
     }
 
     @Override
@@ -46,5 +51,13 @@ public class Hr extends OfficeWorker {
         return "Hr{" +
                 person +
                 '}';
+    }
+
+    public void invite(Object human) {
+        if (human instanceof OfficeWorker && passedInterwiew((OfficeWorker) human)) {
+            sort(human);
+        } else {
+            System.out.println("Bye!");
+        }
     }
 }
