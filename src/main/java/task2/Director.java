@@ -10,10 +10,10 @@ import java.util.Random;
 
 public class Director extends Person{
 
+	Office office;
 	public Director(Name name, Age age){
 		super(name, age);
 	}
-	// TODO: 6/14/20 заменить на наследование
 	Random random = new Random();
 
 	public <T extends OfficeWorker> List<T> invite(List<T> filteredWorkers, int qty) {
@@ -28,6 +28,11 @@ public class Director extends Person{
 			throw new RuntimeException("Need to recruit more employees Expected:" + qty + " but was: " + size);
 		}
 		return accepted;
+	}
+
+	public OfficeWorker accepted(List<?extends OfficeWorker> workers){
+		int size = workers.size();
+		return workers.get(random.nextInt(size));
 	}
 
 	@Override

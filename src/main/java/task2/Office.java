@@ -10,33 +10,35 @@ import java.util.Random;
 
 public class Office {
 
-    // TODO: 5/21/20 ну что ж похоже нам предстоит организовать энергичное расширение нашего офиса,
-    //  пожалуй не помешает добавить юриста, охранника, и бухгалтеров(в одном офисе 2х с другом 3х).
-
-
     Director director;
 
     Hr hr;
 
-    int requireOfSecretary = 1;
-    int requireOfSecurity = 1;
-    int requireOfJurist = 1;
+    final int requireOfSecretary = 1;
+    final int requireOfSecurity = 1;
+    final int requireOfJurist = 1;
     final int requireOfAccountant;
+
+    final int qtyApproveCandidates = 10;
+    List<OfficeWorker> allCandidates = new ArrayList<>();
 
     public Office(Director director, Hr hr, int requireOfAccountant) {
         this.director = director;
         this.hr = hr;
         this.requireOfAccountant = requireOfAccountant;
-        // TODO: 6/14/20 конструктор б. логики не содержит, только инициализация полей.
-//        this.hr.filter(allCandidates);
     }
 
     public Office(Director director, Hr hr) {
         this.director = director;
         this.hr = hr;
         this.requireOfAccountant = 1;
-        // TODO: 6/14/20 конструктор б. логики не содержит, только инициализация полей.
-//        this.hr.filter(allCandidates);
+    }
+
+    public Office(Director director, Hr hr, int requireOfAccountant, List<OfficeWorker> allCandidates) {
+        this.director = director;
+        this.hr = hr;
+        this.requireOfAccountant = requireOfAccountant;
+        this.allCandidates = allCandidates;
     }
 
     List<Secretary> secretaries = new ArrayList<>();
@@ -51,7 +53,6 @@ public class Office {
         jurists = director.invite(hr.approvedJurist, requireOfJurist);
         accountants = director.invite(hr.approvedAccountant, requireOfAccountant);
     }
-    // TODO: 6/11/20 убери все эти сеттеры они тебе не нужны на данном этапе
 
     // TODO: 6/11/20 тогда тут все делают свою офисную работу секретари варят, юристы судятся, бухгалтеры сводят баланс
     public void work(int colorNail, OfficeWorker pal, int toPay) {
@@ -75,14 +76,11 @@ public class Office {
         System.out.println(accountants);
     }
 
-    // TODO: 6/14/20 одиноко этот серенький метод в сторонке ждет своего часа. К сожалению это ключевое условие задания.
-    //  Этот контракт болжен быть неизменным. И это диственный путь трудоустройства.
     //претенденты идут по одному, когда их достаточно,
     // то диретор принимает решение и берет одного в штат
 
-    void invitePeaople(Object human) {
-        hr.invite(human);
-
+    void invitePeople(Object human) {
+            hr.invite(human);
     }
 
 

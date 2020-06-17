@@ -100,6 +100,12 @@ public class PersonProvider {
         return accountants;
     }
 
+    public List<OfficeWorker> getSomeAllCandidates(int qty) throws Exception {
+        return getSomeOf(qty, Secretary.class, Security.class,
+                Jurist.class, Accountant.class);
+    }
+
+
     // TODO: 5/26/20 вот тебе бонус с примененеием черной магии, но работать он будет не сразу, нужно понять чего и где не хватает.
     public <T extends OfficeWorker> List<T> getSomeOf(Class<T> clazz, int qty) throws Exception {
         List<Person> somePerson = new PersonProvider().getSomePerson(qty);

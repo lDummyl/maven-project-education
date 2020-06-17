@@ -35,15 +35,23 @@ public class Hr extends OfficeWorker {
 
     public void filter(List<? extends OfficeWorker> officeWorkers) {
         for (OfficeWorker officeWorker : officeWorkers) {
-            if (passedInterwiew(officeWorker)) {
+            if (passedInterview(officeWorker)) {
                 sort(officeWorker);
             }
         }
     }
 
-    private boolean passedInterwiew(OfficeWorker officeWorker) {
+    private boolean passedInterview(OfficeWorker officeWorker) {
         return officeWorker.getPerson().getAge().getYear() < YEAR_OF_BIRTH &&
                 officeWorker.passInterview();
+    }
+
+    public void invite(Object human) {
+        if (human instanceof OfficeWorker && passedInterview((OfficeWorker) human)) {
+            sort(human);
+        } else {
+            System.out.println("Bye!");
+        }
     }
 
     @Override
@@ -51,13 +59,5 @@ public class Hr extends OfficeWorker {
         return "Hr{" +
                 person +
                 '}';
-    }
-
-    public void invite(Object human) {
-        if (human instanceof OfficeWorker && passedInterwiew((OfficeWorker) human)) {
-            sort(human);
-        } else {
-            System.out.println("Bye!");
-        }
     }
 }
