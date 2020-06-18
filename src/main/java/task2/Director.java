@@ -10,29 +10,24 @@ import java.util.Random;
 
 public class Director extends Person{
 
-	Office office;
 	public Director(Name name, Age age){
 		super(name, age);
 	}
 	Random random = new Random();
 
 	public <T extends OfficeWorker> List<T> invite(List<T> filteredWorkers, int qty) {
-		int size = filteredWorkers.size();
-		List<T> accepted = new ArrayList<>();
-		if (size > qty) {
-			for (int i = 0; i < qty; i++) {
-				int index = random.nextInt(size);
-				accepted.add(filteredWorkers.get(index));
+			int size = filteredWorkers.size();
+			List<T> accepted = new ArrayList<>();
+			if (size > qty) {
+				for (int i = 0; i < qty; i++) {
+					int index = random.nextInt(size);
+					accepted.add(filteredWorkers.get(index));
+				}
+			} else {
+				throw new RuntimeException("Need to recruit more employees Expected:" + qty + " but was: " + size);
 			}
-		} else {
-			throw new RuntimeException("Need to recruit more employees Expected:" + qty + " but was: " + size);
-		}
-		return accepted;
-	}
+			return accepted;
 
-	public OfficeWorker accepted(List<?extends OfficeWorker> workers){
-		int size = workers.size();
-		return workers.get(random.nextInt(size));
 	}
 
 	@Override

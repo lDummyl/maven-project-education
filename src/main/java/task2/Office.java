@@ -19,7 +19,6 @@ public class Office {
     final int requireOfJurist = 1;
     final int requireOfAccountant;
 
-    final int qtyApproveCandidates = 10;
     List<OfficeWorker> allCandidates = new ArrayList<>();
 
     public Office(Director director, Hr hr, int requireOfAccountant) {
@@ -52,6 +51,7 @@ public class Office {
         securities = director.invite(hr.approvedSecurity, requireOfSecurity);
         jurists = director.invite(hr.approvedJurist, requireOfJurist);
         accountants = director.invite(hr.approvedAccountant, requireOfAccountant);
+        hr.kickOutCandidates(allCandidates);
     }
 
     // TODO: 6/11/20 тогда тут все делают свою офисную работу секретари варят, юристы судятся, бухгалтеры сводят баланс

@@ -41,6 +41,10 @@ public class Hr extends OfficeWorker {
         }
     }
 
+    public void kickOutCandidates(List<? extends OfficeWorker> unterCandidates){
+        unterCandidates.clear();
+    }
+
     private boolean passedInterview(OfficeWorker officeWorker) {
         return officeWorker.getPerson().getAge().getYear() < YEAR_OF_BIRTH &&
                 officeWorker.passInterview();
