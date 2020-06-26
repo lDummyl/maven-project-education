@@ -2,13 +2,17 @@ package task2;
 
 public class Office {
 
-	/*
-	Secretary secretary;
+	class Secretary {
 
-	Director director;
+	}
 
-	Hr hr;
-	*/
+	class Director {
+
+	}
+
+	class Hr {
+
+	}
 
 	//претенденты идут по одному, когда их достаточно,
 	// то диретор принимает решение и берет одного в штат
