@@ -6,6 +6,8 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
+
+        // TODO: 6/26/20 Hi from outside
         first();
         second();
 
