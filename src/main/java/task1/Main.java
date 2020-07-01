@@ -1,7 +1,11 @@
 package task1;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Random;
 
 public class Main {
 
@@ -45,6 +49,7 @@ public class Main {
             Person person = new Person(name, birthDate);
             people.add(person);
         }
+        // TODO: 7/1/20 это называется ссылка на метод. В бонусном пакете есть класс Lambda, можешь его разобрать чтобы понять как это работает.
         people.sort(Person::compareTo); // Почему список отсортировывается
         System.out.print(people.get(0));
         System.out.println(". He is the oldest man");
@@ -107,7 +112,7 @@ class BirthDate {
         Random random = new Random();
         monthOfBirth = 1 + random.nextInt(MONTHS_IN_YEAR);
         if (monthOfBirth == 2) {
-            dayInMonth = 1 + random.nextInt(27);
+            dayInMonth = 1 + random.nextInt(27); // TODO: 7/1/20 ну все равно не правильно, а высокосный год? Не запаривайся всегда есть чем заняться и нужно правильно делать допущения.
         } else {
             if (monthOfBirth % 2 == 0) {
                 dayInMonth = 1 + random.nextInt(29);
@@ -115,7 +120,16 @@ class BirthDate {
                 dayInMonth = 1 + random.nextInt(30);
             }
         }
-        localBirthdate = LocalDate.of(1900 + random.nextInt(MAX_PERSON_AGE), monthOfBirth, dayInMonth);
+        // TODO: 7/1/20 но если сильно хочется вот как это сделать проще
+        boolean done = false;
+        while (!done) {
+            try {
+                localBirthdate = LocalDate.of(1900 + random.nextInt(MAX_PERSON_AGE), monthOfBirth, dayInMonth);
+                done = true;
+            } catch (DateTimeException e) {
+                System.err.println("Incorrect date:" + e.getMessage());
+            }
+        }
     }
 
     BirthDate(int day, int month, int year) {

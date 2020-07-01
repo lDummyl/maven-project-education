@@ -12,6 +12,7 @@ public class Office {
 	// то диретор принимает решение и берет одного в штат
 
 	void invitePeaople(Object human) {
+		// TODO: 7/1/20 лучше если передача отобранных кондидтов будет здесь, через локальную переменную.
 		hr.invitePeople(human);
 		director.takeForJobe();
 	}
@@ -20,6 +21,8 @@ public class Office {
 class Director {
 	private Office office;
 	private int number = 10;	// - достаточное количество кондидатов директору для выбора одного
+
+	// TODO: 7/1/20 это скорее для HRа свойство держать такие списки
 	ArrayList <Secretary> candidates = new ArrayList<>();	// - список кондидатов, попавших на собеседование
 
 	Director(Office office) {
@@ -30,7 +33,7 @@ class Director {
 		return number;
 	}
 
-	public void takeForJobe() {
+	public void takeForJobe() { //job
 		if ((office.secretary == null) && (number == candidates.size())) {
 			office.secretary = candidates.get(new Random().nextInt(candidates.size()));
 			System.out.println(office.secretary.toString() + " was been chosen on the position of a secretary.");
@@ -84,6 +87,7 @@ class Secretary {
 	}
 }
 
+// TODO: 7/1/20 у тебя есть и так доступ к этому классу, не важно что он в другом пакете
 class Name {
 	static ArrayList<String> firstNames = new ArrayList<>();
 	static ArrayList<String> lastNames = new ArrayList<>();

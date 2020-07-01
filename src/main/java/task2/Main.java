@@ -6,6 +6,8 @@ package task2;
 
 public class Main {
 	public static void main(String[] args) {
+		// TODO: 7/1/20 а что если их будет 100? или 10 000? Первая задача как раз решает проблемы снабжения коллекциями объектов,
+		//  нужно ее немного доработать чтобы она предоставляла сотрудников в нужном количестве и использовать здесь.
 		Office office1 = new Office();
 		Secretary secretary1 = new Secretary();
 		Secretary secretary2 = new Secretary();
