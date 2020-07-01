@@ -7,7 +7,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // TODO: 6/26/20 Hi from outside
+        // TODO: 6/26/20 Hi from outside  - Привет из вне? - не понимаю перевод ((
         first();
         second();
 
@@ -45,19 +45,10 @@ public class Main {
             Person person = new Person(name, birthDate);
             people.add(person);
         }
-        System.out.println(people);
+        people.sort(Person::compareTo); // Почему список отсортировывается
+        System.out.print(people.get(0));
+        System.out.println(". He is the oldest man");
         // TODO: 26.06.2020 print oldest person
-
-//        for (Person p : person) {
-////            p = new Person(new Name("Alexandr", "Terehov"), new Age(45, 65, 21));
-//            //new Person()
-//            p.name.firstName = firstNames.get(new Random().nextInt(6));
-//            p.name.lastName = lastNames.get(new Random().nextInt(6));
-//            p.age.day = new Random().nextInt(32);
-//            p.age.month = new Random().nextInt(12);
-//            p.age.year = new Random().nextInt(120);
-//            System.out.println(p.name.firstName + " " + p.name.lastName + " is " + p.age.year + " years " + p.age.month + " months " + p.age.day + " days.");
-//        }
     }
 }
 
@@ -102,18 +93,29 @@ class BirthDate {
 
     private static final int MAX_PERSON_AGE = 120;
     private static final int MONTHS_IN_YEAR = 11;
-    public static final int DAYS_IN_MONTH = 30; // TODO: 26.06.2020 apply month relation
 
     int year;
     int month;
     int day;
     Calendar dayOfBerth = new GregorianCalendar();
-    private LocalDate localBirthdate;
+    LocalDate localBirthdate;
+    private int monthOfBirth;
+    private int dayInMonth;
+    //final int dayInMonth = 30; TODO: 26.06.2020 apply month relation - Если я сделал ТУДУ, то я могу их удалять?
 
     public BirthDate() {
         Random random = new Random();
-        localBirthdate = LocalDate.of(1900 + random.nextInt(MAX_PERSON_AGE), 1 + random.nextInt(MONTHS_IN_YEAR), 1 + random.nextInt(DAYS_IN_MONTH));
-
+        monthOfBirth = 1 + random.nextInt(MONTHS_IN_YEAR);
+        if (monthOfBirth == 2) {
+            dayInMonth = 1 + random.nextInt(27);
+        } else {
+            if (monthOfBirth % 2 == 0) {
+                dayInMonth = 1 + random.nextInt(29);
+            } else {
+                dayInMonth = 1 + random.nextInt(30);
+            }
+        }
+        localBirthdate = LocalDate.of(1900 + random.nextInt(MAX_PERSON_AGE), monthOfBirth, dayInMonth);
     }
 
     BirthDate(int day, int month, int year) {
@@ -126,7 +128,7 @@ class BirthDate {
     }
 }
 
-class Person {
+class Person implements Comparable<Person> {
 
     Name name;
     BirthDate birthDate;
@@ -136,4 +138,13 @@ class Person {
         this.birthDate = birthDate;
     }
 
+    @Override
+    public int compareTo(Person person) {
+        return (this.birthDate.localBirthdate.compareTo(person.birthDate.localBirthdate));
+    }
+
+    @Override
+    public String toString() {
+        return ('\n' + name.firstName + " " + name.lastName + " was born in " + birthDate.localBirthdate);
+    }
 }
