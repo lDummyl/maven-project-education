@@ -32,15 +32,6 @@ public class Hr extends OfficeWorker {
         }
     }
 
-
-    public void filter(List<? extends OfficeWorker> officeWorkers) {
-        for (OfficeWorker officeWorker : officeWorkers) {
-            if (passedInterview(officeWorker)) {
-                sort(officeWorker);
-            }
-        }
-    }
-
     public void kickOutCandidates(List<? extends OfficeWorker> unterCandidates){
         unterCandidates.clear();
     }
@@ -56,6 +47,11 @@ public class Hr extends OfficeWorker {
         } else {
             System.out.println("Bye!");
         }
+    }
+
+    @Override
+    public Person getPerson() {
+        return person;
     }
 
     @Override

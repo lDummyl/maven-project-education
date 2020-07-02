@@ -9,8 +9,6 @@ public class Accountant extends OfficeWorker{
 
     private Person person;
 
-    List<BankAccount> bankAccounts = new ArrayList<>();
-
     public Accountant(Person person) {
         this.person = person;
     }

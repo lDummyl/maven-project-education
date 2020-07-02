@@ -55,7 +55,7 @@ public class Office {
     }
 
     // TODO: 6/11/20 тогда тут все делают свою офисную работу секретари варят, юристы судятся, бухгалтеры сводят баланс
-    public void work(int colorNail, OfficeWorker pal, int toPay) {
+    public void work(int colorNail, Object pal, int toPay) {
         secretaries.get(0).changeColorNail(colorNail);
         System.out.println(secretaries.get(0).getColorNail());
         securities.get(0).speakWithSomeone(pal);
@@ -64,7 +64,7 @@ public class Office {
         for (Accountant accountant : accountants) {
             accountant.toPay(bankAccounts.get(0), toPay);
         }
-        System.out.println(accountants.get(1).getBalance(bankAccounts.get(0)));
+        System.out.println(accountants.get(0).getBalance(bankAccounts.get(0)));
     }
 
     public void listWorkers() {

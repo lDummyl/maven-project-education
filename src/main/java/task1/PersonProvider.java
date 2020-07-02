@@ -145,11 +145,4 @@ public class PersonProvider {
         return list;
     }
 
-    private void addSecurityInit(Class<?> clazz, OfficeWorker t) {
-        if (clazz.equals(Security.class)){
-            Security security = (Security) t;
-            security.pal = new Security(new Person());
-        }
-    }
-
 }

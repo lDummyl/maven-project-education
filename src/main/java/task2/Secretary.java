@@ -39,10 +39,6 @@ public class Secretary extends OfficeWorker{
 		return colorNail;
 	}
 
-	public void sendMail() {
-		System.out.println("Mail has been sent");
-	}
-
 	public void changeColorNail(int colorNumber){
 		if(colorNumber >= 0 && colorNumber <= 9){
 			colorNail = baseColor.get(colorNumber);
