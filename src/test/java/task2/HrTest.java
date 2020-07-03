@@ -18,7 +18,7 @@ public class HrTest {
 
     @Test
     public void sort() {
-        for(int i = 0; i < 4 * qty; i++){
+        for(int i = 0; i < 4 * qty; i++){ // TODO: 7/3/20 да вот и начинается, волшебная 4ка, добавь одну должность и все это развалится
             hr.sort(officeWorkers.get(i));
         }
         for (Secretary secretary : hr.approvedSecretary) {

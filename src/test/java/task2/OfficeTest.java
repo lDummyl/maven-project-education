@@ -83,7 +83,7 @@ public class OfficeTest {
         office.init();
 
         office.work(5, object, 100);
-        assertTrue(office.secretaries.get(0).getColorNail() == "YELLOW");
+        assertTrue(office.secretaries.get(0).getColorNail() == "YELLOW"); // TODO: 7/3/20 а вот не стоит так строки сравнивать
         assertTrue(office.bankAccounts.get(0).getSum() == 49900);
     }
 

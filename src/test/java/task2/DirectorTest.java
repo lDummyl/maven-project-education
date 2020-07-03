@@ -21,8 +21,12 @@ public class DirectorTest {
         assertNotNull(director.getName());
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test/*(expected = RuntimeException.class)*/ // TODO: 7/3/20 так лучше делать с кастомным эксепшеном, а то тот же NPE пойдет в зачет
     public void invite() {
-        director.invite(secretaries, 20);
+        try {
+            director.invite(secretaries, 20);
+        } catch (RuntimeException e) {
+            assertTrue(e.getMessage().contains("Need to recruit more employees Expected")); // TODO: 7/3/20 так надежней
+        }
     }
 }

@@ -28,6 +28,7 @@ public class Security extends OfficeWorker{
         System.out.println("Bam, bam!");
     }
 
+    // TODO: 7/3/20 тут покрытие неважнец
     public void speakWithSomeone(Object pal){
         if(pal instanceof Security){
             talkAboutLife();

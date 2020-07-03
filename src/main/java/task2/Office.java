@@ -67,6 +67,7 @@ public class Office {
         System.out.println(accountants.get(0).getBalance(bankAccounts.get(0)));
     }
 
+    // TODO: 7/3/20 не покрыто
     public void listWorkers() {
         System.out.println(director);
         System.out.println(hr);
