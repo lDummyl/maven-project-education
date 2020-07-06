@@ -19,9 +19,39 @@ package task3;
 
 */
 
-public class Main {
-	public static void main(String[] args) {
+import com.alibaba.fastjson.JSON;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import task3.JSONProbe.Human;
+import task3.JSONProbe.Place;
 
+public class Main {
+	public static void main(String[] args) throws JsonProcessingException {
+//	    String str = "Разбить строку на слова";
+//	    String[] word = str.split("\\s");
+//        for (String s : word) {
+//            System.out.println(s);
+//        }
+
+//        String inner = "Каждый охотник желает знать";
+//        String innerApproved = inner.toLowerCase();
+//        String goal = "каждый";
+//        System.out.println(innerApproved.contains(goal));
+
+        Place place = new Place();
+        place.setName("World");
+
+        Human human = new Human();
+        human.setMessage("Hi");
+        human.setPlace(place);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper.writeValueAsString(human);
+        System.out.println("json "+jsonString);
+
+        //Human newHuman = mapper.readValues(jsonString, Human.class); //Не работает
+        Human newHuman = JSON.parseObject(jsonString, Human.class); //Работает
+        newHuman.say();
 
 	}
 }
