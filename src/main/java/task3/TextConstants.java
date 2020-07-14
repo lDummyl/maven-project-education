@@ -8,16 +8,16 @@ import java.util.Map;
 public class TextConstants {
     static Map<String, String> questionAnswer = new HashMap<>();
     static {
-        questionAnswer.put("что", "");
-        questionAnswer.put("где", "");
-        questionAnswer.put("когда", "");
-        questionAnswer.put("почему", "");
-        questionAnswer.put("зачем", "");
-        questionAnswer.put("сколько", "");
-        questionAnswer.put("откуда", "");
-        questionAnswer.put("какой", "");
-        questionAnswer.put("какая", "");
-        questionAnswer.put("какое", "");
+        questionAnswer.put("что", "Погугли.");
+        questionAnswer.put("где", "Прямо и немножечко направо.");
+        questionAnswer.put("когда", "После дождечка в четверг.");
+        questionAnswer.put("почему", "По кочану и по кочерыжке.");
+        questionAnswer.put("зачем", "Я сам ингда думаю, а зачем? Ну вот зачем-то.");
+        questionAnswer.put("сколько", "Столько, сколько нужно. Ни больше, ни меньше.");
+        questionAnswer.put("откуда", "Из-за леса, из-за гор.");
+        questionAnswer.put("какой", "Красивый.");
+        questionAnswer.put("какая", "Красивая.");
+        questionAnswer.put("какое", "Красивое.");
         questionAnswer.put("как", "Хером об косяк!"); //Придумать мудрый ответ
     }
 

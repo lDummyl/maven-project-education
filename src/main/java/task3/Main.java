@@ -19,39 +19,32 @@ package task3;
 
 */
 
-import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import task3.JSONProbe.Human;
-import task3.JSONProbe.Place;
 
 public class Main {
-	public static void main(String[] args) throws JsonProcessingException {
-//	    String str = "Разбить строку на слова";
-//	    String[] word = str.split("\\s");
-//        for (String s : word) {
-//            System.out.println(s);
-//        }
+    public static void main(String[] args) {
+        GreatOracle greatOracle = new GreatOracle();
+            greatOracle.start();
+    }
 
-//        String inner = "Каждый охотник желает знать";
-//        String innerApproved = inner.toLowerCase();
-//        String goal = "каждый";
-//        System.out.println(innerApproved.contains(goal));
+    /*
+    Код, в целом работает, но есть несколько нерешенных неточностей, которые запарывают логику.
+    Например, если у вопросительного слова ("как", "когда" и т.д.) стоит знак препинания,
+    то слово не определяется и оракулу кажется, что вопрос не задан.
 
-        Place place = new Place();
-        place.setName("World");
+    Поток, который отвечает за ответы на вопросы завершается, если ввести 0. После этого завершаются
+    остальные потоки, после чего формируется json.
 
-        Human human = new Human();
-        human.setMessage("Hi");
-        human.setPlace(place);
+    Помимо этого не совсем понимаю, что значит "положить json в ресурсы". Это папка resources,
+    которая лежит в target?
 
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonString = mapper.writeValueAsString(human);
-        System.out.println("json "+jsonString);
+    И еще один очень важный момент, и я так и не понял как его реализовать. Когда оракул спит,
+    идет обратный отсчет, но другие потоки все равно работают. То есть пока он спит, он может и
+    нахамить, и палкой ударить, и на вопрос ответить. Как сделать так, чтобы другие потоки в этот
+    момент ничего не делали?
 
-        //Human newHuman = mapper.readValues(jsonString, Human.class); //Не работает
-        Human newHuman = JSON.parseObject(jsonString, Human.class); //Работает
-        newHuman.say();
+    Ну и с тестами есть вопрос. У меня большинство методов void и результатом их работы является
+    System.out.println. И как их тестировать неясно. Думаю, что можно сделать так, чтобы эти
+    методы возвращали String и тогда их можно сравнить assertEquals.
+     */
 
-	}
 }
