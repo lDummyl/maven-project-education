@@ -5,6 +5,8 @@ package task1;
 public class Main {
 
 	public static void main(String[] args) {
+		// TODO: 7/15/20 hi from outside
+
 		first();
 		second();
 
