@@ -15,6 +15,7 @@ public class StatisticsTest {
 
     @Test()
     public void endSession() throws IOException {
+        //Jckson object mapper
         statistics.endSession();
         assertNotNull(new File("result.json"));//не уверен, что так правильно
     }

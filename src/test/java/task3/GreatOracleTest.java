@@ -9,6 +9,15 @@ import static org.junit.Assert.*;
 public class GreatOracleTest {
     GreatOracle greatOracle = new GreatOracle();
 
+
+//    @Test
+//    public void validAnswer(){
+//        String question = "Как пройти в библиотеку?";
+//        String answer = greatOracle.answerMyQuestion(question);
+//        assertEquals("Прямо и направо", answer);
+//    }
+
+
     @Test
     public void sticks(){
         //assertTrue(greatOracle.sticks().contains("*Оракул ударил вас палкой*"));
