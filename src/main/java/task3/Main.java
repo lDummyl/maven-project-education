@@ -22,8 +22,8 @@ package task3;
 
 public class Main {
     public static void main(String[] args) {
-        GreatOracle greatOracle = new GreatOracle();
-            greatOracle.start();
+        //GreatOracle greatOracle = new GreatOracle();
+
     }
 
     /*

@@ -1,110 +1,35 @@
 package task3;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class GreatOracle {
     Random random = new Random();
     Scanner scanner = new Scanner(System.in);
     Statistics statistic = new Statistics();
 
-    public void start() {
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
-        try {
-            thread4.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+    int rage;
+    int needForSleep;
+    Map<String, String> wisdom = new HashMap<>();
+    LocalDateTime busyUntil;
+
+    public GreatOracle(int rage, int needForSleep) {
+        this.rage = rage;
+        this.needForSleep = needForSleep;
     }
 
-    Thread thread1 = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            while (thread2.isAlive()) {
-                try {
-                    Thread.sleep(random.nextInt(20000) + 5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                sticks();
-
-            }
-        }
-    });
-
-    Thread thread2 = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            while (true) {
-                String question = scanner.nextLine();
-                if (question.equals("0")) {
-                    try {
-                        statistic.endSession();
-                    } catch (JsonProcessingException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    break;
-                } else {
-                    listenerQuestion(question);
-                }
-            }
-
-        }
-    });
-
-    Thread thread3 = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            while (thread2.isAlive()) {
-                try {
-                    Thread.sleep(random.nextInt(22000) + 5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                huff();
-            }
-        }
-    });
-
-    Thread thread4 = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            while (thread2.isAlive()) {
-                try {
-                    Thread.sleep(random.nextInt(30000) + 10000);
-                    sleepOracle(random.nextInt(50000) + 10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    });
+    public void learning(Map<String, String> data){
+        this.wisdom = data;
+    }
 
 
-    public void sticks() {
-        System.out.println("*Оракул ударил вас палкой*");
+    private String hitWithStick() {
+        return "Hit";
     }
 
     public void sleepOracle(int time) throws InterruptedException {
-        for (int i = time / 1000; i >= 0; i--) {
-            System.out.println("Оракул уснул. До пробуждения осталось: " + ((i > 4 || i == 0) ? i + " секунд" : (i > 1) ? i + " секунды" : i + " секунда"));
-            Thread.sleep(1000L);
 
-        }
     }
 
     public void huff() {
@@ -123,10 +48,6 @@ public class GreatOracle {
         } else {
             giveAdvice(question);
         }
-    }
-
-    public void advice(int questionCount) {
-
     }
 
     public void giveAdvice(String question) {
@@ -156,53 +77,48 @@ public class GreatOracle {
         questionLength(question);
     }
 
-//    public String answerMyQuestion(String question) {
-//        List<String> questions = parseAllQuestionWords(question);
-//        return processQuestion(questions);
-//
-//
-//    }
-//
-//    private String processQuestion(List<String> questions) {
-//        if (questions.size() > 1) {
-//
-//        }
-//        if (questions.size() == 0) {
-//
-//        }
-//        if (questions.size() == 1) {
-//            if (isBusy()) {
-//                hitWithStick();
-//            } else {
-//                return "Прямо и направо";
-//            }
-//        }
-//        return null;
-//    }
-//
-//    LocalDateTime busyUntil;
-//
-//    private boolean isBusy() {
-//        LocalDateTime now = LocalDateTime.now();
-//        if (busyUntil.isAfter(now)) {
-//            return true;
-//        }
-//        boolean b = random.nextBoolean();
-//        if (b) {
-//            busyUntil = now.plusMinutes(10);
-//        }
-//        return false;
-//    }
-//
-//    private String hitWithStick() {
-//        return "Hit";
-//    }
-//
-//    private List<String> parseAllQuestionWords(String question) {
-//        // TODO: 16.07.2020 replace with parsing
-//        ArrayList<String> strings = new ArrayList<>();
-//        strings.add("как");
-//        return strings;
-//
-//    }
+    public String answerMyQuestion(String question) {
+        List<String> questions = parseAllQuestionWords(question);
+        return processQuestion(questions);
+
+
+    }
+
+    private String processQuestion(List<String> questions) {
+        if (questions.size() > 1) {
+
+        }
+        if (questions.size() == 0) {
+
+        }
+        if (questions.size() == 1) {
+            if (isBusy()) {
+                hitWithStick();
+            } else {
+                return "Прямо и направо";
+            }
+        }
+        return null;
+    }
+
+    private boolean isBusy() {
+        LocalDateTime now = LocalDateTime.now();
+        if (busyUntil.isAfter(now)) {
+            return true;
+        }
+        boolean b = random.nextBoolean();
+        if (b) {
+            busyUntil = now.plusMinutes(10);
+        }
+        return false;
+    }
+
+
+    private List<String> parseAllQuestionWords(String question) {
+        // TODO: 16.07.2020 replace with parsing
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add("как");
+        return strings;
+
+    }
 }

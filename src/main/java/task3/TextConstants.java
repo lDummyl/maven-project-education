@@ -1,12 +1,10 @@
 package task3;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TextConstants {
     static Map<String, String> questionAnswer = new HashMap<>();
+
     static {
         questionAnswer.put("что", "Погугли.");
         questionAnswer.put("где", "Прямо и немножечко направо.");
@@ -21,7 +19,24 @@ public class TextConstants {
         questionAnswer.put("как", "Хером об косяк!"); //Придумать мудрый ответ
     }
 
+    static List<String> question= new ArrayList<>();
+
+    static {
+        question.add("что");
+        question.add("где");
+        question.add("когда");
+        question.add("почему");
+        question.add("зачем");
+        question.add("сколько");
+        question.add("откуда");
+        question.add("какой");
+        question.add("какая");
+        question.add("какое");
+        question.add("как");
+    }
+
     static final List<String> curse = new ArrayList<>();
+
     static {
         curse.add("Какой же ты тупой!");
         curse.add("Может ты уже родишь свой вопрос?");
@@ -31,11 +46,25 @@ public class TextConstants {
     }
 
     static final List<String> situation = new ArrayList<>();
+
     static {
         situation.add("Будь лаконичней.");
         situation.add("Будь красноречивее!");
         situation.add("Ты задаешь слишком много вопросов.");
         situation.add("Не слышу вопроса в твоих речах.");
+    }
+
+    public Map<String, String> learnOracle(int indexWisdom){
+        int maxIndexWisdom = question.size();
+        Map<String, String> wisdom = new HashMap<>();
+        if(indexWisdom < maxIndexWisdom) {
+            for (int i = 0; i < indexWisdom; i++) {
+                wisdom.put(question.get(i), questionAnswer.get(question.get(i)));
+            }
+        }else {
+            throw new RuntimeException("indexWisdom should be less " + maxIndexWisdom);
+        }
+        return wisdom;
     }
 
     public static String getAnswer(String question) {
@@ -45,8 +74,5 @@ public class TextConstants {
     public static String getCurse(int i) {
         return curse.get(i);
     }
-
-//    public static String getSituation(Логика определения ситуации) {
-//        return situation.get();
-//    }
 }
+
