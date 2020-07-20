@@ -20,62 +20,22 @@ package task3;
 */
 
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
 public class Main {
     public static void main(String[] args) {
-        //GreatOracle greatOracle = new GreatOracle();
-
-        String s = "???Как???, почему?? ,,,432432 зачем, пройти в библиотеку";
-        String ss = s.toLowerCase();
-        Pattern question = Pattern.compile("(как|когда|зачем|почему)");
-        Matcher matcher = question.matcher(ss);
-        while (matcher.find()) {
-            System.out.println(matcher.group());
+        Academy academy = new Academy();
+        GreatOracle greatOracle = new GreatOracle(10, 50);
+        greatOracle.learning(academy.learnOracle(11));
+        while (true) {
+            System.out.println(greatOracle.questionListener());
         }
-
-
         // TODO: 7/20/20 keep it OOP
-        class QuestionExtractor {
-            final Set<String> questions;
 
-            public QuestionExtractor(Set<String> questions) {
-                this.questions = questions;
-            }
 
-            public Set<String> parse(String rawLine) {
-                Set<String> questionsResult = new HashSet<>();
-                for (String question : questions) {
-                    parse(rawLine, questionsResult, "(" + question + ")");
-                }
-                return questionsResult;
-            }
-
-            public Set<String> parseSinglePattern(String rawLine) {
-                Set<String> questionsResult = new HashSet<>();
-                String rawPattern = questions.stream().collect(Collectors.joining("|", "(", ")"));
-                parse(rawLine, questionsResult, rawPattern);
-                return questionsResult;
-            }
-
-            private void parse(String rawLine, Set<String> questionsResult, String rawPattern) {
-                Pattern pattern = Pattern.compile(rawPattern);
-                Matcher matcher = pattern.matcher(rawLine.toLowerCase());
-                while (matcher.find()) {
-                    questionsResult.add(matcher.group());
-                }
-            }
-        }
-
-        QuestionExtractor questionExtractor = new QuestionExtractor(TextConstants.questionAnswer.keySet());
-        Set<String> parse1 = questionExtractor.parse(s);
-        Set<String> parse2 = questionExtractor.parseSinglePattern(s);
-        System.out.println("parse1 = " + parse1);
-        System.out.println("parse2 = " + parse2);
+//        QuestionExtractor questionExtractor = new QuestionExtractor(Academy.questionAnswer.keySet());
+//        Set<String> parse1 = questionExtractor.parse(s);
+//        Set<String> parse2 = questionExtractor.parseSinglePattern(s);
+//        System.out.println("parse1 = " + parse1);
+//        System.out.println("parse2 = " + parse2);
 
     }
 

@@ -2,7 +2,7 @@ package task3;
 
 import java.util.*;
 
-public class TextConstants {
+public class Academy {
     static Map<String, String> questionAnswer = new HashMap<>();
 
     static {
@@ -35,29 +35,10 @@ public class TextConstants {
         question.add("как");
     }
 
-    static final List<String> curse = new ArrayList<>();
-
-    static {
-        curse.add("Какой же ты тупой!");
-        curse.add("Может ты уже родишь свой вопрос?");
-        curse.add("Зачем ты сюда пришел, болезный?");
-        curse.add("Помню, была у меня собака. Так вот, она была сообразительнее тебя!");
-        curse.add("Слушай, сгоняй мне за пивом.");
-    }
-
-    static final List<String> situation = new ArrayList<>();
-
-    static {
-        situation.add("Будь лаконичней.");
-        situation.add("Будь красноречивее!");
-        situation.add("Ты задаешь слишком много вопросов.");
-        situation.add("Не слышу вопроса в твоих речах.");
-    }
-
     public Map<String, String> learnOracle(int indexWisdom){
         int maxIndexWisdom = question.size();
         Map<String, String> wisdom = new HashMap<>();
-        if(indexWisdom < maxIndexWisdom) {
+        if(indexWisdom <= maxIndexWisdom) {
             for (int i = 0; i < indexWisdom; i++) {
                 wisdom.put(question.get(i), questionAnswer.get(question.get(i)));
             }
@@ -65,14 +46,6 @@ public class TextConstants {
             throw new RuntimeException("indexWisdom should be less " + maxIndexWisdom);
         }
         return wisdom;
-    }
-
-    public static String getAnswer(String question) {
-        return questionAnswer.get(question);
-    }
-
-    public static String getCurse(int i) {
-        return curse.get(i);
     }
 }
 

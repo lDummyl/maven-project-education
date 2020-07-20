@@ -9,6 +9,7 @@ public class GreatOracle {
     Statistics statistic = new Statistics();
 
 
+
     int rage;
     int needForSleep;
     Map<String, String> wisdom = new HashMap<>();
@@ -19,87 +20,80 @@ public class GreatOracle {
         this.needForSleep = needForSleep;
     }
 
-    public void learning(Map<String, String> data){
-        this.wisdom = data;
+    public void learning(Map<String, String> wisdom){
+        this.wisdom = wisdom;
     }
 
+    static final List<String> curse = new ArrayList<>();
+
+    static {
+        curse.add("Какой же ты тупой!");
+        curse.add("Может ты уже родишь свой вопрос?");
+        curse.add("Зачем ты сюда пришел, болезный?");
+        curse.add("Помню, была у меня собака. Так вот, она была сообразительнее тебя!");
+        curse.add("Слушай, сгоняй мне за пивом.");
+    }
+
+    static final List<String> situation = new ArrayList<>();
+
+    static {
+        situation.add("Будь лаконичней.");
+        situation.add("Будь красноречивее!");
+        situation.add("Ты задаешь слишком много вопросов.");
+        situation.add("Не слышу вопроса в твоих речах.");
+    }
+
+
+    QuestionExtractor questionExtractor = new QuestionExtractor(wisdom.keySet());
+
+    public String questionListener(){
+        String question = scanner.nextLine();
+        return say(questionLength(question));
+    }
 
     private String hitWithStick() {
         return "Hit";
     }
 
-    public void sleepOracle(int time) throws InterruptedException {
+//        public void huff() {
+//        int randomIndexCurse = random.nextInt(TextConstants.curse.size());
+//        System.out.println(TextConstants.curse.get(randomIndexCurse));
+//    }
 
-    }
-
-    public void huff() {
-        int randomIndexCurse = random.nextInt(TextConstants.curse.size());
-        System.out.println(TextConstants.curse.get(randomIndexCurse));
-    }
-
-    public void questionLength(String question) {
+    public String questionLength(String question) {
         int min = 15;
         int max = 40;
         char[] c = question.toCharArray();
         if (c.length < min) {
-            System.out.println(TextConstants.situation.get(1));
+            return "-1";
         } else if (c.length > max) {
-            System.out.println(TextConstants.situation.get(0));
+            return "-2";
         } else {
-            giveAdvice(question);
+            return question;
         }
     }
 
-    public void giveAdvice(String question) {
-        String smallLiteral = question.toLowerCase();
-        String[] questionWords = smallLiteral.split("\\s");
-        int equationCount = 0;
-        String approvedQuestion = "";
-        for (String questionWord : questionWords) {
-            if (TextConstants.questionAnswer.containsKey(questionWord)) {
-                approvedQuestion = questionWord;
-                equationCount++;
-            }
-        }
-        if (equationCount == 0) {
-            statistic.saveStatistic(question, TextConstants.situation.get(3));
-            System.out.println(TextConstants.situation.get(3));
-        } else if (equationCount > 1) {
-            statistic.saveStatistic(question, TextConstants.situation.get(2));
-            System.out.println(TextConstants.situation.get(2));
-        } else if (equationCount == 1) {
-            statistic.saveStatistic(question, TextConstants.getAnswer(approvedQuestion));
-            System.out.println(TextConstants.getAnswer(approvedQuestion));
+    public String giveAnswer(String question){
+
+        if (questionExtractor.parse(question).size() == 0){
+            return situation.get(3);
+        }else if (questionExtractor.parse(question).size() > 1){
+            return situation.get(2);
+        }else {
+            return wisdom.get(questionExtractor.parse(question));
         }
     }
 
-    public void listenerQuestion(String question) {
-        questionLength(question);
+    public String say(String question) {
+        if(question.equals("-1")){
+            return situation.get(1);
+        }else if (question.equals("-2")){
+            return situation.get(0);
+        }else {
+            return giveAnswer(question);
+        }
     }
 
-    public String answerMyQuestion(String question) {
-        List<String> questions = parseAllQuestionWords(question);
-        return processQuestion(questions);
-
-
-    }
-
-    private String processQuestion(List<String> questions) {
-        if (questions.size() > 1) {
-
-        }
-        if (questions.size() == 0) {
-
-        }
-        if (questions.size() == 1) {
-            if (isBusy()) {
-                hitWithStick();
-            } else {
-                return "Прямо и направо";
-            }
-        }
-        return null;
-    }
 
     private boolean isBusy() {
         LocalDateTime now = LocalDateTime.now();
