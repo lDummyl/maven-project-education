@@ -1,6 +1,7 @@
 package task3;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Academy {
     static Map<String, String> questionAnswer = new HashMap<>();
@@ -21,6 +22,7 @@ public class Academy {
 
     static List<String> question= new ArrayList<>();
 
+    // TODO: 7/21/20 это тебе не нужно, это добывается как questionAnswer.keyset() в любой момент, а это требует сверки
     static {
         question.add("что");
         question.add("где");
@@ -46,6 +48,17 @@ public class Academy {
             throw new RuntimeException("indexWisdom should be less " + maxIndexWisdom);
         }
         return wisdom;
+    }
+
+    // TODO: 7/21/20 осваивай функциональное программирование
+    public static  Map<String, String> learnOracle1(int indexWisdom){
+        if (indexWisdom > questionAnswer.size()){
+            // TODO: 7/21/20 если эта проверка только чтобы за индексы не уехать, в данной реализации этого можно не опасаться,
+            //  он просто не будет резать, а соберет все что есть при превышении, и так 1 строка пойдет за 10ть.
+            throw new RuntimeException("indexWisdom should be less than - " + questionAnswer.size());
+        }
+        return questionAnswer.entrySet().stream().limit(indexWisdom)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
 
