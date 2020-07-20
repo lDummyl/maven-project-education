@@ -7,7 +7,7 @@ import java.util.Random;
 import static org.junit.Assert.*;
 
 public class GreatOracleTest {
-    GreatOracle greatOracle = new GreatOracle();
+    //GreatOracle greatOracle = new GreatOracle();
 
 
 //    @Test
@@ -31,7 +31,7 @@ public class GreatOracleTest {
 
     @Test(timeout = 62000)
     public void sleep() throws InterruptedException {
-        greatOracle.sleepOracle(60000);
+        //greatOracle.sleepOracle(60000);
     }
 
     @Test
