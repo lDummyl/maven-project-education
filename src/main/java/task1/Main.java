@@ -47,9 +47,12 @@ public class Main {
             System.out.println(new Person(new Name(), new BirthDate()));
             count--;
         }
+	    // TODO: 7/20/20 тоже не помешает найти старшего
     }
 
 }
+
+// TODO: 7/20/20 эти классы можно вынести в отдельные фаилы, если добавить к классу publicон покраснеет от стыда и через alt+ent редактор автоматически сделает это за тебя
 
 
 class Name {
@@ -73,6 +76,7 @@ class Name {
         lastNames.add("Petrov");
         lastNames.add("Andreev");
         lastNames.add("Sidorov");
+
     }
 
     public Name(String firstName, String lastName) {
@@ -82,7 +86,7 @@ class Name {
 
     public Name() {
         try {
-            randomNumber = SecureRandom.getInstanceStrong();
+            randomNumber = SecureRandom.getInstanceStrong(); // TODO: 7/20/20 тогда уж это тоже в статическом поле лучше проинициализировать 1 раз чем 100
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -133,11 +137,11 @@ class BirthDate {
     private BirthDate getRandomDate() {
         this.day = randomNumber.nextInt(30) + 1;
         this.month = randomNumber.nextInt(11) + 1;
-        this.year = randomNumber.nextInt(110) + 1910;
+        this.year = randomNumber.nextInt(110) + 1910; // TODO: 7/20/20 это называется magic numbers их заменяют константы
         try {
             this.localDate = LocalDate.of(year, month, day);
         } catch (DateTimeException e) {
-            this.localDate = LocalDate.of(year, month, day - 3);
+            this.localDate = LocalDate.of(year, month, day - 3); // TODO: 7/20/20 элегантный, но костыль
         }
         return this;
     }
