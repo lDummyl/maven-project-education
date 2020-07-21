@@ -7,6 +7,7 @@ public class GreatOracle {
     Random random = new Random();
     Scanner scanner = new Scanner(System.in);
     Statistics statistic = new Statistics();
+    private final int MAX_POSSIBILITY = 100;
 
 
 
@@ -14,6 +15,7 @@ public class GreatOracle {
     int needForSleep;
     Map<String, String> wisdom = new HashMap<>();
     LocalDateTime busyUntil;
+    QuestionExtractor questionExtractor;
 
     public GreatOracle(int rage, int needForSleep) {
         this.rage = rage;
@@ -22,6 +24,7 @@ public class GreatOracle {
 
     public void learning(Map<String, String> wisdom){
         this.wisdom = wisdom;
+        questionExtractor = new QuestionExtractor(wisdom.keySet());
     }
 
     static final List<String> curse = new ArrayList<>();
@@ -43,12 +46,17 @@ public class GreatOracle {
         situation.add("Не слышу вопроса в твоих речах.");
     }
 
-
-    QuestionExtractor questionExtractor = new QuestionExtractor(wisdom.keySet());
-
     public String questionListener(){
         String question = scanner.nextLine();
-        return say(questionLength(question));
+        int action = random.nextInt(MAX_POSSIBILITY);
+        if (action > 0 && action <= rage){
+            hitWithStick();
+        }else if (action > rage && action <= needForSleep){
+            sleep();
+        }else if (action > needForSleep && action <= MAX_POSSIBILITY){
+            return say(questionLength(question));
+        }
+        return null;
     }
 
     private String hitWithStick() {
@@ -74,13 +82,13 @@ public class GreatOracle {
     }
 
     public String giveAnswer(String question){
-
-        if (questionExtractor.parse(question).size() == 0){
+        String s = questionExtractor.parse123(question);
+        if (s.equals("-10")){
             return situation.get(3);
-        }else if (questionExtractor.parse(question).size() > 1){
+        }else if (s.equals("-20")){
             return situation.get(2);
         }else {
-            return wisdom.get(questionExtractor.parse(question));
+            return wisdom.get(s);
         }
     }
 
@@ -105,14 +113,5 @@ public class GreatOracle {
             busyUntil = now.plusMinutes(10);
         }
         return false;
-    }
-
-
-    private List<String> parseAllQuestionWords(String question) {
-        // TODO: 16.07.2020 replace with parsing
-        ArrayList<String> strings = new ArrayList<>();
-        strings.add("как");
-        return strings;
-
     }
 }

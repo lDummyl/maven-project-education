@@ -20,35 +20,9 @@ public class Academy {
         questionAnswer.put("как", "Хером об косяк!"); //Придумать мудрый ответ
     }
 
-    static List<String> question= new ArrayList<>();
 
     // TODO: 7/21/20 это тебе не нужно, это добывается как questionAnswer.keyset() в любой момент, а это требует сверки
-    static {
-        question.add("что");
-        question.add("где");
-        question.add("когда");
-        question.add("почему");
-        question.add("зачем");
-        question.add("сколько");
-        question.add("откуда");
-        question.add("какой");
-        question.add("какая");
-        question.add("какое");
-        question.add("как");
-    }
 
-    public Map<String, String> learnOracle(int indexWisdom){
-        int maxIndexWisdom = question.size();
-        Map<String, String> wisdom = new HashMap<>();
-        if(indexWisdom <= maxIndexWisdom) {
-            for (int i = 0; i < indexWisdom; i++) {
-                wisdom.put(question.get(i), questionAnswer.get(question.get(i)));
-            }
-        }else {
-            throw new RuntimeException("indexWisdom should be less " + maxIndexWisdom);
-        }
-        return wisdom;
-    }
 
     // TODO: 7/21/20 осваивай функциональное программирование
     public static  Map<String, String> learnOracle1(int indexWisdom){

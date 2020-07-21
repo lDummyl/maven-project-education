@@ -1,6 +1,8 @@
 package task3;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,7 +20,23 @@ public class QuestionExtractor {
         for (String question : questions) {
             parseDDD(rawLine, questionsResult, "(" + question + ")");
         }
+
         return questionsResult;
+    }
+
+    public String parse123(String rawLine) {
+        List<String> questionsResult = new ArrayList<>();
+        for (String question : questions) {
+            parseDDD(rawLine, questionsResult, "(" + question + ")");
+        }
+        if (questionsResult.size() == 0){
+            return "-10";
+        }else if (questionsResult.size() > 1){
+            return "-20";
+        }else {
+            String approve = questionsResult.get(0);
+            return approve;
+        }
     }
 
     public Set<String> parseSinglePattern(String rawLine) {
@@ -29,6 +47,13 @@ public class QuestionExtractor {
     }
 
     private void parseDDD(String rawLine, Set<String> questionsResult, String rawPattern) {
+        Pattern pattern = Pattern.compile(rawPattern);
+        Matcher matcher = pattern.matcher(rawLine.toLowerCase());
+        while (matcher.find()) {
+            questionsResult.add(matcher.group());
+        }
+    }
+    private void parseDDD(String rawLine, List<String> questionsResult, String rawPattern) {
         Pattern pattern = Pattern.compile(rawPattern);
         Matcher matcher = pattern.matcher(rawLine.toLowerCase());
         while (matcher.find()) {

@@ -22,20 +22,12 @@ package task3;
 
 public class Main {
     public static void main(String[] args) {
-        Academy academy = new Academy();
         GreatOracle greatOracle = new GreatOracle(10, 50);
-        greatOracle.learning(academy.learnOracle(11));
+        greatOracle.learning(Academy.learnOracle1(11));
         while (true) {
             System.out.println(greatOracle.questionListener());
         }
-        // TODO: 7/20/20 keep it OOP
 
-
-//        QuestionExtractor questionExtractor = new QuestionExtractor(Academy.questionAnswer.keySet());
-//        Set<String> parse1 = questionExtractor.parse(s);
-//        Set<String> parse2 = questionExtractor.parseSinglePattern(s);
-//        System.out.println("parse1 = " + parse1);
-//        System.out.println("parse2 = " + parse2);
 
     }
 
