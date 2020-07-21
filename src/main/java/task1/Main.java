@@ -3,12 +3,21 @@ package task1;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Main {
 
 	public static void main(String[] args) {
-		first();
+//		first();
 		second();
+//		SomeObj a = new SomeObj();
+//		SomeObj b = new SomeObj();
+//		System.out.println("a.hashCode() = " + a.hashCode());
+//		System.out.println("b.hashCode() = " + b.hashCode());
+//		boolean equals = a.equals(b);
+//		System.out.println("equals = " + equals);
+//		System.out.println(a == b);
 
 	}
 
@@ -33,51 +42,27 @@ public class Main {
 
 	public static void second(){
 		// TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
-
-	}
-
-}
-
-class Name {
-
-	String firstName;
-	String lastName;
-
-	public Name(String firstName, String lastName) {
-		this.firstName = firstName;
-		this.lastName = lastName;
+		List<Person> people = new ArrayList<>();
+		for (int i = 0; i < 1000; i++) {
+			people.add(new Person());
+		}
+		System.out.println("people = " + people);
 	}
 }
 
-class Birthday {
+class SomeObj{
 
-	int year;
-	int month;
-	int day;
+	String name;
+	String rank;
 
-	public Birthday(int year, int month, int day) {
-		this.year = year;
-		this.month = month;
-		this.day = day;
+	@Override
+	public int hashCode() {
+		return 42;
 	}
 
-	public boolean after(Birthday birthday) {
-		LocalDate thisBirthday = LocalDate.of(this.year, this.month, this.day);
-		LocalDate currBirthday = LocalDate.of(birthday.year, birthday.month, birthday.day);
-		return thisBirthday.isAfter(currBirthday);
+	@Override
+	public boolean equals(Object o) {
+		return true;
 	}
 }
 
-
-
-class Person {
-
-	Name name;
-	Birthday birthday;
-
-	public Person(String name, int day, int month, int year) {
-		String[] nameArr = name.split(" ");
-		this.name = new Name(nameArr[0], nameArr[1]);
-		birthday = new Birthday(year, month, day);
-	}
-}
