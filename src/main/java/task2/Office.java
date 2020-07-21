@@ -1,5 +1,7 @@
 package task2;
 
+import task2.Person;
+
 public class Office {
 
 	/*
@@ -11,10 +13,8 @@ public class Office {
 	*/
 
 	//претенденты идут по одному, когда их достаточно,
-	// то диретор принимает решение и берет одного в штат
+	// то директор принимает решение и берет одного в штат
 
-	void invitePeaople(Object human){
 
-	}
 
 }
