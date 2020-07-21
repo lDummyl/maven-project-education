@@ -20,6 +20,7 @@ public class Position extends Person {
 	public static void main(String[] args) {
 		Secretary secretary = new Secretary();
 		System.out.println("secretary.name = " + secretary.name);
+
 	}
 }
 class Secretary extends Person{
