@@ -24,7 +24,7 @@ public class QuestionExtractor {
         return questionsResult;
     }
 
-    public String parse123(String rawLine) {
+    public List<String> parse123(String rawLine) {
         List<String> questionsResult = new ArrayList<>();
         for (String question : questions) {
             parseDDD(rawLine, questionsResult, "(" + question + ")");
@@ -32,15 +32,7 @@ public class QuestionExtractor {
         // TODO: 7/22/20 В задачу этого класса(SRP!) входит только из сырой строки получить
         //  коллекцию вопросов, но это Оракул тот кто принимает решение что вопрос может быть только один или 0 и что это значит.
         //  Путь это теперь будет его характеристикой, скжем кто-то из оракулов вполне способен совладать и с 2мя и с тремя вопросами.
-
-        if (questionsResult.size() == 0){
-            return "-10";
-        }else if (questionsResult.size() > 1){
-            return "-20";
-        }else {
-            String approve = questionsResult.get(0);
-            return approve;
-        }
+        return questionsResult;
     }
 
 

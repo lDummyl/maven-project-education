@@ -13,13 +13,15 @@ public class GreatOracle {
 
     int rage;
     int needForSleep;
+    int qtyAnswer;
     Map<String, String> wisdom = new HashMap<>();
     LocalDateTime busyUntil;
     QuestionExtractor questionExtractor;
 
-    public GreatOracle(int rage, int needForSleep) {
+    public GreatOracle(int rage, int needForSleep, int qtyAnswer) {
         this.rage = rage;
         this.needForSleep = needForSleep;
+        this.qtyAnswer = qtyAnswer;
     }
 
     public void learning(Map<String, String> wisdom){
@@ -52,9 +54,9 @@ public class GreatOracle {
         if (action > 0 && action <= rage){
             hitWithStick();
         }else if (action > rage && action <= needForSleep){
-            sleep();
+            //sleep();
         }else if (action > needForSleep && action <= MAX_POSSIBILITY){
-            return say(questionLength(question));
+            return String.valueOf(getAnswer(questionLengthMeasurement(question)));
         }
         return null;
     }
@@ -70,37 +72,33 @@ public class GreatOracle {
 
     // TODO: 7/22/20 представь что читаешь все что ниже в первый раз, что это чужой код в который ты вникаешь,
     //  если метод не удается назвать по принципу что я тут делаю(void) или получаю то что-то не так с ним.
-    public String questionLength(String question) {
+    public String questionLengthMeasurement(String question) {
         int min = 15;
         int max = 40;
         char[] c = question.toCharArray();
         if (c.length < min) {
-            return "-1";
+            return situation.get(1);
         } else if (c.length > max) {
-            return "-2";
+            return situation.get(2);
         } else {
             return question;
         }
     }
 
-    public String giveAnswer(String question){
-        String s = questionExtractor.parse123(question);
-        if (s.equals("-10")){
-            return situation.get(3);
-        }else if (s.equals("-20")){
-            return situation.get(2);
+    public List<String> getAnswer(String question){
+        List<String> questionList = questionExtractor.parse123(question);
+        List<String> answer = new ArrayList<>();
+        if (questionList.size() == 0){
+            answer.add(situation.get(3));
+            return answer;
+        }else if (questionList.size() > qtyAnswer){
+            answer.add(situation.get(2));
+            return answer;
         }else {
-            return wisdom.get(s);
-        }
-    }
-
-    public String say(String question) {
-        if(question.equals("-1")){
-            return situation.get(1);
-        }else if (question.equals("-2")){
-            return situation.get(0);
-        }else {
-            return giveAnswer(question);
+            for (String s : questionList) {
+                answer.add(wisdom.get(s));
+            }
+            return answer;
         }
     }
 

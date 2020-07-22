@@ -2,12 +2,15 @@ package task3;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static org.junit.Assert.*;
 
 public class GreatOracleTest {
-    GreatOracle greatOracle = new GreatOracle(10, 50);
+    GreatOracle greatOracle = new GreatOracle(10, 50, 1);
+    GreatOracle greatOracle2 = new GreatOracle(10, 50, 2);
 
     @Test
     public void learning(){
@@ -16,34 +19,46 @@ public class GreatOracleTest {
     }
 
     @Test
-    public void questionLength(){
+    public void questionLengthMeasurement(){
         String validLength = "строка нужной длины";
-        assertEquals("строка нужной длины", greatOracle.questionLength(validLength));
+        assertEquals("строка нужной длины", greatOracle.questionLengthMeasurement(validLength));
     }
 
     @Test
-    public void giveAnswer(){
+    public void getAnswerNotQuestion() {
         greatOracle.learning(Academy.learnOracle1(11));
         String s = "отсутствие вопроса в строке";
-        assertEquals("Не слышу вопроса в твоих речах." ,greatOracle.giveAnswer(s));
-        String ss = "!!как!,почему зачем,,,";
-        assertEquals("Ты задаешь слишком много вопросов.", greatOracle.giveAnswer(ss));
-        String sss = "что";
-        assertEquals("Погугли.", greatOracle.giveAnswer(sss));
+        List<String> answer1 = new ArrayList<>();
+        answer1.add("Не слышу вопроса в твоих речах.");
+        assertEquals(answer1, greatOracle.getAnswer(s));
     }
 
     @Test
-    public void say(){
+    public void getAnswerOverQuestion() {
         greatOracle.learning(Academy.learnOracle1(11));
-        String s = "-1";
-        assertEquals("Будь красноречивее!", greatOracle.say(s));
-        String ss = "-2";
-        assertEquals("Будь лаконичней.", greatOracle.say(ss));
-        String sss = "???что,, такое осень";
-        assertEquals("Погугли.", greatOracle.say(sss));
+        String ss = "!!как!,почему зачем,,,";
+        List<String> answer2 = new ArrayList<>();
+        answer2.add("Ты задаешь слишком много вопросов.");
+        assertEquals(answer2, greatOracle.getAnswer(ss));
     }
 
+    @Test
+    public void getAnswerOneQuestion(){
+        greatOracle.learning(Academy.learnOracle1(11));
+        String sss = "что";
+        List<String> answer3 = new ArrayList<>();
+        answer3.add("Погугли.");
+        assertEquals(answer3, greatOracle.getAnswer(sss));
+    }
 
-
+    @Test
+    public void getAnswerTwoQuestion(){
+        greatOracle2.learning(Academy.learnOracle1(11));
+        String s = "что когда";
+        List<String> answer = new ArrayList<>();
+        answer.add("Погугли.");
+        answer.add("После дождечка в четверг.");
+        assertEquals(answer, greatOracle2.getAnswer(s));
+    }
 
 }

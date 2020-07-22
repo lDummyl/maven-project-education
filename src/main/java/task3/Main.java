@@ -22,7 +22,7 @@ package task3;
 
 public class Main {
     public static void main(String[] args) {
-        GreatOracle greatOracle = new GreatOracle(10, 50);
+        GreatOracle greatOracle = new GreatOracle(10, 50, 2);
         greatOracle.learning(Academy.learnOracle1(11));
         while (true) {
             System.out.println(greatOracle.questionListener());
