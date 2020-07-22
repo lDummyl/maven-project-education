@@ -29,6 +29,10 @@ public class QuestionExtractor {
         for (String question : questions) {
             parseDDD(rawLine, questionsResult, "(" + question + ")");
         }
+        // TODO: 7/22/20 В задачу этого класса(SRP!) входит только из сырой строки получить
+        //  коллекцию вопросов, но это Оракул тот кто принимает решение что вопрос может быть только один или 0 и что это значит.
+        //  Путь это теперь будет его характеристикой, скжем кто-то из оракулов вполне способен совладать и с 2мя и с тремя вопросами.
+
         if (questionsResult.size() == 0){
             return "-10";
         }else if (questionsResult.size() > 1){
@@ -38,6 +42,7 @@ public class QuestionExtractor {
             return approve;
         }
     }
+
 
     public Set<String> parseSinglePattern(String rawLine) {
         Set<String> questionsResult = new HashSet<>();

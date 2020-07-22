@@ -68,6 +68,8 @@ public class GreatOracle {
 //        System.out.println(TextConstants.curse.get(randomIndexCurse));
 //    }
 
+    // TODO: 7/22/20 представь что читаешь все что ниже в первый раз, что это чужой код в который ты вникаешь,
+    //  если метод не удается назвать по принципу что я тут делаю(void) или получаю то что-то не так с ним.
     public String questionLength(String question) {
         int min = 15;
         int max = 40;
