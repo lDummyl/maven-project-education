@@ -89,7 +89,7 @@ public class GreatOracle {
         List<String> questionList = questionExtractor.parse123(question);
         List<String> answer = new ArrayList<>();
         if (questionList.size() == 0){
-            answer.add(situation.get(3));
+            answer.add(Situation.NO_QUESTION.answer); // TODO: 7/23/20 изучай енумы, наглядно, не запутаешься
             return answer;
         }else if (questionList.size() > qtyAnswer){
             answer.add(situation.get(2));
@@ -113,5 +113,19 @@ public class GreatOracle {
             busyUntil = now.plusMinutes(10);
         }
         return false;
+    }
+
+    enum Situation {
+        SHORT, LONG, TOO_MUCH, NO_QUESTION("Не слышу вопроса в твоих речах.");
+
+        private  String answer;
+
+        Situation() {
+        }
+
+        Situation(String s) {
+
+            answer = s;
+        }
     }
 }
