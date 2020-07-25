@@ -18,7 +18,6 @@ public class Statistics {
 
     public void endSession() throws IOException {
         File file = Paths.get("./result.json").toFile();
-        mapper.writeValue(new FileOutputStream("result.json"), statisticsFromQuestionAndAnswer);
         mapper.writeValue(file, statisticsFromQuestionAndAnswer);
 
     }

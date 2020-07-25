@@ -21,7 +21,7 @@ public class GreatOracleTest {
     @Test
     public void questionLengthMeasurement(){
         String validLength = "строка нужной длины";
-        assertEquals("строка нужной длины", greatOracle.questionLengthMeasurement(validLength));
+        assertEquals("строка нужной длины", greatOracle.validLengthQuestion(validLength));
     }
 
     @Test

@@ -1,6 +1,8 @@
 package task3;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class GreatOracle {
@@ -15,7 +17,6 @@ public class GreatOracle {
     int needForSleep;
     int qtyAnswer;
     Map<String, String> wisdom = new HashMap<>();
-    LocalDateTime busyUntil;
     QuestionExtractor questionExtractor;
 
     public GreatOracle(int rage, int needForSleep, int qtyAnswer) {
@@ -39,92 +40,109 @@ public class GreatOracle {
         curse.add("Слушай, сгоняй мне за пивом.");
     }
 
-    static final List<String> situation = new ArrayList<>();
-
-    static {
-        situation.add("Будь лаконичней.");
-        situation.add("Будь красноречивее!");
-        situation.add("Ты задаешь слишком много вопросов.");
-        situation.add("Не слышу вопроса в твоих речах.");
+    public String questionListener(String question){
+            int action = random.nextInt(MAX_POSSIBILITY);
+            if (action > 0 && action <= rage) {
+                if (random.nextBoolean()) {
+                    return hitWithStick();
+                } else {
+                    return swear();
+                }
+            } else if (action > rage && action <= needForSleep) {
+                oracleSleep(random.nextInt(60));
+            } else if (action > needForSleep) {
+                String answer = String.valueOf(getAnswer(validLengthQuestion(question)));
+                statistic.saveStatistic(question, answer);
+                return answer;
+            }
+        return "";
     }
 
-    public String questionListener(){
-        String question = scanner.nextLine();
-        int action = random.nextInt(MAX_POSSIBILITY);
-        if (action > 0 && action <= rage){
-            hitWithStick();
-        }else if (action > rage && action <= needForSleep){
-            //sleep();
-        }else if (action > needForSleep && action <= MAX_POSSIBILITY){
-            return String.valueOf(getAnswer(questionLengthMeasurement(question)));
+    public void makeReport() {
+        try {
+            statistic.endSession();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return null;
     }
 
-    private String hitWithStick() {
-        return "Hit";
+    private void addToStatistics(){
+
     }
 
-//        public void huff() {
-//        int randomIndexCurse = random.nextInt(TextConstants.curse.size());
-//        System.out.println(TextConstants.curse.get(randomIndexCurse));
-//    }
+    public String hitWithStick() {
+        return "*Ударить палкой*";
+    }
+    public String swear(){
+        return curse.get(random.nextInt(curse.size()));
+    }
+
+
+    public void oracleSleep(int sleep) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ss");
+        LocalDateTime dateTime = LocalDateTime.of(0,1,1,0,0,0);
+        LocalDateTime dateTime1 = dateTime.plusSeconds(sleep);
+        while (dateTime.isBefore(dateTime1)){
+            System.out.println("Оракул спит. До его пробуждения осталось: " + dateTime1.format(formatter));
+            dateTime1 = dateTime1.minusSeconds(1);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Оракул прослулся!");
+    }
 
     // TODO: 7/22/20 представь что читаешь все что ниже в первый раз, что это чужой код в который ты вникаешь,
     //  если метод не удается назвать по принципу что я тут делаю(void) или получаю то что-то не так с ним.
-    public String questionLengthMeasurement(String question) {
+    public String validLengthQuestion(String question) {
         int min = 15;
         int max = 40;
         char[] c = question.toCharArray();
         if (c.length < min) {
-            return situation.get(1);
+            return "-00";
         } else if (c.length > max) {
-            return situation.get(2);
+            return "-000";
         } else {
             return question;
         }
     }
 
     public List<String> getAnswer(String question){
-        List<String> questionList = questionExtractor.parse123(question);
         List<String> answer = new ArrayList<>();
-        if (questionList.size() == 0){
-            answer.add(Situation.NO_QUESTION.answer); // TODO: 7/23/20 изучай енумы, наглядно, не запутаешься
+        if(question.equals("-00")){
+            answer.add(Situation.SHORT.answer);
             return answer;
-        }else if (questionList.size() > qtyAnswer){
-            answer.add(situation.get(2));
+        }else if(question.equals("-000")){
+            answer.add(Situation.LONG.answer);
             return answer;
         }else {
-            for (String s : questionList) {
-                answer.add(wisdom.get(s));
+            List<String> questionList = questionExtractor.parse123(question);
+            if (questionList.size() == 0) {
+                answer.add(Situation.NO_QUESTION.answer); // TODO: 7/23/20 изучай енумы, наглядно, не запутаешься
+                return answer;
+            } else if (questionList.size() > qtyAnswer) {
+                answer.add(Situation.TOO_MUCH.answer);
+                return answer;
+            } else {
+                for (String s : questionList) {
+                    answer.add(wisdom.get(s));
+                }
+                return answer;
             }
-            return answer;
         }
-    }
-
-
-    private boolean isBusy() {
-        LocalDateTime now = LocalDateTime.now();
-        if (busyUntil.isAfter(now)) {
-            return true;
-        }
-        boolean b = random.nextBoolean();
-        if (b) {
-            busyUntil = now.plusMinutes(10);
-        }
-        return false;
     }
 
     enum Situation {
-        SHORT, LONG, TOO_MUCH, NO_QUESTION("Не слышу вопроса в твоих речах.");
+        SHORT("Будь красноречивее!"),
+        LONG("Будь лаконичней."),
+        TOO_MUCH("Ты задаешь слишком много вопросов."),
+        NO_QUESTION("Не слышу вопроса в твоих речах.");
 
         private  String answer;
 
-        Situation() {
-        }
-
         Situation(String s) {
-
             answer = s;
         }
     }

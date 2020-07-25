@@ -20,16 +20,27 @@ package task3;
 */
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        GreatOracle greatOracle = new GreatOracle(10, 50, 2);
+        Scanner scanner = new Scanner(System.in);
+        GreatOracle greatOracle = new GreatOracle(10, 20, 2);
         greatOracle.learning(Academy.learnOracle1(11));
         while (true) {
-            System.out.println(greatOracle.questionListener());
+            String question = scanner.nextLine();
+            if(question.equals("0")){
+                greatOracle.makeReport();
+                break;
+            }else {
+                System.out.println(greatOracle.questionListener(question));
+            }
         }
-
-
     }
+
+
 
     /*
     Код, в целом работает, но есть несколько нерешенных неточностей, которые запарывают логику.
