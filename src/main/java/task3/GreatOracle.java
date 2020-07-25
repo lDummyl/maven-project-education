@@ -8,10 +8,8 @@ import java.util.*;
 public class GreatOracle {
     Random random = new Random();
     Scanner scanner = new Scanner(System.in);
-    Statistics statistic = new Statistics();
+    Statistics statistic = new Statistics(); // TODO: 7/25/20 я бы не инкапсулировал это в оракуле
     private final int MAX_POSSIBILITY = 100;
-
-
 
     int rage;
     int needForSleep;
@@ -40,6 +38,7 @@ public class GreatOracle {
         curse.add("Слушай, сгоняй мне за пивом.");
     }
 
+    // TODO: 7/25/20 вот отсюда ...
     public String questionListener(String question){
             int action = random.nextInt(MAX_POSSIBILITY);
             if (action > 0 && action <= rage) {
@@ -49,7 +48,7 @@ public class GreatOracle {
                     return swear();
                 }
             } else if (action > rage && action <= needForSleep) {
-                oracleSleep(random.nextInt(60));
+                oracleSleep(random.nextInt(60)); // TODO: 7/25/20 исопльзуй Duration
             } else if (action > needForSleep) {
                 String answer = String.valueOf(getAnswer(validLengthQuestion(question)));
                 statistic.saveStatistic(question, answer);
@@ -93,17 +92,18 @@ public class GreatOracle {
         }
         System.out.println("Оракул прослулся!");
     }
+    // TODO: 7/25/20 ...до сюда нет покрытия тестами.
 
     // TODO: 7/22/20 представь что читаешь все что ниже в первый раз, что это чужой код в который ты вникаешь,
     //  если метод не удается назвать по принципу что я тут делаю(void) или получаю то что-то не так с ним.
-    public String validLengthQuestion(String question) {
+    public String /*попробуй вернуть Situation */validLengthQuestion(String question) {
         int min = 15;
         int max = 40;
         char[] c = question.toCharArray();
         if (c.length < min) {
-            return "-00";
+            return "-00"; // TODO: 7/25/20 тут не покрыто
         } else if (c.length > max) {
-            return "-000";
+            return "-000"; // TODO: 7/25/20 тут не покрыто
         } else {
             return question;
         }
@@ -112,10 +112,10 @@ public class GreatOracle {
     public List<String> getAnswer(String question){
         List<String> answer = new ArrayList<>();
         if(question.equals("-00")){
-            answer.add(Situation.SHORT.answer);
+            answer.add(Situation.SHORT.answer); // TODO: 7/25/20 тут не покрыто
             return answer;
         }else if(question.equals("-000")){
-            answer.add(Situation.LONG.answer);
+            answer.add(Situation.LONG.answer); // TODO: 7/25/20 тут не покрыто
             return answer;
         }else {
             List<String> questionList = questionExtractor.parse123(question);
