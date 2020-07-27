@@ -26,15 +26,7 @@ public class Main {
         people.add(new Person("Иван Иванов", 12, 5, 1915));
 
 
-        // TODO: 7/23/20 а тут что не заменил?
-        Person oldestPerson = people.get(0);
-        for (Person person : people) {
-            boolean answer = oldestPerson.isOlderThan(person);
-            if (!answer) {
-                oldestPerson = person;
-            }
-        }
-        //System.out.println(oldestPerson.birthDate.year);
+        System.out.println(findOldestPerson(people));
 
 
     }

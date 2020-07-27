@@ -45,7 +45,7 @@ public class BirthDate {
 
         int minDay = (int) minDate.toEpochDay();
         int maxDay = (int) maxDate.toEpochDay();
-        long randomDate = minDay + randomNumber.nextInt(maxDay - minDay);
+        long randomDate = maxDay + randomNumber.nextInt(minDay - maxDay);
         this.localDate = LocalDate.ofEpochDay(randomDate);
         return this;
     }

@@ -6,15 +6,20 @@ import java.util.List;
 
 public class Hr {
 
-    private static int numberOfSecretaries = 10;
+    //private static int numberOfSecretaries = 10;
+    private static int countOfSecretaries = 0;
+    private static List<Secretary> secretaries = new ArrayList<>();
 
-    private Hr(){}
+    public Secretary getSecretaries(int i) {
+        return secretaries.get(i);
+    }
 
-    public static List<Secretary> getSecretaries() {
-        ArrayList<Secretary> secretaries = new ArrayList<>();
-        for (int i = 0; i < numberOfSecretaries; i++) {
-            secretaries.add(new Secretary());
-        }
-        return secretaries;
+    public void setSecretaries(Secretary secretary) {
+        secretaries.add(secretary);
+        countOfSecretaries++;
+    }
+
+    public int getCountOfSecretaries() {
+        return countOfSecretaries;
     }
 }

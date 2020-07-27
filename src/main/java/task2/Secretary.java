@@ -8,8 +8,8 @@ import java.util.Random;
 public class Secretary {
 
     private static Random randomNumber = new Random();
-    private static ArrayList<String> firstNames;
-    private static ArrayList<String> lastNames;
+    private static final ArrayList<String> firstNames = new ArrayList<>();
+    private static final ArrayList<String> lastNames = new ArrayList<>();
 
     String firstName;
     String lastName;
