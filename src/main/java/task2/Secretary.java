@@ -5,6 +5,7 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Random;
 
+// TODO: 7/27/20 используй наследование от Person и не тащи что у тебя уже есть, доступ между пекеджами прекрасно работает
 public class Secretary {
 
     private static Random randomNumber = new Random();
