@@ -7,5 +7,6 @@ package task2;
 public class Main {
 	public static void main(String[] args) {
 		// TODO: 7/27/20 напиши тестовый сценарий на все происходящее содание объектов трудойстройство, проверка
+
 	}
 }

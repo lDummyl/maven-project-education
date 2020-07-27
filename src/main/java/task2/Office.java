@@ -29,7 +29,6 @@ public class Office {
 				setSecretary((Secretary) human);
 			}
 		}
-
 		if (director != null && hr != null && secretaries.size() == 10) {
 			choose();
 		}
@@ -40,6 +39,8 @@ public class Office {
 		int choice = director.chooseSecretary(NUMBER_OF_SECRETARIES);
 		if (offer == choice) {
 			secretary = secretaries.get(choice);
+		} else {
+			choose();
 		}
 	}
 
