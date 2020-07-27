@@ -1,10 +1,16 @@
 package task2;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Office {
+
+	private final List<Secretary> secretaries = new ArrayList<>();
+	private static final int NUMBER_OF_SECRETARIES = 10;
 
 	Secretary secretary;
 
-	Director director = new Director();
+	Director director;
 
 	Hr hr;
 
@@ -16,18 +22,44 @@ public class Office {
 		//  провека на рядовой состав и так далее. И помни офис это 4 чтены  и дверь, он содержит минимум логики, всю работу делают люди.
 		if (human != null) {
 			if (human instanceof Director) {
-				director = (Director) human;
+				setDirector((Director) human);
 			} else if (human instanceof Hr) {
-				hr = (Hr) human;
+				setHr((Hr) human);
 			} else if (human instanceof Secretary) {
-				if (hr.getCountOfSecretaries() < 10) {
-					hr.setSecretaries(secretary);
-				} else {
-					if (director != null && hr != null) {
-						director.getRandomSecretary(10);
-					}
-				}
+				setSecretary((Secretary) human);
 			}
 		}
+
+		if (director != null && hr != null && secretaries.size() == 10) {
+			choose();
+		}
 	}
+
+	private void choose() {
+		int offer = hr.getRandomSecretary(NUMBER_OF_SECRETARIES);
+		int choice = director.chooseSecretary(NUMBER_OF_SECRETARIES);
+		if (offer == choice) {
+			secretary = secretaries.get(choice);
+		}
+	}
+
+	private void setSecretary(Secretary human) {
+		if (secretaries.size() < NUMBER_OF_SECRETARIES) {
+			secretaries.add(human);
+		}
+	}
+
+	private void setHr(Hr human) {
+		if (hr == null) {
+			hr = human;
+		}
+	}
+
+	private void setDirector(Director human) {
+		if (director == null) {
+			director = human;
+		}
+	}
+
+
 }

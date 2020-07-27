@@ -1,25 +1,19 @@
 package task2;
 
 
-import java.util.ArrayList;
-import java.util.List;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Random;
 
 public class Hr {
+    Random randomNumber;
 
-    //private static int numberOfSecretaries = 10;
-    private static int countOfSecretaries = 0;
-    private static List<Secretary> secretaries = new ArrayList<>();
-
-    public Secretary getSecretaries(int i) {
-        return secretaries.get(i);
-    }
-
-    public void setSecretaries(Secretary secretary) {
-        secretaries.add(secretary);
-        countOfSecretaries++;
-    }
-
-    public int getCountOfSecretaries() {
-        return countOfSecretaries;
+    public int getRandomSecretary(int numberOfSecretaries) {
+        try {
+            randomNumber = SecureRandom.getInstanceStrong();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return randomNumber.nextInt(numberOfSecretaries);
     }
 }

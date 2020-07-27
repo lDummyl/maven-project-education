@@ -8,13 +8,13 @@ public class Director {
 
     Random randomNumber;
 
-    public int getRandomSecretary(int numberOfSecretaries) {
+    public int chooseSecretary(int numberOfSecretaries) {
         try {
             randomNumber = SecureRandom.getInstanceStrong();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return randomNumber.nextInt(numberOfSecretaries - 1);
+        return randomNumber.nextInt(numberOfSecretaries);
     }
 
 }
