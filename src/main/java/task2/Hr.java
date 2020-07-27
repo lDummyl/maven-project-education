@@ -14,6 +14,6 @@ public class Hr {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return randomNumber.nextInt(numberOfSecretaries);
+        return randomNumber.nextInt(numberOfSecretaries - 1);
     }
 }
