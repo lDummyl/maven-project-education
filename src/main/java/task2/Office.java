@@ -2,19 +2,21 @@ package task2;
 
 public class Office {
 
-	/*
-	Secretary secretary;
+    public Office(Director director, Hr hr) {
+        this.director = director;
+        this.hr = hr;
+    }
 
-	Director director;
+    Secretary secretary;
 
-	Hr hr;
-	*/
+    Director director;
 
-	//претенденты идут по одному, когда их достаточно,
-	// то диретор принимает решение и берет одного в штат
+    Hr hr;
 
-	void invitePeaople(Object human){
+    //претенденты идут по одному, когда их достаточно,
+    // то директор принимает решение и берет одного в штат
 
-	}
+    void invitePeaople(Object human) {
 
+    }
 }

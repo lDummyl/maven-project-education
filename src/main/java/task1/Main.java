@@ -29,7 +29,7 @@ class Name {
 
 }
 
-class Age {
+class BirthDate {
 
 	int year;
 	int month;
@@ -40,6 +40,6 @@ class Age {
 class Person {
 
 	Name name;
-	Age age;
+	BirthDate birthDate;
 
 }
