@@ -29,18 +29,18 @@ public class Office {
 				setSecretary((Secretary) human);
 			}
 		}
-		if (director != null && hr != null && secretaries.size() == 10) {
-			choose();
+		if (director != null && hr != null && secretaries.size() == NUMBER_OF_SECRETARIES) {
+			chose();
 		}
 	}
 
-	private void choose() {
+	private void chose() {
 		int offer = hr.getRandomSecretary(NUMBER_OF_SECRETARIES);
 		int choice = director.chooseSecretary(NUMBER_OF_SECRETARIES);
 		if (offer == choice) {
 			secretary = secretaries.get(choice);
 		} else {
-			choose();
+			chose();
 		}
 	}
 
@@ -60,6 +60,14 @@ public class Office {
 		if (director == null) {
 			director = human;
 		}
+	}
+
+	public void printChoice() {
+		System.out.println("Director chose: " + secretary);
+	}
+
+	public boolean fullOffice() {
+		return secretaries.size() == NUMBER_OF_SECRETARIES;
 	}
 
 

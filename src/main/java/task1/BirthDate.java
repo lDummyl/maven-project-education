@@ -10,7 +10,7 @@ public class BirthDate {
     private static final LocalDate minDate = LocalDate.of(1910, 1, 1);
     private static final LocalDate maxDate = LocalDate.of(2019, 12, 31);
     protected static final int MIN_AGE = 18;
-    protected static final int MAX_AGE = 120;
+    protected static final int MAX_AGE = 50;
     int year;
     int month;
     int day;
