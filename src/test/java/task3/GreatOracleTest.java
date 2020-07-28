@@ -25,6 +25,18 @@ public class GreatOracleTest {
     }
 
     @Test
+    public void questionShortLength(){
+        String shortQuestion = "короткий";
+        assertEquals("-00", greatOracle.validLengthQuestion(shortQuestion));
+    }
+
+    @Test
+    public void questionLongLength(){
+        String longQuestion = "очень много символов, которых больше 50 и которые должны возвращать -000";
+        assertEquals("-000", greatOracle.validLengthQuestion(longQuestion));
+    }
+
+    @Test
     public void getAnswerNotQuestion() {
         greatOracle.learning(Academy.learnOracle1(11));
         String s = "отсутствие вопроса в строке";

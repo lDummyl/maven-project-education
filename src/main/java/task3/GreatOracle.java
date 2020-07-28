@@ -1,14 +1,15 @@
 package task3;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class GreatOracle {
     Random random = new Random();
-    Scanner scanner = new Scanner(System.in);
-    Statistics statistic = new Statistics(); // TODO: 7/25/20 я бы не инкапсулировал это в оракуле
     private final int MAX_POSSIBILITY = 100;
 
     int rage;
@@ -27,6 +28,8 @@ public class GreatOracle {
         this.wisdom = wisdom;
         questionExtractor = new QuestionExtractor(wisdom.keySet());
     }
+
+    private Map<String, String> statistic = new HashMap<>();
 
     static final List<String> curse = new ArrayList<>();
 
@@ -51,21 +54,20 @@ public class GreatOracle {
                 oracleSleep(random.nextInt(60)); // TODO: 7/25/20 исопльзуй Duration
             } else if (action > needForSleep) {
                 String answer = String.valueOf(getAnswer(validLengthQuestion(question)));
-                statistic.saveStatistic(question, answer);
+                statistic.put(question, answer);
                 return answer;
             }
         return "";
     }
 
-    public void makeReport() {
+    public void endSession(){
+        ObjectMapper mapper = new ObjectMapper();
+        File file = Paths.get("./result.json").toFile();
         try {
-            statistic.endSession();
+            mapper.writeValue(file, statistic);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void addToStatistics(){
 
     }
 
@@ -78,12 +80,11 @@ public class GreatOracle {
 
 
     public void oracleSleep(int sleep) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ss");
-        LocalDateTime dateTime = LocalDateTime.of(0,1,1,0,0,0);
-        LocalDateTime dateTime1 = dateTime.plusSeconds(sleep);
-        while (dateTime.isBefore(dateTime1)){
-            System.out.println("Оракул спит. До его пробуждения осталось: " + dateTime1.format(formatter));
-            dateTime1 = dateTime1.minusSeconds(1);
+        LocalDateTime from = LocalDateTime.now();
+        LocalDateTime to = from.plusSeconds(sleep);
+        while (LocalDateTime.now().isBefore(to)){
+            Duration sleepAge = Duration.between(LocalDateTime.now(), to);
+            System.out.println("Оракул спит. До его пробуждения осталось: " + sleepAge.getSeconds() + "секунд");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -92,6 +93,7 @@ public class GreatOracle {
         }
         System.out.println("Оракул прослулся!");
     }
+
     // TODO: 7/25/20 ...до сюда нет покрытия тестами.
 
     // TODO: 7/22/20 представь что читаешь все что ниже в первый раз, что это чужой код в который ты вникаешь,

@@ -31,14 +31,15 @@ public class Main {
         greatOracle.learning(Academy.learnOracle1(11));
         while (true) {
             String question = scanner.nextLine();
-            if(question.equals("0")){
-                greatOracle.makeReport();
+            if (question.equals("0")) {
+                greatOracle.endSession();
                 break;
-            }else {
+            } else {
                 System.out.println(greatOracle.questionListener(question));
             }
         }
     }
+
 
 
 
