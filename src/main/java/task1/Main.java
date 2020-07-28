@@ -1,10 +1,8 @@
 package task1;
 
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Main {
 
@@ -43,26 +41,28 @@ public class Main {
 	public static void second(){
 		// TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
 		List<Person> people = new ArrayList<>();
-		for (int i = 0; i < 1000; i++) {
+		for (int i = 0; i < 10000; i++) {
 			people.add(new Person());
+			System.out.println(i + " " + "added: " + people.get(i));
+
 		}
-		System.out.println("people = " + people);
+//		System.out.println("people = " + people);
 	}
 }
 
-class SomeObj{
-
-	String name;
-	String rank;
-
-	@Override
-	public int hashCode() {
-		return 42;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return true;
-	}
-}
+//class SomeObj{
+//
+//	String name;
+//	String rank;
+//
+//	@Override
+//	public int hashCode() {
+//		return 42;
+//	}
+//
+//	@Override
+//	public boolean equals(Object o) {
+//		return true;
+//	}
+//}
 

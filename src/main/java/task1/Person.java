@@ -11,11 +11,11 @@ public class Person {
 	public Person(String name, int day, int month, int year) {
 		String[] nameArr = name.split(" ");
 		this.name = new Name(nameArr[0], nameArr[1]);
-		birthday = new Birthday(year, month, day);
+		this.birthday = new Birthday(year, month, day);
 	}
 
 	public Person() {
 		name = new Name();
-
+		birthday = new Birthday();
 	}
 }
