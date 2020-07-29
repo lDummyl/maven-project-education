@@ -15,6 +15,8 @@ public class QuestionExtractor {
         this.questions = questions;
     }
 
+    // TODO: 7/29/20 наводи порядок время от времени, удаляй не использованные методы и переименовывай плохо названные.
+    //  VCS сохраняет все так что если нужно сможешь достать.
     public Set<String> parse(String rawLine) {
         Set<String> questionsResult = new HashSet<>();
         for (String question : questions) {
