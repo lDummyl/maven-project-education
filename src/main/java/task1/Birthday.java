@@ -17,6 +17,15 @@ public class Birthday {
         this.day = day;
     }
 
+//    @Override
+//    public String toString() {
+//        return "Birthday{" +
+//                "year=" + year +
+//                ", month=" + month +
+//                ", day=" + day +
+//                '}';
+//    }
+
     public Birthday() {
         LocalDate localDate = null;
         while (localDate == null) {

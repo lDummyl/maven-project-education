@@ -43,7 +43,7 @@ public class Main {
 		List<Person> people = new ArrayList<>();
 		for (int i = 0; i < 10000; i++) {
 			people.add(new Person());
-			System.out.println(i + " " + "added: " + people.get(i));
+			System.out.println(i + " " + "added: " + people.get(i).birthday.day);
 
 		}
 //		System.out.println("people = " + people);
