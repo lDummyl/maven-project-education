@@ -60,6 +60,8 @@ public class GreatOracle {
         return "";
     }
 
+    // TODO: 7/29/20 оракул только отвечает на вопросы, он не пишет их на диск, не считывает их с консоли,
+    //  не достает их по http, не анализирует статистику, только вопрос-ответ, выдели интерфейс оракула.
     public void endSession(){
         ObjectMapper mapper = new ObjectMapper();
         File file = Paths.get("./result.json").toFile();
