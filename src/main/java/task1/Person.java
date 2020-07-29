@@ -5,7 +5,6 @@ public class Person {
     Name name;
     BirthDate birthDate;
 
-
     public Person(String name, int day, int month, int year) {
         birthDate = new BirthDate(day, month, year);
         initName(name);
@@ -17,6 +16,10 @@ public class Person {
     public Person(Name name, BirthDate birthDate) {
         this.name = name;
         this.birthDate = birthDate;
+    }
+
+    public Person() {
+
     }
 
     private void initName(String name) {

@@ -12,14 +12,10 @@ public class Main {
 		// TODO: 7/27/20 напиши тестовый сценарий на все происходящее содание объектов трудойстройство, проверка
 		Director director = new Director();
 		Hr hr = new Hr();
-		Office office = new Office();
+		Office office = new Office(director, hr);
 
-		office.invitePeople(director);
-		office.invitePeople(hr);
-
-		while (!office.fullOffice()) {
-			office.invitePeople(new Secretary(new Name(), new BirthDate()));
+		for (int i = 0; i < 11; i++) {
+			office.invitePeople(hr.getSecretary());
 		}
-		office.printChoice();
 	}
 }

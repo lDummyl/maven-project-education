@@ -1,19 +1,19 @@
 package task2;
 
+import task1.BirthDate;
+import task1.Name;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.Random;
+import java.util.List;
+
 
 public class Hr {
-    Random randomNumber;
+    private static final int NUMBER_OF_SECRETARIES = 10;
 
-    public int getRandomSecretary(int numberOfSecretaries) {
-        try {
-            randomNumber = SecureRandom.getInstanceStrong();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return randomNumber.nextInt(numberOfSecretaries - 1);
+    public Secretary getSecretary() {
+        return new Secretary(new Name(), new BirthDate());
+    }
+
+    public boolean checkNumberOfSecretaries(List<Secretary> secretaries) {
+        return secretaries.size() < NUMBER_OF_SECRETARIES;
     }
 }
