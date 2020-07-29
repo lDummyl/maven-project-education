@@ -26,11 +26,7 @@ public class BirthDate {
     }
 
     public BirthDate() {
-        try {
-            this.randomNumber = SecureRandom.getInstanceStrong();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        randomNumber = new Random();
         getRandomDate();
     }
 

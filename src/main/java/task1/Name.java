@@ -27,11 +27,7 @@ public class Name {
         lastNames.add("Andreev");
         lastNames.add("Sidorov");
 
-        try {
-            randomNumber = SecureRandom.getInstanceStrong();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+        randomNumber = new Random();
 
     }
 
