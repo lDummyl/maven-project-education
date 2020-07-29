@@ -10,6 +10,7 @@ public class Hr {
     private static final int NUMBER_OF_SECRETARIES = 10;
 
     public Secretary getSecretary() {
+        // TODO: 7/29/20 не создает а отбирает, проводит интервью и складывает в папочку
         return new Secretary(new Name(), new BirthDate());
     }
 
