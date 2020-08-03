@@ -6,6 +6,7 @@ public class Office {
 
 	Hr hr;
 
+	Secretary secretary;
 	public Office(Director director, Hr hr) {
 		this.director = director;
 		this.hr = hr;

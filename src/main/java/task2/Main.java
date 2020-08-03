@@ -12,13 +12,23 @@ public class Main {
 		// TODO: 7/27/20 напиши тестовый сценарий на все происходящее содание объектов трудойстройство, проверка
 		Director director = new Director();
 		Hr hr = new Hr();
-		Office office = new Office(director, hr);
-
-
+		Office appleInc = new Office(director, hr);
+		Office amazonInc = null;
 		while (hr.checkNumberOfSecretaries()) {
-			office.invitePeople(new Secretary(new Name(), new BirthDate()));
+			appleInc.invitePeople(new Secretary(new Name(), new BirthDate()));
+		}
+		director.chooseSecretary(hr.getListOfSecretary());
+		// TODO: 8/3/20 странно что директор выбирает секретаря вне офиса, могу себе представить,
+		//  интервью на лужайке в кампусе или по дороге в из офиса, но проблема только в том,
+		//  что конечная проверка должна быть такой
+
+		if (appleInc.secretary != null){
+			System.out.println("Everything's fine");
+		}else {
+			System.out.println("Not good at all");
 		}
 
-		director.chooseSecretary(hr.getListOfSecretary());
+		// TODO: 8/3/20 сделаем так офисов будет 2, работают там все разыне сотрудники, дерзай
+
 	}
 }
