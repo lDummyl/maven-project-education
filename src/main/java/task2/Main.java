@@ -17,14 +17,14 @@ public class Main {
 		while (hr.checkNumberOfSecretaries()) {
 			appleInc.invitePeople(new Secretary(new Name(), new BirthDate()));
 		}
-		director.chooseSecretary(hr.getListOfSecretary());
+		System.out.println(appleInc.secretary);
 		// TODO: 8/3/20 странно что директор выбирает секретаря вне офиса, могу себе представить,
 		//  интервью на лужайке в кампусе или по дороге в из офиса, но проблема только в том,
 		//  что конечная проверка должна быть такой
 
 		if (appleInc.secretary != null){
 			System.out.println("Everything's fine");
-		}else {
+		} else {
 			System.out.println("Not good at all");
 		}
 

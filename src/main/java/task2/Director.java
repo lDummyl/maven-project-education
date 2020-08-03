@@ -7,10 +7,9 @@ public class Director {
 
     private Random randomChoose;
 
-    public void chooseSecretary(List<Secretary> secretaries) {
+    public Secretary chooseSecretary(List<Secretary> secretaries) {
         randomChoose = new Random();
-        String string = "Director chose: ";
-        System.out.println(string + secretaries.get(randomChoose.nextInt(secretaries.size() - 1)));
+        return secretaries.get(randomChoose.nextInt(secretaries.size() - 1));
     }
 
 }

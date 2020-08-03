@@ -27,7 +27,11 @@ public class Hr {
         }
     }
 
-    public List<Secretary> getListOfSecretary() {
-        return secretaries;
+    public Secretary transferControlTo(Director director) {
+        if (!checkNumberOfSecretaries()) {
+            return director.chooseSecretary(secretaries);
+        } else {
+            return null;
+        }
     }
 }
