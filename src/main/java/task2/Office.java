@@ -1,17 +1,10 @@
 package task2;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Office {
 
 	Director director;
 
 	Hr hr;
-
-
-	private static final List<Secretary> secretaries = new ArrayList<>();
-
 
 	public Office(Director director, Hr hr) {
 		this.director = director;
@@ -24,14 +17,8 @@ public class Office {
 	void invitePeople(Object human){
 		// TODO: 7/27/20 чтобы не было каши разделяй на смысловые группы, все что можно отделить должно быть отдельным методом. Проверка ком состав
 		//  провека на рядовой состав и так далее. И помни офис это 4 чтены  и дверь, он содержит минимум логики, всю работу делают люди.
-		// TODO: 7/29/20 логика это if, ее быть тут не должно(для того чтобу убрать ее и вынесли инициализацию ключевых объектов в конструктор),
+		// TODO: 7/29/20 логика это if , ее быть тут не должно(для того чтобу убрать ее и вынесли инициализацию ключевых объектов в конструктор),
 		//  объекты просто обмениваются данными и совершают вызовы.
-		if (hr.checkNumberOfSecretaries(secretaries)) {
-			if (human instanceof Secretary) {
-				secretaries.add((Secretary) human);
-			}
-		} else {
-			director.chooseSecretary(secretaries);
-		}
+		hr.checkSecretary(human);
 	}
 }

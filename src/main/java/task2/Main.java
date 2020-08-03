@@ -14,8 +14,11 @@ public class Main {
 		Hr hr = new Hr();
 		Office office = new Office(director, hr);
 
-		for (int i = 0; i < 11; i++) {
-			office.invitePeople(hr.getSecretary());
+
+		while (hr.checkNumberOfSecretaries()) {
+			office.invitePeople(new Secretary(new Name(), new BirthDate()));
 		}
+
+		director.chooseSecretary(hr.getListOfSecretary());
 	}
 }
