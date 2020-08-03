@@ -1,9 +1,5 @@
 package task3;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -11,6 +7,7 @@ import java.util.*;
 public class GreatOracle {
     Random random = new Random();
     private final int MAX_POSSIBILITY = 100;
+    OracleHelper memory = new OracleMemory();
 
     int rage;
     int needForSleep;
@@ -28,9 +25,6 @@ public class GreatOracle {
         this.wisdom = wisdom;
         questionExtractor = new QuestionExtractor(wisdom.keySet());
     }
-
-    private Map<String, String> statistic = new HashMap<>();
-
     static final List<String> curse = new ArrayList<>();
 
     static {
@@ -54,7 +48,7 @@ public class GreatOracle {
                 oracleSleep(random.nextInt(60)); // TODO: 7/25/20 исопльзуй Duration
             } else if (action > needForSleep) {
                 String answer = String.valueOf(getAnswer(validLengthQuestion(question)));
-                statistic.put(question, answer);
+                memory.assistOracle(question, answer);
                 return answer;
             }
         return "";
@@ -63,14 +57,7 @@ public class GreatOracle {
     // TODO: 7/29/20 оракул только отвечает на вопросы, он не пишет их на диск, не считывает их с консоли,
     //  не достает их по http, не анализирует статистику, только вопрос-ответ, выдели интерфейс оракула.
     public void endSession(){
-        ObjectMapper mapper = new ObjectMapper();
-        File file = Paths.get("./result.json").toFile();
-        try {
-            mapper.writeValue(file, statistic);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        memory.assistOracle();
     }
 
     public String hitWithStick() {
@@ -122,7 +109,7 @@ public class GreatOracle {
             answer.add(Situation.LONG.answer); // TODO: 7/25/20 тут не покрыто
             return answer;
         }else {
-            List<String> questionList = questionExtractor.parse123(question);
+            List<String> questionList = questionExtractor.parseQuestion(question);
             if (questionList.size() == 0) {
                 answer.add(Situation.NO_QUESTION.answer); // TODO: 7/23/20 изучай енумы, наглядно, не запутаешься
                 return answer;

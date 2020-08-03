@@ -1,11 +1,10 @@
 package task3;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 import static org.junit.Assert.*;
 
 public class GreatOracleTest {
@@ -71,6 +70,12 @@ public class GreatOracleTest {
         answer.add("Погугли.");
         answer.add("После дождечка в четверг.");
         assertEquals(answer, greatOracle2.getAnswer(s));
+    }
+
+    @Test
+    public void questionListenerOracleSleep(){
+        GreatOracle greatOracleMock = Mockito.mock(GreatOracle.class);
+
     }
     // TODO: 7/25/20 вот теперь как проверить удар палкой и время ожидания. Вопрос не праздный,
     //  например, ты пишель сервис авторизации, задача забанить на 10 минут при переборе попыток,

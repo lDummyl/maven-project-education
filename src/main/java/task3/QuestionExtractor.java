@@ -17,19 +17,11 @@ public class QuestionExtractor {
 
     // TODO: 7/29/20 наводи порядок время от времени, удаляй не использованные методы и переименовывай плохо названные.
     //  VCS сохраняет все так что если нужно сможешь достать.
-    public Set<String> parse(String rawLine) {
-        Set<String> questionsResult = new HashSet<>();
-        for (String question : questions) {
-            parseDDD(rawLine, questionsResult, "(" + question + ")");
-        }
 
-        return questionsResult;
-    }
-
-    public List<String> parse123(String rawLine) {
+    public List<String> parseQuestion(String rawLine) {
         List<String> questionsResult = new ArrayList<>();
         for (String question : questions) {
-            parseDDD(rawLine, questionsResult, "(" + question + ")");
+            parseAddQuestionList(rawLine, questionsResult, "(" + question + ")");
         }
         // TODO: 7/22/20 В задачу этого класса(SRP!) входит только из сырой строки получить
         //  коллекцию вопросов, но это Оракул тот кто принимает решение что вопрос может быть только один или 0 и что это значит.
@@ -37,22 +29,7 @@ public class QuestionExtractor {
         return questionsResult;
     }
 
-
-    public Set<String> parseSinglePattern(String rawLine) {
-        Set<String> questionsResult = new HashSet<>();
-        String rawPattern = questions.stream().collect(Collectors.joining("|", "(", ")"));
-        parseDDD(rawLine, questionsResult, rawPattern);
-        return questionsResult;
-    }
-
-    private void parseDDD(String rawLine, Set<String> questionsResult, String rawPattern) {
-        Pattern pattern = Pattern.compile(rawPattern);
-        Matcher matcher = pattern.matcher(rawLine.toLowerCase());
-        while (matcher.find()) {
-            questionsResult.add(matcher.group());
-        }
-    }
-    private void parseDDD(String rawLine, List<String> questionsResult, String rawPattern) {
+    private void parseAddQuestionList(String rawLine, List<String> questionsResult, String rawPattern) {
         Pattern pattern = Pattern.compile(rawPattern);
         Matcher matcher = pattern.matcher(rawLine.toLowerCase());
         while (matcher.find()) {

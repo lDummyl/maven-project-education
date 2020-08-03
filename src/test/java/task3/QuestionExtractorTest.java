@@ -11,11 +11,11 @@ public class QuestionExtractorTest {
     @Test
     public void parse() {
         String s = "!!!Как,,, пройти в библиотеку";
-        assertEquals("как", questionExtractor.parse123(s));
+        assertEquals("как", questionExtractor.parseQuestion(s));
         String ss = "отсутствие вопроса";
-        assertEquals("-10", questionExtractor.parse123(ss));
+        assertEquals("-10", questionExtractor.parseQuestion(ss));
         String sss = "!!!как,,,когда     ....почему ";
-        assertEquals("-20", questionExtractor.parse123(sss));
+        assertEquals("-20", questionExtractor.parseQuestion(sss));
 
     }
 }
