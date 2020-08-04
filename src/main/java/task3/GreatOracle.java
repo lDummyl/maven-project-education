@@ -37,8 +37,12 @@ public class GreatOracle {
     }
 
     // TODO: 7/25/20 вот отсюда ...
+    public int oracleMood(){
+        return random.nextInt(MAX_POSSIBILITY);
+    }
+
     public String questionListener(String question){
-            int action = random.nextInt(MAX_POSSIBILITY);
+            int action = oracleMood();
             if (action > 0 && action <= rage) {
                 if (random.nextBoolean()) {
                     return hitWithStick();

@@ -6,6 +6,7 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 
 public class GreatOracleTest {
     GreatOracle greatOracle = new GreatOracle(10, 50, 1, new OracleMemory());
@@ -73,10 +74,20 @@ public class GreatOracleTest {
     }
 
     @Test
-    public void questionListenerOracleSleep(){
+    public void questionListenerOracleHit(){
         GreatOracle greatOracleMock = Mockito.mock(GreatOracle.class);
-
+        Mockito.when(greatOracleMock.questionListener("TestHit")).thenReturn(greatOracle.hitWithStick());
+        assertEquals("*Ударить палкой*", greatOracleMock.questionListener("TestHit"));
     }
+
+    @Test
+    public void questionListenerOracleSwear(){
+        GreatOracle greatOracleMock = Mockito.mock(GreatOracle.class);
+        Mockito.when(greatOracleMock.questionListener("TestSwear")).thenReturn(GreatOracle.curse.get(0));
+        assertEquals("Какой же ты тупой!", greatOracleMock.questionListener("TestSwear"));
+    }
+
+
     // TODO: 7/25/20 вот теперь как проверить удар палкой и время ожидания. Вопрос не праздный,
     //  например, ты пишель сервис авторизации, задача забанить на 10 минут при переборе попыток,
     //  дальше нужно протетстировать что по прошествии 10 минут бан снят, что в течение 10 минут он не снят.
