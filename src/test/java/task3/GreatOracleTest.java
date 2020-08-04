@@ -9,8 +9,8 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 
 public class GreatOracleTest {
-    GreatOracle greatOracle = new GreatOracle(10, 50, 1, new OracleMemory());
-    GreatOracle greatOracle2 = new GreatOracle(10, 50, 2, new OracleMemory());
+    GreatOracle greatOracle = new GreatOracle(10, 50, 1);
+    GreatOracle greatOracle2 = new GreatOracle(10, 50, 2);
 
     @Test
     public void learning(){

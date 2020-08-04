@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OracleMemory implements OracleHelper{
+public class Memory {
 
     private Map<String, String> statistic = new HashMap<>();
 
@@ -25,15 +25,5 @@ public class OracleMemory implements OracleHelper{
 
     public void saveMemory(String question, String answer){
         statistic.put(question, answer);
-    }
-
-    @Override
-    public void assistOracle() {
-        saveStatistic();
-    }
-
-    @Override
-    public void assistOracle(String question, String answer){
-        saveMemory(question, answer);
     }
 }

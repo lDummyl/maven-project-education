@@ -25,14 +25,19 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        GreatOracle greatOracle = new GreatOracle(10, 20, 2, new OracleMemory());
+
+        GreatOracle greatOracle = new GreatOracle(10, 20, 2);
         greatOracle.learning(Academy.learnOracle1(11));
+
+        Memory memory = new Memory();
+
         while (true) {
             String question = scanner.nextLine();
             if (question.equals("0")) {
-                greatOracle.endSession();
+                memory.saveStatistic();
                 break;
             } else {
+                memory.saveMemory(question, greatOracle.questionListener(question));
                 System.out.println(greatOracle.questionListener(question));
             }
         }
