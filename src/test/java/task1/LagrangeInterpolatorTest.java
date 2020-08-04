@@ -8,19 +8,28 @@ import static org.junit.Assert.assertEquals;
 
 public class LagrangeInterpolatorTest {
 
+
+    private final Interpolator interpolator = new LagrangeInterpolator();
+
     @Test
     public void main() {
-        Interpolator lagrangeInterpolator = new LagrangeInterpolator();
-        lagrangeInterpolator.setPoints(Arrays.asList(new Point(2, 4), new Point(3, 9), new Point(5, 25)));
-        double y = lagrangeInterpolator.getY(7);
+        interpolator.setPoints(Arrays.asList(new Point(2, 4), new Point(3, 9), new Point(5, 25)));
+        double y = interpolator.getY(7);
         assertEquals(49, y, 0.0002);
     }
 
     @Test
     public void mainNewton() {
-        Interpolator lagrangeInterpolator = new NewtonInterpolator();
-        lagrangeInterpolator.setPoints(Arrays.asList(new Point(2, 4), new Point(3, 9), new Point(5, 25)));
-        double y = lagrangeInterpolator.getY(7);
+        interpolator.setPoints(Arrays.asList(new Point(2, 4), new Point(3, 9), new Point(5, 25)));
+        double y = interpolator.getY(7);
         assertEquals(49, y, 0.0002);
     }
+
+    @Test
+    public void mainLinear() {
+        interpolator.setPoints(Arrays.asList(new Point(2, 3), new Point(4, 9)));
+        double y = interpolator.getY(5);
+        assertEquals(12, y, 0.0002);
+    }
+
 }
