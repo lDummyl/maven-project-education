@@ -7,7 +7,7 @@ import java.util.*;
 public class GreatOracle {
     Random random = new Random();
     private final int MAX_POSSIBILITY = 100;
-    OracleHelper memory = new OracleMemory();
+    OracleHelper helper;
 
     int rage;
     int needForSleep;
@@ -15,10 +15,11 @@ public class GreatOracle {
     Map<String, String> wisdom = new HashMap<>();
     QuestionExtractor questionExtractor;
 
-    public GreatOracle(int rage, int needForSleep, int qtyAnswer) {
+    public GreatOracle(int rage, int needForSleep, int qtyAnswer, OracleHelper helper) {
         this.rage = rage;
         this.needForSleep = needForSleep;
         this.qtyAnswer = qtyAnswer;
+        this.helper = helper;
     }
 
     public void learning(Map<String, String> wisdom){
@@ -48,7 +49,7 @@ public class GreatOracle {
                 oracleSleep(random.nextInt(60)); // TODO: 7/25/20 исопльзуй Duration
             } else if (action > needForSleep) {
                 String answer = String.valueOf(getAnswer(validLengthQuestion(question)));
-                memory.assistOracle(question, answer);
+                helper.assistOracle(question, answer);
                 return answer;
             }
         return "";
@@ -57,7 +58,7 @@ public class GreatOracle {
     // TODO: 7/29/20 оракул только отвечает на вопросы, он не пишет их на диск, не считывает их с консоли,
     //  не достает их по http, не анализирует статистику, только вопрос-ответ, выдели интерфейс оракула.
     public void endSession(){
-        memory.assistOracle();
+        helper.assistOracle();
     }
 
     public String hitWithStick() {

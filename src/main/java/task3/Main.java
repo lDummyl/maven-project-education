@@ -25,7 +25,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        GreatOracle greatOracle = new GreatOracle(10, 20, 2);
+        GreatOracle greatOracle = new GreatOracle(10, 20, 2, new OracleMemory());
         greatOracle.learning(Academy.learnOracle1(11));
         while (true) {
             String question = scanner.nextLine();

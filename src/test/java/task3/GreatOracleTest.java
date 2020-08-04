@@ -8,8 +8,8 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class GreatOracleTest {
-    GreatOracle greatOracle = new GreatOracle(10, 50, 1);
-    GreatOracle greatOracle2 = new GreatOracle(10, 50, 2);
+    GreatOracle greatOracle = new GreatOracle(10, 50, 1, new OracleMemory());
+    GreatOracle greatOracle2 = new GreatOracle(10, 50, 2, new OracleMemory());
 
     @Test
     public void learning(){
