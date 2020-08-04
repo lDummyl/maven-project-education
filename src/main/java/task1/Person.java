@@ -4,6 +4,9 @@ public class Person {
 
     Name name;
     BirthDate birthDate;
+
+    // TODO: 8/4/20 да у каждого без исключения есть имя  и дата рождения, но человек может и не иметь скиллов их имеет работник,
+    //  так что создай такой абстрактный класс
     Skills skills;
 
     public Person(String name, int day, int month, int year) {
