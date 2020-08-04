@@ -10,6 +10,7 @@ public class LagrangeInterpolatorTest {
 
 
     private final Interpolator interpolator = new LagrangeInterpolator();
+    private final Interpolator procInterpolator = new NewtonInterpolator();
 
     @Test
     public void main() {
@@ -29,6 +30,13 @@ public class LagrangeInterpolatorTest {
     public void mainLinear() {
         interpolator.setPoints(Arrays.asList(new Point(2, 3), new Point(4, 9)));
         double y = interpolator.getY(5);
+        assertEquals(12, y, 0.0002);
+    }
+
+    @Test
+    public void mainNewtonian() {
+        procInterpolator.setPoints(Arrays.asList(new Point(2, 3), new Point(4, 9)));
+        double y = procInterpolator.getY(5);
         assertEquals(12, y, 0.0002);
     }
 
