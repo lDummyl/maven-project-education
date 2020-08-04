@@ -6,21 +6,19 @@ package task2;
 
 import task1.BirthDate;
 import task1.Name;
+import task1.Skills;
 
 public class Main {
 	public static void main(String[] args) {
-		// TODO: 7/27/20 напиши тестовый сценарий на все происходящее содание объектов трудойстройство, проверка
+
 		Director director = new Director();
 		Hr hr = new Hr();
 		Office appleInc = new Office(director, hr);
 		Office amazonInc = null;
 		while (hr.checkNumberOfSecretaries()) {
-			appleInc.invitePeople(new Secretary(new Name(), new BirthDate()));
+			appleInc.invitePeople(new Secretary(new Name(), new BirthDate(), new Skills()));
 		}
 		System.out.println(appleInc.secretary);
-		// TODO: 8/3/20 странно что директор выбирает секретаря вне офиса, могу себе представить,
-		//  интервью на лужайке в кампусе или по дороге в из офиса, но проблема только в том,
-		//  что конечная проверка должна быть такой
 
 		if (appleInc.secretary != null){
 			System.out.println("Everything's fine");
@@ -30,8 +28,6 @@ public class Main {
 		// TODO: 8/3/20 прекрасно! теперь, когда есть готовый механизм, расширим его функционал,
 		//  пусть будет еще юрист, 2 бухгалтера и охранник в каждом офисе и мы будем устраивать всех, кроме кадрового ядра,
 		//  на конкурсной основе. И пусть тепеь прохождение интервью зависит и от сотрудника нежели от настроения HR.
-
-		// TODO: 8/3/20 сделаем так офисов будет 2, работают там все разыне сотрудники, дерзай
 
 	}
 }

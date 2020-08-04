@@ -4,18 +4,23 @@ public class Person {
 
     Name name;
     BirthDate birthDate;
+    Skills skills;
 
     public Person(String name, int day, int month, int year) {
         birthDate = new BirthDate(day, month, year);
         initName(name);
-        // TODO: 15.07.2020 implement
     }
 
 
 
-    public Person(Name name, BirthDate birthDate) {
+    public Person(Name name, BirthDate birthDate, Skills skills) {
         this.name = name;
         this.birthDate = birthDate;
+        this.skills = skills;
+    }
+
+    public int getSkills() {
+        return skills.getLevelOfSkills();
     }
 
     public Person() {
@@ -33,6 +38,6 @@ public class Person {
 
     @Override
     public String toString() {
-        return name + " " + birthDate;
+        return name + " " + birthDate + " skills: " + skills;
     }
 }

@@ -36,7 +36,7 @@ public class Main {
 		ArrayList<Person> peoples = new ArrayList<>();
 		int count = 100;
         while (count > 0) {
-            peoples.add(new Person(new Name(), new BirthDate()));
+            peoples.add(new Person(new Name(), new BirthDate(), new Skills()));
             count--;
         }
 
