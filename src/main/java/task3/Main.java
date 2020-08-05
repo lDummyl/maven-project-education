@@ -23,6 +23,7 @@ package task3;
 import java.util.Scanner;
 
 public class Main {
+    // TODO: 8/5/20 и где TDD снова?
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -34,9 +35,11 @@ public class Main {
         while (true) {
             String question = scanner.nextLine();
             if (question.equals("0")) {
+                // TODO: 8/5/20 а что если эксепшен вылетет или пользователь выдернет шнур и выдавит стекло, что будет со статистикой?
                 memory.saveStatistic();
                 break;
             } else {
+                // TODO: 8/5/20 подумай хорошенько над этими 2мя строками ниже
                 memory.saveMemory(question, greatOracle.questionListener(question));
                 System.out.println(greatOracle.questionListener(question));
             }
