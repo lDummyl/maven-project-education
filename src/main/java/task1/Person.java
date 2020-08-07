@@ -5,7 +5,7 @@ import lombok.ToString;
 @ToString
 public class Person {
 
-	public Name name;
+	public String name;
 	Birthday birthday;
 
 	public Person(String name, int day, int month, int year) {
@@ -18,4 +18,5 @@ public class Person {
 		name = new Name();
 		birthday = new Birthday();
 	}
+
 }

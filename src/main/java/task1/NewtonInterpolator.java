@@ -1,72 +1,12 @@
 package task1;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class NewtonInterpolator implements Interpolator {
     List<Point> points = new ArrayList<>();
-
-    public static void main(String[] args) {
-        // number of inputs given
-        float value, sum;
-        //Declaration of the scanner variable
-        Scanner myScanner = new Scanner(System.in);
-
-        //Declaration of variables
-        int n; //Number of terms
-        int count, count2; //Loop variables, for counting loops
-
-        //Prompt a user to enter a value
-        System.out.print("Enter the number of terms n: ");
-        n = myScanner.nextInt(); //Store the value in n
-        float[][] y = new float[n][n];
-        float[] x = new float[n];
-
-        // y[][] is used for divided difference
-        // table where y[][0] is used for input
-//        y[0][0] = 12;
-//        y[1][0] = 13;
-//        y[2][0] = 14;
-//        y[3][0] = 16;
-        for (count = 0; count < n; count++) //Start the loop for X
-        {
-            //Prompt the user to enter the sequel for xi
-            System.out.print("Enter the value for x" + count + ": ");
-            //Store the sequence in the Array, arrayx
-            x[count] = myScanner.nextFloat();
-        }
-        //Prompt user to enter the array for Y
-        System.out.println("Enter the values that are in yi.");
-        for (count = 0; count < n; count++) // loop for Y
-        {
-            //Prompt the user to enter the sequence for yi
-            System.out.print("Enter the value for y" + count + ": ");
-            //Store the sequence in the Array, arrayy
-            y[count][0] = myScanner.nextFloat();
-        }
-
-        // calculating divided difference table
-        NewtonInterpolator ni = new NewtonInterpolator();
-        ni.dividedDiffTable(x, y, n);
-
-        // displaying divided difference table
-        ni.printDiffTable(y, n);
-
-        // value to be interpolated
-        value = 7;
-
-        // printing the value
-        DecimalFormat df = new DecimalFormat("#.##");
-        df.setRoundingMode(RoundingMode.HALF_UP);
-
-        System.out.println("Value at " + df.format(value) + " is "
-                + df.format(ni.applyFormula(value, x, y, n)));
-    }
 
     float proterm(int i, float value, float[] x) {
         float pro = 1;
@@ -114,12 +54,28 @@ public class NewtonInterpolator implements Interpolator {
 
     @Override
     public float getY(float x) {
-        throw new NotImplementedException();
+        int n = points.size(); //Number of terms
+        float[][] y = new float[n][n];
+        float[] xArr = new float[n];
+
+        for (int i = 0; i < n; i++) {
+
+            xArr[i] = points.get(i).x;
+            y[i][0] = points.get(i).y;
+        }
+
+        // calculating divided difference table
+        dividedDiffTable(xArr, y, n);
+        // displaying divided difference table
+        printDiffTable(y, n);
+        // printing the value
+        return this.applyFormula(x, xArr, y, n);
     }
 
     @Override
     public void setPoints(List<Point> points) {
         this.points = points;
+
     }
 
 
