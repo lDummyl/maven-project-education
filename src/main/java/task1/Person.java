@@ -5,8 +5,8 @@ import lombok.ToString;
 @ToString
 public class Person {
 
-	public String name;
-	Birthday birthday;
+	public Name name;
+	public Birthday birthday;
 
 	public Person(String name, int day, int month, int year) {
 		String[] nameArr = name.split(" ");
