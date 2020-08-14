@@ -21,5 +21,4 @@ public class Cow extends Animal {
     private String getMilk() {
         return "Ready";
     }
-
 }
