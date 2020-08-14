@@ -1,12 +1,11 @@
 package customPackage.animals;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class CowReflection {
 
-    public static void main(String[] ar) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public static void main(String[] ar) throws IllegalAccessException, IllegalArgumentException {
         Method[] mthd = Cow.class.getMethods(); // for axis the methods
 
         Field[] fld = Cow.class.getDeclaredFields();  // for axis the fields
@@ -23,7 +22,7 @@ public class CowReflection {
             fld1.setAccessible(true);
             System.out.println("field :" + fld1.getName());
             System.out.println("type :" + fld1.getType());
-            System.out.println("value :" + fld1.getInt(new Cow("Mooe", 1, 353, 2)));
+            // System.out.println("value :" + fld1.getInt(new Cow()));
         }
     }
 
