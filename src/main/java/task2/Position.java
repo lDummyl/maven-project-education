@@ -2,14 +2,7 @@ package task2;
 
 import task1.Person;
 
-//class Name {
-//	String firstName;
-//	String lastName;
-//	public Name(String firstName, String lastName) {
-//		this.firstName = firstName;
-//		this.lastName = lastName;
-//	}
-//}
+
 public class Position extends Person {
 	String position;
 	Position(String position){
