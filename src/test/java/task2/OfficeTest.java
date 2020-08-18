@@ -5,9 +5,12 @@ import org.junit.Test;
 
 public class OfficeTest {
 
+	private Director director;
+	private Hr hr;
+
 	@Test
-	public void invitePeaople() {
-		Office office = new Office();
+	public void invitePeople() {
+		Office office = new Office(director, hr);
 
 	}
 }

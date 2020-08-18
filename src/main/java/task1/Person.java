@@ -9,6 +9,10 @@ public class Person {
         this.name = name;
         this.age = age;
     }
+    public Person (Name name)
+    {
+        this.name = name;
+    }
 
     public Name name;
     public Age age;
@@ -32,7 +36,7 @@ public class Person {
     {
         Random random = new Random();
         int x = random.nextInt(100);
-        if (x > 70) {
+        if (x > 50) {
             return true;
         }
         else

@@ -13,6 +13,7 @@ public class Hr extends Person
 	public Hr(Name name, Age age) {
 		super(name, age);
 	}
+	public Hr (Name name) {super(name);}
 	// TODO: 6/4/20 не нужны тебе пока геттеры и сеттеры, только мешать будут, делай пока все поля pubic просто
 
 
