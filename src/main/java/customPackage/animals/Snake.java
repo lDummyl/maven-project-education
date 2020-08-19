@@ -1,16 +1,12 @@
 package customPackage.animals;
 
 public class Snake extends Animal {
-    private final String name;
     private final boolean poisonous;
-    private final String extinct;
-    private final float length;
 
-    public Snake(String name, boolean poisonous, String extinct, float length) {
-        this.name = name;
+
+    public Snake(String name, boolean poisonous) {
+        super(name);
         this.poisonous = poisonous;
-        this.extinct = extinct;
-        this.length = length;
     }
 
     @Override
@@ -18,8 +14,9 @@ public class Snake extends Animal {
         return "Hiss!";
     }
 
-    private String bite() {
-        return "Venom!";
+    public boolean bite(String Animal) {
+        return poisonous;
     }
+
 
 }

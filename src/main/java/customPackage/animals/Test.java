@@ -7,8 +7,9 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        Dog doggie = new Dog();
-        Bird birdie = new Bird();
+        Dog doggie = new Dog("Beenie");
+        Bird birdie = new Bird("Beekie");
+        Donkey maxie = new Donkey("Max", 1, 100, "male");
         toPrint(doggie);
         toPrint(birdie);
     }

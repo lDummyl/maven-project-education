@@ -22,7 +22,7 @@ public class CowReflection {
             fld1.setAccessible(true);
             System.out.println("field :" + fld1.getName());
             System.out.println("type :" + fld1.getType());
-            // System.out.println("value :" + fld1.getInt(new Cow()));
+            //System.out.println("value :" + fld1.getInt(new Cow()));
         }
     }
 
