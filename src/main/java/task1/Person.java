@@ -1,13 +1,12 @@
 package task1;
 
+import task2.Skills;
+
 public class Person {
 
     Name name;
     BirthDate birthDate;
 
-    // TODO: 8/4/20 да у каждого без исключения есть имя  и дата рождения, но человек может и не иметь скиллов их имеет работник,
-    //  так что создай такой абстрактный класс
-    Skills skills;
 
     public Person(String name, int day, int month, int year) {
         birthDate = new BirthDate(day, month, year);
@@ -16,15 +15,11 @@ public class Person {
 
 
 
-    public Person(Name name, BirthDate birthDate, Skills skills) {
+    public Person(Name name, BirthDate birthDate) {
         this.name = name;
         this.birthDate = birthDate;
-        this.skills = skills;
     }
 
-    public int getSkills() {
-        return skills.getLevelOfSkills();
-    }
 
     public Person() {
 
@@ -41,6 +36,6 @@ public class Person {
 
     @Override
     public String toString() {
-        return name + " " + birthDate + " skills: " + skills;
+        return name + " " + birthDate;
     }
 }

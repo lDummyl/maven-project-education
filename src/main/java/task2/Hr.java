@@ -11,7 +11,6 @@ public class Hr {
     private static final List<Secretary> secretaries = new ArrayList<>();
 
     public void checkSecretary(Object human) {
-        // TODO: 7/29/20 не создает а отбирает, проводит интервью и складывает в папочку
         if (human instanceof Secretary) {
             passInterview((Secretary) human);
         }

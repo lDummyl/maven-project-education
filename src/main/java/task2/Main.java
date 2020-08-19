@@ -6,7 +6,6 @@ package task2;
 
 import task1.BirthDate;
 import task1.Name;
-import task1.Skills;
 
 public class Main {
 	public static void main(String[] args) {
