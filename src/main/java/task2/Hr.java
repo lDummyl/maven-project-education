@@ -6,32 +6,67 @@ import java.util.Random;
 
 
 public class Hr {
-    private static final int NUMBER_OF_SECRETARIES = 10;
+    private static final int NUMBER_OF_EMPLOYEES = 10;
     private static final int MIN_SKILLS = 5;
     private static final List<Secretary> secretaries = new ArrayList<>();
+    private static final List<Security> securities = new ArrayList<>();
+    private static final List<Lawyer> lawyers = new ArrayList<>();
+    private static final List<Accountant> accountants = new ArrayList<>();
+    private boolean secretariesIsFull = false;
+    private boolean securitiesIsFull = false;
+    private boolean lawyersIsFull = false;
+    private boolean accountantsIsFull = false;
 
-    public void checkSecretary(Object human) {
-        if (human instanceof Secretary) {
-            passInterview((Secretary) human);
+    public void invite(Object human) {
+        if (human instanceof Employee && passInterview((Employee) human)) {
+            sortEmployee(human);
         }
     }
 
-    public boolean checkNumberOfSecretaries() {
-        return secretaries.size() < NUMBER_OF_SECRETARIES;
-    }
-
-    private void passInterview(Secretary secretary) {
+    private boolean passInterview(Employee employee) {
         Random random = new Random();
-        if (random.nextBoolean() && secretary.getSkills() > MIN_SKILLS) {
-            secretaries.add(secretary);
+        if (random.nextBoolean() && employee.getSkills() > MIN_SKILLS) {
+            return true;
+        }
+        return false;
+    }
+
+    private void sortEmployee(Object human) {
+        if (human instanceof Secretary) {
+            if (checkNumberOfEmployees(secretaries)) {
+                secretaries.add((Secretary) human);
+            } else {
+                secretariesIsFull = true;
+            }
+        } else if (human instanceof Security) {
+            if (checkNumberOfEmployees(securities)) {
+                securities.add((Security) human);
+            } else {
+                securitiesIsFull = true;
+            }
+        } else if (human instanceof Lawyer) {
+            if (checkNumberOfEmployees(lawyers)) {
+                lawyers.add((Lawyer) human);
+            } else {
+                lawyersIsFull = true;
+            }
+        } else if (human instanceof Accountant) {
+            if (checkNumberOfEmployees(accountants)) {
+                accountants.add((Accountant) human);
+            } else {
+                accountantsIsFull = true;
+            }
         }
     }
 
-    public Secretary transferControlTo(Director director) {
-        if (!checkNumberOfSecretaries()) {
-            return director.chooseSecretary(secretaries);
-        } else {
-            return null;
-        }
+    private boolean checkNumberOfEmployees(List<? extends Employee> employees) {
+        return employees.size() < NUMBER_OF_EMPLOYEES;
     }
+
+    public boolean employeesIsFull() {
+        return securitiesIsFull && secretariesIsFull && lawyersIsFull && accountantsIsFull;
+    }
+
+
+
 }

@@ -16,7 +16,7 @@ public class Office {
 	// то диретор принимает решение и берет одного в штат
 
 	void invitePeople(Object human){
-		hr.checkSecretary(human);
-		secretary = hr.transferControlTo(director);
+		hr.invite(human);
+		secretary = (Secretary) director.getEmployee();
 	}
 }

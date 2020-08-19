@@ -7,9 +7,15 @@ public class Director {
 
     private Random randomChoose;
 
-    public Secretary chooseSecretary(List<Secretary> secretaries) {
+    Employee employee;
+
+    public void chooseSecretary(List<? extends Employee> employees) {
         randomChoose = new Random();
-        return secretaries.get(randomChoose.nextInt(secretaries.size() - 1));
+        employee = employees.get(randomChoose.nextInt(employees.size() - 1));
+    }
+
+    public Employee getEmployee() {
+        return employee;
     }
 
 }
