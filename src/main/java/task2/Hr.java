@@ -6,7 +6,14 @@ import java.util.Random;
 
 
 public class Hr {
+
+
+
+    // TODO: 8/20/20 как это связано с условием задачи?
     private static final int NUMBER_OF_EMPLOYEES = 10;
+
+
+
     private static final int MIN_SKILLS = 5;
     private static final List<Secretary> secretaries = new ArrayList<>();
     private static final List<Security> securities = new ArrayList<>();
@@ -31,6 +38,7 @@ public class Hr {
         return false;
     }
 
+    // TODO: 8/20/20 поставь Sonar plugin и почини этот класс
     private void sortEmployee(Object human) {
         if (human instanceof Secretary) {
             if (checkNumberOfEmployees(secretaries)) {
