@@ -46,7 +46,7 @@ public class Hr {
         }
     }
 
-    private <T> boolean checkNumberOfEmployees(List<T> employees) {
+    private <T extends Employee> boolean checkNumberOfEmployees(List<T> employees) {
         return employees.size() < NUMBER_OF_EMPLOYEES;
     }
 
