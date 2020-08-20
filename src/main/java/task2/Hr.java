@@ -8,10 +8,8 @@ import java.util.Random;
 public class Hr {
 
 
-
     // TODO: 8/20/20 как это связано с условием задачи?
     private static final int NUMBER_OF_EMPLOYEES = 10;
-
 
 
     private static final int MIN_SKILLS = 5;
@@ -32,42 +30,23 @@ public class Hr {
 
     private boolean passInterview(Employee employee) {
         Random random = new Random();
-        if (random.nextBoolean() && employee.getSkills() > MIN_SKILLS) {
-            return true;
-        }
-        return false;
+        return random.nextBoolean() && employee.getSkills() > MIN_SKILLS;
     }
 
     // TODO: 8/20/20 поставь Sonar plugin и почини этот класс
     private void sortEmployee(Object human) {
         if (human instanceof Secretary) {
-            if (checkNumberOfEmployees(secretaries)) {
-                secretaries.add((Secretary) human);
-            } else {
-                secretariesIsFull = true;
-            }
+            secretariesIsFull = addEmployees(secretaries, (Secretary) human);
         } else if (human instanceof Security) {
-            if (checkNumberOfEmployees(securities)) {
-                securities.add((Security) human);
-            } else {
-                securitiesIsFull = true;
-            }
+            securitiesIsFull = addEmployees(securities, (Security) human);
         } else if (human instanceof Lawyer) {
-            if (checkNumberOfEmployees(lawyers)) {
-                lawyers.add((Lawyer) human);
-            } else {
-                lawyersIsFull = true;
-            }
+            lawyersIsFull = addEmployees(lawyers, (Lawyer) human);
         } else if (human instanceof Accountant) {
-            if (checkNumberOfEmployees(accountants)) {
-                accountants.add((Accountant) human);
-            } else {
-                accountantsIsFull = true;
-            }
+            accountantsIsFull = addEmployees(accountants, (Accountant) human);
         }
     }
 
-    private boolean checkNumberOfEmployees(List<? extends Employee> employees) {
+    private <T> boolean checkNumberOfEmployees(List<T> employees) {
         return employees.size() < NUMBER_OF_EMPLOYEES;
     }
 
@@ -75,6 +54,12 @@ public class Hr {
         return securitiesIsFull && secretariesIsFull && lawyersIsFull && accountantsIsFull;
     }
 
-
+    private <T extends Employee> boolean addEmployees(List<T> employees, T employee) {
+        if (checkNumberOfEmployees(employees)) {
+            employees.add(employee);
+            return false;
+        }
+        return true;
+    }
 
 }
