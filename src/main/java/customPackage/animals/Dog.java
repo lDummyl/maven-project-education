@@ -11,4 +11,10 @@ public class Dog extends Animal {
     public String scream() {
         return "bark!";
     }
+
+    public boolean bite(boolean threat) {
+        boolean biten;
+        biten = threat;
+        return biten;
+    }
 }
