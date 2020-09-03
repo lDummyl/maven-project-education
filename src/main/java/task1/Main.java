@@ -2,7 +2,7 @@ package task1;
 
 
 import java.util.Date;
-
+import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
@@ -13,11 +13,38 @@ public class Main {
 
     public static void first() {
         // TODO: 1/26/20 ПЕРВЫЙ ЭТАП создать 5 разных человек и вывести имя старшего
-        Person person = new Person("Иван Иванов", 20, 4, 1996);
+
+        int oldest = 0;
+        int max=0;
+        Person person = new Person("Иван Иванов", 20, 11, 1988);
+        Person person2 = new Person("Виктор Зуев", 14, 4, 1964);
+        Person person3 = new Person("Степан Трешков", 4, 8, 1993);
+        Person person4 = new Person("Виктор Триванов", 10, 6, 1964);
+        Person person5 = new Person("Виктор Триванов", 10, 6, 1976);
+
+        ArrayList<Person> list = new ArrayList<Person>();
+        list.add(person);
+        list.add(person2);
+        list.add(person3);
+        list.add(person4);
+        list.add(person5);
+
+        ArrayList<Integer> days = new ArrayList<Integer>();
+        for (int i=0;i<list.size();i++){
+            days.add(list.get(i).birthDate.day+list.get(i).birthDate.month*30+list.get(i).birthDate.day*365); //Работает без учёта дней в месмяце и высокосности годов
+        }
+        for(int i=0;i<list.size();i++)
+        {
+            if (days.get(i)>max)
+            max=days.get(i);
+            oldest=i;
+        }
+        
+        //System.out.println(days);
 
         // TODO: 9/3/20 Hi there!
 
-        System.out.println(person.name.firstName );
+        System.out.println(list.get(oldest).name.firstName );
     }
 
     public static void second() {
@@ -44,7 +71,11 @@ class BirthDate {
     int month;
     int day;
 
-
+    public BirthDate(int year, int month, int day) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
 }
 
 class Person {
@@ -55,7 +86,7 @@ class Person {
 
     public Person(String name, int day, int month, int year) {
         String[] split = name.split(" ");
-
+        this.birthDate = new BirthDate(day, month, year);
         this.name = new Name(split[0], split[1]);
     }
 }
