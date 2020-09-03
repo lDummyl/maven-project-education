@@ -15,12 +15,12 @@ public class Main {
         // TODO: 1/26/20 ПЕРВЫЙ ЭТАП создать 5 разных человек и вывести имя старшего
 
         int oldest = 0;
-        int max=0;
-        Person person = new Person("Иван Иванов", 20, 11, 1988);
-        Person person2 = new Person("Виктор Зуев", 14, 4, 1964);
+
+        Person person = new Person("Иван Иванов", 20, 11, 1945);
+        Person person2 = new Person("Григорий Зуев", 14, 9, 1911);
         Person person3 = new Person("Степан Трешков", 4, 8, 1993);
         Person person4 = new Person("Виктор Триванов", 10, 6, 1964);
-        Person person5 = new Person("Виктор Триванов", 10, 6, 1976);
+        Person person5 = new Person("Ник Теренов", 10, 6, 1911);
 
         ArrayList<Person> list = new ArrayList<Person>();
         list.add(person);
@@ -29,15 +29,18 @@ public class Main {
         list.add(person4);
         list.add(person5);
 
+        int min=list.get(0).birthDate.day+list.get(0).birthDate.month*30+list.get(0).birthDate.day*365;
+
         ArrayList<Integer> days = new ArrayList<Integer>();
         for (int i=0;i<list.size();i++){
             days.add(list.get(i).birthDate.day+list.get(i).birthDate.month*30+list.get(i).birthDate.day*365); //Работает без учёта дней в месмяце и высокосности годов
         }
         for(int i=0;i<list.size();i++)
         {
-            if (days.get(i)>max)
-            max=days.get(i);
-            oldest=i;
+            if (days.get(i)<min) {
+                min = days.get(i);
+                oldest = i;
+            }
         }
         
         //System.out.println(days);
