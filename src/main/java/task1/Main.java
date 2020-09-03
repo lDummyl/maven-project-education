@@ -15,6 +15,8 @@ public class Main {
         // TODO: 1/26/20 ПЕРВЫЙ ЭТАП создать 5 разных человек и вывести имя старшего
         Person person = new Person("Иван Иванов", 20, 4, 1996);
 
+        // TODO: 9/3/20 Hi there!
+
         System.out.println(person.name.firstName );
     }
 
