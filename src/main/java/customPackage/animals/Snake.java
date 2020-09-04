@@ -14,8 +14,8 @@ public class Snake extends Animal {
         return "Hiss!";
     }
 
-    public boolean bite(String Animal) {
-        return true;
+    public void bite(Animal animal) {
+        animal.health_status = false;
     }
 
 

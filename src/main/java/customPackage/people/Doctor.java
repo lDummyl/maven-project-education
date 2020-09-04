@@ -1,5 +1,7 @@
 package customPackage.people;
 
+import customPackage.animals.Donkey;
+
 public class Doctor extends Person {
 
 
@@ -19,5 +21,9 @@ public class Doctor extends Person {
             }
         }
         return health;
+    }
+
+    public void curePatient(Donkey illDonkey) {
+        illDonkey.health_status = true;
     }
 }

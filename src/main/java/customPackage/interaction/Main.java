@@ -1,5 +1,6 @@
 package customPackage.interaction;
 
+// Repeat interactions!
 public class Main {
     public static void main(String[] args) {
         // Changed 1st time

@@ -1,6 +1,7 @@
 package customPackage;
 
 import customPackage.animals.Dog;
+import customPackage.animals.Ram;
 import customPackage.animals.Sheep;
 
 public class Main {
@@ -10,5 +11,8 @@ public class Main {
         System.out.println(dolly.scream());
         boolean threat = true;
         System.out.println(pirate.bite(threat));
+        Ram mollie = new Ram("Mollie", false);
+        mollie.mightyHit();
+
     }
 }
