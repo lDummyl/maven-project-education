@@ -7,6 +7,7 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
+
         first();
         second();
 
@@ -34,7 +35,10 @@ public class Main {
 
         ArrayList<Integer> days = new ArrayList<Integer>();
         for (int i = 0; i < list.size(); i++) {
-            days.add(list.get(i).birthDate.day + list.get(i).birthDate.month * 30 + list.get(i).birthDate.day * 365); //Работает без учёта дней в месмяце и высокосности годов
+            days.add(list.get(i).birthDate.day + list.get(i).birthDate.month * 30 + list.get(i).birthDate.day * 365);
+            // TODO: 9/4/20 правильно, допущения в рамках обстоятельств это нормально, почитай про LocalDateTime вообще пакет java.time
+            //  посмотрим как сможешь его использовать
+            //Работает без учёта дней в месмяце и высокосности годов
         }
         for (int i = 0; i < list.size(); i++) {
             if (days.get(i) < min) {
@@ -52,6 +56,9 @@ public class Main {
 
     public static void second() {
         // TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
+
+        // TODO: 9/4/20  тот тоже стоит найти имя старшего, баз копипасты и что касается имен, пусть теперь будет 100 человек
+        //  у каждого уникальное сочетание имя-фамилия
         ArrayList<String> names = new ArrayList<>();
         names.add("Виктор Паршин");
         names.add("Сергей Путнов");
