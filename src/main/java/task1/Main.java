@@ -3,6 +3,7 @@ package task1;
 
 import java.util.Date;
 import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -29,25 +30,24 @@ public class Main {
         list.add(person4);
         list.add(person5);
 
-        int min=list.get(0).birthDate.day+list.get(0).birthDate.month*30+list.get(0).birthDate.day*365;
+        int min = list.get(0).birthDate.day + list.get(0).birthDate.month * 30 + list.get(0).birthDate.day * 365;
 
         ArrayList<Integer> days = new ArrayList<Integer>();
-        for (int i=0;i<list.size();i++){
-            days.add(list.get(i).birthDate.day+list.get(i).birthDate.month*30+list.get(i).birthDate.day*365); //Работает без учёта дней в месмяце и высокосности годов
+        for (int i = 0; i < list.size(); i++) {
+            days.add(list.get(i).birthDate.day + list.get(i).birthDate.month * 30 + list.get(i).birthDate.day * 365); //Работает без учёта дней в месмяце и высокосности годов
         }
-        for(int i=0;i<list.size();i++)
-        {
-            if (days.get(i)<min) {
+        for (int i = 0; i < list.size(); i++) {
+            if (days.get(i) < min) {
                 min = days.get(i);
                 oldest = i;
             }
         }
-        
+
         //System.out.println(days);
 
         // TODO: 9/3/20 Hi there!
 
-        System.out.println(list.get(oldest).name.firstName );
+        System.out.println(list.get(oldest).name.firstName);
     }
 
     public static void second() {
