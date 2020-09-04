@@ -20,6 +20,7 @@ package task3;
 */
 
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -27,7 +28,12 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        GreatOracle greatOracle = new GreatOracle(10, 20, 2);
+        GreatOracle greatOracle = null;
+        try {
+            greatOracle = new GreatOracle(10, 20, 2);
+        } catch (OracleExceptions oracleExceptions) {
+            oracleExceptions.printStackTrace();
+        }
         greatOracle.learning(Academy.learnOracle1(11));
 
         Memory memory = new Memory();
@@ -36,12 +42,15 @@ public class Main {
             String question = scanner.nextLine();
             if (question.equals("0")) {
                 // TODO: 8/5/20 а что если эксепшен вылетет или пользователь выдернет шнур и выдавит стекло, что будет со статистикой?
-                memory.saveStatistic();
+                try {
+                    memory.saveStatistic();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             } else {
                 // TODO: 8/5/20 подумай хорошенько над этими 2мя строками ниже
                 memory.saveMemory(question, greatOracle.questionListener(question));
-                System.out.println(greatOracle.questionListener(question));
             }
         }
     }

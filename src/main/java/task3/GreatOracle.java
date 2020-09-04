@@ -14,10 +14,14 @@ public class GreatOracle {
     Map<String, String> wisdom = new HashMap<>();
     QuestionExtractor questionExtractor;
 
-    public GreatOracle(int rage, int needForSleep, int qtyAnswer) {
-        this.rage = rage;
-        this.needForSleep = needForSleep;
-        this.qtyAnswer = qtyAnswer;
+    public GreatOracle(int rage, int needForSleep, int qtyAnswer) throws OracleExceptions {
+        if(rage+needForSleep > MAX_POSSIBILITY){
+            throw new OracleExceptions("Суммарная вероятность не должна превышать: ", MAX_POSSIBILITY);
+        } else {
+            this.rage = rage;
+            this.needForSleep = needForSleep;
+            this.qtyAnswer = qtyAnswer;
+        }
     }
 
     public void learning(Map<String, String> wisdom){
@@ -47,11 +51,10 @@ public class GreatOracle {
                 } else {
                     return swear();
                 }
-            } else if (action > rage && action <= needForSleep) {
+            } else if (action > rage && action <= needForSleep+rage) {
                 oracleSleep(random.nextInt(60)); // TODO: 7/25/20 исопльзуй Duration
-            } else if (action > needForSleep) {
-                String answer = String.valueOf(getAnswer(validLengthQuestion(question)));
-                return answer;
+            } else if (action > needForSleep+rage) {
+                return String.valueOf(getAnswer(validLengthQuestion(question)));
             }
         return "";
     }
@@ -75,7 +78,7 @@ public class GreatOracle {
             Duration sleepAge = Duration.between(LocalDateTime.now(), to);
             System.out.println("Оракул спит. До его пробуждения осталось: " + sleepAge.getSeconds() + "секунд");
             try {
-                Thread.sleep(995);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
