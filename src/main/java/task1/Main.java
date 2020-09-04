@@ -1,8 +1,8 @@
 package task1;
 
 
-import java.util.Date;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Main {
 
@@ -52,7 +52,17 @@ public class Main {
 
     public static void second() {
         // TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
+        ArrayList<String> names = new ArrayList<>();
+        names.add("Виктор Паршин");
+        names.add("Сергей Путнов");
+        names.add("Эдди Дин");
+        names.add("Родланд Дискейн");
+        names.add("Джон Торин");
+        final Random random = new Random();
+        for (int i = 0; i < names.size(); i++) {
 
+            new Person(names.get(random.nextInt(names.size())), random.nextInt(31), random.nextInt(12), random.nextInt());
+        }
     }
 
 }
@@ -61,6 +71,12 @@ class Name {
 
     String firstName;
     String lastName;
+
+    public Name(String name) {
+        String[] split = name.split(" ");
+        this.firstName = split[0];
+        this.lastName = split[1];
+    }
 
     public Name(String firstName, String lastName) {
         this.firstName = firstName;
@@ -82,6 +98,10 @@ class BirthDate {
 }
 
 class Person {
+    public Person(Name name, int day, int month, int year) {
+        this.name = name;
+        this.birthDate = new BirthDate(day, month, year);
+    }
 
     Name name;
     BirthDate birthDate;
@@ -92,4 +112,5 @@ class Person {
         this.birthDate = new BirthDate(day, month, year);
         this.name = new Name(split[0], split[1]);
     }
+
 }
