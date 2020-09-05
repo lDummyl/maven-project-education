@@ -14,7 +14,7 @@ public class GreatOracle {
     Map<String, String> wisdom = new HashMap<>();
     QuestionExtractor questionExtractor;
 
-    public GreatOracle(int rage, int needForSleep, int qtyAnswer) throws OracleExceptions {
+    public GreatOracle(int rage, int needForSleep, int qtyAnswer) {
         if(rage+needForSleep > MAX_POSSIBILITY){
             throw new OracleExceptions("Суммарная вероятность не должна превышать: ", MAX_POSSIBILITY);
         } else {

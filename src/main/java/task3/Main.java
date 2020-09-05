@@ -28,12 +28,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        GreatOracle greatOracle = null;
-        try {
-            greatOracle = new GreatOracle(10, 20, 2);
-        } catch (OracleExceptions oracleExceptions) {
-            oracleExceptions.printStackTrace();
-        }
+        GreatOracle greatOracle = new GreatOracle(10, 20, 2);
+
         greatOracle.learning(Academy.learnOracle1(11));
 
         Memory memory = new Memory();
