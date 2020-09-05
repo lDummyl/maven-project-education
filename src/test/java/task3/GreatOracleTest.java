@@ -93,6 +93,8 @@ public class GreatOracleTest {
     @Test
     public void questionListenerOracleHit(){
         GreatOracle greatOracleMock = Mockito.mock(GreatOracle.class);
+        // TODO: 9/5/20 да это немног оне так используется, если сервис использвет внутри внешние ресурсы позволяет их замокать чтоб все работало при их отстутствии.
+
         Mockito.when(greatOracleMock.questionListener("TestHit")).thenReturn(greatOracle.hitWithStick());
         assertEquals("*Ударить палкой*", greatOracleMock.questionListener("TestHit"));
     }
