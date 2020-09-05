@@ -1,9 +1,12 @@
 package task1;
 
 
-import java.util.ArrayList;
-import java.util.Random;
 import java.time.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Random;
+
 
 public class Main {
 
@@ -51,19 +54,23 @@ public class Main {
 
         // TODO: 9/4/20  тот тоже стоит найти имя старшего, баз копипасты и что касается имен, пусть теперь будет 100 человек
         //  у каждого уникальное сочетание имя-фамилия
-        ArrayList<String> names = new ArrayList<>();
-        names.add("Виктор Паршин");
-        names.add("Сергей Путнов");
-        names.add("Эдди Дин");
-        names.add("Родланд Дискейн");
-        names.add("Джон Торин");
-        final Random random = new Random();
-        for (int i = 0; i < names.size(); i++) {
+        Random random = new Random();
+        String[] fnames = {"Иван", "Григорий", "Василий", "Эдди", "Сергей", "Александр", "Роланд", "Стивин", "Виктор", "Томас", "Айзек"};
+        String[] lnames = {"Паршин", "Иванов", "Анхимов", "Быков", "Вихров", "Артёмов", "Фёдоров", "Аркадьев", "Гришин", "Хрусталёв", "Азимов"};
 
-            new Person(names.get(random.nextInt(names.size())), random.nextInt(31), random.nextInt(12), random.nextInt());
+        HashSet<String> names = new HashSet<String>();
+        while (names.size() < 100) {
+            names.add(fnames[random.nextInt(fnames.length)] + " " + lnames[random.nextInt(lnames.length)]);
         }
-    }
 
+        ArrayList<Person> persons = new ArrayList<>();
+        Iterator<String> itr = names.iterator();
+        while (itr.hasNext()) {
+            String elem = itr.next();
+            persons.add(new Person(elem, 1 + random.nextInt(30), 1 + random.nextInt(11), 1 + random.nextInt(2020)));
+        }
+        Person.oldestPerson(persons);
+    }
 }
 
 class Name {
@@ -110,6 +117,19 @@ class Person {
         String[] split = name.split(" ");
         this.birthDate = new BirthDate(year, month, day); //Не в правильном порядке передавались параметры в birthdate
         this.name = new Name(split[0], split[1]);
+    }
+
+    public static void oldestPerson(ArrayList<Person> list) {
+        int oldest = 0;
+        LocalDate min = LocalDate.of(list.get(0).birthDate.year, list.get(0).birthDate.month, list.get(0).birthDate.day);
+
+        for (int i = 0; i < list.size(); i++) {
+            if (LocalDate.of(list.get(i).birthDate.year, list.get(i).birthDate.month, list.get(i).birthDate.day).isBefore(min)) {
+                min = LocalDate.of(list.get(i).birthDate.year, list.get(i).birthDate.month, list.get(i).birthDate.day);
+                oldest = i;
+            }
+        }
+        System.out.println(list.get(oldest).name.firstName);
     }
 
 }
