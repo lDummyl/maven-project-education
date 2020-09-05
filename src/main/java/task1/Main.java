@@ -33,6 +33,7 @@ public class Main {
         list.add(person4);
         list.add(person5);
 
+        // TODO: 9/5/20 как я сказал нужно переиспользовать поиск во второй части и желательно чтобы он был лаконичней, сильно лаконичней
         LocalDate min = LocalDate.of(list.get(0).birthDate.year, list.get(0).birthDate.month, list.get(0).birthDate.day);
 
         for (int i = 0; i < list.size(); i++) {
