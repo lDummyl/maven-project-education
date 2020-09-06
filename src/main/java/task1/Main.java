@@ -16,6 +16,8 @@ public class Main {
 
     }
 
+    // TODO: 9/6/20 ну удалять то ничего не надо, можно рефакторить или выносить в другой класс, так что поиск старшенго надо бы вернуть
+    //  кроме того классы пора выносить в отдельные фаилы.
     public static void first() {
     }
 
@@ -43,6 +45,8 @@ class Name {
 
 class Person {
     Name name;
+
+    // TODO: 9/6/20 класс этот тоже нужно вернуть, расширять пожалуйста, удалять не стоит
     LocalDate birthDate;
 
     public Person(String name, int day, int month, int year) {
