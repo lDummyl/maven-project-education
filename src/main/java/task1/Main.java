@@ -21,10 +21,11 @@ public class Main {
 
     public static void second() {
         Generator generator = new Generator();
-        ArrayList<Person> list = (ArrayList<Person>)generator.generatePersons(100).clone();
-        for (int i=0;i<list.size();i++){
-            System.out.println(list.get(i).name.firstName);
-        }
+        ArrayList<Person> list = (ArrayList<Person>) generator.generatePersons(100).clone();
+        //  for (int i = 0; i < list.size(); i++) {
+        //     System.out.println(list.get(i).name.firstName+" "+list.get(i).name.lastName+" "+list.get(i).birthDate);
+        // }
+        System.out.println(list.size());
     }
 }
 
@@ -43,12 +44,18 @@ class Name {
 class Person {
     Name name;
     LocalDate birthDate;
+
     public Person(String name, int day, int month, int year) {
         String[] split = name.split(" ");
-        this.birthDate = LocalDate.of(year, month, day);
+        try {
+            this.birthDate = LocalDate.of(year, month, day);
+        } catch (DateTimeException e) {
+            System.out.println("Недопустимая дата");
+        }
         this.name = new Name(name);
     }
 }
+
 class Generator {
     public ArrayList<Person> generatePersons(int numberOfPerons) {
         Random random = new Random();
