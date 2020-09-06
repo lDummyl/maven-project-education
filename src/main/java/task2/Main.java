@@ -1,5 +1,7 @@
 package task2;
 
+
+
 /**
  * Создать 2 офиса Apple и Google и трудоустроить в них секретарей на конкурсной основе, не модифицируя существующий код.
  * Создать 2 имплементации директора и столько же для HR с разным поведеинем, выраженным количественно. все объекты созадются в Main.
@@ -9,7 +11,23 @@ package task2;
 public class Main {
 
 	public static void main(String[] args) {
-		
+
 	}
 
+	public class HR {
+
+	}
+
+	public class Director {
+
+	}
+
+	public class Secretary {
+
+
+	}
+
+	class Candidate {
+
+	}
 }
