@@ -20,12 +20,10 @@ public class Main {
     }
 
     public static void second() {
-        Generator generator = new Generator();
+        PersonsProcessor generator = new PersonsProcessor();
         ArrayList<Person> list = (ArrayList<Person>) generator.generatePersons(100).clone();
-        //  for (int i = 0; i < list.size(); i++) {
-        //     System.out.println(list.get(i).name.firstName+" "+list.get(i).name.lastName+" "+list.get(i).birthDate);
-        // }
         System.out.println(list.size());
+        generator.oldestSearch(list);
     }
 }
 
@@ -40,38 +38,26 @@ class Name {
         this.lastName = split[1];
     }
 }
+class BirthDate {
+
+    int year;
+    int month;
+    int day;
+
+    public BirthDate(int year, int month, int day) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
+}
 
 class Person {
     Name name;
-    LocalDate birthDate;
+    LocalDate localbirthDate;
 
-    public Person(String name, int day, int month, int year) {
-        String[] split = name.split(" ");
-        try {
-            this.birthDate = LocalDate.of(year, month, day);
-        } catch (DateTimeException e) {
-            System.out.println("Недопустимая дата");
-        }
+    public Person(String name, LocalDate localbirthDate) {
         this.name = new Name(name);
+        this.localbirthDate = localbirthDate;
     }
 }
 
-class Generator {
-    public ArrayList<Person> generatePersons(int numberOfPerons) {
-        Random random = new Random();
-        String[] fnames = {"Иван", "Григорий", "Василий", "Эдди", "Сергей", "Александр", "Роланд", "Стивин", "Виктор", "Томас", "Айзек"};
-        String[] lnames = {"Паршин", "Иванов", "Анхимов", "Быков", "Вихров", "Артёмов", "Фёдоров", "Аркадьев", "Гришин", "Хрусталёв", "Азимов"};
-
-        HashSet<String> names = new HashSet<String>();
-        while (names.size() < numberOfPerons) {
-            names.add(fnames[random.nextInt(fnames.length)] + " " + lnames[random.nextInt(lnames.length)]);
-        }
-        ArrayList<Person> persons = new ArrayList<>();
-        Iterator<String> itr = names.iterator();
-        while (itr.hasNext()) {
-            String name = itr.next();
-            persons.add(new Person(name, 1 + random.nextInt(30), 1 + random.nextInt(11), 1 + random.nextInt(2020)));
-        }
-        return persons;
-    }
-}
