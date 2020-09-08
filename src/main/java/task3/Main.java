@@ -19,11 +19,26 @@ package task3;
 
 */
 
-public class Main {
-	public static void main(String[] args) {
-		Oracle oracle = new Oracle();
-		oracle.launch();
-	}
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
-	// с josn пока не могу разобраться
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.StringWriter;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		Oracle oracle = new Oracle();
+			oracle.launch();
+//		FileOutputStream outputStream = new FileOutputStream(new File("D:\\test.txt"));
+		StringWriter writer = new StringWriter();
+		ObjectMapper objectMapper = new ObjectMapper();
+//		objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+		objectMapper.writeValue(writer, oracle);
+		String result = writer.toString();
+		System.out.println(result);
+		System.out.println(objectMapper.canSerialize(Oracle.class));
+
+	}
 }

@@ -15,4 +15,8 @@ public class Secretary extends Person
 	public boolean interview(Secretary secretary) {
 		return super.interview(secretary);
 	}
+
+	public boolean passInterview() {
+		return new Random().nextBoolean();
+	}
 }

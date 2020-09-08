@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Random;
 
 public class Director extends Person {
+	final int enoughCandidatesToDecide;
 
-	public Director(Name name, Age age) {
+
+	public Director(Name name, Age age, int enoughCandidatesToDecide) {
 		super(name, age);
-	}
-	public Director (Name name) {
-		super(name);
+		this.enoughCandidatesToDecide = enoughCandidatesToDecide;
 	}
 
 	ArrayList<String> listOfActions = new ArrayList<>();
@@ -26,30 +26,16 @@ public class Director extends Person {
 		listOfActions.add("Кандидат выбран");
 	}
 
-	public Secretary select(Office office, Hr hr, List<Secretary> list) {
-		while (list.size() > 5) {
-			list = hr.passInterview(list);
-			if (list.size() > 20) {
-				System.out.println(listOfActions.get(0));
-			}
-			if (list.size() > 10) {
-				System.out.println(listOfActions.get(1));
-			}
-			if (list.size() > 5) {
-				System.out.println(listOfActions.get(2));
-			}
+	public Secretary select(List<Secretary> list) {
+		if (list.size() < enoughCandidatesToDecide)
+		{
+			return null;
 		}
-		if (list.size() < 5) {
-			System.out.println(listOfActions.get(3));
-			Random random = new Random();
-			Secretary secretary = list.get(random.nextInt(list.size()));
-			office.invitePeople(secretary);
-			return secretary;
-		}
-		return null;
-			}
+		Random random = new Random();
+		return list.get(random.nextInt(list.size()));
 
-		}
+	}
+}
 
 
 

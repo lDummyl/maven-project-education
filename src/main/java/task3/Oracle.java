@@ -1,12 +1,20 @@
 package task3;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-public class Oracle {
+//@JsonIgnoreProperties(ignoreUnknown=true)
+public class Oracle  {
+    public Oracle() {
+    }
+
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    ArrayList <String> saveQuestions = new ArrayList<>();
+
     String question;
     ArrayList<String> questions = new ArrayList<>(Arrays.asList("кто", "что", "когда", "как", "зачем", "почему", "где", "куда", "откуда"));
 
@@ -19,6 +27,10 @@ public class Oracle {
 
     public void rude() {
         System.out.println("Вопрос не стоит моего внимания");
+    }
+
+    public void hit() {
+        System.out.println("Стукнуть палкой");
     }
 
     public void relax() {
@@ -63,6 +75,7 @@ public class Oracle {
     public boolean checkQuestion() {
         try {
             question = reader.readLine();
+            saveQuestions.add(question);
         } catch (IOException e) {
             System.out.println("Недопустимые символы");
         }
@@ -97,7 +110,11 @@ public class Oracle {
                 relax();
             } else if (percent <= 15) {
                 rude();
-            } else {
+            } else if (percent <=20)
+            {
+                hit();
+            }
+            else {
                 answer();
             }
         }
