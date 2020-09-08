@@ -9,6 +9,7 @@ import java.util.Random;
 public class PersonsProcessor {
     public ArrayList<Person> generatePersons(int numberOfPerons) {
         Random random = new Random();
+        // TODO: 9/8/20 и так это создается при каждой генерации?
         String[] fnames = {"Иван", "Григорий", "Василий", "Эдди", "Сергей", "Александр", "Роланд", "Стивин", "Виктор", "Томас", "Айзек"};
         String[] lnames = {"Паршин", "Иванов", "Анхимов", "Быков", "Вихров", "Артёмов", "Фёдоров", "Аркадьев", "Гришин", "Хрусталёв", "Азимов"};
 
