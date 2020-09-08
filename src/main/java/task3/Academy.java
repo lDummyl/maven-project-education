@@ -34,5 +34,13 @@ public class Academy {
         return questionAnswer.entrySet().stream().limit(indexWisdom)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
+
+    public static Set<String> learnStudent(){
+        Set<String> questions = new HashSet<>();
+        for(String key : questionAnswer.keySet()){
+            questions.add(key);
+        }
+        return questions;
+    }
 }
 
