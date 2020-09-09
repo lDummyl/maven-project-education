@@ -9,7 +9,7 @@ import java.util.Random;
 public class PersonsProcessor {
     public ArrayList<Person> generatePersons(int numberOfPerons) {
         ArrayList<Person> persons = new ArrayList<>();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < numberOfPerons; i++) {
             persons.add(new Person());
         }
         return persons;
@@ -17,10 +17,10 @@ public class PersonsProcessor {
 
     public void oldestSearch(ArrayList<Person> list) {
         int oldest = 0;
-        LocalDate min = list.get(0).localbirthDate;
-        for (int i = 0; i < list.size() - 1; i++) {
-            if (list.get(i).localbirthDate.isBefore(min)) {
-                min = list.get(i).localbirthDate;
+        LocalDate min = list.get(0).birthDate.localBirthDate;
+        for (int i = 1; i < list.size() - 1; i++) {
+            if (list.get(i).birthDate.localBirthDate.isBefore(min)) {
+                min = list.get(i).birthDate.localBirthDate;
                 oldest = i;
             }
         }
