@@ -26,8 +26,8 @@ public class BirthDate {
         Random random = new Random();
         while (localBirthDate == null) {
             try {
-                this.localBirthDate = LocalDate.of(1950 + random.nextInt(70), 1 + random.nextInt(11), 1 + random.nextInt(11));
-            } catch (Exception e) {
+                this.localBirthDate = LocalDate.of(1950 + random.nextInt(70), 1 + random.nextInt(11), 1 + random.nextInt(30));
+            } catch (DateTimeException e) {
                 System.out.println("Invalid Date generated");
             }
         }

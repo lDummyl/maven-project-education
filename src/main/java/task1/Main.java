@@ -17,7 +17,7 @@ public class Main {
 
     public static void second() {
         PersonsProcessor generator = new PersonsProcessor();
-        ArrayList<Person> list = (ArrayList<Person>) generator.generatePersons(1000000).clone();
+        ArrayList<Person> list = (ArrayList<Person>) generator.generatePersons(10000000).clone();
         System.out.println(list.size());
         generator.oldestSearch(list);
     }
