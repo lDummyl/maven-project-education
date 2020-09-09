@@ -8,32 +8,9 @@ import java.util.Random;
 
 public class PersonsProcessor {
     public ArrayList<Person> generatePersons(int numberOfPerons) {
-        Random random = new Random();
-        // TODO: 9/8/20 и так это создается при каждой генерации?
-        //Пока что чтобы убрать все исключения и рандомные, не повторяющиеся имена лучше я не придумал
-        String[] fnames = {"Иван", "Григорий", "Василий", "Эдди", "Сергей", "Александр", "Роланд", "Стивин", "Виктор", "Томас", "Айзек"};
-        String[] lnames = {"Паршин", "Иванов", "Анхимов", "Быков", "Вихров", "Артёмов", "Фёдоров", "Аркадьев", "Гришин", "Хрусталёв", "Азимов"};
-
-        HashSet<String> names = new HashSet<String>();
-        ArrayList<String> namesArray = new ArrayList<>();
-
-        while (names.size() < numberOfPerons) {
-            names.add(fnames[random.nextInt(fnames.length)] + " " + lnames[random.nextInt(lnames.length)]);
-        }
-        namesArray.addAll(names);
-
         ArrayList<Person> persons = new ArrayList<>();
-        ArrayList<LocalDate> dates = new ArrayList<>();
-
-        while (dates.size() < numberOfPerons) {
-            try {
-                dates.add(LocalDate.of(random.nextInt(1 + 2019), random.nextInt(1 + 11), random.nextInt(1 + 30)));
-            } catch (DateTimeException e) {
-            }
-        }
-
-        for (int i = 0; i < numberOfPerons; i++) {
-            persons.add(new Person(namesArray.get(i), dates.get(i)));
+        for (int i = 0; i < 1000; i++) {
+            persons.add(new Person());
         }
         return persons;
     }
