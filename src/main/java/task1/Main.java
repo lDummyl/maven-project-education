@@ -1,7 +1,7 @@
 package task1;
 
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -18,7 +18,7 @@ public class Main {
     public static void second() {
         PersonsProcessor generator = new PersonsProcessor();
         // TODO: 9/10/20 сделай так чтобы все созданные 100к человек были уникальны
-        ArrayList<Person> list = (ArrayList<Person>) generator.generatePersons(10000000).clone();
+        ArrayList<Person> list = (ArrayList<Person>) generator.generatePersons(100000).clone();
         System.out.println(list.size());
         generator.oldestSearch(list);
     }

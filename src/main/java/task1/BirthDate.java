@@ -1,8 +1,6 @@
 package task1;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Random;
 
 public class BirthDate {
@@ -27,8 +25,8 @@ public class BirthDate {
         while (localBirthDate == null) {
             try {
                 this.localBirthDate = LocalDate.of(1950 + random.nextInt(70), 1 + random.nextInt(11), 1 + random.nextInt(30));
-            } catch (DateTimeException e) {
-                System.out.println("Invalid Date generated");
+            } catch (Exception e) {
+                System.out.println("Invalid date generated");
             }
         }
     }

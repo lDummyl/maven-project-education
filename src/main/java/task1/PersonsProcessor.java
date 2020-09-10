@@ -1,10 +1,7 @@
 package task1;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Random;
 
 public class PersonsProcessor {
     public ArrayList<Person> generatePersons(int numberOfPerons) {
@@ -25,6 +22,6 @@ public class PersonsProcessor {
                 oldest = i;
             }
         }
-        System.out.println(list.get(oldest).name.firstName);
     }
 }
+
