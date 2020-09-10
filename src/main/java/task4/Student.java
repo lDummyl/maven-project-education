@@ -1,24 +1,24 @@
 package task4;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Student {
 
     // TODO: 9/9/20 test driven development, test driven development jobamat'
     private int qtyQuestion;
 
-    private Set<String> keyQuestions = new HashSet<>();
+    public List<String> keyQuestions = new ArrayList<>();
 
-    private Set<String> questionContextOne = new HashSet<>();
+    public List<String> questionContextOne = new ArrayList<>();
 
-    private Set<String> questionContextTwo = new HashSet<>();
+    public List<String> questionContextTwo = new ArrayList<>();
 
-    public void learning (Set<String> wisdom){
+    public void learning (List<String> wisdom){
         this.keyQuestions = wisdom;
     }
 
-    private void initContextOne(){
+    public void initContextOne(){
         questionContextOne.add("купить");
         questionContextOne.add("ехать");
         questionContextOne.add("получить");
@@ -31,7 +31,7 @@ public class Student {
         questionContextOne.add("пользоваться");
     }
 
-    private void initContextTwo(){
+    public void initContextTwo(){
         questionContextTwo.add("");
         questionContextTwo.add("");
         questionContextTwo.add("");

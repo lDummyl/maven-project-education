@@ -35,11 +35,9 @@ public class Academy {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
-    public static Set<String> learnStudent(){
-        Set<String> questions = new HashSet<>();
-        for(String key : questionAnswer.keySet()){
-            questions.add(key);
-        }
+    public static List<String> learnStudent(){
+        List<String> questions = new ArrayList<>();
+        questions.addAll(questionAnswer.keySet());
         return questions;
     }
 }
