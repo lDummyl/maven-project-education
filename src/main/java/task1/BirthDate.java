@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Random;
 
 public class BirthDate {
-
     LocalDate localBirthDate;
     int year;
     int month;

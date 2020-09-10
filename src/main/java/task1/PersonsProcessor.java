@@ -11,8 +11,10 @@ public class PersonsProcessor {
         }
         return persons;
     }
-
+    /*
     public void oldestSearch(ArrayList<Person> list) {
+
+    }
         int oldest = 0;
         // TODO: 9/10/20 подумай насчет инкапсуляции и здесь, чтобы зделать код лаконичней и наглядней
         LocalDate min = list.get(0).birthDate.localBirthDate;
@@ -21,7 +23,5 @@ public class PersonsProcessor {
                 min = list.get(i).birthDate.localBirthDate;
                 oldest = i;
             }
-        }
-    }
+    */
 }
-
