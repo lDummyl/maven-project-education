@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.ListIterator;
 
+// TODO: 9/12/20 тройка с минусом
 public class Person {
     static LocalDate oldestDate = LocalDate.now();
     static Person oldest = null;
