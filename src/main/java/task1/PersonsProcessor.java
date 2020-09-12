@@ -6,9 +6,9 @@ import java.util.ArrayList;
 public class PersonsProcessor {
     public ArrayList<Person> generatePersons(int numberOfPerons) {
 
-        ArrayList<Person> persons = new ArrayList<>();
-        for (int i = 0; i < numberOfPerons; i++) {
-          new Person();
+
+        while (Person.persons.size() < numberOfPerons) {
+            new Person();
         }
         return Person.persons;
     }

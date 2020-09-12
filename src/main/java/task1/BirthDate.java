@@ -25,7 +25,7 @@ public class BirthDate {
             try {
                 this.localBirthDate = LocalDate.of(1950 + random.nextInt(70), 1 + random.nextInt(11), 1 + random.nextInt(30));
             } catch (Exception e) {
-              //  System.out.println("Invalid date generated");
+                //  System.out.println("Invalid date generated");
             }
         }
     }
