@@ -1,11 +1,6 @@
-package task2;
+package task2.model;
 
 public class Office {
-
-    public Office(Director director, Hr hr) {
-        this.director = director;
-        this.hr = hr;
-    }
 
     Secretary secretary;
 
@@ -13,10 +8,14 @@ public class Office {
 
     Hr hr;
 
+    public Office(Director director, Hr hr) {
+        this.director = director;
+        this.hr = hr;
+    }
+
     //претенденты идут по одному, когда их достаточно,
     // то директор принимает решение и берет одного в штат
 
-    void invitePeaople(Object human) {
-
+    public void invitePeople(Object human) {
     }
 }

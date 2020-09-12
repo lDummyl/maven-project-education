@@ -1,4 +1,4 @@
-package task2;
+package task2.model;
 
 import java.util.Collection;
 

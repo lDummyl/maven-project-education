@@ -1,4 +1,4 @@
-package task2;
+package task2.model;
 
 public interface Secretary {
 

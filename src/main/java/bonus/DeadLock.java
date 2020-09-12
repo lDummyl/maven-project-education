@@ -28,9 +28,10 @@ public class DeadLock {
         Object room2 = new Object();
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
-
+        //100% это Thread.sleep(..) между synchronized блоками, но так тоже 50 на 50 получается Дедлок.
         Future<?> andrewAttempt = executorService.submit(() -> {
             synchronized (room1) {
+                System.out.println(room2.getClass());
                 synchronized (room2) {
                     System.out.println("Journal 2 visited");
                 }
@@ -39,6 +40,7 @@ public class DeadLock {
 
         Future<?> jacobAttempt = executorService.submit(() -> {
             synchronized (room2) {
+                System.out.println(room1.getClass());
                 synchronized (room1) {
                     System.out.println("Journal 1 visited");
                 }
