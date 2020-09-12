@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 
 // TODO: 9/12/20 тройка с минусом
+// Что нужно улучшить для увеличения оценки?
 public class Person {
     static LocalDate oldestDate = LocalDate.now();
     static Person oldest = null;
