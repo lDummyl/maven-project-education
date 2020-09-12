@@ -5,12 +5,16 @@ import java.util.ArrayList;
 
 public class PersonsProcessor {
     public ArrayList<Person> generatePersons(int numberOfPerons) {
+
         ArrayList<Person> persons = new ArrayList<>();
         for (int i = 0; i < numberOfPerons; i++) {
-            persons.add(new Person());
+          new Person();
         }
-        return persons;
+        return Person.persons;
     }
+
+
+
     /*
     public void oldestSearch(ArrayList<Person> list) {
 

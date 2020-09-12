@@ -1,12 +1,15 @@
 package task1;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.ListIterator;
 
 public class Person {
     static LocalDate oldestDate = LocalDate.now();
     static Person oldest = null;
     Name name;
     BirthDate birthDate;
+    static ArrayList<Person> persons = new ArrayList<>();
 
     public Person(String name, BirthDate localbirthDate) {
         this.name = new Name(name);
@@ -16,11 +19,24 @@ public class Person {
     public Person() {
         this.name = new Name();
         this.birthDate = new BirthDate();
-        System.out.println(this);
 
-        if (this.birthDate.localBirthDate.isBefore(oldestDate)) {
-            oldestDate = this.birthDate.localBirthDate;
-            oldest = this;
+            if (!hasPerson(this)) {
+                persons.add(this);
+                if (this.birthDate.localBirthDate.isBefore(oldestDate)) {
+                    oldestDate = this.birthDate.localBirthDate;
+                    oldest = this;
+                    //System.out.println("Добален человек");
+                }
+            }
+    }
+    public boolean hasPerson(Person p){
+        ListIterator<Person> iterator = persons.listIterator();
+        while (iterator.hasNext()) {
+            if (p.equals(iterator.next())) {
+                System.out.println("Такой человек уже есть");
+                return true;
+            }
         }
+            return false;
     }
 }

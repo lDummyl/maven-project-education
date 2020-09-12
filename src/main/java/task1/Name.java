@@ -18,11 +18,11 @@ public class Name {
     }
 
     public Name() {
-        //Random random = new Random();
-        //this.firstName = fnames[random.nextInt(fnames.length)];
-        //this.lastName = lnames[random.nextInt(lnames.length)];
+        Random random = new Random();
+        this.firstName = fnames[random.nextInt(fnames.length)];
+        this.lastName = lnames[random.nextInt(lnames.length)];
 
-        this.firstName = (UUID.randomUUID()).toString();
-        this.lastName = (UUID.randomUUID()).toString();
+        //this.firstName = (UUID.randomUUID()).toString();
+        //this.lastName = (UUID.randomUUID()).toString();
     }
 }
