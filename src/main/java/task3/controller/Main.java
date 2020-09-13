@@ -1,4 +1,4 @@
-package task3;
+package task3.controller;
 
 /*
 
@@ -20,8 +20,8 @@ package task3;
 */
 
 public class Main {
-	public static void main(String[] args) {
-
-
-	}
+    public static void main(String[] args) {
+        QuestionUI questionUI = new QuestionUI();
+        questionUI.run();
+    }
 }
