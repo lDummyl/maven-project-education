@@ -4,9 +4,8 @@ import customPackage.animals.Donkey;
 
 public class Doctor extends Person {
 
-
-    public Doctor(String name) {
-        super(name);
+    public Doctor(String name, int age) {
+        super(name, age);
     }
 
     public String curePatient(String name, String health) {

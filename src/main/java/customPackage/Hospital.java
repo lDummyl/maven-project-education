@@ -4,7 +4,7 @@ import customPackage.animals.Donkey;
 import customPackage.animals.Snake;
 import customPackage.people.Doctor;
 
-public class cureDonkey {
+public class Hospital {
 
     public static void main(String[] args) {
         Donkey maxie = new Donkey("Maxie");
@@ -14,7 +14,7 @@ public class cureDonkey {
         flossie.bite(maxie);
 
         // Doctor cures poor Maxie
-        Doctor johnson = new Doctor("Johnson");
+        Doctor johnson = new Doctor("Johnson", 50);
 //        String cured = johnson.curePatient("maxie", "ill");
         System.out.println("Health before:");
         System.out.println(maxie.health_status);

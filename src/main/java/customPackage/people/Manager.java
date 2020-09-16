@@ -1,26 +1,13 @@
 package customPackage.people;
 
 public class Manager extends Person {
-    private final int age;
 
     public Manager(String name, int age) {
-        super(name);
-        this.age = age;
+        super(name, age);
     }
 
-    public boolean hireSecretary(String name, boolean hired) {
-        if (hired = false && name != null) {
-            hired = true;
-        }
-        return hired;
+    public void hireSecretary(Secretary candidate) {
+//
     }
-
-    public boolean terminateSecretary(String name, boolean hired) {
-        if (hired = true && name != null) {
-            hired = false;
-        }
-        return hired;
-    }
-
 
 }
