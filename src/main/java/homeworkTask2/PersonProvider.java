@@ -49,13 +49,38 @@ public class PersonProvider {
         return new Person(name, age);
     }
 
-    public List <Person>  getPeople (int x)
-    {
-        ArrayList <Person> list = new ArrayList<>();
-        for (int i = 0; i<x; i++)
-        {
-            list.add(getPerson());
+    // можно ли сделать общий метод по созданию списков объектов для классов-наследников Person?
+    // или преобразовать один тип элементов в другой?
+
+    ArrayList<Person> people = new ArrayList<>();
+
+    public List getPeople(int x) {
+        for (int i = 0; i < x; i++) {
+            people.add(getPerson());
         }
-        return list;
+        return people;
     }
+
+    // с этими кусками кода все работает, но чем больше создается новых классов, тем больше нагромождение тут получается,
+//    как-то некрасиво совсем
+
+//    public ArrayList <Secretary> getSecretaries (int x)
+//    {
+//        ArrayList <Secretary>list = new ArrayList<>();
+//        for (int i = 0; i<x; i++)
+//        {
+//           list.add(new Secretary(getPerson()));
+//        }
+//        return list;
+//    }
+//
+//    public ArrayList <Accountant> getAccountants (int x)
+//    {
+//        ArrayList <Accountant>list = new ArrayList<>();
+//        for (int i = 0; i<x; i++)
+//        {
+//            list.add(new Accountant(getPerson()));
+//        }
+//        return list;
+//    }
 }

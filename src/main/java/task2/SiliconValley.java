@@ -41,6 +41,7 @@ public class SiliconValley {
 
 
 
+
 		// TODO: 6/4/20 А в офисе никого? все вопросы смотрю тут решаются, трендово конешно, но не по условию
 
 		System.out.println(apple.secretary != null);
