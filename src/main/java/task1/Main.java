@@ -24,8 +24,10 @@ public class Main {
         // TODO: 9/10/20 сделай так чтобы все созданные 100к человек были уникальны
         // TODO: 9/12/20 увы незачет, следующая попытка...
         TreeSet<Person> setPerson = generator.generatePersons(10000);
-       // System.out.println(setPerson.size());
-       // System.out.println(Person.oldest.name.firstName);
+        generator.oldestSearch(setPerson);
+        //ArrayList<Person> list = new ArrayList<Person>();
+        //list.addAll(setPerson);
+        //generator.oldestSearchT(list);
     }
 
 }
