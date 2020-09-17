@@ -1,9 +1,10 @@
 package task1;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Random;
 
-public class BirthDate {
+public class BirthDate implements Comparable<BirthDate>{
     LocalDate localBirthDate;
     int year;
     int month;
@@ -28,5 +29,27 @@ public class BirthDate {
                 //  System.out.println("Invalid date generated");
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BirthDate birthDate = (BirthDate) o;
+        return year == birthDate.year &&
+                month == birthDate.month &&
+                day == birthDate.day &&
+                Objects.equals(localBirthDate, birthDate.localBirthDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(localBirthDate, year, month, day);
+    }
+
+
+    @Override
+    public int compareTo(BirthDate o) {
+        return this.localBirthDate.compareTo(o.localBirthDate);
     }
 }

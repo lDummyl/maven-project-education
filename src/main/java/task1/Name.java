@@ -1,5 +1,6 @@
 package task1;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 
@@ -24,5 +25,19 @@ public class Name {
 
         //this.firstName = (UUID.randomUUID()).toString();
         //this.lastName = (UUID.randomUUID()).toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Name name = (Name) o;
+        return Objects.equals(firstName, name.firstName) &&
+                Objects.equals(lastName, name.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
     }
 }

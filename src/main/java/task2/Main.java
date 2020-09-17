@@ -1,6 +1,8 @@
 package task2;
 
 
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Создать 2 офиса Apple и Google и трудоустроить в них секретарей на конкурсной основе, не модифицируя существующий код.
@@ -11,6 +13,7 @@ package task2;
 public class Main {
 
 	public static void main(String[] args) {
+
 
 	}
 

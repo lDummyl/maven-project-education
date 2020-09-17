@@ -1,16 +1,16 @@
 package task1;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class PersonsProcessor {
-    public ArrayList<Person> generatePersons(int numberOfPerons) {
 
+    public TreeSet<Person> generatePersons(int numberOfPerons) {
+        TreeSet<Person> persons = new TreeSet<>();
 
-        while (Person.persons.size() < numberOfPerons) {
-            new Person();
+        for (int i = 0; i < 25; i++) {
+            persons.add(new Person());
         }
-        return Person.persons;
+        return persons;
     }
 
 
