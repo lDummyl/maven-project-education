@@ -2,11 +2,17 @@ package task4;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Student {
 
     // TODO: 9/9/20 test driven development, test driven development jobamat'
-    private int qtyQuestion;
+    private int qtyQuestions;
+    Random random = new Random();
+
+    public Student(int qtyQuestion) {
+        this.qtyQuestions = qtyQuestion;
+    }
 
     public List<String> keyQuestions = new ArrayList<>();
 
@@ -14,8 +20,18 @@ public class Student {
 
     public List<String> questionContextTwo = new ArrayList<>();
 
-    public void learning (List<String> wisdom){
-        this.keyQuestions = wisdom;
+    public void initKeyQuestions(){
+        keyQuestions.add("как");
+        keyQuestions.add("где");
+        keyQuestions.add("когда");
+        keyQuestions.add("почему");
+        keyQuestions.add("зачем");
+        keyQuestions.add("сколько");
+        keyQuestions.add("откуда");
+        keyQuestions.add("какой");
+        keyQuestions.add("какая");
+        keyQuestions.add("какое");
+        keyQuestions.add("что");
     }
 
     public void initContextOne(){
@@ -32,21 +48,43 @@ public class Student {
     }
 
     public void initContextTwo(){
-        questionContextTwo.add("");
-        questionContextTwo.add("");
-        questionContextTwo.add("");
-        questionContextTwo.add("");
-        questionContextTwo.add("");
-        questionContextTwo.add("");
-        questionContextTwo.add("");
-        questionContextTwo.add("");
-        questionContextTwo.add("");
-        questionContextTwo.add("");
+        questionContextTwo.add("красиво?");
+        questionContextTwo.add("гладко?");
+        questionContextTwo.add("умело?");
+        questionContextTwo.add("восхитительно?");
+        questionContextTwo.add("академически?");
+        questionContextTwo.add("жирно?");
+        questionContextTwo.add("скользко?");
+        questionContextTwo.add("нетривиально?");
+        questionContextTwo.add("по-мужски?");
+        questionContextTwo.add("дико?");
     }
 
     public void initAll(){
         initContextOne();
         initContextTwo();
+        initKeyQuestions();
+    }
+
+    public String generatorQuestionOne(){
+        int KQ = random.nextInt(keyQuestions.size());
+        int CO = random.nextInt(questionContextOne.size());
+        int CT = random.nextInt(questionContextTwo.size());
+
+        return keyQuestions.get(KQ) + " " + questionContextOne.get(CO) + " " + questionContextTwo.get(CT);
+    }
+
+    public String generatorQuestion(){
+
+        return keyQuestions.get(0) + " " + questionContextOne.get(0) + " " + questionContextTwo.get(0);
+    }
+
+    public List<String> generatorQuestions(){
+        List<String> questions = new ArrayList<>();
+        for(int i = 0; i < qtyQuestions; i++){
+            questions.add(generatorQuestionOne());
+        }
+        return questions;
     }
 
 }
