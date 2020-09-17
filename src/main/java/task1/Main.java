@@ -8,6 +8,7 @@ public class Main {
 		first();
 		second();
 
+
 	}
 
 	public static void first(){
