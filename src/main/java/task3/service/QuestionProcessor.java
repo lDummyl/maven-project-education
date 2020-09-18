@@ -5,11 +5,11 @@ import task3.model.Question;
 public class QuestionProcessor {
 
     public boolean isLong(Question question) {
-        return question.getContext().length() > question.getMaxLength();
+        return question.getContext().length() > Question.MAX_LENGTH;
     }
 
     public boolean isShort(Question question) {
-        return question.getContext().length() < question.getMinLength();
+        return question.getContext().length() < Question.MIN_LENGTH;
     }
 
     public boolean isContainsHardcodedWords(Question question) {
@@ -25,6 +25,9 @@ public class QuestionProcessor {
     }
 
     public boolean isEmpty(Question question) {
-        return question.getContext().replaceAll("\\s", "").isEmpty();
+        return question == null || question.getContext()
+                .replaceAll("\\s", "")
+                .replaceAll("\\D", "")
+                .isEmpty();
     }
 }

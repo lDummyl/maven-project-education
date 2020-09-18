@@ -1,5 +1,6 @@
 package task3.controller;
 
+import lombok.SneakyThrows;
 import task3.model.Answer;
 import task3.model.Question;
 import task3.service.QuestionProcessor;
@@ -15,7 +16,8 @@ public class QuestionUI {
     private final Question question = new Question();
 
     public void run() {
-        System.out.println("Задай свой вопрос, но не короче 10 символов и не длинее 50");
+        System.out.println("Задай свой вопрос, но не короче 10 символов и не длинее 50, если вопросов больше нет," +
+                "введи \"end\"");
         Scanner sc = new Scanner(System.in);
         String questionText;
         while (true) {
@@ -29,24 +31,21 @@ public class QuestionUI {
         }
     }
 
+    @SneakyThrows
     private void printResult(Question question) {
         if (r.nextInt(10) == 1) {
-            try {
-                System.out.println("Оракул задремал, подожди 10 секунд.");
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            System.out.println("Оракул задремал, подожди 10 секунд.");
+            Thread.sleep(10000);
         }
         if (r.nextInt(10) == 2)
             answer.getAngryAnswer();
-        else if(qp.isEmpty(question))
+        else if (qp.isEmpty(question))
             answer.getEmptyAnswer();
-        else if(qp.isContainsHardcodedWords(question))
+        else if (qp.isContainsHardcodedWords(question))
             answer.getManyQuestionsAnswer();
-        else if(qp.isLong(question))
+        else if (qp.isLong(question))
             answer.getLongAnswer();
-        else if(qp.isShort(question))
+        else if (qp.isShort(question))
             answer.getShortAnswer();
         else
             answer.getRandomAnswer();

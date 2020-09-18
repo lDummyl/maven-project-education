@@ -25,7 +25,7 @@ public class FakePumpDaoImpl implements PumpDao {
                 listOfConvenientPumps.add(pump);
         }
         listOfConvenientPumps.sort((p1, p2) -> (int) (p1.getPrice() - p2.getPrice()));
-        if (listOfConvenientPumps.size() > 0)
+        if (!listOfConvenientPumps.isEmpty())
             return Optional.of(listOfConvenientPumps.get(0));
         else
             return Optional.empty();

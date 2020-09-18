@@ -10,9 +10,10 @@ import java.util.Random;
 
 public class CandidateGenerator implements Generator<Secretary> {
 
+        private final Random r = new Random();
+
     @Override
     public List<Secretary> generate() {
-        Random r = new Random();
         List<Secretary> candidates = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             candidates.add(new SecretaryEmployee(r.nextInt(1000)));

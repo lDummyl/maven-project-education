@@ -11,4 +11,9 @@ public class BirthDate {
 
     private LocalDate birthday;
 
+
+    @Override
+    public String toString() {
+        return "BirthDate: " + birthday;
+    }
 }

@@ -13,5 +13,6 @@ public class SecretaryEmployee implements Secretary {
 
     @Override
     public void sayHelloTo(Object o) {
+        System.out.println("Hello!");
     }
 }
