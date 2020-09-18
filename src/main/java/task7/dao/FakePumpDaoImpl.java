@@ -18,6 +18,8 @@ public class FakePumpDaoImpl implements PumpDao {
     }
 
     @Override
+    // TODO: 9/18/20 а вот тут детские игрушки кончаются, насос описыватся характеристикой кривой,
+    //  по одной на каждую скорость и по ней нужно подобрать подходящий, настоящий насос https://imp-pumps.com/wp-content/uploads/2018/10/Katalog-GHN_RUS-min.pdf
     public Optional<Pump> selectPump(Double flow, Double power) {
         List<Pump> listOfConvenientPumps = new ArrayList<>();
         for (Pump pump : pumpList) {

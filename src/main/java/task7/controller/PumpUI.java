@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class PumpUI implements UserInterface<Pump> {
 
     private final Scanner sc;
+    // TODO: 9/18/20 UI + DTO в одном классе, да та же проблема
     private Double flow;
     private Double power;
 
