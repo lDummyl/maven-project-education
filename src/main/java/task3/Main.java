@@ -14,18 +14,18 @@ package task3;
  может устать и сделать перерыв на 10 сек до минуты,
  сообщая тебе сколько еще ждать в ответ на вопросы.
 
- создать отчет о вопросах ответах виде Josn файла, используя
+ создать отчет о вопросах ответах виде JSON файла, используя
  Jackson Object mapper и положить его в ресурсы
 
 Algorithm
-  - create Josn list array with answers
+  - create JSON list array with answers
  - Main routine
- 		- read from Josn file into list array
+ 		- read from JSON file into list array
  		- endless loop that check for input
  Upon new entry, we count question marks and full stops (regular expression)
  If counter is great than 1, then requester is verbose and asked to be more concise
  If no question marks are found, then system's response is "What's your question?"
- If counter is equal to 1, then system's response is randomly picked from Josn file:
+ If counter is equal to 1, then system's response is randomly picked from JSON file:
     list array
     	sleep timer 10 sec
     	button strike

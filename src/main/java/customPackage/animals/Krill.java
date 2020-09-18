@@ -1,18 +1,10 @@
 package customPackage.animals;
 
 public class Krill extends Animal {
+    private boolean isAlive = true;
+
     public Krill(String name) {
         super(name);
-    }
-
-    public static void main(String[] args) {
-        Krill noname01 = new Krill("noname01");
-        boolean metWhale = true;
-        String isAlive;
-        isAlive = noname01.isAlive(metWhale) ? "Yes" : "No";
-        if (metWhale) {
-            System.out.println("Is Krill alive? " + isAlive);
-        }
     }
 
     @Override
@@ -20,9 +12,16 @@ public class Krill extends Animal {
         return "None...";
     }
 
-    public boolean isAlive(boolean metWhale) {
-        boolean status;
-        status = !metWhale;
-        return status;
+    @Override
+    public String toString() {
+        return "Krill{" +
+                "isAlive=" + isAlive +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    public void die() {
+        isAlive = false;
+        System.out.println("Krill was eaten!");
     }
 }

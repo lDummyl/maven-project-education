@@ -1,6 +1,8 @@
 package customPackage.animals;
 
 public class Whale extends Animal {
+    private final boolean hungry = true;
+
     public Whale(String name) {
         super(name);
     }
@@ -16,7 +18,24 @@ public class Whale extends Animal {
         return "O-omph!";
     }
 
+    @Override
+    public String toString() {
+        return "Whale{" +
+                "hungry=" + hungry +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     public void expelWater() {
         System.out.println("Fountain!");
+    }
+
+    public void eatsKrill(Krill krill) {
+        if (hungry) {
+            System.out.println("Whale is no longer hungry!");
+            krill.die();
+        } else {
+            System.out.println("Whale is already not hungry!");
+        }
     }
 }
