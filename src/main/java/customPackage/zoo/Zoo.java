@@ -1,11 +1,14 @@
 package customPackage.zoo;
 
-public abstract class Zoo {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Zoo {
     public final String name;
 
     public Zoo(String name) {
         this.name = name;
     }
 
-    public abstract String scream();
+    List<Exhibition> exhibits = new ArrayList<>();
 }
