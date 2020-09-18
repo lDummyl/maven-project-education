@@ -25,8 +25,10 @@ public class StudentTest {
     }
 
     //Как тестировать методы с вероятностью?
+    // TODO: 9/18/20 тестировать нужно так как ты это делаешь сам, глазами смотришь на резульат пойдет, нет не пойдет
     @Test
     public void generatorQuestionOne(){
+        // TODO: 9/18/20 инициализировать нужно в момент создания внутри, а не снаружи
         student.initAll();
         boolean flagKeyQuestion = false;
         boolean flagContextOne = false;
@@ -50,7 +52,7 @@ public class StudentTest {
                 break;
             }
         }
-        assertTrue(flagKeyQuestion && flagContextOne && flagContextTwo);
+        assertTrue(flagKeyQuestion && flagContextOne && flagContextTwo); // TODO: 9/18/20 плохо
     }
 
     @Test

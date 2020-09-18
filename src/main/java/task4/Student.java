@@ -20,6 +20,7 @@ public class Student {
 
     public List<String> questionContextTwo = new ArrayList<>();
 
+    // TODO: 9/18/20 заведи класс предложение и инкапсулируй туда все что с ним связано
     public void initKeyQuestions(){
         keyQuestions.add("как");
         keyQuestions.add("где");
