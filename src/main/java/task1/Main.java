@@ -1,47 +1,105 @@
 package task1;
 
 
-
 public class Main {
 
 	public static void main(String[] args) {
-		first();
-		second();
-		// TODO: 9/17/20 "hithere!" 
+		zoopark();
+	}
+
+	public static void zoopark() {
+		Animal animal1 = new Animal();
+		animal1.name = "Cat";
+		animal1.size = "little";
+		animal1.weight = "4kg";
+		animal1.colour = "white";
+		animal1.diet = "fish";
+		animal1.unic = "sees in the dark";
+
+
+		Animal animal2 = new Animal();
+		animal2.name = "Dog";
+		animal2.size = "medium";
+		animal2.weight = "10kg";
+		animal2.colour = "brown";
+		animal2.diet = "meat";
+		animal2.unic = "good sense of smell";
+
+		Animal animal3 = new Animal();
+		animal3.name = "Fish";
+		animal3.size = "very small";
+		animal3.weight = "0,1kg";
+		animal3.colour = "gold";
+		animal3.diet = "krill";
+		animal3.unic = "lives under water";
+
+		Animal animal4 = new Animal();
+		animal4.name = "Horse";
+		animal4.size = "big";
+		animal4.weight = "700kg";
+		animal4.colour = "black";
+		animal4.diet = "oats";
+		animal4.unic = "can transport a person";
+
+		Animal animal5 = new Animal();
+		animal5.name = "Elephant";
+		animal5.size = "very big";
+		animal5.weight = "2000kg";
+		animal5.colour = "grey";
+		animal5.diet = "Bananas";
+		animal5.unic = "trunk";
+
+		Animal animal6 = new Animal();
+		animal6.name = "Lion";
+		animal6.size = "big";
+		animal6.weight = "600kg";
+		animal6.colour = "beige";
+		animal6.diet = "Gazelles";
+		animal6.unic = "mane";
+
+		Animal animal7 = new Animal();
+		animal7.name = "Mouse";
+		animal7.size = "very small";
+		animal7.weight = "0,3kg";
+		animal7.colour = "white";
+		animal7.diet = "cheese";
+		animal7.unic = "carry the infections";
+
+		Animal animal8 = new Animal();
+		animal8.name = "Turtle";
+		animal8.size = "Big";
+		animal8.weight = "650kg";
+		animal8.colour = "khaki";
+		animal8.diet = "plant food";
+		animal8.unic = "carapace";
+
+		Animal animal9 = new Animal();
+		animal9.name = "Snake";
+		animal9.size = "Not big, but long";
+		animal9.weight = "10kg";
+		animal9.colour = "multicolor";
+		animal9.diet = "living creatures of medium size";
+		animal9.unic = "cold-blooded";
+
+		final Animal animal10 = new Animal();
+		animal10.name = "Giraffe";
+		animal10.size = "very big";
+		animal10.weight = "1300kg";
+		animal10.colour = "yellow";
+		animal10.diet = "juicy acacia";
+		animal10.unic = "long neck";
+
 
 
 	}
-
-	public static void first(){
-		// TODO: 1/26/20 ПЕРВЫЙ ЭТАП создать 5 разных человек и вывести имя старшего
-
-	}
-
-	public static void second(){
-		// TODO: 1/26/20 ВТОРОЙ ЭТАП создать коллекцию имен и создавать людей в цикле, подставляя имена и возраст рандомно.
-
-	}
-
 }
 
-class Name {
+class Animal {
 
-	String firstName;
-	String lastName;
-
-}
-
-class BirthDate {
-
-	int year;
-	int month;
-	int day;
-
-}
-
-class Person {
-
-	Name name;
-	BirthDate birthDate;
-
+	String name;
+	String size;
+	String weight;
+	String colour;
+	String diet;
+	String unic;
 }
