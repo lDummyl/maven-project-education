@@ -4,10 +4,10 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Random;
 
-public class BirtDate implements Comparable{
+public class BirtDate implements Comparable<BirtDate>{
     LocalDate localBirthDate;
 
-    public BirtDate(LocalDate birthDate) {
+    public BirtDate(LocalDate birthDate){
         this.localBirthDate = birthDate;
     }
 
@@ -34,7 +34,6 @@ public class BirtDate implements Comparable{
     public int hashCode() {
         return Objects.hash(localBirthDate);
     }
-
 
     @Override
     public int compareTo(BirtDate o) {

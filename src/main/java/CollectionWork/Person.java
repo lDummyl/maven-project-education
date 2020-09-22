@@ -3,7 +3,7 @@ package CollectionWork;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Person implements Comparable {
+public class Person implements Comparable<Person> {
     BirtDate birthDate;
     int age;
     static int i = 0;
@@ -11,7 +11,7 @@ public class Person implements Comparable {
     public Person() {
 
         this.birthDate = new BirtDate();
-        System.out.println("Создан человек "+Person.i);
+        System.out.println("Создан человек " + Person.i);
         Person.i++;
     }
 
@@ -33,7 +33,7 @@ public class Person implements Comparable {
 
 
     @Override
-    public int compareTo(Object o) {
-        return 0;
+    public int compareTo(Person o) {
+        return this.birthDate.compareTo(o.birthDate);
     }
 }
