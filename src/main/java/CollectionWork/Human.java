@@ -1,18 +1,16 @@
 package CollectionWork;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
-public class Person implements Comparable<Person> {
+public class Human implements Comparable<Human> {
     BirtDate birthDate;
     int age;
     static int i = 0;
 
-    public Person() {
-
+    public Human() {
         this.birthDate = new BirtDate();
-        System.out.println("Создан человек " + Person.i);
-        Person.i++;
+        System.out.println("Создан человек " + Human.i);
+        Human.i++;
     }
 
 
@@ -20,7 +18,7 @@ public class Person implements Comparable<Person> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
+        Human person = (Human) o;
         return age == person.age &&
                 Objects.equals(birthDate, person.birthDate);
     }
@@ -33,7 +31,7 @@ public class Person implements Comparable<Person> {
 
 
     @Override
-    public int compareTo(Person o) {
+    public int compareTo(Human o) {
         return this.birthDate.compareTo(o.birthDate);
     }
 }

@@ -1,8 +1,6 @@
 package CollectionWork;
 
-import java.time.LocalDate;
-
-public class Manager extends Person{
+public class Manager extends Human {
     int experience;
 
    // public Manager(BirtDate localBirthDate) {

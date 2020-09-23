@@ -1,21 +1,23 @@
 package CollectionWork;
 
+import task1.BirthDate;
+
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Random;
 
-public class BirtDate implements Comparable<BirtDate>{
+public class BirtDate implements Comparable<BirtDate> {
     LocalDate localBirthDate;
 
-    public BirtDate(LocalDate birthDate){
+    public BirtDate(LocalDate birthDate) {
         this.localBirthDate = birthDate;
     }
 
     public BirtDate() {
         Random random = new Random();
-        while (this==null) {
+        while (localBirthDate == null) {
             try {
-                this.localBirthDate = LocalDate.of(1970+ random.nextInt(70), 1+ random.nextInt(11),1+ random.nextInt(30));
+                this.localBirthDate = LocalDate.of(1970 + random.nextInt(70), 1 + random.nextInt(11), 1 + random.nextInt(30));
             } catch (Exception e) {
                 System.out.println("Invalid Date");
             }
@@ -37,6 +39,6 @@ public class BirtDate implements Comparable<BirtDate>{
 
     @Override
     public int compareTo(BirtDate o) {
-        return this.localBirthDate.compareTo(o.localBirthDate);
+            return this.localBirthDate.compareTo(o.localBirthDate);
     }
 }

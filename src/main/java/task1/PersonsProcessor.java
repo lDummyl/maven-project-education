@@ -20,7 +20,7 @@ public class PersonsProcessor {
         System.out.println(set.first().birthDate.localBirthDate);
     }
     /*
-    public void oldestSearchT(ArrayList<Person> list) {
+    public void oldestSearchT(ArrayList<Human> list) {
 
 
         int oldest = 0;

@@ -25,7 +25,7 @@ public class Main {
         // TODO: 9/12/20 увы незачет, следующая попытка...
         TreeSet<Person> setPerson = generator.generatePersons(10000);
         generator.oldestSearch(setPerson);
-        //ArrayList<Person> list = new ArrayList<Person>();
+        //ArrayList<Human> list = new ArrayList<Human>();
         //list.addAll(setPerson);
         //generator.oldestSearchT(list);
 

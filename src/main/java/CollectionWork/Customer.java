@@ -1,6 +1,6 @@
 package CollectionWork;
 
-public class Customer extends Person{
+public class Customer extends Human {
     int cash;
     double desireToBuy;
 }

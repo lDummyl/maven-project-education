@@ -3,11 +3,12 @@ package CollectionWork;
 import java.util.TreeSet;
 
 public class Generator {
-    public TreeSet<Person> treePersonGenerator(int treeSize){
-        TreeSet<Person> people = new TreeSet<>();
+    public TreeSet<Human> treePersonGenerator(int treeSize) {
+        TreeSet<Human> people = new TreeSet<>();
 
-        while (people.size()<treeSize){
-            people.add(new Person());
+        while (people.size() < treeSize) {
+
+            people.add(new Human());
             System.out.println(people.size());
         }
         return people;
