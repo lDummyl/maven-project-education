@@ -10,16 +10,22 @@ public class Main {
 
 	public static void zoopark() {
 		Cat cat = new Cat();
-		cat.name = "Murzik";
+		cat.name = "Мурзик";
 		Cottonball cottonball = new Cottonball();
-		cottonball.color = "white";
+		cottonball.color = "белый";
 		cat.play (cottonball);
 
 		Dog dog = new Dog();
-		dog.name = "Petr";
+		dog.name = "Шарик";
 		Stick stick = new Stick();
-		stick.color = "black";
+		stick.color = "черный";
 		Stick stick1 = dog.run(stick);
+
+		Fish fish = new Fish();
+		fish.name = "Акула";
+		Sea sea = new Sea();
+		sea.color = "голубое";
+		fish.swim (sea);
 
 
 	}
