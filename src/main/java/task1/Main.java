@@ -33,6 +33,19 @@ public class Main {
 		gazzele.sick = "sick";
 		lion.overtake (gazzele);
 
+		Giraffe giraffe = new Giraffe();
+		giraffe.name = "Melman";
+		Bananas bananas = new Bananas();
+		bananas.fresh = "fresh";
+		Bananas bananas1 = giraffe.eat (bananas);
+
+		Elepfant elepfant = new Elepfant();
+		elepfant.name = "Hathi";
+		Water water = new Water();
+		water.fromRiver = "from the river";
+		elepfant.drink (water);
+
+
 
 	}
 }

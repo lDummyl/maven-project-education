@@ -5,6 +5,6 @@ public class Cottonball {
 
     @Override
     public String toString() {
-        return color + " cottonball";
+        return color + " cottonball.";
     }
 }
