@@ -6,6 +6,8 @@ public class Human implements Comparable<Human> {
     BirtDate birthDate;
     int age;
     static int i = 0;
+    int health;
+    int level;
 
     public Human() {
         this.birthDate = new BirtDate();
