@@ -1,5 +1,7 @@
 package homeworkTask2;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,26 +64,27 @@ public class PersonProvider {
         return people;
     }
 
-    // с этими кусками кода все работает, но чем больше создается новых классов, тем больше нагромождение тут получается,
-//    как-то некрасиво совсем
+    public <T extends Person> List<T> getSomePeople(Class<T> clazz, int x) throws Exception {
+        List<Person> personList = new PersonProvider().getPeople(x);
+        List<T> list = new ArrayList<>();
+        for (Person person : personList) {
+            Constructor<T> constructor = clazz.getConstructor(Person.class);
+            T t = constructor.newInstance(person);
+            list.add(t);
+        }
+        return list;
+    }
+    //67 -дженерик используется, чтобы не было необходимости явного приведения типов. extends Person - указан, чтобы метод принимал
+    //на вход только Person и его наследников
+    //в параметрах указаны класс, к которому необходимо привести тип на выходе и кол-во обьектов, кот. попадут в список
+    //68 - создание списка обьектов Person
+    //69 - создание нового список необходимого типа
+    //71 - вызов конструктора класса person
+    //72 - возвращает объект, приведенный к типу указанного класса
 
-//    public ArrayList <Secretary> getSecretaries (int x)
-//    {
-//        ArrayList <Secretary>list = new ArrayList<>();
-//        for (int i = 0; i<x; i++)
-//        {
-//           list.add(new Secretary(getPerson()));
-//        }
-//        return list;
-//    }
-//
-//    public ArrayList <Accountant> getAccountants (int x)
-//    {
-//        ArrayList <Accountant>list = new ArrayList<>();
-//        for (int i = 0; i<x; i++)
-//        {
-//            list.add(new Accountant(getPerson()));
-//        }
-//        return list;
-//    }
+
 }
+
+
+
+
