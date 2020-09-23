@@ -3,7 +3,7 @@ package task1;
 public class Stick {
     @Override
     public String toString() {
-        return "Stick " + color;
+        return color + " stick";
     }
 
     public String color;
