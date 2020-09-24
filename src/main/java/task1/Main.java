@@ -64,6 +64,24 @@ public class Main {
 		honey.aTree = " a tree "; // присваиваем объекту honey характеристику aTree
 		bear.climb (honey); // обращаемся к методу climb
 
+		Wolf wolf = new Wolf();
+		wolf.name = "Akelo";
+		Leader leader = new Leader();
+		leader.ofPack = " of the wolf pack";
+		Leader leader1 = wolf.is(leader);
+
+		Rabbit rabbit = new Rabbit();
+		rabbit.name = "Snejok";
+		Carrot carrot = new Carrot();
+		carrot.bigLong = "big & long";
+		Carrot carrot1 = rabbit.eat(carrot);
+
+		Whale whale = new Whale();
+		whale.name = "Moby Dick";
+		Ocean ocean = new Ocean();
+		ocean.floor = "floor";
+		Ocean ocean1 = whale.live(ocean);
+
 
 	}
 }
