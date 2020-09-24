@@ -5,7 +5,6 @@ public class Sea {
 
     @Override
     public String toString() {
-
         return color + " sea.";
     }
 }

@@ -45,6 +45,12 @@ public class Main {
 		water.fromRiver = "from the river";
 		elepfant.drink (water);
 
+		Turtle turtle = new Turtle();
+		turtle.name = "Leo";
+		Ninja ninja = new Ninja();
+		ninja.art = " uses the art of the ";
+		turtle.use (ninja);
+
 
 
 	}
