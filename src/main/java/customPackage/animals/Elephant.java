@@ -14,4 +14,8 @@ public class Elephant extends Animal {
     public String scream() {
         return "Oomph!";
     }
+
+    public boolean stepOn(Animal animal) {
+        return true;
+    }
 }
