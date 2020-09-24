@@ -5,6 +5,6 @@ public class Gazzele {
 
     @Override
     public String toString() {
-        return sick + " gazzele";
+        return sick + " gazzele.";
     }
 }

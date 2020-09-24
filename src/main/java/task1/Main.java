@@ -52,11 +52,17 @@ public class Main {
 		ninja.art = " uses the art of the ";
 		turtle.use (ninja);
 
-		Pig pig = new Pig(); // создаем объект Pig
-		pig.name = "Piglet"; // присваиваем объекту Pig имя Piglet
+		Pig pig = new Pig(); // создаем объект pig
+		pig.name = "Piglet"; // присваиваем объекту pig имя Piglet
 		Stable stable = new Stable(); // создаем объект stable
 		stable.dirty = "dirty"; // присваиваем объекту stable характеристику dirty
 		pig.live (stable); // обращаемся к методу live, находящемуся в классе Pig
+
+		Bear bear = new Bear(); // создаем объект bear
+		bear.name = "Teddy"; // присваиваем объекту bear имя Teddy
+		Honey honey = new Honey(); // создаем объект honey
+		honey.aTree = " a tree "; // присваиваем объекту honey характеристику aTree
+		bear.climb (honey); // обращаемся к методу climb
 
 
 	}

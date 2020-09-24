@@ -5,6 +5,7 @@ public class Cottonball { // создаем класс Cottonball
 
     @Override
     public String toString() {
+
         return color + " cottonball.";
     }
 }
