@@ -1,6 +1,7 @@
 package task1;
 
 
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -9,11 +10,11 @@ public class Main {
 	}
 
 	public static void zoopark() {
-		Cat cat = new Cat();
-		cat.name = "Murzik";
-		Cottonball cottonball = new Cottonball();
-		cottonball.color = "white";
-		cat.play (cottonball);
+		Cat cat = new Cat(); // создаем объект cat
+		cat.name = "Murzik"; // присваиваем объекту cat имя Murzik
+		Cottonball cottonball = new Cottonball(); // создаем объект cottonball
+		cottonball.color = "white"; // присваиваем объекту cottonball характеристику color
+		cat.play (cottonball); // обращаемся к методу play
 
 		Dog dog = new Dog();
 		dog.name = "Sharik";
@@ -51,6 +52,11 @@ public class Main {
 		ninja.art = " uses the art of the ";
 		turtle.use (ninja);
 
+		Pig pig = new Pig(); // создаем объект Pig
+		pig.name = "Piglet"; // присваиваем объекту Pig имя Piglet
+		Stable stable = new Stable(); // создаем объект stable
+		stable.dirty = "dirty"; // присваиваем объекту stable характеристику dirty
+		pig.live (stable); // обращаемся к методу live, находящемуся в классе Pig
 
 
 	}
