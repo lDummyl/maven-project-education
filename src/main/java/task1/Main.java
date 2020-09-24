@@ -16,8 +16,7 @@ public class Main {
 		cottonball.color = "white"; // присваиваем объекту cottonball характеристику color
 		cat.play (cottonball); // обращаемся к методу play
 
-		Dog dog = new Dog();
-		dog.name = "Sharik";
+		Dog dog = new Dog("Sharik");
 		Stick stick = new Stick();
 		stick.color = "black";
 		Stick stick1 = dog.run(stick);
