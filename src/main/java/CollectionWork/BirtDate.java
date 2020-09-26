@@ -17,9 +17,9 @@ public class BirtDate implements Comparable<BirtDate> {
         Random random = new Random();
         while (localBirthDate == null) {
             try {
-                this.localBirthDate = LocalDate.of(1970 + random.nextInt(70), 1 + random.nextInt(11), 1 + random.nextInt(30));
+                this.localBirthDate = LocalDate.of(1960 + random.nextInt(70), 1 + random.nextInt(11), 1 + random.nextInt(30));
             } catch (Exception e) {
-                System.out.println("Invalid Date");
+                //System.out.println("Invalid Date");
             }
         }
     }
@@ -39,6 +39,6 @@ public class BirtDate implements Comparable<BirtDate> {
 
     @Override
     public int compareTo(BirtDate o) {
-            return this.localBirthDate.compareTo(o.localBirthDate);
+        return this.localBirthDate.compareTo(o.localBirthDate);
     }
 }

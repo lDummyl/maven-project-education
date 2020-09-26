@@ -1,16 +1,62 @@
 package CollectionWork;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class Generator {
-    public TreeSet<Human> treePersonGenerator(int treeSize) {
-        TreeSet<Human> people = new TreeSet<>();
+    public TreeSet<Wanderer> treePersonGenerator() {
+        LocalDateTime from = LocalDateTime.now();
+        TreeSet<Wanderer> peopleTree = new TreeSet<>();
 
-        while (people.size() < treeSize) {
+        while (peopleTree.size() <= 22976) {
 
-            people.add(new Human());
-            System.out.println(people.size());
+            peopleTree.add(new Wanderer()); //После 22977 объекты перестали добавляться
+            //System.out.println(peopleTree.size());
         }
-        return people;
+        LocalDateTime to = LocalDateTime.now();
+        Duration between = Duration.between(from, to);
+        System.out.println(between);
+        return peopleTree;
     }
+
+    public ArrayList<Wanderer> arrayPersonGenerator(int collectionSize) {
+        LocalDateTime from = LocalDateTime.now();
+        ArrayList<Wanderer> peopleList = new ArrayList<>();
+
+        while (peopleList.size() < collectionSize) {
+
+            peopleList.add(new Wanderer());
+            //System.out.println(peopleList.size());
+
+        }
+        LocalDateTime to = LocalDateTime.now();
+        Duration between = Duration.between(from, to);
+        System.out.println(between);
+        return peopleList;
+    }
+
+    public ArrayList<Wanderer> uniArrayPersonGenerator(int collectionSize) {
+        LocalDateTime from = LocalDateTime.now();
+        ArrayList<Wanderer> uniPeopleList = new ArrayList<>();
+        boolean addeble = true;
+        while (uniPeopleList.size() < collectionSize) {
+            Wanderer wan = new Wanderer();
+            for (Wanderer w : uniPeopleList) {
+                if (wan.equals(w)) {
+                    addeble = false;
+                }
+            }
+
+            if (addeble == true) {
+                uniPeopleList.add(wan);
+            }
+        }
+        LocalDateTime to = LocalDateTime.now();
+        Duration between = Duration.between(from, to);
+        System.out.println(between);
+        return uniPeopleList;
+    }
+
 }

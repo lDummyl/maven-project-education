@@ -23,7 +23,7 @@ public class Main {
         PersonsProcessor generator = new PersonsProcessor();
         // TODO: 9/10/20 сделай так чтобы все созданные 100к человек были уникальны
         // TODO: 9/12/20 увы незачет, следующая попытка...
-        TreeSet<Person> setPerson = generator.generatePersons(10000);
+        TreeSet<Person> setPerson = generator.generatePersons(100000);
         generator.oldestSearch(setPerson);
         //ArrayList<Human> list = new ArrayList<Human>();
         //list.addAll(setPerson);

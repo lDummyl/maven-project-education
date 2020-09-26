@@ -3,7 +3,7 @@ package CollectionWork;
 import java.util.Objects;
 import java.util.Random;
 
-public class Damage implements Comparable<Damage>{
+public class Damage implements Comparable<Damage> {
     Integer minDamage;
     Integer maxDamage;
     Integer everegeDamage;
@@ -12,7 +12,7 @@ public class Damage implements Comparable<Damage>{
         Random random = new Random();
         this.minDamage = random.nextInt(10);
         this.maxDamage = random.nextInt(30);
-        this.everegeDamage = (this.minDamage + this.maxDamage)/2;
+        this.everegeDamage = (this.minDamage + this.maxDamage) / 2;
     }
 
     @Override

@@ -9,8 +9,9 @@ public class PersonsProcessor {
     public TreeSet<Person> generatePersons(int numberOfPerons) {
         TreeSet<Person> persons = new TreeSet<>();
 
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 3000000; i++) {
             persons.add(new Person());
+            System.out.println(persons.size());
         }
         return persons;
     }

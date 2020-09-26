@@ -2,17 +2,17 @@ package CollectionWork;
 
 import java.util.Objects;
 
-public class Human implements Comparable<Human> {
+public class Human {
     BirtDate birthDate;
     int age;
-    static int i = 0;
+    //static int i = 0;
     int health;
     int level;
 
     public Human() {
         this.birthDate = new BirtDate();
-        System.out.println("Создан человек " + Human.i);
-        Human.i++;
+        //System.out.println("Создан человек " + Human.i);
+        //Human.i++;
     }
 
 
@@ -21,19 +21,11 @@ public class Human implements Comparable<Human> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Human person = (Human) o;
-        return age == person.age &&
-                Objects.equals(birthDate, person.birthDate);
+        return Objects.equals(birthDate, person.birthDate);
     }
-
 
     @Override
     public int hashCode() {
         return Objects.hash(birthDate, age);
-    }
-
-
-    @Override
-    public int compareTo(Human o) {
-        return this.birthDate.compareTo(o.birthDate);
     }
 }

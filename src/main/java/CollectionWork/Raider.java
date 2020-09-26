@@ -1,7 +1,8 @@
 package CollectionWork;
 
-public class Raider extends Human {
+public class Raider {
     Weapon weapon;
-    Armour armour;
-    double accuracy;
+    //Armour armour;
+    //double accuracy;
+
 }
