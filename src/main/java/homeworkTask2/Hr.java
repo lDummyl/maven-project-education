@@ -13,6 +13,7 @@ public class Hr extends Person{
     }
 
     ArrayList <Person> candidates = new ArrayList<>();
+
     public List invite (Object human)
     {
         if (human instanceof Secretary)
@@ -24,12 +25,21 @@ public class Hr extends Person{
             }
             return candidates;
         }
-        if (human instanceof Accountant)
+        else if (human instanceof Accountant)
         {
             Accountant accountant = (Accountant) human;
             if (accountant.interview())
             {
                 candidates.add(accountant);
+            }
+            return candidates;
+        }
+        else if (human instanceof Jurist)
+        {
+            Jurist jurist = (Jurist) human;
+            if (jurist.interview())
+            {
+                candidates.add(jurist);
             }
             return candidates;
         }

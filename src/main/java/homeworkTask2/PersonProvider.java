@@ -82,7 +82,31 @@ public class PersonProvider {
     //71 - вызов конструктора класса person
     //72 - возвращает объект, приведенный к типу указанного класса
 
-
+    public <T extends Person> List getWorkers(Class<T> tClass, int x) {
+        if (tClass.equals(Secretary.class)) {
+            List<Secretary> secretaries = new ArrayList<>();
+            for (int i = 0; i < x; i++) {
+                secretaries.add(new Secretary(getPerson()));
+            }
+            return secretaries;
+        }
+          else if (tClass.equals(Accountant.class)) {
+            List <Accountant> accountants = new ArrayList<>();
+            for (int i=0; i<x; i++) {
+                accountants.add(new Accountant(getPerson()));
+            }
+            return accountants;
+        }
+          else if (tClass.equals(Jurist.class))
+        {
+            List <Jurist> jurists = new ArrayList<>();
+            for (int i = 0; i < x; i++) {
+                jurists.add(new Jurist(getPerson()));
+            }
+            return jurists;
+        }
+        return null;
+    }
 }
 
 

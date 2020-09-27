@@ -11,15 +11,16 @@ int enoughCandidatesToDecide;
         this.enoughCandidatesToDecide = enoughCandidatesToDecide;
     }
 
-    public Secretary select (List <Secretary> list)
+    public <T extends Person> Person select (List <T> list)
     {
         if (list.size() < enoughCandidatesToDecide)
-        { return null; }
+        {return null; }
         else
         {
             Random random = new Random();
             return list.get(random.nextInt(list.size()));
         }
     }
+
 
 }

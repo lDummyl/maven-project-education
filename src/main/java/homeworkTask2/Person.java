@@ -2,7 +2,7 @@ package homeworkTask2;
 
 import java.util.Random;
 
-public class Person {
+public class Person <T> {
     Name name;
     Age age;
     public Person(Name name, Age age) {

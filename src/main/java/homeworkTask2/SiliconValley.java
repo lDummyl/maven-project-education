@@ -1,16 +1,18 @@
 package homeworkTask2;
 
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SiliconValley {
     public static void main(String[] args) {
         PersonProvider personProvider = new PersonProvider();
         List<Secretary> secretaries = null;
+        List <Accountant> accountants = null;
+        List <Jurist> jurists = null;
         try {
             secretaries = personProvider.getSomePeople(Secretary.class,10);
+            accountants = personProvider.getWorkers(Accountant.class, 10);
+            jurists = personProvider.getWorkers(Jurist.class, 10);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -20,9 +22,17 @@ public class SiliconValley {
         for (Secretary secretary : secretaries) {
             office.invitePerson(secretary);
         }
+        for (Accountant accountant : accountants) {
+            office.invitePerson(accountant);
+        }
+        for (Jurist jurist : jurists) {
+            office.invitePerson(jurist);
+        }
 
         System.out.println(office.secretary);
+        System.out.println(office.accountant);
+        System.out.println(office.jurist);
 
-        System.out.println(director);
+        System.out.println(office.director);
     }
 }
