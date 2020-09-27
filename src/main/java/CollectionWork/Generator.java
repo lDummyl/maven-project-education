@@ -6,18 +6,18 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class Generator {
-    public TreeSet<Wanderer> treePersonGenerator() {
+    public TreeSet<Wanderer> treePersonGenerator(int collectionSize) {
         LocalDateTime from = LocalDateTime.now();
         TreeSet<Wanderer> peopleTree = new TreeSet<>();
 
-        while (peopleTree.size() <= 22976) {
+        while (peopleTree.size() <= collectionSize) {
 
             peopleTree.add(new Wanderer()); //После 22977 объекты перестали добавляться
             //System.out.println(peopleTree.size());
         }
         LocalDateTime to = LocalDateTime.now();
         Duration between = Duration.between(from, to);
-        System.out.println(between);
+        System.out.println("Время генерации дерева- "+between+" "+collectionSize);
         return peopleTree;
     }
 
@@ -33,7 +33,7 @@ public class Generator {
         }
         LocalDateTime to = LocalDateTime.now();
         Duration between = Duration.between(from, to);
-        System.out.println(between);
+        System.out.println("Время генерации не уникального лист- "+between+" "+collectionSize);
         return peopleList;
     }
 
@@ -55,7 +55,7 @@ public class Generator {
         }
         LocalDateTime to = LocalDateTime.now();
         Duration between = Duration.between(from, to);
-        System.out.println(between);
+        System.out.println("Время генерации уникального листа- "+between+" "+collectionSize);
         return uniPeopleList;
     }
 
