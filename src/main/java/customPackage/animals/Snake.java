@@ -2,10 +2,9 @@ package customPackage.animals;
 
 public class Snake extends Animal {
     private final boolean poisonous;
-    private boolean alive = true;
 
-    public Snake(String name, boolean poisonous) {
-        super(name);
+    public Snake(String name, boolean isAlive, boolean poisonous) {
+        super(name, isAlive);
         this.poisonous = poisonous;
     }
 
@@ -18,11 +17,10 @@ public class Snake extends Animal {
         animal.health_status = false;
     }
 
-    public boolean isAlive(boolean squizzed) {
+    public void isAlive(boolean squizzed) {
         if (squizzed) {
-            alive = false;
+            isAlive = false;
         }
-        return alive;
     }
 
 }

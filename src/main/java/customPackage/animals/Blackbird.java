@@ -1,12 +1,12 @@
 package customPackage.animals;
 
 public class Blackbird extends Animal {
-    public Blackbird(String name) {
-        super(name);
+    public Blackbird(String name, boolean isAlive) {
+        super(name, true);
     }
 
     public static void main(String[] args) {
-        Blackbird bbird = new Blackbird("blackbird");
+        Blackbird bbird = new Blackbird("blackbird", true);
         bbird.keepFlying();
     }
 

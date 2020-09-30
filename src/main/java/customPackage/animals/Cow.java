@@ -5,8 +5,8 @@ public class Cow extends Animal {
     private final float weight;
     private final float length;
 
-    public Cow(String name, int age, float weight, float length) {
-        super(name);
+    public Cow(String name, boolean isAlive, int age, float weight, float length) {
+        super(name, isAlive);
         this.age = age;
         this.weight = weight;
         this.length = length;

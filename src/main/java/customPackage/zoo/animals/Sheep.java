@@ -6,8 +6,8 @@ public class Sheep extends Animal {
     private final boolean ringBell;
 
 
-    public Sheep(String name) {
-        super(name);
+    public Sheep(String name, boolean isAlive) {
+        super(name, isAlive);
         this.ringBell = true;
     }
 

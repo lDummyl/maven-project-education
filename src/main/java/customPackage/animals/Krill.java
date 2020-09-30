@@ -3,8 +3,8 @@ package customPackage.animals;
 public class Krill extends Animal {
     private boolean isAlive = true;
 
-    public Krill(String name) {
-        super(name);
+    public Krill(String name, boolean isAlive) {
+        super(name, isAlive);
     }
 
     @Override

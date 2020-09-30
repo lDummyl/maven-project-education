@@ -12,9 +12,9 @@ public class Test {
         //  например, кусает и собака и змея значит у них общий интерфейс. Больше полей (свойств) у каждого класса и нужно чтобы
         //  у вас были разные объекты пока у вас один класс - один объект, а нужно много разных, собак, кошек, змей ядовитых и нет,
         //  кусачих и мирных, с намордником и без, разных объектов одного класса, ведущих себя по разному(поля должны определять\влиять на повдение).
-        Dog doggie = new Dog("Beenie");
-        Bird birdie = new Bird("Beekie");
-        Donkey maxie = new Donkey("Max");
+        Dog doggie = new Dog("Beenie", true);
+        Bird birdie = new Bird("Beekie", true);
+        Donkey maxie = new Donkey("Max", true);
         toPrint(doggie);
         toPrint(birdie);
     }

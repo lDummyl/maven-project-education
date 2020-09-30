@@ -5,8 +5,8 @@ import customPackage.animals.Animal;
 public class Ram extends Animal {
     private final boolean hasHorns;
 
-    public Ram(String name, boolean hasHorns) {
-        super(name);
+    public Ram(String name, boolean isAlive, boolean hasHorns) {
+        super(name, isAlive);
         this.hasHorns = hasHorns;
 
     }

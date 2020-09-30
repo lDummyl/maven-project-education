@@ -7,9 +7,9 @@ import customPackage.people.Doctor;
 public class Hospital {
 
     public static void main(String[] args) {
-        Donkey maxie = new Donkey("Maxie");
+        Donkey maxie = new Donkey("Maxie", true);
         // maxie.health_status = false;
-        Snake flossie = new Snake("Flossie", true);
+        Snake flossie = new Snake("Flossie", true, true);
         // Flossie bites Maxie
         flossie.bite(maxie);
 

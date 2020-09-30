@@ -6,8 +6,8 @@ public class Snake extends customPackage.animals.Animal {
     private final boolean poisonous;
 
 
-    public Snake(String name, boolean poisonous) {
-        super(name);
+    public Snake(String name, boolean isAlive, boolean poisonous) {
+        super(name, isAlive);
         this.poisonous = poisonous;
     }
 

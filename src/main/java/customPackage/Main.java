@@ -6,12 +6,12 @@ import customPackage.animals.Sheep;
 
 public class Main {
     public static void main(String[] args) {
-        Sheep dolly = new Sheep("Dolly");
-        Dog pirate = new Dog("Pirate");
+        Sheep dolly = new Sheep("Dolly", true);
+        Dog pirate = new Dog("Pirate", true);
         System.out.println(dolly.scream());
         boolean threat = true;
         System.out.println(pirate.bite(threat));
-        Ram mollie = new Ram("Mollie", false);
+        Ram mollie = new Ram("Mollie", false, false);
         mollie.mightyHit();
 
     }
