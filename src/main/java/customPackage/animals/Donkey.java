@@ -2,7 +2,7 @@ package customPackage.animals;
 
 public class Donkey extends Animal {
 
-    public Donkey(String name, boolean isAlive, String gender) {
+    public Donkey(String name, boolean isAlive, Gender gender) {
         super(name, isAlive, gender);
     }
 

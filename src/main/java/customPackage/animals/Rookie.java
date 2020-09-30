@@ -1,12 +1,12 @@
 package customPackage.animals;
 
 public class Rookie extends Animal {
-    public Rookie(String name, boolean isAlive, String gender) {
+    public Rookie(String name, boolean isAlive, Gender gender) {
         super(name, isAlive, gender);
     }
 
     public static void main(String[] args) {
-        Rookie blackie = new Rookie("blackie", true, "male");
+        Rookie blackie = new Rookie("blackie", true, Gender.MALE);
         System.out.println(blackie.scream());
         String food;
         food = "Grain";

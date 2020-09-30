@@ -1,11 +1,12 @@
 package customPackage.zoo.animals;
 
 import customPackage.animals.Animal;
+import customPackage.animals.Gender;
 
 public class Dog extends Animal {
 
 
-    public Dog(String name, boolean isAlive, String gender) {
+    public Dog(String name, boolean isAlive, Gender gender) {
         super(name, isAlive, gender);
     }
 

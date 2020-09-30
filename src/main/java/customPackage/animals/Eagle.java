@@ -1,12 +1,12 @@
 package customPackage.animals;
 
 public class Eagle extends Animal {
-    public Eagle(String name, boolean isAlive, String gender) {
+    public Eagle(String name, boolean isAlive, Gender gender) {
         super(name, isAlive, gender);
     }
 
     public static void main(String[] args) {
-        Eagle edgar = new Eagle("Edgar", true, "male");
+        Eagle edgar = new Eagle("Edgar", true, Gender.MALE);
         System.out.println(edgar);
     }
 
@@ -19,6 +19,16 @@ public class Eagle extends Animal {
         if (animal instanceof Blackbird || animal instanceof Rookie) {
             System.out.println("Eagle ate " + animal.name + "!");
         }
+    }
+
+    public Egg createEgg(Eagle other_parent) {
+        Egg egg = null;
+        if (other_parent.gender == this.gender) {
+            System.out.println("No egg is created!");
+        } else {
+            egg = new Egg();
+        }
+        return egg;
     }
 
     public void nesting() {

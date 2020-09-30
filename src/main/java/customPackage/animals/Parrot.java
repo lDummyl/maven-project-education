@@ -8,13 +8,13 @@ public class Parrot extends Animal {
     private final String color;
     List<String> magicWords = new ArrayList<>();
 
-    public Parrot(String name, boolean isAlive, String gender, String color) {
+    public Parrot(String name, boolean isAlive, Gender gender, String color) {
         super(name, isAlive, gender);
         this.color = color;
     }
 
     public static void main(String[] args) {
-        Parrot kesha = new Parrot("Kesha", true, "male", "green");
+        Parrot kesha = new Parrot("Kesha", true, Gender.MALE, "green");
         kesha.learnNewWord("Good luck!");
         kesha.learnNewWord("Good Fortune!");
         System.out.println(kesha.scream());

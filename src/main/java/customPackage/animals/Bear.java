@@ -5,7 +5,7 @@ public class Bear extends Animal {
     private boolean hungry = true;
     private Salmon fish;
 
-    public Bear(String name, boolean isAlive, String gender) {
+    public Bear(String name, boolean isAlive, Gender gender) {
         super(name, isAlive, gender);
     }
 
