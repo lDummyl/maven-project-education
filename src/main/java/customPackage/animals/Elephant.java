@@ -16,6 +16,7 @@ public class Elephant extends Animal {
     }
 
     public boolean stepOn(Animal animal) {
-        return true;
+        animal.isAlive = false;
+        return animal.isAlive;
     }
 }

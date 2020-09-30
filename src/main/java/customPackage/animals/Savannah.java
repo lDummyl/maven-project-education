@@ -6,11 +6,16 @@ public class Savannah {
         Parrot parrie = new Parrot("parrie", true, "green");
         Elephant biggie = new Elephant("Biggie", true);
         Monkey chimpie = new Monkey("Chimpie", true);
-        // snake bites monkeys and eats parrots
-        mamba.bite(chimpie);
-        boolean squizzedbyElephant = biggie.stepOn(mamba);
-        System.out.println("Is snake alive after being squizzed by elephant? " + mamba.isAlive);
+        // snake bites and eats parrots
+        mamba.bite(parrie);
+        mamba.eats(parrie);
+
         // elephant steps on snake
-        // Change object state after their interaction - who eats whom; gender distinction and age
+        biggie.stepOn(mamba);
+        biggie.stepOn(chimpie);
+        System.out.println("Is snake alive after being squizzed by elephant? " + mamba.isAlive);
+        System.out.println("Is chimp alive after being squizzed by elephant? " + chimpie.isAlive);
+
+
     }
 }

@@ -17,10 +17,9 @@ public class Snake extends Animal {
         animal.health_status = false;
     }
 
-    public void isAlive(boolean squizzed) {
-        if (squizzed) {
-            isAlive = false;
+    public void eats(Animal animal) {
+        if (animal instanceof Parrot && animal.health_status == false) {
+            System.out.println("Snake ate " + animal.name);
         }
     }
-
 }
