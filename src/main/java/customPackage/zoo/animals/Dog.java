@@ -5,8 +5,8 @@ import customPackage.animals.Animal;
 public class Dog extends Animal {
 
 
-    public Dog(String name, boolean isAlive) {
-        super(name, isAlive);
+    public Dog(String name, boolean isAlive, String gender) {
+        super(name, isAlive, gender);
     }
 
     @Override

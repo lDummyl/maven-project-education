@@ -4,8 +4,8 @@ public class Sheep extends Animal {
     private final boolean ringBell;
 
 
-    public Sheep(String name, boolean isAlive) {
-        super(name, isAlive);
+    public Sheep(String name, boolean isAlive, String gender) {
+        super(name, isAlive, gender);
         this.ringBell = true;
     }
 

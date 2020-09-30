@@ -4,13 +4,13 @@ public class Falcon extends Animal {
     private boolean seePrey;
     private boolean hungry = true;
 
-    public Falcon(String name, boolean isAlive) {
-        super(name, isAlive);
+    public Falcon(String name, boolean isAlive, String gender) {
+        super(name, isAlive, gender);
     }
 
     public static void main(String[] args) {
-        Falcon faddie = new Falcon("Faddie", true);
-        Salmon nameless = new Salmon("nameless", true);
+        Falcon faddie = new Falcon("Faddie", true, "female");
+        Salmon nameless = new Salmon("nameless", true, "neutral");
         System.out.println(faddie.scream());
         faddie.catchFish(nameless);
         System.out.println(faddie);

@@ -3,8 +3,8 @@ package customPackage.animals;
 public class Turkey extends Animal {
 
 
-    public Turkey(String name, boolean isAlive) {
-        super(name, isAlive);
+    public Turkey(String name, boolean isAlive, String gender) {
+        super(name, isAlive, gender);
     }
 
     @Override

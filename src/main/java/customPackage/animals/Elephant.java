@@ -1,12 +1,12 @@
 package customPackage.animals;
 
 public class Elephant extends Animal {
-    public Elephant(String name, boolean isAlive) {
-        super(name, isAlive);
+    public Elephant(String name, boolean isAlive, String gender) {
+        super(name, isAlive, gender);
     }
 
     public static void main(String[] args) {
-        Elephant hadoop = new Elephant("Hadoop", true);
+        Elephant hadoop = new Elephant("Hadoop", true, "male");
         System.out.println(hadoop);
     }
 

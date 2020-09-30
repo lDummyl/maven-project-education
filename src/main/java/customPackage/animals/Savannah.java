@@ -2,10 +2,10 @@ package customPackage.animals;
 
 public class Savannah {
     public static void main(String[] args) {
-        Snake mamba = new Snake("Mamba", true, true);
-        Parrot parrie = new Parrot("parrie", true, "green");
-        Elephant biggie = new Elephant("Biggie", true);
-        Monkey chimpie = new Monkey("Chimpie", true);
+        Snake mamba = new Snake("Mamba", true, "neutral", true);
+        Parrot parrie = new Parrot("parrie", true, "male", "green");
+        Elephant biggie = new Elephant("Biggie", true, "male");
+        Monkey chimpie = new Monkey("Chimpie", true, "female");
         // snake bites and eats parrots
         mamba.bite(parrie);
         mamba.eats(parrie);

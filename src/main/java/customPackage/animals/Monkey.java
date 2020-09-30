@@ -3,14 +3,14 @@ package customPackage.animals;
 public class Monkey extends Animal {
     private Banana banana;
 
-    public Monkey(String name, boolean isAlive) {
-        super(name, isAlive);
+    public Monkey(String name, boolean isAlive, String gender) {
+        super(name, isAlive, gender);
     }
 
     public static void main(String[] args) {
         Banana banana = new Banana();
-        Monkey abu = new Monkey("Abu", true);
-        Monkey sam = new Monkey("Sam", true);
+        Monkey abu = new Monkey("Abu", true, "male");
+        Monkey sam = new Monkey("Sam", true, "female");
         abu.getBanana(banana);
         sam.stealBanana(abu);
         System.out.println(sam.banana);

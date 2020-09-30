@@ -2,10 +2,10 @@ package customPackage.animals;
 
 public class Valley {
     public static void main(String[] args) {
-        Turkey goofie = new Turkey("Goofie", true);
-        Sheep dollie = new Sheep("Dollie", true);
-        Ram strongie = new Ram("Strongie", true, true);
-        Donkey maxie = new Donkey("Maxie", true);
-        Cow milkie = new Cow("Milkie", true, 5, 250, 2);
+        Turkey goofie = new Turkey("Goofie", true, "male");
+        Sheep dollie = new Sheep("Dollie", true, "female");
+        Ram strongie = new Ram("Strongie", true, "male", true);
+        Donkey maxie = new Donkey("Maxie", true, "male");
+        Cow milkie = new Cow("Milkie", true, "female", 5, 250, 2);
     }
 }

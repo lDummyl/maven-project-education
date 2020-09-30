@@ -9,7 +9,7 @@ public abstract class Animal {
 
     public abstract String scream();
 
-    public Animal(String name, boolean isAlive) {
+    public Animal(String name, boolean isAlive, String gender) {
         this.name = name;
         this.health_status = true;
         this.child = false;
