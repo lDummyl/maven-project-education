@@ -1,11 +1,18 @@
 package customPackage.animals;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import static customPackage.animals.Gender.FEMALE;
+import static customPackage.animals.Gender.MALE;
+
 public class Sheep extends Animal {
     private final boolean ringBell;
 
 
-    public Sheep(String name, boolean isAlive, Gender gender) {
-        super(name, isAlive, gender);
+    public Sheep(String name, Gender gender) {
+        super(name, gender);
         this.ringBell = true;
     }
 
@@ -18,9 +25,21 @@ public class Sheep extends Animal {
         return true;
     }
 
-//    public static void main(String[] args) {
-//        Sheep dolly = new Sheep("Dolly");
-//        System.out.println(dolly.scream());
-//    }
+    private Gender newGender() {
+        List<Gender> valid_genders = new ArrayList<Gender>();
+        valid_genders.add(MALE);
+        valid_genders.add(FEMALE);
+        int pick = new Random().nextInt(valid_genders.size());
+        return valid_genders.get(pick);
+    }
 
+    public Lamb mateUp(Animal animal) {
+        if (animal instanceof Ram == false) {
+            return null;
+        } else {
+            Gender new_gender = newGender();
+            Lamb newborn = new Lamb("baby lamb", new_gender);
+            return newborn;
+        }
+    }
 }

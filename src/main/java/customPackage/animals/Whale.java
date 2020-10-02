@@ -3,12 +3,12 @@ package customPackage.animals;
 public class Whale extends Animal {
     private final boolean hungry = true;
 
-    public Whale(String name, boolean isAlive, Gender gender) {
-        super(name, isAlive, gender);
+    public Whale(String name, Gender gender) {
+        super(name, gender);
     }
 
     public static void main(String[] args) {
-        Whale toomie = new Whale("toomie", true, Gender.MALE);
+        Whale toomie = new Whale("toomie", Gender.MALE);
         System.out.println(toomie);
         toomie.expelWater();
     }

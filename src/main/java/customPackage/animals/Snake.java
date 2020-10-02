@@ -3,8 +3,8 @@ package customPackage.animals;
 public class Snake extends Animal {
     private final boolean poisonous;
 
-    public Snake(String name, boolean isAlive, Gender gender, boolean poisonous) {
-        super(name, isAlive, gender);
+    public Snake(String name, Gender gender, boolean poisonous) {
+        super(name, gender);
         this.poisonous = poisonous;
     }
 

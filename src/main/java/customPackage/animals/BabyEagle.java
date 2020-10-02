@@ -1,11 +1,9 @@
 package customPackage.animals;
 
-public class Egg extends Animal {
+public class BabyEagle extends Animal {
 
-    public Egg(String name, Gender gender) {
+    public BabyEagle(String name, Gender gender) {
         super(name, gender);
-        name = "no_name";
-        this.gender = gender;
     }
 
     @Override

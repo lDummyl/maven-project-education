@@ -2,8 +2,8 @@ package customPackage.animals;
 
 public class Donkey extends Animal {
 
-    public Donkey(String name, boolean isAlive, Gender gender) {
-        super(name, isAlive, gender);
+    public Donkey(String name, Gender gender) {
+        super(name, gender);
     }
 
     @Override

@@ -3,8 +3,8 @@ package customPackage.animals;
 public class Ram extends Animal {
     private final boolean hasHorns;
 
-    public Ram(String name, boolean isAlive, Gender gender, boolean hasHorns) {
-        super(name, isAlive, gender);
+    public Ram(String name, Gender gender, boolean hasHorns) {
+        super(name, gender);
         this.hasHorns = hasHorns;
 
     }

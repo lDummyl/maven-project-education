@@ -5,8 +5,8 @@ public class Bear extends Animal {
     private boolean hungry = true;
     private Salmon fish;
 
-    public Bear(String name, boolean isAlive, Gender gender) {
-        super(name, isAlive, gender);
+    public Bear(String name, Gender gender) {
+        super(name, gender);
     }
 
     @Override
