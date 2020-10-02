@@ -5,9 +5,11 @@ import java.util.Random;
 public class Weapon implements Comparable<Weapon> {
     Object type;
     Damage damage;
+    Integer serialNumber;
 
     public Weapon() {
         Random random = new Random();
+        this.serialNumber = random.nextInt(2_147_483_647);
         int typeChose = 1 + random.nextInt(1);
         if (typeChose == 1) {
             Pistol p = new Pistol();

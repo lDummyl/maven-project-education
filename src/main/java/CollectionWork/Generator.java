@@ -11,13 +11,11 @@ public class Generator {
         TreeSet<Wanderer> peopleTree = new TreeSet<>();
 
         while (peopleTree.size() <= collectionSize) {
-
-            peopleTree.add(new Wanderer()); //После 22977 объекты перестали добавляться
-            //System.out.println(peopleTree.size());
+            Wanderer e = new Wanderer();
+            peopleTree.add(e); //После 22977 объекты перестали добавляться
+            
+           //System.out.println(peopleTree.size());
         }
-        LocalDateTime to = LocalDateTime.now();
-        Duration between = Duration.between(from, to);
-        System.out.println("Время генерации дерева- "+between+" "+collectionSize);
         return peopleTree;
     }
 
@@ -31,14 +29,10 @@ public class Generator {
             //System.out.println(peopleList.size());
 
         }
-        LocalDateTime to = LocalDateTime.now();
-        Duration between = Duration.between(from, to);
-        System.out.println("Время генерации не уникального лист- "+between+" "+collectionSize);
         return peopleList;
     }
 
     public ArrayList<Wanderer> uniArrayPersonGenerator(int collectionSize) {
-        LocalDateTime from = LocalDateTime.now();
         ArrayList<Wanderer> uniPeopleList = new ArrayList<>();
         boolean addeble = true;
         while (uniPeopleList.size() < collectionSize) {
@@ -53,9 +47,6 @@ public class Generator {
                 uniPeopleList.add(wan);
             }
         }
-        LocalDateTime to = LocalDateTime.now();
-        Duration between = Duration.between(from, to);
-        System.out.println("Время генерации уникального листа- "+between+" "+collectionSize);
         return uniPeopleList;
     }
 

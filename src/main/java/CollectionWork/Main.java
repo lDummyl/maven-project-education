@@ -9,10 +9,7 @@ public class Main {
     public static void main(String[] args) {
         FullTime fullTime = new FullTime();
 
-        fullTime.getTime(100);
-        fullTime.getTime(1000);
-        fullTime.getTime(10000);
-        fullTime.getTime(22977);
-        fullTime.getTime(100000);
+        fullTime.getTime(100000, 10,10000);
+
     }
 }

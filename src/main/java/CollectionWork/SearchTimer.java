@@ -7,24 +7,24 @@ import java.util.Collections;
 import java.util.TreeSet;
 
 public class SearchTimer {
-    public void getTreeTime(TreeSet<Wanderer> tree) {
+    public Duration getTreeTime(TreeSet<Wanderer> tree) {
         LocalDateTime from = LocalDateTime.now();
         System.out.println(tree.first());
         LocalDateTime to = LocalDateTime.now();
         Duration between = Duration.between(from, to);
-        System.out.println("Время поиска в дереве- " + between + " Для размера " + tree.size());
+       return between;
     }
 
-    public void getArraySortTime(ArrayList<Wanderer> list) {
+    public Duration getArraySortTime(ArrayList<Wanderer> list) {
         LocalDateTime from = LocalDateTime.now();
         Collections.sort(list);
         System.out.println(list.get(0));
         LocalDateTime to = LocalDateTime.now();
         Duration between = Duration.between(from, to);
-        System.out.println("Время поиска сортировкой- " + between + " Для размера " + list.size());
+        return between;
     }
 
-    public void getArraySearchTime(ArrayList<Wanderer> list) {
+    public Duration getArraySearchTime(ArrayList<Wanderer> list) {
         Wanderer min = list.get(0);
         LocalDateTime from = LocalDateTime.now();
 
@@ -36,7 +36,7 @@ public class SearchTimer {
         System.out.println(min);
         LocalDateTime to = LocalDateTime.now();
         Duration between = Duration.between(from, to);
-        System.out.println("Время поиска- " + between + " Для размера " + list.size());
+        return between;
     }
 
 }
