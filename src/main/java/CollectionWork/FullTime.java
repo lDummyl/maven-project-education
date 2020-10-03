@@ -42,7 +42,7 @@ public class FullTime {
             generator.arrayPersonGenerator(i);
             LocalDateTime to3 = LocalDateTime.now();
             Duration between3 = Duration.between(from3, to3);
-            timers.add(new Timer("NoUniArray", i, between2));
+            timers.add(new Timer("NoUniArray", i, between3));
 
             Collections.sort(timers);
             Collections.sort(search_timers);
