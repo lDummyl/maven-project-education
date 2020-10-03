@@ -16,8 +16,8 @@ public class Wanderer implements Comparable<Wanderer> {
         this.weapon = new Weapon();
         this.birthDate = new BirtDate();
         //this.age = age;
-        this.health = 1 + random.nextInt(2_147_483_647);
-        this.level = 1 + random.nextInt(2_147_483_647);
+        this.health = 1 + random.nextInt(1000);
+        this.level = 1 + random.nextInt(1000);
     }
 
     @Override
@@ -38,7 +38,6 @@ public class Wanderer implements Comparable<Wanderer> {
 
     @Override
     public int compareTo(Wanderer o) {
-        return this.birthDate.compareTo(o.birthDate)*3  + this.health.compareTo(o.health)+this.level.compareTo(o.level) + this.weapon.damage.compareTo(o.weapon.damage)+ this.weapon.serialNumber.compareTo(o.weapon.serialNumber);
-                //+this.weapon.damage.compareTo(o.weapon.damage);
+        return this.birthDate.compareTo(o.birthDate) * 3 + this.health.compareTo(o.health) + this.level.compareTo(o.level) + this.weapon.damage.compareTo(o.weapon.damage) + this.weapon.serialNumber.compareTo(o.weapon.serialNumber);
     }
 }
