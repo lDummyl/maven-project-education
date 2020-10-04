@@ -1,6 +1,6 @@
 package customPackage.animals;
 
-public class Roe extends Animal {
+public class Roe extends Child {
 
     public Roe(String name, Gender gender) {
         super(name, gender);
@@ -8,12 +8,7 @@ public class Roe extends Animal {
         this.gender = Gender.NEUTRAL;
     }
 
-    @Override
-    public String scream() {
-        return "Silence...";
-    }
-
-    public void growUp() {
-        child = false;
+    public int growUp() {
+        return 1;
     }
 }

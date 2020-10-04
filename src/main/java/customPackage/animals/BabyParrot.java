@@ -1,6 +1,6 @@
 package customPackage.animals;
 
-public class BabyParrot extends Animal {
+public class BabyParrot extends Child {
 
     public BabyParrot(String name, Gender gender) {
         super(name, gender);
@@ -8,12 +8,7 @@ public class BabyParrot extends Animal {
         this.gender = gender;
     }
 
-    @Override
-    public String scream() {
-        return "Crac-koo!";
-    }
-
-    public void growUp() {
-        child = false;
+    public int growUp() {
+        return 1;
     }
 }
