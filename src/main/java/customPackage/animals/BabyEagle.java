@@ -6,7 +6,8 @@ public class BabyEagle extends Child {
         super(name, gender);
     }
 
-    public int growUp() {
-        return 3;
+    public Animal growUp() {
+        Animal animal = null;
+        return animal;
     }
 }
