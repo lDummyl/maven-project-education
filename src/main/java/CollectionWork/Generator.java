@@ -10,10 +10,11 @@ public class Generator {
         LocalDateTime from = LocalDateTime.now();
         TreeSet<Wanderer> peopleTree = new TreeSet<>();
 
-        while (peopleTree.size() <= collectionSize) {
+        while (peopleTree.size() < collectionSize) {
             Wanderer e = new Wanderer();
+
             peopleTree.add(e); //После 22977 объекты перестали добавляться
-            
+
            //System.out.println(peopleTree.size());
         }
         return peopleTree;

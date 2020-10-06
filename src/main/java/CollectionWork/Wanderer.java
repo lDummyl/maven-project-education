@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Wanderer implements Comparable<Wanderer> {
+    public static final int MAXIMUM_HEALTH_POINT = 1000;
     Weapon weapon;
     BirtDate birthDate;
     //int age;
@@ -16,7 +17,7 @@ public class Wanderer implements Comparable<Wanderer> {
         this.weapon = new Weapon();
         this.birthDate = new BirtDate();
         //this.age = age;
-        this.health = 1 + random.nextInt(1000);
+        this.health = 1 + random.nextInt(MAXIMUM_HEALTH_POINT);
         this.level = 1 + random.nextInt(1000);
     }
 

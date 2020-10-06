@@ -1,5 +1,7 @@
 package task2;
 
+import task1.Person;
+
 public class Office {
 
     public Office(Director director, Hr hr) {
