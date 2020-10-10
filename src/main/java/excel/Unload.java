@@ -8,21 +8,30 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 
 public class Unload {
+    Download download = new Download();
+    Workbook outputExcelBook = new XSSFWorkbook();
+    Sheet outputSheet;
 
-    public void test () throws IOException {
-        Workbook outputExcelBook = new XSSFWorkbook();
-        Sheet outputSheet = outputExcelBook.createSheet("8");
-        Row row = outputSheet.createRow(1);
-        Cell name = row.createCell(1);
-        name.setCellValue(52256354);
-        outputExcelBook.write(new FileOutputStream("C:\\java\\fin.xlsx"));
+    public Unload() throws IOException {
     }
 
+    public void test (FileOutputStream file) throws IOException {
 
+         outputSheet = outputExcelBook.createSheet("8");
+        for (int i = 1; i<download.dates.size(); i++) {
+            Row row = outputSheet.createRow(i);
+            for (int j = 0; j<download.dates.size() ; j++) {
+                Cell name = row.createCell(j);
+                name.setCellValue(String.valueOf(download.dates.get(j)));
 
-
+            }
+        }
+        outputExcelBook.write(file);
+        outputExcelBook.close();
+    }
 
 }
