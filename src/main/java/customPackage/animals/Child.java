@@ -7,7 +7,12 @@ public abstract class Child {
     public Gender gender;
     public boolean isAlive = true;
 
+    // Case 1
     public abstract Animal growUp();
+    // Case 2
+    //    public Animal growUp(){
+    //        throw new NotImplementedException();
+    //    }
 
     public Child(String name, Gender gender) {
         this.name = name;
