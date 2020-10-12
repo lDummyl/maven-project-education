@@ -1,5 +1,7 @@
 package homeworkTask2;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 public class Office {
@@ -16,28 +18,7 @@ public class Office {
 
     public void invitePerson (Object human)
     {
-        List candidates = hr.invite(human);
-        if (human instanceof Secretary) {
-            secretary = (Secretary) director.select(candidates);
-            if (secretary != null)
-            {
-                candidates.clear();
-            }
-        }
-        else if (human instanceof Accountant) {
-            accountant = (Accountant) director.select(candidates);
-            if (accountant != null)
-            {
-                candidates.clear();
-            }
-        }
-        else if (human instanceof Jurist)
-        {
-            jurist = (Jurist) director.select(candidates);
-            if (jurist != null)
-            {
-                candidates.clear();
-            }
-        }
+        HashMap candidates = hr.invite(human);
+        director.select(candidates);
     }
 }

@@ -8,33 +8,45 @@ import java.util.Map;
 public class Grouper {
     public static void main(String[] args) {
         AnimalProvider animalProvider = new AnimalProvider();
-        Kitten kitten = animalProvider.getCat();
-        Kitten kitten1 = animalProvider.getCat();
-        Kitten kitten2 = animalProvider.getCat();
-        Dog dog = animalProvider.getDog();
-        Dog dog1 = animalProvider.getDog();
-        Dog dog2 = animalProvider.getDog();
+        Pet kitten = animalProvider.getPet(Kitten.class);
+        Pet kitten1 = animalProvider.getPet(Kitten.class);
+        Pet kitten2 = animalProvider.getPet(Kitten.class);
+        Pet dog = animalProvider.getPet(Dog.class);
+        Pet dog1 = animalProvider.getPet(Dog.class);
+        Pet dog2 = animalProvider.getPet(Dog.class);
         Class<?> aClass = kitten.getClass();
         HashMap<Class <?>, List> map = new HashMap<>();
         ArrayList<Object> list = new ArrayList<>();
         list.add(kitten);
         list.add(kitten1);
         list.add(kitten2);
-        map.put(Kitten.class, list);
+        map.put(aClass, list);
         Class <?> dogClass = dog.getClass();
-        ArrayList listOfDogs = new ArrayList();
+        ArrayList<Object> listOfDogs = new ArrayList<>();
         listOfDogs.add(dog);
         listOfDogs.add(dog1);
         listOfDogs.add(dog2);
         map.put(dogClass, listOfDogs);
-        System.out.println(dog);
         for (Map.Entry<Class<?>, List> classListEntry : map.entrySet()) {
-            System.out.println(classListEntry.getValue());
+            Class key = classListEntry.getKey();
+            List value = classListEntry.getValue();
+            System.out.println(key + " " + value);
+
         }
     }
 }
+
 class Pet
 {
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", weight=" + weight +
+                '}';
+    }
+
     String name;
     int age;
     int weight;

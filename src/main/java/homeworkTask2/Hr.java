@@ -1,7 +1,6 @@
 package homeworkTask2;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Hr extends Person{
     public Hr(Name name, Age age) {
@@ -12,36 +11,45 @@ public class Hr extends Person{
         super(person.name, person.age);
     }
 
-    ArrayList <Person> candidates = new ArrayList<>();
+//    ArrayList <Person> candidates = new ArrayList<>();
+    HashMap <Class <?>, List> map = new HashMap<>();
+    ArrayList<Person> secretaries = new ArrayList<>();
 
-    public List invite (Object human)
+    public HashMap invite (Object human)
     {
         if (human instanceof Secretary)
         {
             Secretary secretary = (Secretary) human;
             if (secretary.interview())
             {
-                candidates.add(secretary);
+                secretaries.add(secretary);
+                map.put(Secretary.class, secretaries);
             }
-            return candidates;
+
+            return map;
         }
         else if (human instanceof Accountant)
         {
             Accountant accountant = (Accountant) human;
             if (accountant.interview())
             {
-                candidates.add(accountant);
+                ArrayList<Person> accountants = new ArrayList<>();
+                accountants.add(accountant);
+                map.put(Accountant.class, accountants);
             }
-            return candidates;
+            return map;
+
         }
         else if (human instanceof Jurist)
         {
             Jurist jurist = (Jurist) human;
             if (jurist.interview())
             {
-                candidates.add(jurist);
+                ArrayList<Person> jurists = new ArrayList<>();
+                jurists.add(jurist);
+                map.put(Jurist.class, jurists);
             }
-            return candidates;
+            return map;
         }
         return null;
     }
