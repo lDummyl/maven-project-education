@@ -13,7 +13,9 @@ public class Hr extends Person{
 
 //    ArrayList <Person> candidates = new ArrayList<>();
     HashMap <Class <?>, List> map = new HashMap<>();
-    ArrayList<Person> secretaries = new ArrayList<>();
+    ArrayList <Person> secretaries = new ArrayList<>();
+    ArrayList <Person> accountants = new ArrayList<>();
+    ArrayList <Person> jurists = new ArrayList<>();
 
     public HashMap invite (Object human)
     {
@@ -33,7 +35,6 @@ public class Hr extends Person{
             Accountant accountant = (Accountant) human;
             if (accountant.interview())
             {
-                ArrayList<Person> accountants = new ArrayList<>();
                 accountants.add(accountant);
                 map.put(Accountant.class, accountants);
             }
@@ -45,7 +46,6 @@ public class Hr extends Person{
             Jurist jurist = (Jurist) human;
             if (jurist.interview())
             {
-                ArrayList<Person> jurists = new ArrayList<>();
                 jurists.add(jurist);
                 map.put(Jurist.class, jurists);
             }

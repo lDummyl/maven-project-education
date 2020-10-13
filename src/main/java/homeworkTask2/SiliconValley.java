@@ -24,12 +24,12 @@ public class SiliconValley {
         for (Secretary secretary : secretaries) {
             office.invitePerson(secretary);
         }
-//        for (Accountant accountant : accountants) {
-//            office.invitePerson(accountant);
-//        }
-//        for (Jurist jurist : jurists) {
-//            office.invitePerson(jurist);
-//        }
+        for (Accountant accountant : accountants) {
+            office.invitePerson(accountant);
+        }
+        for (Jurist jurist : jurists) {
+            office.invitePerson(jurist);
+        }
 
         System.out.println(office.secretary);
         System.out.println(office.accountant);
