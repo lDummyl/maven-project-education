@@ -20,20 +20,3 @@ public class MyExceptionPractice02 {
         me.methodOne();
     }
 }
-
-//    public static void main(String[] args) {
-//        System.out.println("Program start");
-//        if (true) {
-//            try {
-//                Egg egg = provideEgg();
-//                egg.growUp();
-//            } catch (NullPointerException e) {
-//                System.out.println("Not Good at all!");
-//                System.exit(-1);
-//            } catch (RuntimeException e) {
-//                System.out.println("Exception has been caught");
-//            }
-//        }
-//        System.out.println("Program stop");
-//    }
-//
