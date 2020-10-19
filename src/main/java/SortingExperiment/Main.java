@@ -1,16 +1,16 @@
 package SortingExperiment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         ReadExperiment readExperiment = new ReadExperiment();
-        Showene showene = new Showene();
-        RemovePoint removePoint = new RemovePoint();
-        ArrayList arrayList = readExperiment.readExp("C:\\Users\\Sakro\\Documents\\Java\\maven-project-education\\src\\main\\java\\SortingExperiment\\test");
+        List pointList = readExperiment.readExp("C:\\Users\\Sakro\\Documents\\Java\\maven-project-education\\src\\main\\java\\SortingExperiment\\test");
 
-        System.out.println(arrayList.size());
-        arrayList = removePoint.removeBadPoints(arrayList, showene.makeShoweneTest(arrayList));
-        System.out.println(arrayList.size());
+        FreqReport freqReport = new FreqReport(pointList);
+        freqReport.setField();
+        List badPoints =  freqReport.getBadPoints();
+        System.out.println(badPoints);
     }
 }

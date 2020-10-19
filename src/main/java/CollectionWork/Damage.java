@@ -4,14 +4,16 @@ import java.util.Objects;
 import java.util.Random;
 
 public class Damage implements Comparable<Damage> {
+    public static final int absolutMinDamage = 10;
+    public static final int absolutMaxDamage = 30;
     Integer minDamage;
     Integer maxDamage;
     Integer everegeDamage;
 
     public Damage() {
         Random random = new Random();
-        this.minDamage = random.nextInt(10);
-        this.maxDamage = random.nextInt(30);
+        this.minDamage = random.nextInt(absolutMinDamage);
+        this.maxDamage = random.nextInt(absolutMaxDamage);
         this.everegeDamage = (this.minDamage + this.maxDamage) / 2;
     }
 

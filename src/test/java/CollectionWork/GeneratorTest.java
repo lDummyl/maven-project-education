@@ -30,9 +30,13 @@ public class GeneratorTest {
         System.out.println(wanderer);
         int expecdeadHealth = 0;
 
-        for (Wanderer w : wanderers) {
+       for (Wanderer w : wanderers) {
             assertTrue(w.health > expecdeadHealth);
+            assertTrue(w.health <= Wanderer.MAXIMUM_HEALTH_POINT);
+
+            assertTrue(w.weapon.type.getClass() == Varming.class || w.weapon.type.getClass() == Pistol.class);
         }
+
     }
 
 
@@ -53,8 +57,8 @@ public class GeneratorTest {
 
         boolean current = true;
         for (int i = 0; i < wanderers.size(); i++) {
-            for (int j = i+1; j <wanderers.size() ; j++) {
-                if (wanderers.get(j).equals(wanderers.get(i))){
+            for (int j = i + 1; j < wanderers.size(); j++) {
+                if (wanderers.get(j).equals(wanderers.get(i))) {
                     current = false;
                 }
             }
