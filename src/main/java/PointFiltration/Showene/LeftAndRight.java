@@ -14,6 +14,14 @@ public class LeftAndRight {
         this.rights = makeRight(doubles);
     }
 
+    public List<Double> getLefts() {
+        return lefts;
+    }
+
+    public List<Double> getRights() {
+        return rights;
+    }
+
     public List<Double> makeLeft(List<Double> doubles) {
         ArrayList<Double> lefts = new ArrayList<>();
         for (int i = 0; i < doubles.size() / 2; i++) {

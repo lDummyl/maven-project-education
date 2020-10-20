@@ -15,6 +15,4 @@ public class Calculations {
         this.calculatedList = calculatedLlist;
     }
 
-
-
 }

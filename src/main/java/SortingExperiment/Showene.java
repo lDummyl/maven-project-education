@@ -7,27 +7,28 @@ import java.util.Collections;
 
 public class Showene {
 
-    public void makeShoweneTest(ArrayList points) {
-        /*ArrayList<Freq> frequencies = new ArrayList<>();
-        for (Point p : points) {
-            frequencies.add(p.frequency);
+/*
+    public void makeShoweneTest(ArrayList<Double> points) {
+        ArrayList<Double> doubles = new ArrayList<>();
+        for (Double p : points) {
+            doubles.add(p);
         }
-        int middle = frequencies.size() / 2;
+        int middle = doubles.size() / 2;
 
-        ArrayList<Freq> left = new ArrayList<>();
-        ArrayList<Freq> right = new ArrayList<>();
+        ArrayList<Double> left = new ArrayList<>();
+        ArrayList<Double> right = new ArrayList<>();
 
-        Collections.sort(frequencies);
+        Collections.sort(doubles);
 
         for (int i = 0; i < middle; i++) {
-            left.add(frequencies.get(i));
+            left.add(doubles.get(i));
         }
 
-        for (int i = middle; i < frequencies.size(); i++) {
-            right.add(frequencies.get(i));
+        for (int i = middle; i < doubles.size(); i++) {
+            right.add(doubles.get(i));
         }
 
-        Freq medFreqLeft = Freq.getMedian(left);
+        Freq medFreqLeft = l;
         Freq medFreqRight = Freq.getMedian(right);
 
 
@@ -43,7 +44,7 @@ public class Showene {
 
         ArrayList<Double> badPoints = new ArrayList<>();
         for (Freq d :
-                frequencies) {
+                doubles) {
             if (d.hzValue > upperFence || d.hzValue < lowerFence) {
                 badPoints.add(d.hzValue);
                 System.out.println(d);
@@ -52,10 +53,10 @@ public class Showene {
    //     throw new RuntimeException("");
         return badPoints;
 
-        */
-    }
 
-}
+    }
+    }
+*/
 
 // TODO: 10/20/20 вот давай в дженерики поиграй, напиши реализацию для Double и потом примени к своим точкам фильтр по полученным границам
 //  если не будет получаться просто замени дженерики на Double а потом найди способ их вернуть.
