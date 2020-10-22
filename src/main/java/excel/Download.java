@@ -32,7 +32,7 @@ public class Download {
                 if (!date.getStringCellValue().equals("")) {
 //                    System.out.println(date);
                     Cell entrance = row.getCell(18);
-//                    entrances.add(entrance);
+                    entrances.add(entrance);
                     System.out.println(entrance);
                     Cell description = row.getCell(21);
                     String s = description.getStringCellValue();
