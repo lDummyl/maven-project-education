@@ -11,6 +11,7 @@ public class Calculations {
 
     Double iQR;
 
+
     public Calculations(List<Double> calculatedLlist) {
         this.calculatedList = calculatedLlist;
     }

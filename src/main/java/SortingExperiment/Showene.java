@@ -4,6 +4,7 @@ package SortingExperiment;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 public class Showene {
 
@@ -61,15 +62,5 @@ public class Showene {
 // TODO: 10/20/20 вот давай в дженерики поиграй, напиши реализацию для Double и потом примени к своим точкам фильтр по полученным границам
 //  если не будет получаться просто замени дженерики на Double а потом найди способ их вернуть.
 
-interface Ranger<T extends Number>{
-
-    AcceptableRange<T> getRange(Collection<T> inputs);
-
 }
 
-class AcceptableRange<T extends Number>{
-
-    T upperBound;
-    T lowerBound;
-
-}

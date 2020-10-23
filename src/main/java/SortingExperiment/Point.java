@@ -26,5 +26,14 @@ public class Point implements Comparable<Point> {
     public int compareTo(Point o) {
         return this.code.compareTo(o.code) * 10 + this.temperature.compareTo(o.temperature);
     }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "code=" + code +
+                ", temperature=" + temperature +
+                ", frequency=" + frequency +
+                '}';
+    }
 }
 
