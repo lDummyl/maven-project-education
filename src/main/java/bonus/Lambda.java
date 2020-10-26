@@ -13,6 +13,10 @@ public class Lambda {
 
 	public static void main(String[] args) {
 
+
+		// TODO: 10/26/20 доп. вывести CBA только 1 раз. Не важно как но не меняя кода нигде кроме лямбды. Задачка с подвохом так что думай out of the box.
+		//  добавить дженерик в Funkey. Создать 3 новых интерфейса и методы TestDigits в нем коллекциями чисел. Через новые интрефейсы получить сумму,
+		//  получить перевернутую колелекцию, только простые числа строкой через запятую.
 		Funkey funHor = (s -> System.out.print(s));
 		Funkey funVert = (s -> System.out.println(s));
 		test(funHor);
@@ -27,6 +31,7 @@ public class Lambda {
 			func.print(string);
 		}
 	}
+
 }
 
 @FunctionalInterface
