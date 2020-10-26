@@ -2,8 +2,12 @@ package task2;
 
 import task1.Person;
 
-public interface Hr {
+import java.util.Collection;
 
-    Person addSecretaryCandidate(Object candidate);
+
+
+public interface Hr {
+    Collection<Secretary> addSecretaryCandidate(Object candidate);
+
 
 }

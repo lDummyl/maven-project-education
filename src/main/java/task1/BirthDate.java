@@ -16,6 +16,10 @@ public class BirthDate implements Comparable<BirthDate>{
         this.day = day;
     }
 
+    public LocalDate getLocalBirthDate() {
+        return localBirthDate;
+    }
+
     public BirthDate(LocalDate localBirthDate) {
         this.localBirthDate = localBirthDate;
     }

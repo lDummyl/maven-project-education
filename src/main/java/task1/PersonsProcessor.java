@@ -1,7 +1,5 @@
 package task1;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class PersonsProcessor {
@@ -9,9 +7,9 @@ public class PersonsProcessor {
     public TreeSet<Person> generatePersons(int numberOfPerons) {
         TreeSet<Person> persons = new TreeSet<>();
 
-        for (int i = 0; i < 3000000; i++) {
+        for (int i = 0; i < numberOfPerons; i++) {
             persons.add(new Person());
-            System.out.println(persons.size());
+            //System.out.println(persons.size());
         }
         return persons;
     }

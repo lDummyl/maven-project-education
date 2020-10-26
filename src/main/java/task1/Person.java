@@ -8,12 +8,25 @@ import java.util.Objects;
 public class Person implements Comparable<Person> {
     Name name;
     BirthDate birthDate;
-    Integer Experience;
+
+
+    public Name getName() {
+        return name;
+    }
+
+    public BirthDate getBirthDate() {
+        return birthDate;
+    }
 
 
     public Person(String name, BirthDate localbirthDate) {
         this.name = new Name(name);
         this.birthDate = localbirthDate;
+    }
+
+    public Person(Name name, BirthDate birthDate) {
+        this.name = name;
+        this.birthDate = birthDate;
     }
 
     public Person() {

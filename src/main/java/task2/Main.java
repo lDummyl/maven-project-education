@@ -1,10 +1,11 @@
 package task2;
 
 
-
 import task1.Person;
+import task1.PersonsProcessor;
 
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Создать 2 офиса Apple и Google и трудоустроить в них секретарей на конкурсной основе, не модифицируя существующий код.
@@ -13,41 +14,22 @@ import java.util.Collection;
  */
 
 public class Main {
-    Office apple = new Office(new Director(), new HR());
-    Office google = new Office(new Director(), new HR());
+    Office apple = new Office(new GeneralDirector(),new GeneralHr());
+    Office google = new Office(new SecondDirector(),new SecondHr());
+
+
+
 
     public static void main(String[] args) {
+        Office apple = new Office(new GeneralDirector(),new GeneralHr());
+        Office google = new Office(new SecondDirector(),new SecondHr());
+        PersonsProcessor personsProcessor = new PersonsProcessor();
 
+        ArrayList<Person> people = new ArrayList<>();
+        people.addAll(personsProcessor.generatePersons(100));
 
-    }
-
-    public class HR implements Hr {
-
-        @Override
-        public Person addSecretaryCandidate(Object candidate) {
-            return new Person();
-        }
-    }
-
-    public class Director implements task2.Director {
-        public Director() {
-        }
-
-        @Override
-        public task2.Secretary chooseSecretary(Collection<task2.Secretary> candidates) {
-            return null;
-        }
-    }
-
-    public class Secretary implements task2.Secretary {
-
-		@Override
-		public void sayHelloTo(Object o) {
-
-		}
-	}
-
-    class Candidate {
+        apple.invitePeople(people.get(99));
 
     }
+
 }
