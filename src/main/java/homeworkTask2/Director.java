@@ -12,10 +12,10 @@ public class Director extends Person {
 
     public <T extends Person> Object select(HashMap<Class<?>, List> candidates, Class <?> position) {
         List list1 = candidates.get(position);
-        if (list1.size() >= enoughCandidatesToDecide) {
-            Random random = new Random();
-            return list1.get(random.nextInt(list1.size()));
+            if (list1.size() >= enoughCandidatesToDecide) {
+                Random random = new Random();
+                return list1.get(random.nextInt(list1.size()));
         }
-        return null;
+            return null;
     }
 }

@@ -1,8 +1,6 @@
 package homeworkTask2;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 
 public class Office {
     Director director;
@@ -18,7 +16,12 @@ public class Office {
 
     public void invitePerson (Object human)
     {
+        Office office = this;
         HashMap candidates = hr.invite(human);
-        director.select(candidates, human.getClass());
+        if (candidates.get(human.getClass()) != null) {
+            Object worker = director.select(candidates, human.getClass());
+            if (worker != null)
+            hr.init(office, worker);
+        }
     }
 }

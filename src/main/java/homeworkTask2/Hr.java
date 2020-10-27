@@ -52,4 +52,18 @@ public class Hr extends Person{
         }
         return null;
     }
+    public void init (Office office, Object worker)
+    {
+        if (worker.getClass().equals(Secretary.class)) {
+            office.secretary = (Secretary) worker;
+        }
+        if (worker.getClass().equals(Accountant.class))
+        {
+            office.accountant = (Accountant) worker;
+        }
+        if (worker.getClass().equals(Jurist.class))
+        {
+            office.jurist = (Jurist) worker;
+        }
+    }
 }
