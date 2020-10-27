@@ -19,6 +19,6 @@ public class Office {
     public void invitePerson (Object human)
     {
         HashMap candidates = hr.invite(human);
-        director.select(candidates);
+        director.select(candidates, human.getClass());
     }
 }

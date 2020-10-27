@@ -11,7 +11,6 @@ public class Hr extends Person{
         super(person.name, person.age);
     }
 
-//    ArrayList <Person> candidates = new ArrayList<>();
     HashMap <Class <?>, List> map = new HashMap<>();
     ArrayList <Person> secretaries = new ArrayList<>();
     ArrayList <Person> accountants = new ArrayList<>();
