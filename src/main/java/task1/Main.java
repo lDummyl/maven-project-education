@@ -1,11 +1,7 @@
 package task1;
 
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Objects;
 import java.util.TreeSet;
-import java.util.stream.Stream;
 
 public class Main {
 
@@ -20,7 +16,7 @@ public class Main {
     }
 
     public static void second() {
-        PersonsProcessor generator = new PersonsProcessor();
+        PersonsProvider generator = new PersonsProvider();
         // TODO: 9/10/20 сделай так чтобы все созданные 100к человек были уникальны
         // TODO: 9/12/20 увы незачет, следующая попытка...
         TreeSet<Person> setPerson = generator.generatePersons(100);

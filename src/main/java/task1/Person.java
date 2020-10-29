@@ -1,5 +1,8 @@
 package task1;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 // TODO: 9/12/20 тройка с минусом
@@ -8,6 +11,7 @@ import java.util.Objects;
 public class Person implements Comparable<Person> {
     Name name;
     BirthDate birthDate;
+    Period age;
 
 
     public Name getName() {
@@ -24,6 +28,10 @@ public class Person implements Comparable<Person> {
         this.birthDate = localbirthDate;
     }
 
+    public Period getAge() {
+        return age;
+    }
+
     public Person(Name name, BirthDate birthDate) {
         this.name = name;
         this.birthDate = birthDate;
@@ -32,6 +40,7 @@ public class Person implements Comparable<Person> {
     public Person() {
         this.name = new Name();
         this.birthDate = new BirthDate();
+        this.age = Period.between(birthDate.localBirthDate, LocalDate.now());
     }
 
 

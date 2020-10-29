@@ -1,9 +1,5 @@
 package task2;
 
-import bonus.refactor.lomb.Second;
-import task1.Person;
-
-import java.util.ArrayList;
 import java.util.Collection;
 
 public class Office {
@@ -24,8 +20,9 @@ public class Office {
     //претенденты идут по одному, когда их достаточно,
     // то директор принимает решение и берет одного в штат
 
-    void invitePeople(Object human) {
-        this.hr.addSecretaryCandidate(human);
-
+    void invitePeople(Object human ) {
+        Collection<Secretary> secretaries = hr.addSecretaryCandidate(human);
+        secretary = director.chooseSecretary(secretaries);
     }
+
 }

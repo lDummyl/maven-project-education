@@ -1,10 +1,7 @@
 package CollectionWork;
 
 import org.junit.Test;
-import task1.Person;
-import task1.PersonsProcessor;
 
-import java.awt.font.NumericShaper;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
