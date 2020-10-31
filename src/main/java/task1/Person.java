@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Person implements Comparable<Person> {
     Name name;
     BirthDate birthDate;
-    Period age;
+    Integer age;
 
 
     public Name getName() {
@@ -28,7 +28,7 @@ public class Person implements Comparable<Person> {
         this.birthDate = localbirthDate;
     }
 
-    public Period getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -40,7 +40,7 @@ public class Person implements Comparable<Person> {
     public Person() {
         this.name = new Name();
         this.birthDate = new BirthDate();
-        this.age = Period.between(birthDate.localBirthDate, LocalDate.now());
+        this.age = Period.between(birthDate.localBirthDate, LocalDate.now()).getYears();
     }
 
 

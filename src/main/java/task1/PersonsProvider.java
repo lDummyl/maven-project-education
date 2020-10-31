@@ -3,10 +3,13 @@ package task1;
 import task2.Secretary;
 
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 import java.util.TreeSet;
 
 public class PersonsProvider {
+    public static final Integer adultAge = 19;
     public static void main(String[] args) {
         PersonsProvider personsProvider = new PersonsProvider();
         personsProvider.generateCandidate(100, Secretary.class);
@@ -28,60 +31,50 @@ public class PersonsProvider {
 
         while (persons.size() < numberOfPersons) {
             Person person = new Person();
-            if (person.age.getYears() >= 18) {
+            if (person.age >= adultAge) {
                 persons.add(person);
             }
         }
         return persons;
     }
 
-    public <T> TreeSet<T> generateCandidate(int numberOfCandidates, Class<T> clazz) {
+    public Collection<Secretary> generateCandidate(int numberOfCandidates, Class<Secretary> clazz) {
         TreeSet<Person> people = generateAdultPersons(100);
-
         Random random = new Random();
-        if (clazz.equals(Secretary.class)) {
-            TreeSet<Secretary> secretaries = new TreeSet<>();
+            Collection<Secretary> secretaries = new ArrayList<>();
             for (Person p : people) {
-
+                System.out.println(p.getAge());
                 Secretary secretary = new Secretary() {
                     Name name = p.getName();
                     BirthDate birthDate = p.birthDate;
-                    Period age = p.getAge();
-                    Integer experience = random.nextInt(this.age.getYears() - 18);
+                    Integer age = p.getAge();
+
+                    int experience = random.nextInt(this.age - adultAge);
+
+                    public Name getName() {
+                        return name;
+                    }
+
+                    public BirthDate getBirthDate() {
+                        return birthDate;
+                    }
+
+                    public Integer getAge() {
+                        return age;
+                    }
+
+                    public int getExperience() {
+                        return experience;
+                    }
 
                     @Override
                     public void sayHelloTo(Object o) {
                         System.out.println("Hi, i'm secretary");
                     }
-
                 };
-                //secretaries.add(secretary);
-                System.out.println(secretary.getClass());
+                secretaries.add(secretary);
+                System.out.println(secretary);
             }
-            //return secretaries;
-        }
-        return null;
+        return secretaries;
     }
-
-
-    public void oldestSearch(TreeSet<Person> set) {
-        System.out.println(set.first().birthDate.localBirthDate);
-    }
-    /*
-    public void oldestSearchT(ArrayList<Human> list) {
-
-
-        int oldest = 0;
-        // TODO: 9/10/20 подумай насчет инкапсуляции и здесь, чтобы зделать код лаконичней и наглядней
-        LocalDate min = list.get(0).birthDate.localBirthDate;
-        for (int i = 1; i < list.size() - 1; i++) {
-            if (list.get(i).birthDate.localBirthDate.isBefore(min)) {
-                min = list.get(i).birthDate.localBirthDate;
-                oldest = i;
-
-            }
-        }
-        System.out.println(list.get(oldest).birthDate.localBirthDate);
-    }
-    */
 }

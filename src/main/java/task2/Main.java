@@ -20,14 +20,9 @@ public class Main {
     public static void main(String[] args) {
         Office apple = new Office(new GeneralDirector(), new GeneralHr());
         Office google = new Office(new SecondDirector(), new SecondHr());
-        PersonsProvider personsProcessor = new PersonsProvider();
+        PersonsProvider personsProvider = new PersonsProvider();
 
-        ArrayList<Person> people = new ArrayList<>();
-        people.addAll(personsProcessor.generatePersons(100));
-
-        for (Person person : people) {
-            apple.invitePeople(person);
-        }
+        personsProvider.generateCandidate(100, Secretary.class);
 
     }
 }
