@@ -51,21 +51,7 @@ public class PersonsProvider {
 
                     int experience = random.nextInt(this.age - adultAge);
 
-                    public Name getName() {
-                        return name;
-                    }
 
-                    public BirthDate getBirthDate() {
-                        return birthDate;
-                    }
-
-                    public Integer getAge() {
-                        return age;
-                    }
-
-                    public int getExperience() {
-                        return experience;
-                    }
 
                     @Override
                     public void sayHelloTo(Object o) {
