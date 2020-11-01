@@ -9,7 +9,7 @@ import java.util.Random;
 import java.util.TreeSet;
 
 public class PersonsProvider {
-    public static final Integer adultAge = 19;
+    public static final Integer adultAge = 18;
     public static void main(String[] args) {
         PersonsProvider personsProvider = new PersonsProvider();
         personsProvider.generateCandidate(100, Secretary.class);
@@ -31,10 +31,11 @@ public class PersonsProvider {
 
         while (persons.size() < numberOfPersons) {
             Person person = new Person();
-            if (person.age >= adultAge) {
+            if (person.age.getYears() >= adultAge) {
                 persons.add(person);
             }
         }
+
         return persons;
     }
 
@@ -43,15 +44,12 @@ public class PersonsProvider {
         Random random = new Random();
             Collection<Secretary> secretaries = new ArrayList<>();
             for (Person p : people) {
-                System.out.println(p.getAge());
+                System.out.println(p.age);
                 Secretary secretary = new Secretary() {
                     Name name = p.getName();
                     BirthDate birthDate = p.birthDate;
-                    Integer age = p.getAge();
-
-                    int experience = random.nextInt(this.age - adultAge);
-
-
+                    Period age = p.age;
+                    int experience = random.nextInt(this.age.getYears() - adultAge);
 
                     @Override
                     public void sayHelloTo(Object o) {

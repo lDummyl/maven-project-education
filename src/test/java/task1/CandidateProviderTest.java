@@ -17,7 +17,9 @@ public class CandidateProviderTest {
 
         for (CandidateProvider.Secretary s : secretaries) {
             assertFalse(s == null);
-            System.out.println(s.experience);
+            System.out.println(s.age.getYears());
+            System.out.println(s.experience.getYears());
+            System.out.println("  ");
         }
 
     }

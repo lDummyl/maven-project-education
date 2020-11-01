@@ -24,7 +24,8 @@ public class PersonsProviderTest {
         assertTrue(people.size() == numberOfPersons);
         for (Person p : people) {
             assertTrue(p != null);
-            assertTrue(p.age >= 18);
+            assertTrue(p.age.getYears() >= 18);
+            System.out.println(p.age.getYears());
         }
     }
 
@@ -34,7 +35,7 @@ public class PersonsProviderTest {
 
         PersonsProvider personsProvider = new PersonsProvider();
         ArrayList<task2.Secretary> objects = (ArrayList<task2.Secretary>) personsProvider.generateCandidate(100,Secretary.class);
-        objects.get(0).sayHelloTo(1);
+
 
     }
 }
