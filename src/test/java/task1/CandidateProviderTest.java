@@ -13,13 +13,14 @@ public class CandidateProviderTest {
     @Test
     public void generateCandidate() {
         CandidateProvider candidateProvider = new CandidateProvider();
-        Collection<CandidateProvider.Secretary> secretaries = candidateProvider.generateCandidate(100, Secretary.class);
+        int numberOfCandidate = 100;
+        Collection<CandidateProvider.Secretary> secretaries = candidateProvider.generateCandidate(numberOfCandidate, Secretary.class);
+        assertTrue(secretaries.size() == numberOfCandidate);
 
         for (CandidateProvider.Secretary s : secretaries) {
             assertFalse(s == null);
-            System.out.println(s.age.getYears());
-            System.out.println(s.experience.getYears());
-            System.out.println("  ");
+
+            assertTrue(s.experience.getYears() >= 0);
         }
 
     }

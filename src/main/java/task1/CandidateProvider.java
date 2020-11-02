@@ -35,9 +35,14 @@ public class CandidateProvider {
             this.experience = this.age.minus(CandidateProvider.adultAge);
             //System.out.println(experience);
         }
+
+
+        public int compareTo(Worker o) {
+            return ((Integer) this.age.getYears()).compareTo(o.age.getYears())*2 + ((Integer) this.experience.getYears()).compareTo(o.experience.getYears());
+        }
     }
 
-    class Secretary extends Worker implements task2.Secretary {
+    public class Secretary extends Worker implements task2.Secretary {
         public Secretary(Person person) {
             super(person);
         }
