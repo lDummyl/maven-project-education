@@ -49,6 +49,7 @@ public class PersonsProvider {
                     Name name = p.getName();
                     BirthDate birthDate = p.birthDate;
                     Period age = p.age;
+                    // FIXME: 11/2/20 тут вылетает эксепшон
                     int experience = random.nextInt(this.age.getYears() - adultAge);
 
                     @Override

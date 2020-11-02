@@ -25,6 +25,7 @@ public class Main {
         CandidateProvider candidateProvider = new CandidateProvider();
 
         Collection<CandidateProvider.Secretary> secretaries = candidateProvider.generateCandidate(100, Secretary.class);
+        // FIXME: 11/2/20 ну конечто кидает, тыж ему пачкой их суешь а не по одному, как в условии.
         apple.invitePeople(secretaries);
     }
 }
