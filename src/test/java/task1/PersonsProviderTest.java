@@ -1,10 +1,9 @@
 package task1;
 
 import org.junit.Test;
-import task2.Secretary;
+import task2.SecretaryImpl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.TreeSet;
 
 import static org.junit.Assert.*;
@@ -33,7 +32,7 @@ public class PersonsProviderTest {
         int numberOfCandidates = 100;
 
         PersonsProvider personsProvider = new PersonsProvider();
-        ArrayList<task2.Secretary> objects = (ArrayList<task2.Secretary>) personsProvider.generateCandidate(100,Secretary.class);
+        ArrayList<SecretaryImpl> objects = (ArrayList<SecretaryImpl>) personsProvider.generateCandidate(100, SecretaryImpl.class);
 
 
     }

@@ -5,7 +5,7 @@ import java.util.Collection;
 public class GeneralDirector implements Director{
 
     @Override
-    public Secretary chooseSecretary(Collection<Secretary> candidates) {
+    public SecretaryImpl chooseSecretary(Collection<SecretaryImpl> candidates) {
         return null;
     }
 }

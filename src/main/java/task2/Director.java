@@ -4,6 +4,6 @@ import java.util.Collection;
 
 public interface Director  {
 
-    Secretary chooseSecretary(Collection<Secretary> candidates);
+    SecretaryImpl chooseSecretary(Collection<SecretaryImpl> candidates);
 
 }

@@ -3,10 +3,10 @@ package task2;
 import task1.BirthDate;
 import task1.Person;
 
-public class JobSecretary extends Person implements Secretary {
+public class JobSecretaryImpl extends Person implements Secretary {
 
 
-    public JobSecretary(String name, BirthDate localbirthDate) {
+    public JobSecretaryImpl(String name, BirthDate localbirthDate) {
         super(name, localbirthDate);
     }
 

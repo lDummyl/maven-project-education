@@ -1,6 +1,6 @@
 package task1;
 
-import task2.Secretary;
+import task2.SecretaryImpl;
 
 import java.time.Period;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ public class PersonsProvider {
     public static final Integer adultAge = 18;
     public static void main(String[] args) {
         PersonsProvider personsProvider = new PersonsProvider();
-        personsProvider.generateCandidate(100, Secretary.class);
+        personsProvider.generateCandidate(100, SecretaryImpl.class);
     }
 
     public TreeSet<Person> generatePersons(int numberOfPerons) {
@@ -39,13 +39,13 @@ public class PersonsProvider {
         return persons;
     }
 
-    public Collection<Secretary> generateCandidate(int numberOfCandidates, Class<Secretary> clazz) {
+    public Collection<SecretaryImpl> generateCandidate(int numberOfCandidates, Class<SecretaryImpl> clazz) {
         TreeSet<Person> people = generateAdultPersons(100);
         Random random = new Random();
-            Collection<Secretary> secretaries = new ArrayList<>();
+            Collection<SecretaryImpl> secretaries = new ArrayList<>();
             for (Person p : people) {
 
-                Secretary secretary = new Secretary() {
+                SecretaryImpl secretaryImpl = new SecretaryImpl(new Person()) {
                     Name name = p.getName();
                     BirthDate birthDate = p.birthDate;
                     Period age = p.age;
@@ -60,7 +60,7 @@ public class PersonsProvider {
                         }
                     }
 
-                    public Integer getExperience() throws Exception {
+                    public Integer getExperience(){
                         Random random = new Random();
                         Integer possibleExperience;
                         possibleExperience = this.age.getYears() - CandidateProvider.adultAge.getYears();
@@ -72,16 +72,15 @@ public class PersonsProvider {
                             return 0;
                         }
                         else{
-                            throw new Exception("Wrong Date");
+                            throw new IllegalStateException("Wrong Date");
                         }
                     }
-
                     @Override
                     public void sayHelloTo(Object o) {
                         System.out.println("Hi, i'm secretary");
                     }
                 };
-                secretaries.add(secretary);
+                secretaries.add(secretaryImpl);
             }
         return secretaries;
     }

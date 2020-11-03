@@ -1,79 +1,39 @@
 package task1;
 
-import org.checkerframework.checker.formatter.FormatUtil;
-import task2.Secretary;
+import task2.SecretaryImpl;
+import task2.Worker;
 
-import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Random;
-import java.util.TreeSet;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 
 public class CandidateProvider {
     public static final Period adultAge = Period.ofYears(18);
 
-    public Collection<Secretary> generateCandidate(int numberOfCandidate, Class<task2.Secretary> clazz) {
+    public Collection<Worker> generateCandidate(int numberOfCandidate, Class<SecretaryImpl> clazz) {
+        throw new IllegalStateException();
+//        PersonsProvider personsProvider = new PersonsProvider();
+//
+//        TreeSet<Person> people = personsProvider.generateAdultPersons(numberOfCandidate);
+//        Collector<SecretaryImpl, ?, List<Worker>> collector = Collectors.toList();
+//
+//        Function<Person, SecretaryImpl> perToCand = SecretaryImpl::new;
+//
+//        return people.stream().map(perToCand).collect(collector);
+    }
+
+    public Collection<SecretaryImpl> generateSecretaries(int numberOfCandidate) {
         PersonsProvider personsProvider = new PersonsProvider();
+
         TreeSet<Person> people = personsProvider.generateAdultPersons(numberOfCandidate);
+        Collector<SecretaryImpl, ?, List<SecretaryImpl>> collector = Collectors.toList();
 
-        Collection<Secretary> secretaries = new ArrayList<>();
-        for (Person p : people) {
-            secretaries.add(new Secretary(p));
-            //System.out.println(p.age.getYears() );
-        }
-        return secretaries;
-    }
+        Function<Person, SecretaryImpl> perToCand = SecretaryImpl::new;
 
-    public class Worker extends Person {
-        Integer experience;
-        Period possibleExperience;
-
-        public Worker(Person person) {
-            Random random = new Random();
-            this.birthDate = person.birthDate;
-            this.name = person.name;
-            this.age = person.age;
-
-            try {
-                this.experience = this.getExperience();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            //System.out.println(experience);
-        }
-
-
-        public int compareTo(Worker o) {
-            return ((Integer) this.age.getYears()).compareTo(o.age.getYears()) * 2;
-        }
-
-        public Integer getExperience() throws Exception {
-            Random random = new Random();
-            Integer possibleExperience;
-            possibleExperience = this.age.getYears() - CandidateProvider.adultAge.getYears();
-            //System.out.println(possibleExperience);
-            if (possibleExperience >= 1) {
-                return random.nextInt(possibleExperience);
-            }
-            else if (possibleExperience == 0) {
-                return 0;
-            }
-            else{
-                throw new Exception("Wrong Date");
-            }
-        }
-    }
-
-    public class Secretary extends Worker implements task2.Secretary {
-        public Secretary(Person person) {
-            super(person);
-        }
-
-        @Override
-        public void sayHelloTo(Object o) {
-            System.out.println("Hi, i'm secretary");
-        }
+        return people.stream().map(perToCand).collect(collector);
     }
 
 }

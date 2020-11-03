@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public class SecondHr implements Hr {
     @Override
-    public Collection<Secretary> addSecretaryCandidate(Object candidate) {
+    public Collection<SecretaryImpl> addSecretaryCandidate(Object candidate) {
 
         return null;
     }

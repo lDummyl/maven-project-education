@@ -9,9 +9,9 @@ import java.util.Objects;
 // Что нужно улучшить для увеличения оценки?
 
 public class Person implements Comparable<Person> {
-    Name name;
-    BirthDate birthDate;
-    Period age;
+    public Name name;
+    public BirthDate birthDate;
+    public Period age;
 
 
     public Name getName() {

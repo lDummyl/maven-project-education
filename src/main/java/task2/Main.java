@@ -2,10 +2,7 @@ package task2;
 
 
 import task1.CandidateProvider;
-import task1.Person;
-import task1.PersonsProvider;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -24,7 +21,7 @@ public class Main {
         Office google = new Office(new SecondDirector(), new SecondHr());
         CandidateProvider candidateProvider = new CandidateProvider();
 
-        Collection<CandidateProvider.Secretary> secretaries = candidateProvider.generateCandidate(100, Secretary.class);
+        Collection<SecretaryImpl> secretaries = candidateProvider.generateSecretaries(100);
         // FIXME: 11/2/20 ну конечто кидает, тыж ему пачкой их суешь а не по одному, как в условии.
         secretaries.forEach(apple::invitePeople);
     }

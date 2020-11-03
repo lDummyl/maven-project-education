@@ -1,11 +1,10 @@
 package task2;
 
+import org.junit.Assert;
 import org.junit.Test;
 import task1.CandidateProvider;
-import task1.PersonsProvider;
 
 import java.util.Collection;
-import java.util.TreeSet;
 
 import static org.junit.Assert.*;
 
@@ -16,12 +15,11 @@ public class GeneralHrTest {
 
     @Test
     public void addSecretaryCandidate() {
-        Collection<CandidateProvider.Secretary> secretaries = candidateProvider.generateCandidate(100, Secretary.class);
-
-        secretaries.stream().forEach(generalHr::addSecretaryCandidate);
-        assertTrue(generalHr.secCandidates.size() == numberOfCandidates);
-        secretaries.stream().forEach(secretary -> assertTrue(secretary!=null));
-        generalHr.secCandidates.stream().forEach(secretary->secretary.sayHelloTo(null));
+        Collection<SecretaryImpl> secretaries = candidateProvider.generateSecretaries(100);
+        secretaries.forEach(generalHr::addSecretaryCandidate);
+        assertEquals(generalHr.secCandidates.size(), numberOfCandidates);
+        secretaries.forEach(Assert::assertNotNull);
+        generalHr.secCandidates.forEach(secretary -> secretary.sayHelloTo(null));
 
     }
 }

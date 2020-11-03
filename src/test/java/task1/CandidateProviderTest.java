@@ -1,7 +1,9 @@
 package task1;
 
 import org.junit.Test;
+import task2.Lawer;
 import task2.Secretary;
+import task2.SecretaryImpl;
 
 import java.util.Collection;
 
@@ -11,19 +13,39 @@ public class CandidateProviderTest {
 
 
     @Test
-    public void generateCandidate() {
+    public void generateSecretaries() {
         CandidateProvider candidateProvider = new CandidateProvider();
         int numberOfCandidate = 100;
-        Collection<CandidateProvider.Secretary> secretaries = candidateProvider.generateCandidate(numberOfCandidate, Secretary.class);
-        assertTrue(secretaries.size() == numberOfCandidate);
+        Collection<SecretaryImpl> secretaries = candidateProvider.generateSecretaries(numberOfCandidate);
+        assertEquals(numberOfCandidate , secretaries.size());
 
-        for (CandidateProvider.Secretary s : secretaries) {
+        for (SecretaryImpl s : secretaries) {
             assertFalse(s == null);
-            assertTrue(s.experience!=null);
+            assertTrue(s.experience != null);
             assertTrue(s.experience >= 0);
 
             //System.out.println(s.experience);
         }
+
+
+    }
+
+
+    @Test
+    public void generateCandidate() {
+        CandidateProvider candidateProvider = new CandidateProvider();
+        int numberOfCandidate = 100;
+//        Collection<Secretary> secretaries = candidateProvider.generateCandidate(numberOfCandidate, Lawer.class);
+//        assertEquals(numberOfCandidate , secretaries.size());
+//
+//        for (Secretary s : secretaries) {
+//            assertFalse(s == null);
+//            assertTrue(s.experience != null);
+//            assertTrue(s.experience >= 0);
+//
+//            //System.out.println(s.experience);
+//        }
+
 
     }
 }
