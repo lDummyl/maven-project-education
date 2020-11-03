@@ -44,13 +44,37 @@ public class PersonsProvider {
         Random random = new Random();
             Collection<Secretary> secretaries = new ArrayList<>();
             for (Person p : people) {
-                System.out.println(p.age);
+
                 Secretary secretary = new Secretary() {
                     Name name = p.getName();
                     BirthDate birthDate = p.birthDate;
                     Period age = p.age;
                     // FIXME: 11/2/20 тут вылетает эксепшон
-                    int experience = random.nextInt(this.age.getYears() - adultAge);
+                    int experience;
+
+                    {
+                        try {
+                            experience = this.getExperience();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    public Integer getExperience() throws Exception {
+                        Random random = new Random();
+                        Integer possibleExperience;
+                        possibleExperience = this.age.getYears() - CandidateProvider.adultAge.getYears();
+                        //System.out.println(possibleExperience);
+                        if (possibleExperience >= 1) {
+                            return random.nextInt(possibleExperience);
+                        }
+                        else if (possibleExperience == 0) {
+                            return 0;
+                        }
+                        else{
+                            throw new Exception("Wrong Date");
+                        }
+                    }
 
                     @Override
                     public void sayHelloTo(Object o) {
@@ -58,7 +82,6 @@ public class PersonsProvider {
                     }
                 };
                 secretaries.add(secretary);
-                System.out.println(secretary);
             }
         return secretaries;
     }

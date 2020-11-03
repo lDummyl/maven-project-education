@@ -1,5 +1,6 @@
 package task1;
 
+import org.checkerframework.checker.formatter.FormatUtil;
 import task2.Secretary;
 
 import java.time.LocalDate;
@@ -19,26 +20,48 @@ public class CandidateProvider {
         Collection<Secretary> secretaries = new ArrayList<>();
         for (Person p : people) {
             secretaries.add(new Secretary(p));
-            System.out.println(p.age.getYears() );
+            //System.out.println(p.age.getYears() );
         }
         return secretaries;
     }
 
     public class Worker extends Person {
-        Period experience;
+        Integer experience;
+        Period possibleExperience;
 
         public Worker(Person person) {
             Random random = new Random();
             this.birthDate = person.birthDate;
             this.name = person.name;
             this.age = person.age;
-            this.experience = this.age.minus(CandidateProvider.adultAge);
+
+            try {
+                this.experience = this.getExperience();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             //System.out.println(experience);
         }
 
 
         public int compareTo(Worker o) {
-            return ((Integer) this.age.getYears()).compareTo(o.age.getYears())*2 + ((Integer) this.experience.getYears()).compareTo(o.experience.getYears());
+            return ((Integer) this.age.getYears()).compareTo(o.age.getYears()) * 2;
+        }
+
+        public Integer getExperience() throws Exception {
+            Random random = new Random();
+            Integer possibleExperience;
+            possibleExperience = this.age.getYears() - CandidateProvider.adultAge.getYears();
+            //System.out.println(possibleExperience);
+            if (possibleExperience >= 1) {
+                return random.nextInt(possibleExperience);
+            }
+            else if (possibleExperience == 0) {
+                return 0;
+            }
+            else{
+                throw new Exception("Wrong Date");
+            }
         }
     }
 

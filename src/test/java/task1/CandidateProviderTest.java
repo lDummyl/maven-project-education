@@ -19,8 +19,10 @@ public class CandidateProviderTest {
 
         for (CandidateProvider.Secretary s : secretaries) {
             assertFalse(s == null);
+            assertTrue(s.experience!=null);
+            assertTrue(s.experience >= 0);
 
-            assertTrue(s.experience.getYears() >= 0);
+            //System.out.println(s.experience);
         }
 
     }

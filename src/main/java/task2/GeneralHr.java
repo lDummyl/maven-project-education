@@ -7,11 +7,11 @@ import java.util.Collection;
 
 public class GeneralHr implements Hr {
 
-
+    Collection<Secretary> secCandidates = new ArrayList<>();
 
     @Override
     public Collection<Secretary> addSecretaryCandidate(Object candidate) {
-        Collection<Secretary> secCandidates = new ArrayList<>();
+
 
         secCandidates.add((Secretary) candidate);
         System.out.println(secCandidates.size());

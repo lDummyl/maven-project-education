@@ -11,8 +11,6 @@ import static org.junit.Assert.*;
 
 public class PersonsProviderTest {
 
-    private Object Secretary;
-
     @Test
     public void generateAdultPersons() {
         int adultAge = 18;
@@ -25,7 +23,7 @@ public class PersonsProviderTest {
         for (Person p : people) {
             assertTrue(p != null);
             assertTrue(p.age.getYears() >= 18);
-            System.out.println(p.age.getYears());
+            //System.out.println(p.age.getYears());
             assertTrue(people.size() == numberOfPersons);
         }
     }
