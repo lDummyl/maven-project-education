@@ -22,7 +22,7 @@ public class Main {
         CandidateProvider candidateProvider = new CandidateProvider();
 
         Collection<SecretaryImpl> secretaries = candidateProvider.generateSecretaries(100);
-        // FIXME: 11/2/20 ну конечто кидает, тыж ему пачкой их суешь а не по одному, как в условии.
+
         secretaries.forEach(apple::invitePeople);
     }
 }

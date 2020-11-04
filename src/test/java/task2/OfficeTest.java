@@ -5,6 +5,7 @@ import task1.CandidateProvider;
 
 import java.util.Collection;
 
+import static org.junit.Assert.*;
 
 public class OfficeTest {
     Office apple = new Office(new GeneralDirector(), new GeneralHr());
@@ -12,12 +13,16 @@ public class OfficeTest {
     CandidateProvider candidateProvider = new CandidateProvider();
 
 
+    @Test
+    public void setSecretary() {
+    }
 
     @Test
-    public void invitePeaople() {
-        int numberOfCandidate = 100;
-        Collection<SecretaryImpl> secretaries = candidateProvider.generateSecretaries(numberOfCandidate);
+    public void invitePeople() {
+        Collection<SecretaryImpl> secretaries = candidateProvider.generateSecretaries(100);
         secretaries.forEach(apple::invitePeople);
+
+        assertNotNull(apple.secretary);
 
     }
 }

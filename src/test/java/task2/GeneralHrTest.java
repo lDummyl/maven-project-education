@@ -20,6 +20,5 @@ public class GeneralHrTest {
         assertEquals(generalHr.secCandidates.size(), numberOfCandidates);
         secretaries.forEach(Assert::assertNotNull);
         generalHr.secCandidates.forEach(secretary -> secretary.sayHelloTo(null));
-
     }
 }

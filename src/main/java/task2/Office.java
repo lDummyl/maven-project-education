@@ -3,7 +3,7 @@ package task2;
 import java.util.Collection;
 
 public class Office {
-    SecretaryImpl secretaryImpl;
+    Secretary secretary;
 
     Director director;
 
@@ -15,19 +15,15 @@ public class Office {
     }
 
     public void setSecretary(SecretaryImpl secretaryImpl) {
-        this.secretaryImpl = secretaryImpl;
+        this.secretary = secretaryImpl;
     }
     //претенденты идут по одному, когда их достаточно,
     // то директор принимает решение и берет одного в штат
 
-    /**
 
-     Ass!!!
-
-     */
     void invitePeople(Object human) {
         Collection<SecretaryImpl> secretaries = hr.addSecretaryCandidate(human);
-        secretaryImpl = director.chooseSecretary(secretaries);
+        setSecretary(director.chooseSecretary(secretaries));
     }
 
 }
