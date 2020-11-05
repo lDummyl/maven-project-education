@@ -1,8 +1,6 @@
 package task1;
 
 import org.junit.Test;
-import task2.Lawer;
-import task2.Secretary;
 import task2.SecretaryImpl;
 
 import java.util.Collection;
@@ -35,7 +33,7 @@ public class CandidateProviderTest {
     public void generateCandidate() {
         CandidateProvider candidateProvider = new CandidateProvider();
         int numberOfCandidate = 100;
-//        Collection<Secretary> secretaries = candidateProvider.generateCandidate(numberOfCandidate, Lawer.class);
+//        Collection<Secretary> secretaries = candidateProvider.generateCandidate(numberOfCandidate, Lawyer.class);
 //        assertEquals(numberOfCandidate , secretaries.size());
 //
 //        for (Secretary s : secretaries) {

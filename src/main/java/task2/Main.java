@@ -13,12 +13,12 @@ import java.util.Collection;
 
 public class Main {
     Office apple = new Office(new GeneralDirector(), new GeneralHr());
-    Office google = new Office(new SecondDirector(), new SecondHr());
+    Office google = new Office(new LocalDirector(), new SecondHr());
 
 
     public static void main(String[] args) {
         Office apple = new Office(new GeneralDirector(), new GeneralHr());
-        Office google = new Office(new SecondDirector(), new SecondHr());
+        Office google = new Office(new LocalDirector(), new SecondHr());
         CandidateProvider candidateProvider = new CandidateProvider();
 
         Collection<SecretaryImpl> secretaries = candidateProvider.generateSecretaries(100);

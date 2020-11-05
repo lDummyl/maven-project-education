@@ -1,7 +1,10 @@
 package task1;
 
 import task2.SecretaryImpl;
+import task2.Security;
 import task2.Worker;
+import task2.Lawyer;
+import task2.Manager;
 
 import java.time.Period;
 import java.util.*;
@@ -13,17 +16,6 @@ import java.util.stream.Collectors;
 public class CandidateProvider {
     public static final Period adultAge = Period.ofYears(18);
 
-    public Collection<Worker> generateCandidate(int numberOfCandidate, Class<SecretaryImpl> clazz) {
-        throw new IllegalStateException();
-//        PersonsProvider personsProvider = new PersonsProvider();
-//
-//        TreeSet<Person> people = personsProvider.generateAdultPersons(numberOfCandidate);
-//        Collector<SecretaryImpl, ?, List<Worker>> collector = Collectors.toList();
-//
-//        Function<Person, SecretaryImpl> perToCand = SecretaryImpl::new;
-//
-//        return people.stream().map(perToCand).collect(collector);
-    }
 
     public Collection<SecretaryImpl> generateSecretaries(int numberOfCandidate) {
         PersonsProvider personsProvider = new PersonsProvider();
@@ -36,4 +28,36 @@ public class CandidateProvider {
         return people.stream().map(perToCand).collect(collector);
     }
 
+    public Collection<Security> generateSecurity(int numberOfCandidate) {
+        PersonsProvider personsProvider = new PersonsProvider();
+
+        TreeSet<Person> people = personsProvider.generateAdultPersons(numberOfCandidate);
+        Collector<Security, ?, List<Security>> collector = Collectors.toList();
+
+        Function<Person, Security> perToCand = Security::new;
+
+        return people.stream().map(perToCand).collect(collector);
+    }
+
+    public Collection<Lawyer> generateLawer(int numberOfCandidate) {
+        PersonsProvider personsProvider = new PersonsProvider();
+
+        TreeSet<Person> people = personsProvider.generateAdultPersons(numberOfCandidate);
+        Collector<Lawyer, ?, List<Lawyer>> collector = Collectors.toList();
+
+        Function<Person, Lawyer> perToCand = Lawyer::new;
+
+        return people.stream().map(perToCand).collect(collector);
+    }
+
+    public Collection<Manager> generateManager(int numberOfCandidate) {
+        PersonsProvider personsProvider = new PersonsProvider();
+
+        TreeSet<Person> people = personsProvider.generateAdultPersons(numberOfCandidate);
+        Collector<Manager, ?, List<Manager>> collector = Collectors.toList();
+
+        Function<Person, Manager> perToCand = Manager::new;
+
+        return people.stream().map(perToCand).collect(collector);
+    }
 }

@@ -1,10 +1,10 @@
 package task2;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.TreeSet;
 
 public class GeneralDirector implements Director{
+    Secretary assistant;
 
     @Override
     public SecretaryImpl chooseSecretary(Collection<SecretaryImpl> candidates) {
@@ -15,4 +15,12 @@ public class GeneralDirector implements Director{
         }
         return null;
     }
+
+    public void setAssistant(Secretary secretary){
+        this.assistant = secretary;
+    }
+
+
+
+
 }

@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class OfficeTest {
     Office apple = new Office(new GeneralDirector(), new GeneralHr());
-    Office google = new Office(new SecondDirector(), new SecondHr());
+    Office google = new Office(new LocalDirector(), new SecondHr());
     CandidateProvider candidateProvider = new CandidateProvider();
 
 
@@ -21,7 +21,6 @@ public class OfficeTest {
     public void invitePeople() {
         Collection<SecretaryImpl> secretaries = candidateProvider.generateSecretaries(100);
         secretaries.forEach(apple::invitePeople);
-
         assertNotNull(apple.secretary);
 
     }
