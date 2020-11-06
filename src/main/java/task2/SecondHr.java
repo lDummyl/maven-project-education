@@ -11,7 +11,7 @@ public class SecondHr implements Hr {
     public Collection<SecretaryImpl> addSecretaryCandidate(Object candidate) {
         SecretaryImpl secretary = (SecretaryImpl) candidate;
         int expectedAge = 30;
-        if (secretary.age.getYears() < expectedAge){
+        if (secretary.age.getYears() < expectedAge) {
             secCandidates.add(secretary);
         }
         return secCandidates;

@@ -1,10 +1,6 @@
 package task1;
 
-import task2.SecretaryImpl;
-import task2.Security;
-import task2.Worker;
-import task2.Lawyer;
-import task2.Manager;
+import task2.*;
 
 import java.time.Period;
 import java.util.*;
