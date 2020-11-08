@@ -7,8 +7,11 @@ import java.util.List;
 public class ExelProcessor {
 
     public static void main(String[] args) throws IOException {
-//        FileReader fileReader = new FileReader();
-//        List<FinOperation> finOperations = fileReader.getFinOperations();
+        FileReader fileReader = new FileReader();
+        List<FinOperation> finOperations = fileReader.getFinOperations();
+        for (FinOperation finOperation : finOperations) {
+            System.out.println(finOperation);
+        }
 
         Unload unload = new Unload();
         unload.test();

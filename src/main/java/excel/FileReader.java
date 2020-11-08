@@ -15,8 +15,6 @@ public class FileReader {
     Workbook myExcelBook = new XSSFWorkbook(new FileInputStream("C:\\java\\Statements.xlsx"));
 
     Sheet myExcelSheet;
-    ArrayList dates = new ArrayList<>();
-    ArrayList entrances = new ArrayList<>();
 
     public FileReader() throws IOException {
     }
@@ -28,13 +26,20 @@ public class FileReader {
             for (int j = 20; j < myExcelSheet.getPhysicalNumberOfRows(); j++) {
                 Row row = myExcelSheet.getRow(j);
                 Cell rawDate = row.getCell(3);
-                Cell avoir = row.getCell(18);
+                Cell payer = row.getCell(10);
+                Cell income = row.getCell(18);
+                Cell outcome = row.getCell(15);
                 Cell description = row.getCell(21);
-                finOperations.add(new FinOperation(rawDate, avoir, description));
+                finOperations.add(new FinOperation(rawDate, payer, income, outcome, description));
             }
         }
         myExcelBook.close();
         return finOperations;
+    }
+
+    public static void main(String[] args) throws IOException {
+        FileReader fileReader = new FileReader();
+        fileReader.getFinOperations();
     }
 
 }

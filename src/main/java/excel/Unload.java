@@ -12,6 +12,7 @@ import java.util.*;
 public class Unload {
     Download download = new Download();
     Workbook myExcelBook = new XSSFWorkbook(new FileInputStream("C:\\java\\fin.xlsx"));
+    FileOutputStream fileOutputStream = new FileOutputStream("C:\\java\\fin.xlsx");
 
     Sheet outputSheet;
 
@@ -34,9 +35,12 @@ public class Unload {
 
     public void test () throws IOException {
 
-        Sheet clonedSheet = myExcelBook.cloneSheet(myExcelBook.getSheetIndex("month"));
 
-        myExcelBook.close();
+//        Sheet clonedSheet = myExcelBook.cloneSheet(myExcelBook.getSheetIndex("month"));
+//        myExcelBook.setSheetName(myExcelBook.getSheetIndex(clonedSheet), "10");
+//
+//        myExcelBook.write(fileOutputStream);
+//        myExcelBook.close();
 //
 //        for (Map.Entry<List, ArrayList<List>> entry : acquiring.entrySet()) {
 //            List list = entry.getKey();
