@@ -10,7 +10,7 @@ import java.util.*;
 
 
 public class Unload {
-    Download download = new Download();
+
     Workbook myExcelBook = new XSSFWorkbook(new FileInputStream("C:\\java\\fin.xlsx"));
     FileOutputStream fileOutputStream = new FileOutputStream("C:\\java\\fin.xlsx");
 
