@@ -26,11 +26,13 @@ public class FileReader {
             for (int j = 20; j < myExcelSheet.getPhysicalNumberOfRows(); j++) {
                 Row row = myExcelSheet.getRow(j);
                 Cell rawDate = row.getCell(3);
-                Cell payer = row.getCell(10);
-                Cell income = row.getCell(18);
-                Cell outcome = row.getCell(15);
-                Cell description = row.getCell(21);
-                finOperations.add(new FinOperation(rawDate, payer, income, outcome, description));
+                if (!rawDate.getStringCellValue().equals("")) {
+                    Cell payer = row.getCell(10);
+                    Cell income = row.getCell(18);
+                    Cell outcome = row.getCell(15);
+                    Cell description = row.getCell(21);
+                    finOperations.add(new FinOperation(rawDate, payer, income, outcome, description));
+                }
             }
         }
         myExcelBook.close();
