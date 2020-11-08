@@ -39,9 +39,4 @@ public class FileReader {
         return finOperations;
     }
 
-    public static void main(String[] args) throws IOException {
-        FileReader fileReader = new FileReader();
-        fileReader.getFinOperations();
-    }
-
 }
