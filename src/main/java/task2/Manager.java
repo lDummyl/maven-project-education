@@ -6,4 +6,6 @@ public class Manager extends Worker {
     public Manager(Person person) {
         super(person);
     }
+
+
 }

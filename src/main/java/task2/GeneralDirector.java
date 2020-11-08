@@ -3,7 +3,7 @@ package task2;
 import java.util.Collection;
 import java.util.TreeSet;
 
-public class GeneralDirector implements Director{
+public class GeneralDirector extends LocalDirector implements Director{
     Secretary assistant;
 
     @Override

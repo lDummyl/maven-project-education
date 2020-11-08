@@ -19,18 +19,19 @@ public class LocalDirector implements Director{
             throw new IllegalStateException("Not enough candidates");
         }
     }
-    public Security chooseSecurity(Collection<Security> candidates) {
+    public Guard chooseChiefGuard(Collection<ChiefGuard> candidates) {
         int expectedCandidates = 100;
-        Random random = new Random();
+        //Random random = new Random();
 
-        TreeSet<Security> securities = new TreeSet<>(candidates);
+        TreeSet<ChiefGuard> securities = new TreeSet<>(candidates);
         if (candidates.size() >= expectedCandidates){
-            return (Security) securities.first();
+            return (ChiefGuard) securities.first();
         }
         else {
             throw new IllegalStateException("Not enough candidates");
         }
     }
+
 
 
 

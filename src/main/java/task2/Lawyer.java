@@ -7,4 +7,5 @@ public class Lawyer extends Worker {
     public Lawyer(Person person) {
         super(person);
     }
+
 }

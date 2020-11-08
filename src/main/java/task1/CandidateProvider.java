@@ -24,13 +24,13 @@ public class CandidateProvider {
         return people.stream().map(perToCand).collect(collector);
     }
 
-    public Collection<Security> generateSecurity(int numberOfCandidate) {
+    public Collection<Guard> generateSecurity(int numberOfCandidate) {
         PersonsProvider personsProvider = new PersonsProvider();
 
         TreeSet<Person> people = personsProvider.generateAdultPersons(numberOfCandidate);
-        Collector<Security, ?, List<Security>> collector = Collectors.toList();
+        Collector<Guard, ?, List<Guard>> collector = Collectors.toList();
 
-        Function<Person, Security> perToCand = Security::new;
+        Function<Person, Guard> perToCand = Guard::new;
 
         return people.stream().map(perToCand).collect(collector);
     }
