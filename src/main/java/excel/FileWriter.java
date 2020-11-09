@@ -6,12 +6,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FileWriter {
-    Workbook myExcelBook = new XSSFWorkbook(new FileInputStream("C:\\java\\z.xlsx"));
-    Sheet sheet = myExcelBook.createSheet();
+    Workbook myExcelBook = new XSSFWorkbook(new FileInputStream("C:\\java\\fin.xlsx"));
+//    Sheet sheet = myExcelBook.createSheet();
+
     CreationHelper creationHelper = myExcelBook.getCreationHelper();
 
     public FileWriter() throws IOException {
@@ -26,15 +26,11 @@ public class FileWriter {
     }
 
     public void writeToFile(List<FinOperation> list, FileOutputStream file) throws IOException {
+        Sheet clonedSheet = myExcelBook.cloneSheet(myExcelBook.getSheetIndex("month"));
+        myExcelBook.setSheetName(myExcelBook.getSheetIndex(clonedSheet), "10");
         int i = 2;
         for (FinOperation finOperation : list) {
-            Row row = sheet.createRow(i);
-            for (int x = 0; x< 15; x++)
-            {
-                List list1 = new ArrayList();
-                list1.add(row.createCell(x));
-
-            }
+            Row row = clonedSheet.createRow(i);
             Cell cell = row.createCell(0);
             Cell cell1 = row.createCell(1);
             Cell cell2 = row.createCell(2);
@@ -50,36 +46,50 @@ public class FileWriter {
             Cell cell12 = row.createCell(12);
             Cell cell13 = row.createCell(13);
             Cell cell14 = row.createCell(14);
+
             cell.setCellStyle(getDateStyle());
             cell.setCellValue(finOperation.date);
-
             Double incomeMoney = finOperation.moneyReceipt;
-            if (incomeMoney != 0) {
-                cell1.setCellValue(finOperation.moneyReceipt);
-            }
-            if (incomeMoney != 0.00 && !finOperation.payer.contains("СБЕРБАНК"))
-            {
+            Double outcomeMoney = finOperation.consumption;
+            if (incomeMoney != 0.00 && !finOperation.payer.contains("СБЕРБАНК")) {
+                cell1.setCellValue(incomeMoney);
                 cell2.setCellValue(finOperation.payer);
             }
             if (finOperation.payer.contains("СБЕРБАНК")) {
+                cell3.setCellValue(incomeMoney);
                 Double commission = getAcquiringCommission(finOperation);
-                cell3.setCellValue(commission);
-                Double insCost = incomeMoney + commission;
-                cell4.setCellValue(insCost);
+                cell4.setCellValue(commission);
+                Double proceeds = incomeMoney + commission;
+                cell5.setCellValue(proceeds);
                 Double tax;
-                if (insCost % 10 == 0)
-                {
-                    tax = insCost * 0.2;
+                if (proceeds % 10 == 0) {
+                    tax = proceeds * 0.2;
+                } else {
+                    tax = proceeds * 0.1;
                 }
-                else
-                {
-                    tax = insCost * 0.1;
-                }
-                cell5.setCellValue(tax);
-
+                cell6.setCellValue(tax);
+                Double sumToPayToInsuranceCompany = proceeds - tax;
+                cell7.setCellValue(sumToPayToInsuranceCompany);
             }
-
-
+            if (finOperation.payer.contains("Финогенов")) {
+                if (incomeMoney != 0) {
+                    cell8.setCellValue(incomeMoney);
+                } else if (outcomeMoney != 0) {
+                    cell9.setCellValue(outcomeMoney);
+                }
+            }
+            if (outcomeMoney != 0) {
+                if (finOperation.payer.contains("Согласие") || finOperation.description.contains("страхов") || finOperation.payer.contains("РОСЭНЕРГО")) {
+                    cell10.setCellValue(outcomeMoney);
+                    cell11.setCellValue(finOperation.payer);
+                } else if (finOperation.payer.contains("ИФНС")) {
+                    cell12.setCellValue(outcomeMoney);
+                    cell14.setCellValue("оплата налогов");
+                } else if (!finOperation.payer.contains("Финогенов")) {
+                    cell13.setCellValue(outcomeMoney);
+                    cell14.setCellValue(finOperation.payer);
+                }
+            }
 
             i++;
         }
@@ -89,13 +99,14 @@ public class FileWriter {
     }
 
     public Double getAcquiringCommission(FinOperation finOperation) {
-            String s = finOperation.description;
-            int x = s.lastIndexOf("Комиссия ");
-            int begin = x + 9;
-            int last = s.indexOf(". Возврат покупки");
-            String comm = s.substring(begin, last);
-            return Double.parseDouble(comm);
-        }
+        String s = finOperation.description;
+        int x = s.lastIndexOf("Комиссия ");
+        int begin = x + 9;
+        int last = s.indexOf(". Возврат покупки");
+        String comm = s.substring(begin, last);
+        comm = comm.replace(",", "");
+        return Double.parseDouble(comm);
     }
+}
 
 

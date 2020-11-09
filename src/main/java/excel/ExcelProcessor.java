@@ -28,7 +28,7 @@ public class ExcelProcessor {
             e.printStackTrace();
         }
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream("C:\\java\\z.xlsx");
+            FileOutputStream fileOutputStream = new FileOutputStream("C:\\java\\book.xlsx");
             fileWriter.writeToFile(finOperations, fileOutputStream );
         }
         catch (RuntimeException e)
