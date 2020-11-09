@@ -37,9 +37,9 @@ public class Office {
 
     void invitePeople(Object human) {
         Collection<SecretaryImpl> secretaries = hr.addSecretaryCandidate(human);
-
         setSecretary(director.chooseSecretary(secretaries));
     }
+
     void inviteGuardian(Object human){
         Collection<Guard> guards = hr.addGuardCandidate(human);
         setGuards(this.chiefGuard.chooseGuard(guards));

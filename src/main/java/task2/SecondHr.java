@@ -6,6 +6,7 @@ import java.util.Collection;
 public class SecondHr implements Hr {
     Collection<Guard> guardCandidates = new ArrayList<>();
     Collection<SecretaryImpl> secCandidates = new ArrayList<>();
+    Collection<Manager> managersCandidates = new ArrayList<>();
 
     @Override
     public Collection<SecretaryImpl> addSecretaryCandidate(Object candidate) {
@@ -20,14 +21,19 @@ public class SecondHr implements Hr {
     public Collection<Guard> addGuardCandidate(Object candidate) {
         int expectedAge = 30;
 
-        ChiefGuard guard = (ChiefGuard) candidate;
+        Guard guard = (Guard) candidate;
         if (guard.age.getYears() < expectedAge) {
             guardCandidates.add(guard);
         }
         return guardCandidates;
     }
 
-    public void dismiss(Object how){
-        how = null;
+    public Collection<Manager> addManagerCandidate(Object candidate) {
+
+        Manager guard = (Manager) candidate;
+        managersCandidates.add(guard);
+
+        return managersCandidates;
     }
+
 }

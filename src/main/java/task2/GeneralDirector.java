@@ -13,7 +13,9 @@ public class GeneralDirector extends LocalDirector implements Director{
             TreeSet<SecretaryImpl> secretaries = new TreeSet<>(candidates);
             return secretaries.first();
         }
-        return null;
+        else {
+            return null;
+        }
     }
 
     public void setAssistant(Secretary secretary){
