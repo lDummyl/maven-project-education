@@ -1,27 +1,28 @@
 package task3;
 
+import java.util.ArrayList;
+
 public class SpecialQuest {
     public static final String[] specialQuests = {"Кто", "Что", "где", "Когда", "Почему", "Зачем", "Куда", "Сколько", "Чей", "Как"};
-    String specialQuest;
+    ArrayList<String> specialQuest;
 
     public SpecialQuest(String specialQuest) {
         this.specialQuest = specialQuestCheck(specialQuest);
     }
 
-    public SpecialQuest() {
-    }
-
-    public String getSpecialQuest() {
+    public ArrayList<String> getSpecialQuest() {
         return specialQuest;
     }
 
-    public String specialQuestCheck(String quest) {
+    public ArrayList<String> specialQuestCheck(String quest) {
+        ArrayList<String> questions = new ArrayList<>();
+
         for (String s : specialQuests) {
             if (quest.contains(s)) {
-                return s;
+                questions.add(s);
             }
         }
-        return null;
+        return questions;
     }
 
 }
