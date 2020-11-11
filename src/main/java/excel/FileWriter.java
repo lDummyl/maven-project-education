@@ -10,15 +10,15 @@ import java.util.List;
 
 public class FileWriter {
     Workbook myExcelBook = new XSSFWorkbook(new FileInputStream("C:\\java\\fin.xlsx"));
-//    Sheet sheet = myExcelBook.createSheet();
+    Workbook insurancePayments = new XSSFWorkbook(new FileInputStream("C:\\java\\2.xlsx"));
 
     CreationHelper creationHelper = myExcelBook.getCreationHelper();
 
     public FileWriter() throws IOException {
     }
 
-    public CellStyle getDateStyle() {
-        CellStyle dateStyle = myExcelBook.createCellStyle();
+    public CellStyle getDateStyle(Workbook workbook) {
+        CellStyle dateStyle = workbook.createCellStyle();
         dateStyle.setDataFormat(
                 creationHelper.createDataFormat().getFormat("dd.MM.yyyy")
         );
@@ -47,7 +47,7 @@ public class FileWriter {
             Cell cell13 = row.createCell(13);
             Cell cell14 = row.createCell(14);
 
-            cell.setCellStyle(getDateStyle());
+            cell.setCellStyle(getDateStyle(myExcelBook));
             cell.setCellValue(finOperation.date);
             Double incomeMoney = finOperation.moneyReceipt;
             Double outcomeMoney = finOperation.consumption;
@@ -96,6 +96,35 @@ public class FileWriter {
 
         myExcelBook.write(file);
         myExcelBook.close();
+    }
+    public void writePaymentsFromIC (List <FinOperation> list, FileOutputStream file) throws IOException {
+        for (FinOperation finOperation : list) {
+            if (finOperation.payer.contains("РОСЭНЕРГО") && finOperation.moneyReceipt != 0)
+            {
+                Sheet rosenergo = insurancePayments.getSheet("Rosenergo");
+                putValue(finOperation, rosenergo);
+
+            }
+            else if (finOperation.payer.contains("ВСК") && finOperation.moneyReceipt != 0)
+            {
+                Sheet vsk = insurancePayments.getSheet("VSK");
+                putValue(finOperation, vsk);
+            }
+        }
+        insurancePayments.write(file);
+        insurancePayments.close();
+
+    }
+
+    public void putValue(FinOperation finOperation, Sheet sheet) {
+
+        int lastRowNum = sheet.getLastRowNum();
+        Row row = sheet.createRow(lastRowNum+1);
+        Cell date = row.createCell(0);
+        Cell sum = row.createCell(1);
+        date.setCellStyle(getDateStyle(insurancePayments));
+        date.setCellValue(finOperation.date);
+        sum.setCellValue(finOperation.moneyReceipt);
     }
 
     public Double getAcquiringCommission(FinOperation finOperation) {
