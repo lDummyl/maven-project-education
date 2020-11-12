@@ -1,3 +1,4 @@
+/*
 package bonus.refactor.funhell;
 
 import bonus.refactor.funhell.readonly.DetailsF;
@@ -8,6 +9,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 
+*/
 /**
  * Цель задания, без использования рефлешн и модификации классов в пакете readonly
  * данный класс избавить от cyclomatic complexity (SonarLint плагин для IDE)
@@ -16,7 +18,8 @@ import org.xml.sax.helpers.DefaultHandler;
  * Логгеры закоменчены но это условность, они должны сохранится в логике.
  * Задача на рефактор, так что изменния повдеения должны быть минимальны.
  *
- * */
+ * *//*
+
 
 
 
@@ -137,8 +140,10 @@ public abstract class XmlInputHandler extends DefaultHandler {
                 getDettaglio().setIdentificativoDisposizione(currentContent.toString().trim());
                 break;
             case TAG_IN_CAUSALE_BOLLETTINO_ID:
-	        	/* PRO #4853
-	        	String value = currentContent.toString().trim(); */
+	        	*/
+/* PRO #4853
+	        	String value = currentContent.toString().trim(); *//*
+
                 String value = currentContent.toString();
 //                log.debug("Causale before replace [" + value + "]");
                 getDettaglio().setCausaleBollettino(value.replaceAll("(\n|\r\n)+", " "));
@@ -286,4 +291,4 @@ public abstract class XmlInputHandler extends DefaultHandler {
     public abstract DetailsF getDettaglio();
 
 
-}
+}*/

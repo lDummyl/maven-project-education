@@ -15,6 +15,15 @@ public class Oracle extends Thread {
         this.answer = answer;
     }
 
+    @Override
+    public synchronized void start() {
+        super.start();
+    }
+
+    @Override
+    public void run() {
+        super.run();
+    }
 
 
     public void roulettAction(String question) {
@@ -33,7 +42,13 @@ public class Oracle extends Thread {
                 if (deal <= 10) {
                     Slepping slepping = new Slepping();
                     slepping.run();
-                    // TODO: 11/12/2020   slepping.join; Получается могу создать нить но не могу использовать метод join
+                    try {
+                        slepping.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    // TODO: 11/13/2020 (Для себя) Попробовать через local Date
+
                 } else if (deal <= 20) {
 
                 } else if (deal <= 30) {
@@ -54,10 +69,6 @@ public class Oracle extends Thread {
         }
 
         public void sleeping (String question){
-
-        }
-
-        public void start() {
 
         }
 
