@@ -22,19 +22,18 @@ public class Oracle implements Runnable {
                     String que = reader.readLine();
                 } catch (IOException e) {
                     System.out.println("Некорректен вопрос");
-                    ;
                 }
 
                 Random random = new Random();
-                Integer deal = random.nextInt(100);
+                int deal = random.nextInt(100);
 
                 if (deal <= 10) {
 
-                } else if (deal > 10 && deal <= 20) {
+                } else if (deal <= 20) {
 
-                } else if (deal > 20 && deal <= 30) {
+                } else if (deal <= 30) {
 
-                } else if (deal > 30 && deal <= 100) {
+                } else {
 
                 }
 
