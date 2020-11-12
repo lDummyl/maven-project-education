@@ -5,14 +5,17 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
-public class Oracle implements Runnable {
+public class Oracle extends Thread {
     Question question;
     Answer answer;
+
 
     public Oracle(String quest) {
         this.question = new Question(quest);
         this.answer = answer;
     }
+
+
 
     public void roulettAction(String question) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -28,7 +31,9 @@ public class Oracle implements Runnable {
                 int deal = random.nextInt(100);
 
                 if (deal <= 10) {
-
+                    Slepping slepping = new Slepping();
+                    slepping.run();
+                    // TODO: 11/12/2020   slepping.join; Получается могу создать нить но не могу использовать метод join
                 } else if (deal <= 20) {
 
                 } else if (deal <= 30) {
@@ -56,9 +61,4 @@ public class Oracle implements Runnable {
 
         }
 
-
-        @Override
-        public void run () {
-
-        }
     }
