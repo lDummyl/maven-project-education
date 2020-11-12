@@ -10,6 +10,7 @@ public class SpecialQuest {
         this.specialQuest = specialQuestCheck(specialQuest);
     }
 
+
     public ArrayList<String> getSpecialQuest() {
         return specialQuest;
     }
