@@ -56,4 +56,22 @@ public class CandidateProvider {
 
         return people.stream().map(perToCand).collect(collector);
     }
+
+    PersonsProvider personsProvider = new PersonsProvider();
+    // TODO: 13.11.2020 вот как 4 строки заменяют 44 и до бесконечности
+    public <T extends Worker>/*тут задаем ограничение что работать только с тем Т который от Worker*/ Collection<T> generateAny(int qty, Function<Person, T> /*отсюда узнаем что будет в качестве T*/function) {
+        TreeSet<Person> people = personsProvider.generateAdultPersons(qty);
+        return people.stream().map(function).collect(Collectors.toList());
+    }
+
+
+    public static void main(String[] args) {
+
+        CandidateProvider candidateProvider = new CandidateProvider();
+        // TODO: 13.11.2020 вуоля
+        Collection<SecretaryImpl> secretaries = candidateProvider.generateAny(100, SecretaryImpl::new);
+        Collection<Lawyer> lawyers = candidateProvider.generateAny(100, Lawyer::new);
+    }
+
+
 }

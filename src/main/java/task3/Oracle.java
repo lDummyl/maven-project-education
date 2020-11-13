@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
+// TODO: 13.11.2020 без многопоточности
 public class Oracle extends Thread {
     Question question;
     Answer answer;
@@ -26,6 +27,7 @@ public class Oracle extends Thread {
     }
 
 
+    // TODO: 13.11.2020 начни с тестов
     public void roulettAction(String question) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 

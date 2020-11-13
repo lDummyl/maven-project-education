@@ -6,7 +6,7 @@ import task1.Person;
 import java.time.Period;
 import java.util.Random;
 
-public class Worker extends Person {
+public abstract class Worker extends Person {
     public Integer experience;
     public Period possibleExperience;
 
