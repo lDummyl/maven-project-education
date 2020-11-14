@@ -1,3 +1,4 @@
+/*
 package bonus.refactor.funhell;
 
 import bonus.refactor.funhell.readonly.NoteCustom;
@@ -62,3 +63,4 @@ public class XmlMultiInputHandler extends XmlInputHandler {
         return (noteCustomMulti.getDettaglio(currentDisposizione));
     }
 }
+*/
