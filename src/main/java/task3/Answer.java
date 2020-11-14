@@ -26,7 +26,7 @@ public class Answer {
     }
 
     public String lengthQCheck() {
-        int maxLength = 20;
+        int maxLength = 60;
         int minimumLength = 10;
 
         if (this.question.questionLength > maxLength) {
@@ -39,7 +39,7 @@ public class Answer {
     }
 
     public String giveAnswer() {
-        String s = this.question.questionText;
+        String s = lengthQCheck();
         if (s != null) {
             return s;
         } else {
