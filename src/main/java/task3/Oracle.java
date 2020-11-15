@@ -7,7 +7,7 @@ import java.util.Random;
 
 
 public class Oracle {
-    public static final int sleepChance = 2;
+    public static final int sleepChance = 10;
     public static final int rudenessChance = 20;
     public static final int hitChance = 30;
     public static final int answerChance = 60;
