@@ -28,7 +28,8 @@ public class Slepping {
                     if (Duration.between(LocalTime.now(), sleepTime).isNegative()) {
                         System.out.println("Ну говори, говори");
                     } else {
-                        System.out.println(Duration.between(LocalTime.now(), sleepTime));
+                        System.out.println("(＿ ＿*) Z z z ещё" );
+                        System.out.println(Duration.between(LocalTime.now(), sleepTime).getSeconds() + " Секунд");
                     }
                 }
             } catch (IOException e) {
