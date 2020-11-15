@@ -21,7 +21,7 @@ public class Answer {
         } else if (question.keyWort.size() > 1) {
             return moreKey;
         } else {
-            return RegularAnswer.getAnswers().get(question.keyWort.get(0));
+            return RegularAnswer.getSAnswers(question.keyWort.get(0));
         }
     }
 

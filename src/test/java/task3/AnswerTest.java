@@ -10,16 +10,16 @@ public class AnswerTest extends TestCase {
         Answer antwort = new Answer(aaa);
         assertEquals(Answer.noKey , antwort.getSpecialAnswer());
 
-        String anyTwo = "Когда sdadas sadasdasd asdasd asdasd asd ad sa sasd asd adsd asd Что";
+        String anyTwo = "Как sdadas sadasdasd asdasd asdasd asd ad sa sasd asd adsd asd Что";
         Question second = new Question(anyTwo);
         Answer antwortTwo = new Answer(second);
         //System.out.println(antwortTwo.question.keyWort);
         assertEquals(Answer.moreKey , antwortTwo.getSpecialAnswer());
 
-        String anyTree = "Когда sdadas sadasdasd asdasd asdasd asd ad sa sasd asd adsd asd";
+        String anyTree = "Как sdadas sadasdasd asdasd asdasd asd ad sa sasd asd adsd asd";
         Question third = new Question(anyTree);
         Answer antwortTree = new Answer(third);
-        assertEquals(RegularAnswer.answers.get("Когда") , antwortTree.getSpecialAnswer());
+        assertEquals(RegularAnswer.answers.get("Как") , antwortTree.getSpecialAnswer());
 
 
 

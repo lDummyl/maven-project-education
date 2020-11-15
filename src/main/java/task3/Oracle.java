@@ -7,28 +7,35 @@ import java.util.Random;
 
 
 public class Oracle {
+    public static final int sleepChance = 2;
+    public static final int rudenessChance = 20;
+    public static final int hitChance = 30;
+    public static final int answerChance = 60;
+    public static final int allChances = sleepChance+rudenessChance+hitChance+answerChance;
 
     // TODO: 13.11.2020 начни с тестов
-    public void roulettAction(String question) {
+    public void roulettAction() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
+        String question = null;
         do {
             try {
-                String que = reader.readLine();
+                question = reader.readLine();
 
                 Random random = new Random();
-                int dealChance = random.nextInt(100);
+                int dealChance = random.nextInt(allChances);
 
-                if (dealChance <= 10) {
+                if (dealChance <= sleepChance) {
+                    Slepping slepping = new Slepping();
+                    System.out.println("Ещё пять минут");
+                    System.out.println("(＿ ＿*) Z z z");
+                    slepping.sleepRandom();
 
-                    // TODO: 11/13/2020 (Для себя) Попробовать через local Date
-
-                } else if (dealChance <= 20) {
+                } else if (dealChance <= rudenessChance) {
                     rudeness();
-                } else if (dealChance <= 30) {
+                } else if (dealChance <= hitChance) {
                     stickHit();
                 } else {
-                    giveAnswer(que);
+                    giveAnswer(question);
                 }
 
             } catch (IOException e) {
@@ -51,7 +58,8 @@ public class Oracle {
     public void giveAnswer(String question) {
         Question question1 = new Question(question);
         Answer answer = new Answer(question1);
-        System.out.println(answer.giveAnswer());
+        String antwort = answer.giveAnswer();
+        System.out.println(antwort);
     }
 
     public void rudeness() {
