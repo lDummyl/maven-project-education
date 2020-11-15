@@ -30,7 +30,7 @@ public class Question {
     public ArrayList<String> specialQuestCheck(String quest) {
         ArrayList<String> questions = new ArrayList<>();
 
-       // System.out.println(quest.toLowerCase());
+        // System.out.println(quest.toLowerCase());
         for (String s : specialQuests) {
             if (quest.contains(s) || quest.contains(s.toLowerCase())) {
                 questions.add(s);

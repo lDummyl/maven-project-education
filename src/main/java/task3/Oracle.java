@@ -11,7 +11,7 @@ public class Oracle {
     public static final int rudenessChance = 20;
     public static final int hitChance = 30;
     public static final int answerChance = 60;
-    public static final int allChances = sleepChance+rudenessChance+hitChance+answerChance;
+    public static final int allChances = sleepChance + rudenessChance + hitChance + answerChance;
 
     // TODO: 13.11.2020 начни с тестов
     public void roulettAction() {
