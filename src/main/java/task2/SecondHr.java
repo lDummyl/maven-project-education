@@ -20,6 +20,8 @@ public class SecondHr implements Hr {
     }
 
     // TODO: 11/16/2020 Стоит ли так разделять методы? То есть которые вносит изменения void, а который возвращает данные return
+    // TODO: 11/16/20  да, это норма! А вот Unchecked cast это то что делать не стоит так жк как и проверять через instanceof,
+    //  но с этим у тебя все получится.
     public void addCandidate(Object candidate) {
         if (Worker.class.isAssignableFrom(candidate.getClass())) {
             candidates.put(candidate.getClass(), (List<Worker>) candidate);
