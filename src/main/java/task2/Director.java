@@ -7,9 +7,9 @@ public class Director {
 
     private Random randomChoose;
 
-    public Secretary chooseSecretary(List<Secretary> secretaries) {
+    public Employee chooseEmployee(List<Employee> employees) {
         randomChoose = new Random();
-        return secretaries.get(randomChoose.nextInt(secretaries.size() - 1));
+        return employees.get(randomChoose.nextInt(employees.size() - 1));
     }
 
 }

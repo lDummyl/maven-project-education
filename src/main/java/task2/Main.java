@@ -14,7 +14,7 @@ public class Main {
 		Hr hr = new Hr();
 		Office appleInc = new Office(director, hr);
 		Office amazonInc = null;
-		while (hr.checkNumberOfSecretaries()) {
+		while (hr.doesntTired()) {
 			appleInc.invitePeople(new Secretary(new Name(), new BirthDate(), new Skills()));
 		}
 		System.out.println(appleInc.secretary);
