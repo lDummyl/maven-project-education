@@ -9,6 +9,8 @@ public class Office {
 	Secretary secretary;
 	Lawyer lawyer;
 	Security security;
+	Accountant firstAccountant;
+	Accountant secondAccountant;
 
 	public Office(Director director, Hr hr) {
 		this.director = director;
@@ -23,5 +25,7 @@ public class Office {
 		secretary = hr.chooseSecretary(director);
 		lawyer = hr.chooseLawyer(director);
 		security = hr.chooseSecurity(director);
+		firstAccountant = hr.getAccountant(director);
+		secondAccountant = hr.getAccountant(director);
 	}
 }
