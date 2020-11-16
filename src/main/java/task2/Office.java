@@ -25,7 +25,7 @@ public class Office {
 		secretary = hr.chooseSecretary(director);
 		lawyer = hr.chooseLawyer(director);
 		security = hr.chooseSecurity(director);
-		firstAccountant = hr.getAccountant(director);
-		secondAccountant = hr.getAccountant(director);
+		firstAccountant = hr.chooseAccountant(director);
+		secondAccountant = hr.chooseAccountant(director);
 	}
 }

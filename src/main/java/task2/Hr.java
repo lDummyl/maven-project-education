@@ -65,11 +65,7 @@ public class Hr {
         }
     }
 
-    public boolean doesntTired() {
-        return checkNumberOfEmployees(SECRETARIES) || checkNumberOfEmployees(LAWYERS) || checkNumberOfEmployees(SECURITIES) || checkNumberOfEmployees(ACCOUNTANTS);
-    }
-
-    public Accountant getAccountant(Director director) {
+    public Accountant chooseAccountant(Director director) {
         if (!checkNumberOfEmployees(ACCOUNTANTS)) {
             Accountant accountant = (Accountant) director.chooseEmployee(ACCOUNTANTS);
             ACCOUNTANTS.remove(accountant);
@@ -78,5 +74,9 @@ public class Hr {
         } else {
             return null;
         }
+    }
+
+    public boolean doesntTired() {
+        return checkNumberOfEmployees(SECRETARIES) || checkNumberOfEmployees(LAWYERS) || checkNumberOfEmployees(SECURITIES) || checkNumberOfEmployees(ACCOUNTANTS);
     }
 }
