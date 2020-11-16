@@ -17,9 +17,11 @@ public class Main {
 		while (hr.doesntTired()) {
 			appleInc.invitePeople(new Secretary(new Name(), new BirthDate(), new Skills()));
 			appleInc.invitePeople(new Lawyer(new Name(), new BirthDate(), new Skills()));
+			appleInc.invitePeople(new Security(new Name(), new BirthDate(), new Skills()));
 		}
 		System.out.println(appleInc.secretary);
 		System.out.println(appleInc.lawyer);
+		System.out.println(appleInc.security);
 
 		if (appleInc.secretary != null){
 			System.out.println("Everything's fine");

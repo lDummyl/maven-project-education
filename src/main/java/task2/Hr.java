@@ -12,12 +12,15 @@ public class Hr {
     private static final int MIN_SKILLS = 5;
     private static final List<Employee> SECRETARIES = new ArrayList<>();
     private static final List<Employee> LAWYERS = new ArrayList<>();
+    private static final List<Employee> SECURITIES = new ArrayList<>();
 
     public void checkEmployee(Object human) {
         if (human instanceof Secretary) {
             passInterview((Secretary) human, SECRETARIES);
         } else if (human instanceof Lawyer) {
             passInterview((Lawyer) human, LAWYERS);
+        } else if (human instanceof Security) {
+            passInterview((Security) human, SECURITIES);
         }
     }
 
@@ -48,7 +51,15 @@ public class Hr {
         }
     }
 
+    public Security chooseSecurity(Director director) {
+        if (!checkNumberOfEmployees(SECURITIES)) {
+            return (Security) director.chooseEmployee(SECURITIES);
+        } else {
+            return null;
+        }
+    }
+
     public boolean doesntTired() {
-        return checkNumberOfEmployees(SECRETARIES) || checkNumberOfEmployees(LAWYERS);
+        return checkNumberOfEmployees(SECRETARIES) || checkNumberOfEmployees(LAWYERS) || checkNumberOfEmployees(SECURITIES);
     }
 }
