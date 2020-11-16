@@ -5,73 +5,65 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Random;
 
-// TODO: 13.11.2020 без многопоточности
-public class Oracle extends Thread {
-    Question question;
-    Answer answer;
 
-
-    public Oracle(String quest) {
-        this.question = new Question(quest);
-        this.answer = answer;
-    }
-
-    @Override
-    public synchronized void start() {
-        super.start();
-    }
-
-    @Override
-    public void run() {
-        super.run();
-    }
-
+public class Oracle {
+    public static final int sleepChance = 10;
+    public static final int rudenessChance = 20;
+    public static final int hitChance = 30;
+    public static final int answerChance = 60;
+    public static final int allChances = sleepChance + rudenessChance + hitChance + answerChance;
 
     // TODO: 13.11.2020 начни с тестов
-    public void roulettAction(String question) {
+    public void roulettAction() {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-            do {
-                try {
-                    String que = reader.readLine();
-                } catch (IOException e) {
-                    System.out.println("Некорректен вопрос");
-                }
+        String question = null;
+        do {
+            try {
+                question = reader.readLine();
 
                 Random random = new Random();
-                int deal = random.nextInt(100);
+                int dealChance = random.nextInt(allChances);
 
-                if (deal <= 10) {
+                if (dealChance <= sleepChance) {
                     Slepping slepping = new Slepping();
-                    slepping.run();
-                    try {
-                        slepping.join();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    // TODO: 11/13/2020 (Для себя) Попробовать через local Date
+                    System.out.println("Ещё пять минут");
+                    System.out.println("(＿ ＿*) Z z z");
+                    slepping.sleepRandom();
 
-                } else if (deal <= 20) {
-
-                } else if (deal <= 30) {
-
+                } else if (dealChance <= rudenessChance) {
+                    rudeness();
+                } else if (dealChance <= hitChance) {
+                    stickHit();
                 } else {
-
+                    giveAnswer(question);
                 }
 
-
+            } catch (IOException e) {
+                System.out.println("Некорректен вопрос");
             }
-            while (!question.equals("exit"));
         }
+        while (!question.equals("Я получил все ответы"));
+    }
 
 
-        public void stickHit() {
-            System.out.println("(；一_一) ┻━┻༼ つ ಥ_ಥ ༽つ");
-            System.out.println("-Оракл бьёт вас палкой");
-        }
+    public void stickHit() {
+        System.out.println("(；一_一) ┻━┻༼ つ ಥ_ಥ ༽つ");
+        System.out.println("-Оракул бьёт вас палкой");
+    }
 
-        public void sleeping (String question){
-
-        }
+    public void sleeping(String question) {
 
     }
+
+    public void giveAnswer(String question) {
+        Question question1 = new Question(question);
+        Answer answer = new Answer(question1);
+        String antwort = answer.giveAnswer();
+        System.out.println(antwort);
+    }
+
+    public void rudeness() {
+        System.out.println("Дай-ка угадаю, кто-то украл твой сладкий рулет?");
+    }
+
+}
