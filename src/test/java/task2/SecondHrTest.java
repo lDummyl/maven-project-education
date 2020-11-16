@@ -14,7 +14,7 @@ public class SecondHrTest extends TestCase {
     int numberOfCandidate = 100;
 
 
-    public void testAddSecretaryCandidate() {
+  /*  public void testAddSecretaryCandidate() {
         Collection<SecretaryImpl> secretaries = candidateProvider.generateSecretaries(numberOfCandidate);
         for (SecretaryImpl s : secretaries) {
             assertNotNull(s);
@@ -35,6 +35,6 @@ public class SecondHrTest extends TestCase {
         for (Manager m : managers) {
             assertNotNull(m);
 
-        }
-    }
+        }*/
+  //  }
 }

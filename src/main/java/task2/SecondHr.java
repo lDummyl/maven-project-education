@@ -2,11 +2,12 @@ package task2;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 public class SecondHr implements Hr {
-    Collection<Guard> guardCandidates = new ArrayList<>();
-    Collection<SecretaryImpl> secCandidates = new ArrayList<>();
-    Collection<Manager> managersCandidates = new ArrayList<>();
+    Collection<SecretaryImpl> secCandidates;
+    Map<Class<?>, List<Worker>> candidates;
 
     @Override
     public Collection<SecretaryImpl> addSecretaryCandidate(Object candidate) {
@@ -18,22 +19,17 @@ public class SecondHr implements Hr {
         return secCandidates;
     }
 
-    public Collection<Guard> addGuardCandidate(Object candidate) {
-        int expectedAge = 30;
-
-        Guard guard = (Guard) candidate;
-        if (guard.age.getYears() < expectedAge) {
-            guardCandidates.add(guard);
+    // TODO: 11/16/2020 Стоит ли так разделять методы? То есть которые вносит изменения void, а который возвращает данные return
+    public void addCandidate(Object candidate) {
+        if (Worker.class.isAssignableFrom(candidate.getClass())) {
+            candidates.put(candidate.getClass(), (List<Worker>) candidate);
         }
-        return guardCandidates;
+
+
     }
 
-    public Collection<Manager> addManagerCandidate(Object candidate) {
-
-        Manager guard = (Manager) candidate;
-        managersCandidates.add(guard);
-
-        return managersCandidates;
+    @Override
+    public Map<Class<?>, List<Worker>> getCandidates() {
+        return this.candidates;
     }
-
 }

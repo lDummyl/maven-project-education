@@ -8,4 +8,9 @@ public class Lawyer extends Worker {
         super(person);
     }
 
+    @Override
+    public boolean passInterview() {
+        return false;
+    }
+
 }

@@ -42,9 +42,5 @@ public class Office {
     }
 
     // TODO: 11/16/20 для всех одна дверь, нет двери для охраниников и для секретарей отдельно
-    void inviteGuardian(Object human){
-        Collection<Guard> guards = hr.addGuardCandidate(human);
-        setGuards(this.chiefGuard.chooseGuard(guards));
-    }
 
 }

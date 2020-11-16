@@ -14,6 +14,11 @@ public class Guard extends Worker {
         this.stressTolerance = random.nextInt(maximumStressTolerance);
     }
 
+    @Override
+    public boolean passInterview() {
+        return false;
+    }
+
     public int compareTo(Guard o) {
         return this.stressTolerance.compareTo(o.stressTolerance) * 2 + (Integer.compare(this.age.getYears(), o.age.getYears())) + this.experience.compareTo(o.experience) * 3;
     }

@@ -7,5 +7,10 @@ public class Manager extends Worker {
         super(person);
     }
 
+    @Override
+    public boolean passInterview() {
+        return false;
+    }
+
 
 }
