@@ -14,8 +14,7 @@ public class Main {
 		Hr hr = new Hr();
 		Office appleInc = new Office(director, hr);
 		Office amazonInc = null;
-		// TODO: 8/20/20 просто заполни список и пройди по нему итератором
-		while (hr.employeesIsFull()) {
+		while (hr.doesntTired()) {
 			appleInc.invitePeople(new Secretary(new Name(), new BirthDate(), new Skills()));
 		}
 		System.out.println(appleInc.secretary);

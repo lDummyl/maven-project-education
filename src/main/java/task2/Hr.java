@@ -6,60 +6,36 @@ import java.util.Random;
 
 
 public class Hr {
-
-
-    // TODO: 8/20/20 как это связано с условием задачи?
     private static final int NUMBER_OF_EMPLOYEES = 10;
-
-
     private static final int MIN_SKILLS = 5;
-    private static final List<Secretary> secretaries = new ArrayList<>();
-    private static final List<Security> securities = new ArrayList<>();
-    private static final List<Lawyer> lawyers = new ArrayList<>();
-    private static final List<Accountant> accountants = new ArrayList<>();
-    private boolean secretariesIsFull = false;
-    private boolean securitiesIsFull = false;
-    private boolean lawyersIsFull = false;
-    private boolean accountantsIsFull = false;
+    private static final List<Employee> SECRETARIES = new ArrayList<>();
 
-    public void invite(Object human) {
-        if (human instanceof Employee && passInterview((Employee) human)) {
-            sortEmployee(human);
-        }
-    }
-
-    private boolean passInterview(Employee employee) {
-        Random random = new Random();
-        return random.nextBoolean() && employee.getSkills() > MIN_SKILLS;
-    }
-
-    // TODO: 8/20/20 поставь Sonar plugin и почини этот класс
-    private void sortEmployee(Object human) {
+    public void checkEmployee(Object human) {
         if (human instanceof Secretary) {
-            secretariesIsFull = addEmployees(secretaries, (Secretary) human);
-        } else if (human instanceof Security) {
-            securitiesIsFull = addEmployees(securities, (Security) human);
-        } else if (human instanceof Lawyer) {
-            lawyersIsFull = addEmployees(lawyers, (Lawyer) human);
-        } else if (human instanceof Accountant) {
-            accountantsIsFull = addEmployees(accountants, (Accountant) human);
+            passInterview((Secretary) human, SECRETARIES);
         }
     }
 
-    private <T extends Employee> boolean checkNumberOfEmployees(List<T> employees) {
+    private boolean checkNumberOfEmployees(List<Employee> employees) {
         return employees.size() < NUMBER_OF_EMPLOYEES;
     }
 
-    public boolean employeesIsFull() {
-        return securitiesIsFull && secretariesIsFull && lawyersIsFull && accountantsIsFull;
-    }
-
-    private <T extends Employee> boolean addEmployees(List<T> employees, T employee) {
-        if (checkNumberOfEmployees(employees)) {
+    private void passInterview(Employee employee, List<Employee> employees) {
+        Random random = new Random();
+        if (random.nextBoolean() && employee.getSkills() > MIN_SKILLS) {
             employees.add(employee);
-            return false;
         }
-        return true;
     }
 
+    public Secretary chooseSecretary(Director director) {
+        if (!checkNumberOfEmployees(SECRETARIES)) {
+            return (Secretary) director.chooseEmployee(SECRETARIES);
+        } else {
+            return null;
+        }
+    }
+
+    public boolean doesntTired() {
+        return checkNumberOfEmployees(SECRETARIES);
+    }
 }
