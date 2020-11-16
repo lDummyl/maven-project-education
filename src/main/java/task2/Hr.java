@@ -6,13 +6,18 @@ import java.util.Random;
 
 
 public class Hr {
+    //пока незнаю как отсановить цикл подбора кандидатов
     private static final int NUMBER_OF_EMPLOYEES = 10;
+
     private static final int MIN_SKILLS = 5;
     private static final List<Employee> SECRETARIES = new ArrayList<>();
+    private static final List<Employee> LAWYERS = new ArrayList<>();
 
     public void checkEmployee(Object human) {
         if (human instanceof Secretary) {
             passInterview((Secretary) human, SECRETARIES);
+        } else if (human instanceof Lawyer) {
+            passInterview((Lawyer) human, LAWYERS);
         }
     }
 
@@ -35,7 +40,15 @@ public class Hr {
         }
     }
 
+    public Lawyer chooseLawyer(Director director) {
+        if (!checkNumberOfEmployees(LAWYERS)) {
+            return (Lawyer) director.chooseEmployee(LAWYERS);
+        } else {
+            return null;
+        }
+    }
+
     public boolean doesntTired() {
-        return checkNumberOfEmployees(SECRETARIES);
+        return checkNumberOfEmployees(SECRETARIES) || checkNumberOfEmployees(LAWYERS);
     }
 }
