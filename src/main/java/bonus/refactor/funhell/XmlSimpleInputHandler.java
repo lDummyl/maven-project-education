@@ -1,3 +1,4 @@
+/*
 package bonus.refactor.funhell;
 
 import bonus.refactor.funhell.readonly.NoteCustom;
@@ -26,3 +27,4 @@ public class XmlSimpleInputHandler extends XmlInputHandler {
         return (avviso.getDettaglio());
     }
 }
+*/
