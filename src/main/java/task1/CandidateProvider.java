@@ -13,6 +13,27 @@ public class CandidateProvider {
     public static final Period adultAge = Period.ofYears(18);
 
 
+
+    public static void main(String[] args) {
+        Function<Person, SecretaryImpl> function = new Function<Person, SecretaryImpl>() {
+            @Override
+            public SecretaryImpl apply(Person person) {
+                return new SecretaryImpl(person);
+            }
+        };
+
+        Function<Person, SecretaryImpl> function2 = secr -> {
+            return new SecretaryImpl(secr);
+        };
+
+        Function<Person, SecretaryImpl> function1 = secr -> new SecretaryImpl(secr);
+
+        Function<Person, SecretaryImpl> function3 = SecretaryImpl::new;
+
+        CandidateProvider candidateProvider = new CandidateProvider();
+        Collection<SecretaryImpl> secretaries = candidateProvider.generateAnyWorkers(100, function);
+        System.out.println(secretaries);
+    }
     public Collection<SecretaryImpl> generateSecretaries(int numberOfCandidate) {
         PersonsProvider personsProvider = new PersonsProvider();
 
@@ -21,7 +42,13 @@ public class CandidateProvider {
 
         Function<Person, SecretaryImpl> perToCand = SecretaryImpl::new;
 
+
         return people.stream().map(perToCand).collect(collector);
+    }
+    public <T extends Worker> List<T> generateAnyWorkers(int numberOfCandidate, Function<Person, T> constructorRef) {
+
+        TreeSet<Person> people = personsProvider.generateAdultPersons(numberOfCandidate);
+        return people.stream().map(constructorRef).collect(Collectors.toList());
     }
 
     public Collection<Guard> generateSecurity(int numberOfCandidate) {
@@ -65,13 +92,13 @@ public class CandidateProvider {
     }
 
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         CandidateProvider candidateProvider = new CandidateProvider();
         // TODO: 13.11.2020 вуоля
         Collection<SecretaryImpl> secretaries = candidateProvider.generateAny(100, SecretaryImpl::new);
         Collection<Lawyer> lawyers = candidateProvider.generateAny(100, Lawyer::new);
-    }
+    }*/
 
 
 }
