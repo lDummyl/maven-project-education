@@ -1,21 +1,21 @@
 package task3;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-//@JsonIgnoreProperties(ignoreUnknown=true)
-public class Oracle  {
-    public Oracle() {
+
+public class Oracle {
+    String answer;
+
+    public Oracle() throws IOException {
     }
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    ArrayList <String> saveQuestions = new ArrayList<>();
+    String question = reader.readLine();
 
-    String question;
+
     ArrayList<String> questions = new ArrayList<>(Arrays.asList("кто", "что", "когда", "как", "зачем", "почему", "где", "куда", "откуда"));
 
     public int random(int min, int max) {
@@ -26,11 +26,13 @@ public class Oracle  {
     }
 
     public void rude() {
-        System.out.println("Вопрос не стоит моего внимания");
+        answer = "Вопрос не стоит моего внимания";
+        System.out.println(answer);
     }
 
     public void hit() {
-        System.out.println("Стукнуть палкой");
+        answer = "Стукнуть палкой";
+        System.out.println(answer);
     }
 
     public void relax() {
@@ -38,12 +40,14 @@ public class Oracle  {
         int minute = 60;
         int sleepTime = random(10 * second, minute);
         for (int i = sleepTime; i > 0; ) {
-            System.out.println("Оракул устал. Нужно подождать " + i + " секунд");
+            answer = "Оракул устал. Нужно подождать " + i + " секунд";
+            System.out.println(answer);
             i--;
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                System.out.println("Сон оракула прерван!");
+                answer = "Сон оракула прерван!";
+                System.out.println(answer);
             }
         }
     }
@@ -51,7 +55,8 @@ public class Oracle  {
     public void answer() {
         for (Map.Entry<String, String> item : listOfAphorisms.entrySet()) {
             if (question.contains(item.getKey())) {
-                System.out.println(item.getValue());
+                answer = item.getValue();
+                System.out.println(answer);
             }
         }
     }
@@ -75,16 +80,17 @@ public class Oracle  {
     public boolean checkQuestion() {
         try {
             question = reader.readLine();
-            saveQuestions.add(question);
         } catch (IOException e) {
             System.out.println("Недопустимые символы");
         }
-        if (question.length() > 60) {
-            System.out.println("Будь лаконичнее");
+        if (question.length() > 30) {
+            answer = "Будь лаконичнее";
+            System.out.println(answer);
             return false;
         }
         if (question.length() < 10) {
-            System.out.println("Будь красноречивее");
+            answer = "Будь красноречивее";
+            System.out.println(answer);
             return false;
         }
         for (String s : questions) {
@@ -92,14 +98,16 @@ public class Oracle  {
                 amountOfSpecialQuestions++;
             }
         }
-            if (amountOfSpecialQuestions > 1) {
-                    System.out.println("Ты задаешь слишком много вопросов");
-                    return false;
-                }
-            if (amountOfSpecialQuestions == 0) {
-                    System.out.println("Не слышу вопроса в твоих речах");
-                    return false;
-                }
+        if (amountOfSpecialQuestions > 1) {
+            answer = "Ты задаешь слишком много вопросов";
+            System.out.println(answer);
+            return false;
+        }
+        if (amountOfSpecialQuestions == 0) {
+            answer = "Не слышу вопроса в твоих речах";
+            System.out.println(answer);
+            return false;
+        }
         return true;
     }
 
@@ -110,11 +118,9 @@ public class Oracle  {
                 relax();
             } else if (percent <= 15) {
                 rude();
-            } else if (percent <=20)
-            {
+            } else if (percent <= 20) {
                 hit();
-            }
-            else {
+            } else {
                 answer();
             }
         }

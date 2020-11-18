@@ -1,28 +1,32 @@
 package excel;
 
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.DateFormatConverter;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 public class FileWriter {
     Workbook myExcelBook = new XSSFWorkbook(new FileInputStream("C:\\java\\fin.xlsx"));
-    Workbook insurancePayments = new XSSFWorkbook(new FileInputStream("C:\\java\\2.xlsx"));
+    Workbook insurancePayments = new XSSFWorkbook(new FileInputStream("C:\\Users\\Krugl\\OneDrive\\Рабочий стол\\1.Игра престолов\\Работа\\paymentsFromIC.xlsx"));
 
-    CreationHelper creationHelper = myExcelBook.getCreationHelper();
 
     public FileWriter() throws IOException {
     }
 
-    public CellStyle getDateStyle(Workbook workbook) {
-        CellStyle dateStyle = workbook.createCellStyle();
-        dateStyle.setDataFormat(
-                creationHelper.createDataFormat().getFormat("dd.MM.yyyy")
-        );
-        return dateStyle;
+    public CellStyle getDateStyle(Workbook workbook)
+    {
+        String excelFormatPattern = DateFormatConverter.convert(Locale.ENGLISH, "dd.MM.yyyy");
+
+        CellStyle cellStyle = workbook.createCellStyle();
+
+        DataFormat poiFormat = workbook.createDataFormat();
+        cellStyle.setDataFormat(poiFormat.getFormat(excelFormatPattern));
+        return cellStyle;
     }
 
     public void writeToFile(List<FinOperation> list, FileOutputStream file) throws IOException {
@@ -59,16 +63,16 @@ public class FileWriter {
                 cell3.setCellValue(incomeMoney);
                 Double commission = getAcquiringCommission(finOperation);
                 cell4.setCellValue(commission);
-                Double proceeds = incomeMoney + commission;
+                double proceeds = incomeMoney + commission;
                 cell5.setCellValue(proceeds);
-                Double tax;
+                double tax;
                 if (proceeds % 10 == 0) {
                     tax = proceeds * 0.2;
                 } else {
                     tax = proceeds * 0.1;
                 }
                 cell6.setCellValue(tax);
-                Double sumToPayToInsuranceCompany = proceeds - tax;
+                double sumToPayToInsuranceCompany = proceeds - tax;
                 cell7.setCellValue(sumToPayToInsuranceCompany);
             }
             if (finOperation.payer.contains("Финогенов")) {
@@ -109,7 +113,38 @@ public class FileWriter {
             {
                 Sheet vsk = insurancePayments.getSheet("VSK");
                 putValue(finOperation, vsk);
+
             }
+            else if (finOperation.payer.contains("Астроволга") && finOperation.moneyReceipt != 0)
+            {
+                Sheet vsk = insurancePayments.getSheet("Astrovolga");
+                putValue(finOperation, vsk);
+
+            }
+            else if (finOperation.payer.contains("Согласие") && finOperation.moneyReceipt != 0)
+            {
+                Sheet vsk = insurancePayments.getSheet("Soglasie");
+                putValue(finOperation, vsk);
+
+            }
+            else if (finOperation.payer.contains("Ингосстрах") && finOperation.moneyReceipt != 0)
+            {
+                Sheet vsk = insurancePayments.getSheet("Ingosstrah");
+                putValue(finOperation, vsk);
+
+            }
+            else if (finOperation.payer.contains("Energogarant") && finOperation.moneyReceipt != 0)
+            {
+                Sheet vsk = insurancePayments.getSheet("VSK");
+                putValue(finOperation, vsk);
+            }
+            else if (finOperation.moneyReceipt != 0 && finOperation.description.contains("страх") || finOperation.description.contains("вознагр"))
+            {
+                Sheet anotherIC = insurancePayments.getSheet("AnotherIC");
+                putValueForAnotherIC(finOperation, anotherIC);
+
+            }
+
         }
         insurancePayments.write(file);
         insurancePayments.close();
@@ -122,9 +157,27 @@ public class FileWriter {
         Row row = sheet.createRow(lastRowNum+1);
         Cell date = row.createCell(0);
         Cell sum = row.createCell(1);
-        date.setCellStyle(getDateStyle(insurancePayments));
+        Cell description = row.createCell(2);
+        CellStyle style = getDateStyle(insurancePayments);
         date.setCellValue(finOperation.date);
+        date.setCellStyle(style);
         sum.setCellValue(finOperation.moneyReceipt);
+        description.setCellValue(finOperation.description);
+    }
+    public void putValueForAnotherIC(FinOperation finOperation, Sheet sheet) {
+
+        int lastRowNum = sheet.getLastRowNum();
+        Row row = sheet.createRow(lastRowNum+1);
+        Cell payer = row.createCell(0);
+        Cell date = row.createCell(1);
+        Cell sum = row.createCell(2);
+        Cell description = row.createCell(3);
+        payer.setCellValue(finOperation.payer);
+        CellStyle style = getDateStyle(insurancePayments);
+        date.setCellValue(finOperation.date);
+        date.setCellStyle(style);
+        sum.setCellValue(finOperation.moneyReceipt);
+        description.setCellValue(finOperation.description);
     }
 
     public Double getAcquiringCommission(FinOperation finOperation) {

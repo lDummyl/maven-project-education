@@ -28,17 +28,17 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 public class Main {
-	public static void main(String[] args) throws IOException {
-		Oracle oracle = new Oracle();
-			oracle.launch();
-//		FileOutputStream outputStream = new FileOutputStream(new File("D:\\test.txt"));
-		StringWriter writer = new StringWriter();
-		ObjectMapper objectMapper = new ObjectMapper();
-//		objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-		objectMapper.writeValue(writer, oracle);
-		String result = writer.toString();
-		System.out.println(result);
-		System.out.println(objectMapper.canSerialize(Oracle.class));
+    public static void main(String[] args) throws IOException {
+        Oracle oracle = new Oracle();
+        oracle.launch();
+        OracleHelper oracleHelper = new OracleHelper(oracle.question, oracle.answer);
+        FileOutputStream outputStream = new FileOutputStream("D:\\test.txt");
+        StringWriter writer = new StringWriter();
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.writeValue(writer, oracleHelper);
+        String result = writer.toString();
+        System.out.println(result);
+        System.out.println(objectMapper.canSerialize(OracleHelper.class));
 
-	}
+    }
 }
