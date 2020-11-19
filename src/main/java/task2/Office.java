@@ -7,6 +7,11 @@ public class Office {
 	Hr hr;
 
 	Secretary secretary;
+	Lawyer lawyer;
+	Security security;
+	Accountant firstAccountant;
+	Accountant secondAccountant;
+
 	public Office(Director director, Hr hr) {
 		this.director = director;
 		this.hr = hr;
@@ -18,5 +23,9 @@ public class Office {
 	void invitePeople(Object human){
 		hr.checkEmployee(human);
 		secretary = hr.chooseSecretary(director);
+		lawyer = hr.chooseLawyer(director);
+		security = hr.chooseSecurity(director);
+		firstAccountant = hr.chooseAccountant(director);
+		secondAccountant = hr.chooseAccountant(director);
 	}
 }
