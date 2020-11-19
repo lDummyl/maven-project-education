@@ -7,6 +7,11 @@ public class Office {
 	Hr hr;
 
 	Secretary secretary;
+	Lawyer lawyer;
+	Security security;
+	Accountant firstAccountant;
+	Accountant secondAccountant;
+
 	public Office(Director director, Hr hr) {
 		this.director = director;
 		this.hr = hr;
@@ -16,7 +21,11 @@ public class Office {
 	// то диретор принимает решение и берет одного в штат
 
 	void invitePeople(Object human){
-		hr.invite(human);
-		secretary = (Secretary) director.getEmployee();
+		hr.checkEmployee(human);
+		secretary = hr.chooseSecretary(director);
+		lawyer = hr.chooseLawyer(director);
+		security = hr.chooseSecurity(director);
+		firstAccountant = hr.chooseAccountant(director);
+		secondAccountant = hr.chooseAccountant(director);
 	}
 }

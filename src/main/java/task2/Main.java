@@ -4,6 +4,7 @@ package task2;
 // выбирает рандомно секретаря в штат, которого ему пердлагает HR,
 // все это происходит в офисе
 
+import org.checkerframework.checker.units.qual.A;
 import task1.BirthDate;
 import task1.Name;
 
@@ -14,11 +15,17 @@ public class Main {
 		Hr hr = new Hr();
 		Office appleInc = new Office(director, hr);
 		Office amazonInc = null;
-		// TODO: 8/20/20 просто заполни список и пройди по нему итератором
-		while (hr.employeesIsFull()) {
+		while (hr.doesntTired()) {
 			appleInc.invitePeople(new Secretary(new Name(), new BirthDate(), new Skills()));
+			appleInc.invitePeople(new Lawyer(new Name(), new BirthDate(), new Skills()));
+			appleInc.invitePeople(new Security(new Name(), new BirthDate(), new Skills()));
+			appleInc.invitePeople(new Accountant(new Name(), new BirthDate(), new Skills()));
 		}
 		System.out.println(appleInc.secretary);
+		System.out.println(appleInc.lawyer);
+		System.out.println(appleInc.security);
+		System.out.println(appleInc.firstAccountant);
+		System.out.println(appleInc.secondAccountant);
 
 		if (appleInc.secretary != null){
 			System.out.println("Everything's fine");
