@@ -69,7 +69,7 @@ public class Hr {
         if (!checkNumberOfEmployees(ACCOUNTANTS)) {
             Accountant accountant = (Accountant) director.chooseEmployee(ACCOUNTANTS);
             ACCOUNTANTS.remove(accountant);
-            ACCOUNTANTS.add(new Accountant(new Name(), new BirthDate(), new Skills()));  // похоже на костыль
+            ACCOUNTANTS.add(new Accountant(new Name(), new BirthDate(2020), new Skills()));  // похоже на костыль
             return accountant;
         } else {
             return null;

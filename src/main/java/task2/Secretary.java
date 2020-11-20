@@ -8,7 +8,7 @@ import task1.Name;
 public class Secretary extends Employee {
 
     public Secretary(Name name, BirthDate birthDate, Skills skills) {
-        super(name, birthDate, skills);
+        super(skills);
     }
 
     @Override

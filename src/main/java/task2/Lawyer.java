@@ -5,7 +5,7 @@ import task1.Name;
 
 public class Lawyer extends Employee {
     public Lawyer(Name name, BirthDate birthDate, Skills skills) {
-        super(name, birthDate, skills);
+        super(skills);
     }
 
     @Override
