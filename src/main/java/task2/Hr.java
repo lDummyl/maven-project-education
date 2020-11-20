@@ -19,6 +19,7 @@ public class Hr {
     private static final List<Employee> ACCOUNTANTS = new ArrayList<>();
 
     public void checkEmployee(Object human) {
+        // TODO: 11/20/20 смотри как сделано в ветке iliaProject
         if (human instanceof Secretary) {
             passInterview((Secretary) human, SECRETARIES);
         } else if (human instanceof Lawyer) {
@@ -41,6 +42,7 @@ public class Hr {
         }
     }
 
+    // TODO: 11/20/20 директор не приходит к hr-у это hr отдает кандидатов на суд ему
     public Secretary chooseSecretary(Director director) {
         if (!checkNumberOfEmployees(SECRETARIES)) {
             return (Secretary) director.chooseEmployee(SECRETARIES);
@@ -69,7 +71,7 @@ public class Hr {
         if (!checkNumberOfEmployees(ACCOUNTANTS)) {
             Accountant accountant = (Accountant) director.chooseEmployee(ACCOUNTANTS);
             ACCOUNTANTS.remove(accountant);
-            ACCOUNTANTS.add(new Accountant(new Name(), new BirthDate(), new Skills()));  // похоже на костыль
+            ACCOUNTANTS.add(new Accountant(new Name(), new BirthDate(2020), new Skills()));  // похоже на костыль
             return accountant;
         } else {
             return null;
