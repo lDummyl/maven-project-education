@@ -9,7 +9,7 @@ import task1.Person;
 public class Secretary extends Employee {
 
     public Secretary(Name name, BirthDate birthDate, Skills skills) {
-        super(name, birthDate, skills);
+        super(skills);
     }
 
     @Override

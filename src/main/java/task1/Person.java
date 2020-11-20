@@ -1,36 +1,20 @@
 package task1;
 
-import task2.Skills;
 
-public class Person {
+public class Person implements HasAge {
 
     Name name;
     BirthDate birthDate;
 
-    public Person(String name, int day, int month, int year) {
-        birthDate = new BirthDate(day, month, year);
-        initName(name);
-    }
-
-
-
-    public Person(Name name, BirthDate birthDate) {
-        this.name = name;
-        this.birthDate = birthDate;
-
-    }
 
     public Person() {
-
+        name = new Name();
+        birthDate = new BirthDate(2020);
     }
 
-    private void initName(String name) {
-        String[] buffer = name.split("\\s+");
-        this.name = new Name(buffer[0], buffer[1]);
-    }
-
-    public boolean isOlderThan(Person person) {
-        return this.birthDate.earlyThan(person.birthDate);
+    @Override
+    public BirthDate getBd() {
+        return birthDate;
     }
 
     @Override
