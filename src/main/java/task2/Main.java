@@ -4,8 +4,9 @@ package task2;
 // выбирает рандомно секретаря в штат, которого ему пердлагает HR,
 // все это происходит в офисе
 
-import task1.BirthDate;
-import task1.Name;
+import task1.Provider;
+
+import java.util.List;
 
 public class Main {
 	public static void main(String[] args) {
@@ -13,27 +14,20 @@ public class Main {
 		Director director = new Director();
 		Hr hr = new Hr();
 		Office appleInc = new Office(director, hr);
-		Office amazonInc = null;
-		while (hr.doesntTired()) {
-			appleInc.invitePeople(new Secretary(new Name(), new BirthDate(2020), new Skills()));
-			appleInc.invitePeople(new Lawyer(new Name(), new BirthDate(2020), new Skills()));
-			appleInc.invitePeople(new Security(new Name(), new BirthDate(2020), new Skills()));
-			appleInc.invitePeople(new Accountant(new Name(), new BirthDate(2020), new Skills()));
-		}
+		//Office amazonInc = null;
+		Provider<Secretary> provider = Secretary::new;
+		List<Secretary> secretaryList = provider.provide(100);
+		secretaryList.forEach(appleInc::invitePeople);
+
 		System.out.println(appleInc.secretary);
-		System.out.println(appleInc.lawyer);
-		System.out.println(appleInc.security);
-		System.out.println(appleInc.firstAccountant);
-		System.out.println(appleInc.secondAccountant);
+
 
 		if (appleInc.secretary != null){
 			System.out.println("Everything's fine");
 		} else {
 			System.out.println("Not good at all");
 		}
-		// TODO: 8/3/20 прекрасно! теперь, когда есть готовый механизм, расширим его функционал,
-		//  пусть будет еще юрист, 2 бухгалтера и охранник в каждом офисе и мы будем устраивать всех, кроме кадрового ядра,
-		//  на конкурсной основе. И пусть тепеь прохождение интервью зависит и от сотрудника нежели от настроения HR.
+
 
 	}
 }

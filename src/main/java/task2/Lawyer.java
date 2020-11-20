@@ -4,9 +4,6 @@ import task1.BirthDate;
 import task1.Name;
 
 public class Lawyer extends Employee {
-    public Lawyer(Name name, BirthDate birthDate, Skills skills) {
-        super(skills);
-    }
 
     @Override
     public int getSkills() {
