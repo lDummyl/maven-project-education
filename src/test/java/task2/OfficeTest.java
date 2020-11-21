@@ -21,10 +21,4 @@ public class OfficeTest {
     public void setSecretary() {
     }
 
-    @Test
-    public void invitePeople() {
-        Collection<SecretaryImpl> secretaries = candidateProvider.generateSecretaries(100);
-        secretaries.forEach(apple::invitePeople);
-        assertNotNull(apple.secretary);
-    }
 }

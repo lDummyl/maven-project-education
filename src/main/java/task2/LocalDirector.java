@@ -1,9 +1,6 @@
 package task2;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Random;
-import java.util.TreeSet;
+import java.util.*;
 
 public class LocalDirector implements Director{
     @Override
@@ -19,6 +16,23 @@ public class LocalDirector implements Director{
             throw new IllegalStateException("Not enough candidates");
         }
     }
+
+    @Override
+    public Manager chooseManager(Map<Class<?>, List<Worker>> candidates) {
+        return null;
+    }
+
+    @Override
+    public void chooseGuard(Map<Class<?>, List<Worker>> candidates) {
+
+    }
+
+    @Override
+    public void chooseLawyer(Map<Class<?>, List<Worker>> candidates) {
+
+    }
+
+
     public Guard chooseChiefGuard(Collection<ChiefGuard> candidates) {
         int expectedCandidates = 100;
         //Random random = new Random();

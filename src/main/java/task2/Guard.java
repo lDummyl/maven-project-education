@@ -16,6 +16,7 @@ public class Guard extends Worker {
 
     @Override
     public boolean passInterview() {
+        int neededScore = 50;
         return false;
     }
 

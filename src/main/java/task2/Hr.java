@@ -9,5 +9,5 @@ public interface Hr {
     Collection<SecretaryImpl> addSecretaryCandidate(Object candidate);
     public void addCandidate(Object candidate);
     public Map<Class<?>, List<Worker>> getCandidates();
-    //Для удобства расширил интерфейл // возможно так не стоит делать
+
 }

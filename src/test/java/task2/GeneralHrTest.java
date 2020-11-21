@@ -13,12 +13,12 @@ public class GeneralHrTest {
     GeneralHr generalHr = new GeneralHr();
     int numberOfCandidates = 100;
 
-    @Test
+    /*@Test
     public void addSecretaryCandidate() {
         Collection<SecretaryImpl> secretaries = candidateProvider.generateSecretaries(100);
         secretaries.forEach(generalHr::addSecretaryCandidate);
         assertEquals(generalHr.secCandidates.size(), numberOfCandidates);
         secretaries.forEach(Assert::assertNotNull);
         generalHr.secCandidates.forEach(secretary -> secretary.sayHelloTo(null));
-    }
+    }*/
 }

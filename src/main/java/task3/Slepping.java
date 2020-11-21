@@ -1,6 +1,5 @@
 package task3;
 
-import sun.util.resources.LocaleData;
 
 import java.io.BufferedReader;
 import java.io.IOException;
