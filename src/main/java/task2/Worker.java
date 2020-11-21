@@ -26,7 +26,7 @@ public abstract class Worker extends Person {
 
 
     public int compareTo(Worker o) {
-        return ((Integer) this.age.getYears()).compareTo(o.age.getYears()) * 2 + this.experience.compareTo(o.experience);
+        return Integer.compare(this.age.getYears(), o.age.getYears()) * 2 + this.experience.compareTo(o.experience);
     }
 
     public Integer getExperience() {

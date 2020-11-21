@@ -7,7 +7,6 @@ import java.util.Map;
 public interface Director  {
 
     SecretaryImpl chooseSecretary(Collection<SecretaryImpl> candidates);
-    public Manager chooseManager(Map<Class<?>, List<Worker>> candidates);
-    public void chooseGuard(Map<Class<?>, List<Worker>> candidates);
-    public void chooseLawyer(Map<Class<?>, List<Worker>> candidates);
+
+    public Worker chooseWorker(Map<Class<?>, List<Worker>> candidates,  Class<? extends Worker> candidateClass);
 }

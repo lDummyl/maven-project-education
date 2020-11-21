@@ -21,13 +21,10 @@ public class AnswerTest extends TestCase {
         Answer antwortTree = new Answer(third);
         assertEquals(RegularAnswer.answers.get("Как") , antwortTree.getSpecialAnswer());
 
-
-
-
     }
 
     public void testLengthQCheck() {
-        String longString = "sdadas sadasdasd asdasd asdasd asd ad sa sasd asd adsd asd ";
+        String longString = "sdadas sadasdasd asdasd asdddddddddddddddddddddddasd asd ad sa sasd asd adsd asd ";
         Question questionLon = new Question(longString);
         Answer answerLon = new Answer(questionLon);
         assertEquals(Answer.tooLong, answerLon.lengthQCheck());

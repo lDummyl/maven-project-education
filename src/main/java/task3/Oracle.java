@@ -15,12 +15,8 @@ public class Oracle {
 
     // TODO: 13.11.2020 начни с тестов
     public void roulettAction() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String question = null;
-        do {
-            try {
-                question = reader.readLine();
 
+        String question = null;
                 Random random = new Random();
                 int dealChance = random.nextInt(allChances);
 
@@ -38,14 +34,8 @@ public class Oracle {
                     giveAnswer(question);
                 }
 
-            } catch (IOException e) {
-                System.out.println("Некорректен вопрос");
-            }
         }
-        while (!question.equals("Я получил все ответы"));
-    }
-
-
+        
     public void stickHit() {
         System.out.println("(；一_一) ┻━┻༼ つ ಥ_ಥ ༽つ");
         System.out.println("-Оракул бьёт вас палкой");

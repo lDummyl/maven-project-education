@@ -10,6 +10,9 @@ public class Answer {
     public static final String tooShort = "Будь красноречивие";
     public static final String noKey = "Не еслышу вопроса в речах твоих";
     public static final String moreKey = "Ты задаешь слишком много вопросов";
+    public static final  int maxLength = 60;
+    public static final  int minimumLength = 10;
+
 
     public Answer(Question question) {
         this.question = question;
@@ -26,8 +29,7 @@ public class Answer {
     }
 
     public String lengthQCheck() {
-        int maxLength = 60;
-        int minimumLength = 10;
+
 
         if (this.question.questionLength > maxLength) {
             return tooLong;
