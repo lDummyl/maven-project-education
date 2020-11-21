@@ -57,7 +57,7 @@ public class Office {
 
     void invitePeople(Object human) {
         hr.addCandidate(human);
-        director.chooseWorker(hr.getCandidates());
+       // director.chooseWorker(hr.getCandidates());
     }
 
     // TODO: 11/16/20 для всех одна дверь, нет двери для охраниников и для секретарей отдельно

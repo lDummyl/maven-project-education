@@ -9,7 +9,8 @@ public class SecretaryImpl extends Worker implements Secretary {
 
     @Override
     public boolean passInterview() {
-        return false;
+        int neededScore = 200;
+        return ((this.experience - this.birthDate.getLocalBirthDate().getYear()*2)> neededScore);
     }
 
     @Override

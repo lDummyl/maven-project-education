@@ -17,7 +17,7 @@ public class Guard extends Worker {
     @Override
     public boolean passInterview() {
         int neededScore = 50;
-        return false;
+        return (this.stressTolerance + this.experience - this.age.getYears()) > neededScore;
     }
 
     public int compareTo(Guard o) {
