@@ -12,8 +12,8 @@ public class Oracle {
     public Oracle() throws IOException {
     }
 
-    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    String question = reader.readLine();
+    QuestionReader questionReader = new QuestionReader();
+    String question = questionReader.question;
 
 
     ArrayList<String> questions = new ArrayList<>(Arrays.asList("кто", "что", "когда", "как", "зачем", "почему", "где", "куда", "откуда"));
@@ -59,6 +59,7 @@ public class Oracle {
                 System.out.println(answer);
             }
         }
+
     }
 
     HashMap<String, String> listOfAphorisms = new HashMap<>();
@@ -78,11 +79,6 @@ public class Oracle {
     int amountOfSpecialQuestions = 0;
 
     public boolean checkQuestion() {
-        try {
-            question = reader.readLine();
-        } catch (IOException e) {
-            System.out.println("Недопустимые символы");
-        }
         if (question.length() > 30) {
             answer = "Будь лаконичнее";
             System.out.println(answer);
@@ -124,6 +120,10 @@ public class Oracle {
                 answer();
             }
         }
+    }
+
+    public String giveAnswer(String question) {
+        return "ok";
     }
 }
 

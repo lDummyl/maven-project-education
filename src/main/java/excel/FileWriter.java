@@ -66,7 +66,7 @@ public class FileWriter {
                 double proceeds = incomeMoney + commission;
                 cell5.setCellValue(proceeds);
                 double tax;
-                if (proceeds % 10 == 0) {
+                if (isGreenCard(proceeds)) {
                     tax = proceeds * 0.2;
                 } else {
                     tax = proceeds * 0.1;
@@ -101,6 +101,11 @@ public class FileWriter {
         myExcelBook.write(file);
         myExcelBook.close();
     }
+
+    public boolean isGreenCard(double proceeds) {
+        return proceeds % 10 == 0;
+    }
+
     public void writePaymentsFromIC (List <FinOperation> list, FileOutputStream file) throws IOException {
         for (FinOperation finOperation : list) {
             if (finOperation.payer.contains("РОСЭНЕРГО") && finOperation.moneyReceipt != 0)
