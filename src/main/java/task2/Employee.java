@@ -6,9 +6,9 @@ public abstract class Employee extends Person {
 
     Skills skills;
 
-    public Employee(Skills skills) {
+    public Employee() {
         super();
-        this.skills = skills;
+        skills = new Skills();
     }
 
     public abstract int getSkills();
