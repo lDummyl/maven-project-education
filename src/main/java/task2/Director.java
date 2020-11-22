@@ -8,14 +8,13 @@ public class Director {
 
     private Random randomChoose;
 
-    public Secretary chooseEmployee(Map<Class<?>, List<Employee>> employees) {
-        List<Employee> tempList = employees.get(Secretary.class);
+    public Employee chooseEmployee(Map<Class<?>, List<Employee>> employees, Class<?> employeeClass) {
+        List<Employee> tempList = employees.get(employeeClass);
         if (tempList != null && tempList.size() >= 10) {
             randomChoose = new Random();
-            return (Secretary) tempList.get(randomChoose.nextInt(employees.size()));
+            return tempList.get(randomChoose.nextInt(employees.size()));
         } else {
             return null;
         }
     }
-
 }

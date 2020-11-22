@@ -15,11 +15,15 @@ public class Main {
 		Hr hr = new Hr();
 		Office appleInc = new Office(director, hr);
 		//Office amazonInc = null;
-		Provider<Secretary> provider = Secretary::new;
-		List<Secretary> secretaryList = provider.provide(100);
+		Provider<Secretary> providerSecretary = Secretary::new;
+		Provider<Lawyer> providerLawyer = Lawyer::new;
+		List<Secretary> secretaryList = providerSecretary.provide(100);
+		List<Lawyer> lawyerList = providerLawyer.provide(100);
 		secretaryList.forEach(appleInc::invitePeople);
+		lawyerList.forEach(appleInc::invitePeople);
 
 		System.out.println(appleInc.secretary);
+		System.out.println(appleInc.lawyer);
 
 
 		if (appleInc.secretary != null){

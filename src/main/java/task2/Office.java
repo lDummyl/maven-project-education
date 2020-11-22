@@ -1,7 +1,5 @@
 package task2;
 
-import java.util.List;
-
 public class Office {
 
 	Director director;
@@ -24,6 +22,7 @@ public class Office {
 
 	void invitePeople(Object human){
 		hr.checkEmployee(human);
-		secretary = director.chooseEmployee(hr.getListEmployee());
+		secretary = (Secretary) director.chooseEmployee(hr.getListEmployee(), Secretary.class);
+		lawyer = (Lawyer) director.chooseEmployee(hr.getListEmployee(), Lawyer.class);
 	}
 }

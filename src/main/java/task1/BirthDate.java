@@ -23,4 +23,9 @@ public class BirthDate {
             return true;
         } else return  (year == other.year && month == other.month && day < other.day);
     }
+
+    @Override
+    public String toString() {
+        return day + "-" + month + "-" + year;
+    }
 }
