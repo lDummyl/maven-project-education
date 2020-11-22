@@ -30,8 +30,12 @@ public class LocalDirector implements Director {
             else {
                 candidatesWorkers = workers.stream().filter(Worker::passInterview).collect(Collectors.toList());
             }
-
-        return candidatesWorkers.get(random.nextInt(candidatesWorkers.size()));
+            if (candidatesWorkers.size() == 0){
+                throw new IllegalArgumentException("Нету кандидатов прошедших интервью");
+            }
+            else {
+                return candidatesWorkers.get(random.nextInt(candidatesWorkers.size()));
+            }
     }
 }
 
