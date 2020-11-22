@@ -16,16 +16,17 @@ public class SecondHrTest {
 
 
     @Test
-    public void addCandidate(){
+    public void addCandidate() {
         SecondHr secondHr = new SecondHr();
         Collection<Guard> guards = candidateProvider.generateAnyWorkers(1, Guard::new);
         ArrayList<Guard> guardsList = new ArrayList<>(guards);
         secondHr.addCandidate(guardsList.get(0));
-        assertEquals(guardsList.size(),secondHr.getCandidates().size());
+        assertEquals(guardsList.size(), secondHr.getCandidates().size());
         System.out.println(secondHr.getCandidates());
     }
+
     @Test
-    public void addCandidateMany(){
+    public void addCandidateMany() {
         SecondHr secondHr = new SecondHr();
         int guardSize = 100;
         Collection<Guard> guards = candidateProvider.generateAnyWorkers(guardSize, Guard::new);
@@ -35,11 +36,12 @@ public class SecondHrTest {
         }
         Map<Class<?>, List<Worker>> candidates = secondHr.getCandidates();
         assertEquals(1, candidates.size());
-        assertEquals(guardSize,candidates.get(Guard.class).size());
+        assertEquals(guardSize, candidates.get(Guard.class).size());
         System.out.println(candidates);
     }
+
     @Test
-    public void addCandidateManyTypes(){
+    public void addCandidateManyTypes() {
         SecondHr secondHr = new SecondHr();
         int candidateSize = 100;
         List<Guard> guards = candidateProvider.generateAnyWorkers(candidateSize, Guard::new);
@@ -56,8 +58,9 @@ public class SecondHrTest {
 
         System.out.println(candidates);
     }
-    @Test (expected = IllegalStateException.class)
-    public void addCandidateCrush(){
+
+    @Test(expected = IllegalStateException.class)
+    public void addCandidateCrush() {
         SecondHr secondHr = new SecondHr();
         int candidateSize = 100;
 

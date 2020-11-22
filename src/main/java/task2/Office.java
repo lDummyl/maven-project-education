@@ -56,8 +56,15 @@ public class Office {
 
 
     void invitePeople(Object human) {
-        hr.addCandidate(human);
-       // director.chooseWorker(hr.getCandidates());
+        if  (!(human instanceof Worker)){
+            throw new IllegalStateException("It's not worker");
+        }
+        else{
+            this.hr.addCandidate(human);
+            // FIXME: 22.11.2020 Остаётся unchecked cast
+            Worker worker = this.director.chooseWorker(hr.getCandidates(), (Class<? extends Worker>) human.getClass());
+            setWorker(worker);
+        }
     }
 
     // TODO: 11/16/20 для всех одна дверь, нет двери для охраниников и для секретарей отдельно

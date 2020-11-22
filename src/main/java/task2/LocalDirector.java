@@ -17,25 +17,24 @@ public class LocalDirector implements Director {
         }
     }
 
-    // TODO: 22.11.2020 проверить метод (для себя)
-    public Worker chooseWorker(Map<Class<?>, List<Worker>> candidates,  Class<? extends Worker> candidateClass) {
+
+    public Worker chooseWorker(Map<Class<?>, List<Worker>> candidates, Class<? extends Worker> candidateClass) {
 
         Random random = new Random();
         List<Worker> workers = candidates.get(candidateClass);
         List<Worker> candidatesWorkers = null;
 
-            if (workers == null) {
-                throw new NullPointerException("Пустой список кандидатов");
-            }
-            else {
-                candidatesWorkers = workers.stream().filter(Worker::passInterview).collect(Collectors.toList());
-            }
-            if (candidatesWorkers.size() == 0){
-                throw new IllegalArgumentException("Нету кандидатов прошедших интервью");
-            }
-            else {
-                return candidatesWorkers.get(random.nextInt(candidatesWorkers.size()));
-            }
+        if (workers == null) {
+            throw new NullPointerException("Пустой список кандидатов");
+        } else {
+            candidatesWorkers = workers.stream().filter(Worker::passInterview).collect(Collectors.toList());
+        }
+
+        if (candidatesWorkers.size() == 0) {
+            throw new IllegalArgumentException("Нету кандидатов прошедших интервью");
+        } else {
+            return candidatesWorkers.get(random.nextInt(candidatesWorkers.size()));
+        }
     }
 }
 

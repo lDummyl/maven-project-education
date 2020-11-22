@@ -43,7 +43,7 @@ public abstract class Worker extends Person {
         }
     }
 
-    // TODO: 11/16/2020 Сделал метод абстрактным, чтобы требовалась реализация
+
     public abstract boolean passInterview();
 }
 
