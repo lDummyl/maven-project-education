@@ -50,6 +50,7 @@ public class LocalDirectorTest {
         assertTrue(manager.passInterview());
         assertTrue(lawyer.passInterview());
     }
+
     @Test
     public void testCrushNoVar() {
         SecondHr secondHr = new SecondHr();
@@ -63,11 +64,10 @@ public class LocalDirectorTest {
         managers.forEach(secondHr::addCandidate);
         lawyers.forEach(secondHr::addCandidate);
         try {
-        Worker guard = localDirector.chooseWorker(secondHr.getCandidates(), Guard.class);
-        Worker manager = localDirector.chooseWorker(secondHr.getCandidates(), Manager.class);
-        Worker lawyer = localDirector.chooseWorker(secondHr.getCandidates(), Lawyer.class);
-        }
-        catch (IllegalArgumentException e) {
+            Worker guard = localDirector.chooseWorker(secondHr.getCandidates(), Guard.class);
+            Worker manager = localDirector.chooseWorker(secondHr.getCandidates(), Manager.class);
+            Worker lawyer = localDirector.chooseWorker(secondHr.getCandidates(), Lawyer.class);
+        } catch (IllegalArgumentException e) {
             assertTrue(true);
             assertEquals("Нету кандидатов прошедших интервью", e.getMessage());
         }

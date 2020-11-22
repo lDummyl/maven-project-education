@@ -24,6 +24,6 @@ public class Main {
         // TODO: 11/16/20 используй ту конструкцию что я дал в провайдере
         //Collection<SecretaryImpl> secretaries = candidateProvider.generateSecretaries(100);
 
-       // secretaries.forEach(apple::invitePeople);
+        // secretaries.forEach(apple::invitePeople);
     }
 }

@@ -22,14 +22,13 @@ public class SecondHr implements Hr {
     //  но с этим у тебя все получится.
     public void addCandidate(Object candidate) {
         Class<?> candidateClass = candidate.getClass();
-        if (!(candidate instanceof Worker)){
-           throw new IllegalStateException("Wrong object");
+        if (!(candidate instanceof Worker)) {
+            throw new IllegalStateException("Wrong object");
         }
         List<Worker> workers = candidates.get(candidateClass);
-        if(workers != null ){
+        if (workers != null) {
             workers.add((Worker) candidate);
-        }
-        else {
+        } else {
             ArrayList<Worker> workersNew = new ArrayList<>();
             workersNew.add((Worker) candidate);
             candidates.put(candidateClass, workersNew);

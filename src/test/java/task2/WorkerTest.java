@@ -13,6 +13,5 @@ public class WorkerTest extends TestCase {
         List<Guard> guards = candidateProvider.generateAnyWorkers(candidateSize, Guard::new);
         List<Manager> managers = candidateProvider.generateAnyWorkers(candidateSize, Manager::new);
         List<Lawyer> lawyers = candidateProvider.generateAnyWorkers(candidateSize, Lawyer::new);
-
     }
 }

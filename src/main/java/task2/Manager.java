@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class Manager extends Worker {
     int luck;
+
     public Manager(Person person) {
         super(person);
         Random random = new Random();
@@ -16,8 +17,6 @@ public class Manager extends Worker {
     public boolean passInterview() {
         int neededScore = 50;
 
-       return ((this.experience + this.luck - this.age.getYears() ) > neededScore);
+        return ((this.experience + this.luck - this.age.getYears()) > neededScore);
     }
-
-
 }

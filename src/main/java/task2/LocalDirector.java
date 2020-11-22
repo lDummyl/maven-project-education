@@ -22,7 +22,7 @@ public class LocalDirector implements Director {
 
         Random random = new Random();
         List<Worker> workers = candidates.get(candidateClass);
-        List<Worker> candidatesWorkers = null;
+        List<Worker> candidatesWorkers;
 
         if (workers == null) {
             throw new NullPointerException("Пустой список кандидатов");

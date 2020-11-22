@@ -17,7 +17,7 @@ public class OfficeTest {
     CandidateProvider candidateProvider = new CandidateProvider();
 
     @Test
-    public void initTest(){
+    public void initTest() {
         SecondHr secondHr = new SecondHr();
         LocalDirector localDirector = new LocalDirector();
         int candidateSize = 100;
@@ -66,8 +66,9 @@ public class OfficeTest {
     }
 
     // FIXME: 22.11.2020 директор выдаёт exception, что нету кандидатов прошедших интервью
+    // FIXME: 22.11.2020 не забыть серетарей
     @Test
-    public void invitePeopleTest(){
+    public void invitePeopleTest() {
         Office office = new Office(new LocalDirector(), new SecondHr());
         int candidateSize = 100;
         List<Guard> guards = candidateProvider.generateAnyWorkers(candidateSize, Guard::new);
@@ -88,7 +89,7 @@ public class OfficeTest {
     }
 
     @Test
-    public void crushTest(){
+    public void crushTest() {
         Object o = new Object();
         Office djenga = new Office(new GeneralDirector(), new GeneralHr());
         try {
@@ -99,7 +100,7 @@ public class OfficeTest {
     }
 
     @Test
-    public void anotherSec(){
+    public void anotherSec() {
 
 
     }

@@ -1,10 +1,5 @@
 package task2;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.function.Function;
-
 public class Office {
     Secretary secretary;
     Director director;
@@ -12,7 +7,6 @@ public class Office {
     Manager manager;
     Lawyer lawyer;
     Guard guard;
-
 
 
     public Office(Director director, Hr hr) {
@@ -38,17 +32,17 @@ public class Office {
         this.guard = guard;
     }
 
-    public<T extends Worker> void setWorker(Worker candidate){
-        if (candidate.getClass().equals(Manager.class)){
+    public void setWorker(Worker candidate) {
+        if (candidate.getClass().equals(Manager.class)) {
             setManager((Manager) candidate);
-        } else if (candidate.getClass().equals(Lawyer.class)){
+        } else if (candidate.getClass().equals(Lawyer.class)) {
             setLawyer((Lawyer) candidate);
-        }
-        else if (candidate.getClass().equals(Guard.class)){
+        } else if (candidate.getClass().equals(Guard.class)) {
             setGuard((Guard) candidate);
+        } else if (candidate.getClass().equals(SecretaryImpl.class)) {
+            setSecretary((SecretaryImpl) candidate);
         }
     }
-
 
 
     //претенденты идут по одному, когда их достаточно,
@@ -56,10 +50,9 @@ public class Office {
 
 
     void invitePeople(Object human) {
-        if  (!(human instanceof Worker)){
+        if (!(human instanceof Worker)) {
             throw new IllegalStateException("It's not worker");
-        }
-        else{
+        } else {
             this.hr.addCandidate(human);
             // FIXME: 22.11.2020 Остаётся unchecked cast
             Worker worker = this.director.chooseWorker(hr.getCandidates(), (Class<? extends Worker>) human.getClass());
