@@ -32,6 +32,9 @@ public class Office {
         this.guard = guard;
     }
 
+    // TODO: 23.11.2020 там внизу в скобочках это называется downcast, чем его больше тем хуже,
+    //  ищи спасение от него в дженериках(они почти только за тем и сделаны) тебе должно помочь видео и то что мы делали в candidateProvider
+    //  ну если  станет не в моготу то глянь в ветку eWheat.
     public void setWorker(Worker candidate) {
         if (candidate.getClass().equals(Manager.class)) {
             setManager((Manager) candidate);
@@ -55,6 +58,7 @@ public class Office {
         } else {
             this.hr.addCandidate(human);
             // FIXME: 22.11.2020 Остаётся unchecked cast
+            // TODO: 23.11.2020 короче говоря нужно чтобы директор возвращал сразу кого надо и только когда надо, директор много работать не любит
             Worker worker = this.director.chooseWorker(hr.getCandidates(), (Class<? extends Worker>) human.getClass());
             setWorker(worker);
         }
