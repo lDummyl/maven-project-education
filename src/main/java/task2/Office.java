@@ -22,7 +22,10 @@ public class Office {
 
 	void invitePeople(Object human){
 		hr.checkEmployee(human);
-		secretary = (Secretary) director.chooseEmployee(hr.getListEmployee(), Secretary.class);
-		lawyer = (Lawyer) director.chooseEmployee(hr.getListEmployee(), Lawyer.class);
+		secretary = (Secretary) director.chooseEmployee(secretary, hr.getListEmployee(), Secretary.class);
+		lawyer = (Lawyer) director.chooseEmployee(lawyer, hr.getListEmployee(), Lawyer.class);
+		security = (Security) director.chooseEmployee(security, hr.getListEmployee(), Security.class);
+		firstAccountant = (Accountant) director.chooseEmployee(firstAccountant, hr.getListEmployee(), Accountant.class);
+		secondAccountant = (Accountant) director.chooseEmployee(secondAccountant, hr.getListEmployee(), Accountant.class);
 	}
 }
