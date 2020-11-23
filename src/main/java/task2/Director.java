@@ -1,9 +1,6 @@
 package task2;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class Director {
 
@@ -17,15 +14,16 @@ public class Director {
 			randomChoose = new Random();
 			Employee tempEmployee = tempList.get(randomChoose.nextInt(employees.size()));
 			tempList.remove(tempEmployee); // удаляем работника который уже выбран
-			employees.put(employeeClass, tempList); // TODO: 22.11.2020  лист и так изменится повтроно его класть не нужно для этого, потому что ты получаешь не лист, а ссылку на него
-			if (employeeClass.isInstance(employeeClass)) {
-				return employeeClass.cast(tempEmployee);
-			} else{
+			if (employeeClass.isInstance(tempEmployee)) {  // Проверяем является ли tempEmployee экземпляром T?
+				return employeeClass.cast(tempEmployee); // Равносильно ли это даункасту?
+			} else {
 				throw new IllegalStateException("WTF?");
 			}
 		}
 		return null;// вметсо null лучше возвращать Optional.empty() почитай, подумай как
 	}
+
+
 
 	public static void main(String[] args) {
 		Director director = new Director();
