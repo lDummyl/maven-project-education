@@ -1,8 +1,6 @@
 package task3;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 
 
@@ -11,10 +9,6 @@ public class Oracle {
 
     public Oracle() throws IOException {
     }
-
-    QuestionReader questionReader = new QuestionReader();
-    String question = questionReader.question;
-
 
     ArrayList<String> questions = new ArrayList<>(Arrays.asList("кто", "что", "когда", "как", "зачем", "почему", "где", "куда", "откуда"));
 
@@ -52,7 +46,7 @@ public class Oracle {
         }
     }
 
-    public void answer() {
+    public void answer(String question) {
         for (Map.Entry<String, String> item : listOfAphorisms.entrySet()) {
             if (question.contains(item.getKey())) {
                 answer = item.getValue();
@@ -78,7 +72,7 @@ public class Oracle {
 
     int amountOfSpecialQuestions = 0;
 
-    public boolean checkQuestion() {
+    public boolean checkQuestion(String question) {
         if (question.length() > 30) {
             answer = "Будь лаконичнее";
             System.out.println(answer);
@@ -107,20 +101,20 @@ public class Oracle {
         return true;
     }
 
-    public void launch() {
-        if (checkQuestion()) {
-            int percent = random(1, 100);
-            if (percent <= 5) {
-                relax();
-            } else if (percent <= 15) {
-                rude();
-            } else if (percent <= 20) {
-                hit();
-            } else {
-                answer();
-            }
-        }
-    }
+//    public void launch() {
+//        if (checkQuestion()) {
+//            int percent = random(1, 100);
+//            if (percent <= 5) {
+//                relax();
+//            } else if (percent <= 15) {
+//                rude();
+//            } else if (percent <= 20) {
+//                hit();
+//            } else {
+//                answer();
+//            }
+//        }
+//    }
 
     public String giveAnswer(String question) {
         return "ok";

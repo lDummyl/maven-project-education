@@ -28,8 +28,9 @@ import java.io.StringWriter;
 public class Main {
     public static void main(String[] args) throws IOException {
         Oracle oracle = new Oracle();
-        oracle.launch();
-        Conversation conversation = new Conversation(oracle.question, oracle.answer);
+        QuestionReader reader = new QuestionReader();
+        oracle.answer(reader.question);
+        Conversation conversation = new Conversation(reader.question, oracle.answer);
         FileOutputStream outputStream = new FileOutputStream("D:\\test.txt");
         StringWriter writer = new StringWriter();
         ObjectMapper objectMapper = new ObjectMapper();
