@@ -55,9 +55,9 @@ public class OfficeTest {
         Worker manager = localDirector.chooseWorker(secondHr.getCandidates(), Manager.class);
         Worker lawyer = localDirector.chooseWorker(secondHr.getCandidates(), Lawyer.class);
 
-        //apple.setWorker(guard);
-        //apple.setWorker(manager);
-        //apple.setWorker(lawyer);
+        apple.setWorker(guard);
+        apple.setWorker(manager);
+        apple.setWorker(lawyer);
 
         assertNotNull(apple.guard);
         assertNotNull(apple.manager);
@@ -75,9 +75,9 @@ public class OfficeTest {
         List<Manager> managers = candidateProvider.generateAnyWorkers(candidateSize, Manager::new);
         List<Lawyer> lawyers = candidateProvider.generateAnyWorkers(candidateSize, Lawyer::new);
 
-        //guards.forEach(office::invitePeople);
-        //managers.forEach(office::invitePeople);
-        //lawyers.forEach(office::invitePeople);
+        guards.forEach(office::invitePeople);
+        managers.forEach(office::invitePeople);
+        lawyers.forEach(office::invitePeople);
 
         assertNotNull(office.guard);
         assertNotNull(office.manager);

@@ -1,6 +1,7 @@
 package task2;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SecondHr implements Hr {
     Collection<SecretaryImpl> secCandidates;
@@ -17,7 +18,7 @@ public class SecondHr implements Hr {
         return secCandidates;
     }
 
-
+    // TODO: 24.11.2020 Доделать перенос интервью Hr
     // TODO: 11/16/20  да, это норма! А вот Unchecked cast это то что делать не стоит так жк как и проверять через instanceof,
     //  но с этим у тебя все получится.
     public void addCandidate(Object candidate) {
@@ -29,9 +30,13 @@ public class SecondHr implements Hr {
         if (workers != null) {
             workers.add((Worker) candidate);
         } else {
-            ArrayList<Worker> workersNew = new ArrayList<>();
-            workersNew.add((Worker) candidate);
-            candidates.put(candidateClass, workersNew);
+
+            if (workers == null) {
+                throw new NullPointerException("Пустой список кандидатов");
+            } else {
+                List<Worker> candidates = workers.stream().filter(Worker::passInterview).collect(Collectors.toList());
+            }
+            candidates.put(candidateClass, (List<Worker>) candidates);
         }
     }
 
