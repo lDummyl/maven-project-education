@@ -13,7 +13,7 @@ import java.util.Map;
 public class Main {
 	public static void main(String[] args) {
 
-		Director director = new Director();
+		Director director = new Director(10);
 		Hr hr = new Hr();
 		Office appleInc = new Office(director, hr);
 		//Office amazonInc = null;

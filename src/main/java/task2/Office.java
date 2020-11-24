@@ -37,6 +37,7 @@ public class Office {
 //		secondAccountant = (Accountant) director.chooseEmployee(secondAccountant, hr.getListEmployee(), Accountant.class);
 	}
 
+	// TODO: 24.11.2020 задача не возвращать null, а что возвращает директор?
 	private <T extends Employee> Optional<T> getOptional(T employee) {
 		return Optional.ofNullable(employee);
 	}
