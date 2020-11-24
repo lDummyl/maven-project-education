@@ -8,5 +8,5 @@ public interface Director  {
 
     SecretaryImpl chooseSecretary(Collection<SecretaryImpl> candidates);
 
-    public<T extends Worker> T chooseWorker(Map<Class<?>, List<T>> candidates, Class<? extends Worker> candidateClass);
+    public<T extends Worker> T chooseWorker(Map<Class<?>, List<T>> candidates, Class<?> candidateClass);
 }

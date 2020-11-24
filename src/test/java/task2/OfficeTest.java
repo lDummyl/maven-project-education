@@ -42,7 +42,7 @@ public class OfficeTest {
     public void setWorkerTest() {
         SecondHr secondHr = new SecondHr();
         LocalDirector localDirector = new LocalDirector();
-        int candidateSize = 100;
+        int candidateSize = 1000;
         List<Guard> guards = candidateProvider.generateAnyWorkers(candidateSize, Guard::new);
         List<Manager> managers = candidateProvider.generateAnyWorkers(candidateSize, Manager::new);
         List<Lawyer> lawyers = candidateProvider.generateAnyWorkers(candidateSize, Lawyer::new);

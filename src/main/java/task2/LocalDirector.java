@@ -18,7 +18,7 @@ public class LocalDirector implements Director {
     }
 
     // TODO: 24.11.2020  теперь должен возвращатся класс нужного типа
-    public<T extends Worker> T chooseWorker(Map<Class<?>, List<T>> candidates, Class<? extends Worker> candidateClass) {
+    public<T extends Worker> T chooseWorker(Map<Class<?>, List<T>> candidates, Class<?> candidateClass) {
 
         int neededCandiadates = 100;
         Random random = new Random();
