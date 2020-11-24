@@ -17,21 +17,26 @@ public class LocalDirector implements Director {
         }
     }
 
+    // TODO: 24.11.2020  теперь должен возвращатся класс нужного типа
+    public<T extends Worker> T chooseWorker(Map<Class<?>, List<T>> candidates, Class<? extends Worker> candidateClass) {
 
-    public Worker chooseWorker(Map<Class<?>, List<Worker>> candidates, Class<? extends Worker> candidateClass) {
-
+        int neededCandiadates = 100;
         Random random = new Random();
-        List<Worker> workers = candidates.get(candidateClass);
-        List<Worker> candidatesWorkers;
+        List<T> workers = candidates.get(candidateClass);
+        List<T> candidatesWorkers;
 
         if (workers == null) {
             throw new NullPointerException("Пустой список кандидатов");
         } else {
-            candidatesWorkers = workers.stream().filter(Worker::passInterview).collect(Collectors.toList());
+            candidatesWorkers = workers.stream().filter(T::passInterview).collect(Collectors.toList());
         }
 
         if (candidatesWorkers.size() == 0) {
             throw new IllegalArgumentException("Нету кандидатов прошедших интервью");
+        }
+
+        if (candidatesWorkers.size() < neededCandiadates) {
+            throw new IllegalArgumentException("Недостаточно кандидатов");
         } else {
             return candidatesWorkers.get(random.nextInt(candidatesWorkers.size()));
         }
