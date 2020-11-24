@@ -18,19 +18,19 @@ public class Office {
 
     // TODO: 11/16/20 убери этот нойз просто присвоение по месту делай
 
-    public<T extends Secretary > void setWorker(T secretaryImpl) {
+    public void setWorker(Secretary secretaryImpl) {
         this.secretary = secretaryImpl;
     }
 
-    public<T extends Manager> void setWorker(T manager) {
+    public void setWorker(Manager manager) {
         this.manager = manager;
     }
 
-    public<T extends Lawyer> void setWorker(T lawyer) {
+    public void setWorker(Lawyer lawyer) {
         this.lawyer = lawyer;
     }
 
-    public<T extends Guard> void setWorker(T guard) {
+    public void setWorker(Guard guard) {
         this.guard = guard;
     }
 
@@ -42,7 +42,7 @@ public class Office {
     // то директор принимает решение и берет одного в штат
 
 
-    /*oid invitePeople(Object human) {
+    /*void invitePeople(Object human) {
         if (!(human instanceof Worker)) {
             throw new IllegalStateException("It's not worker");
         } else {
@@ -61,7 +61,7 @@ public class Office {
             this.hr.addCandidate(human);
             // FIXME: 22.11.2020 Остаётся unchecked cast
             // TODO: 23.11.2020 короче говоря нужно чтобы директор возвращал сразу кого надо и только когда надо, директор много работать не любит
-            Worker worker = this.director.chooseWorker(hr.getCandidates(), (Class<? extends Worker>) human.getClass());
+            T worker = (T) this.director.chooseWorker(hr.getCandidates(), human.getClass());
             setWorker(worker);
         }
     }
