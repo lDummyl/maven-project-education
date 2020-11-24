@@ -10,9 +10,9 @@ public interface HasAge {
         return this.getBd().before(other.getBd());
     }
 
-    static <T extends HasAge> T getOldest(List<T> peoples) {
-        T oldestPerson = peoples.get(0);
-        for (T person : peoples) {
+    static  HasAge getOldest(List<HasAge> peoples) {
+        HasAge oldestPerson = peoples.get(0);
+        for (HasAge person : peoples) {
             if (person.isOlderThan(oldestPerson)) {
                 oldestPerson = person;
             }
