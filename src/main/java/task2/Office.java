@@ -32,19 +32,28 @@ public class Office {
         this.guard = guard;
     }
 
-     void invitePeople(Object human) {
+    public <T> void setWorker(T worker) {
+        if (worker instanceof Guard) {
+            setGuard((Guard) worker);
+        } else if (worker instanceof Secretary) {
+            setSecretary((SecretaryImpl) worker);
+        } else if (worker instanceof Lawyer) {
+            setLawyer((Lawyer) worker);
+        } else if (worker instanceof Manager) {
+            setManager((Manager) worker);
+        }
+    }
+
+    // FIXME: 24.11.2020 Не работает
+    void invitePeople(Object human) {
         if (!(human instanceof Worker)) {
             throw new IllegalStateException("It's not worker");
         } else {
             this.hr.addCandidate(human);
             Worker worker = this.director.chooseWorker(hr.getCandidates(), human.getClass());
         }
+    }
 
-     }
-    /* <T extends Worker> void invitePeople(T human) {
-         this.hr.addCandidate(human);
-         Worker worker = this.director.chooseWorker(hr.getCandidates(), human.getClass());
-     }*/
     // FIXME: 22.11.2020 Остаётся unchecked cast
     // TODO: 23.11.2020 короче говоря нужно чтобы директор возвращал сразу кого надо и только когда надо, директор много работать не любит
 
