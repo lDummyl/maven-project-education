@@ -3,12 +3,12 @@ package task1;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface Provider {
+public interface Provider<T> {
 
-    HasAge provide();
+    T provide();
 
-    default List<HasAge> provide(int qty) {
-        ArrayList<HasAge> people = new ArrayList<>();
+    default List<T> provide(int qty) {
+        ArrayList<T> people = new ArrayList<>();
         for (int i = 0; i < qty; i++) {
              people.add(provide());
         }

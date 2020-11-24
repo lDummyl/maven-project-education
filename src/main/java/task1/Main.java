@@ -9,27 +9,24 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            Provider provider = Dino::new;
-            Dino oldest = (Dino) generateAndFind(provider);
-            oldest.scream();
+            Provider<Dino> provider = Dino::new;
+            Dino dino = generateAndFind(provider);
+            //oldest.scream();
 
-            Provider providerPerson = Person::new;
-            Person oldPerson = (Person) generateAndFind(providerPerson);
+            Provider<Person> providerPerson = Person::new;
+            Person oldPerson = generateAndFind(providerPerson);
             System.out.println("oldPerson.name.lastName = " + oldPerson.name.lastName);
 
             HasAge futureGuest = () -> new BirthDate(5_000);
-            Provider futurePortal = () -> futureGuest;
+            Provider<HasAge> futurePortal = () -> futureGuest;
             HasAge guest = generateAndFind(futurePortal);
             System.out.println("guest.getBd().year = " + guest.getBd().year);
         } catch (Exception e) {
         }
     }
 
-    private static HasAge generateAndFind(Provider provider) {
-        List<HasAge> peoples = provider.provide(100);
-        if(new Random().nextBoolean()){
-            return new Person();
-        }
+    private static <T extends HasAge> T generateAndFind(Provider<T> provider) {
+        List<T> peoples = provider.provide(100);
         return HasAge.getOldest(peoples);
     }
 

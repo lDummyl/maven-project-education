@@ -16,19 +16,19 @@ public class Director {
 	}
 
 	// TODO: 22.11.2020 все то же самое изучай дженерики
-	public <T extends Employee> T chooseEmployee(Map<Class<?>, List<Employee>> employees, Class<T> employeeClass) {
+	public <T extends Employee> Optional<T> chooseEmployee(Map<Class<?>, List<Employee>> employees, Class<T> employeeClass) {
 		List<Employee> tempList = employees.get(employeeClass);
 		if (tempList != null && tempList.size() >= enoughToDecide) {
 			randomChoose = new Random();
 			Employee tempEmployee = tempList.get(randomChoose.nextInt(employees.size()));
 			tempList.remove(tempEmployee); // удаляем работника который уже выбран
 			if (employeeClass.isInstance(tempEmployee)) {  // Проверяем является ли tempEmployee экземпляром T? Да проверяем потому что ниже
-				return employeeClass.cast(tempEmployee); // Равносильно ли это даункасту? да это он и есть с той разницей что он в одном месте, а не размазан везде по коду, где используется директор.
+				return Optional.of(employeeClass.cast(tempEmployee)); // Равносильно ли это даункасту? да это он и есть с той разницей что он в одном месте, а не размазан везде по коду, где используется директор.
 			} else {
 				throw new IllegalStateException("WTF?");
 			}
 		}
-		return null;// вметсо null лучше возвращать Optional.empty() почитай, подумай как
+		return Optional.empty();// вметсо null лучше возвращать Optional.empty() почитай, подумай как
 	}
 
 
@@ -41,7 +41,10 @@ public class Director {
 		map.put(Secretary.class, new ArrayList<>(Arrays.asList(new Lawyer())));
 		map.put(Security.class, Arrays.asList(new Accountant()));
 
-		Secretary secretary = director.chooseEmployee(map, Secretary.class);
+		Optional<Secretary> optionalSecretary = director.chooseEmployee(map, Secretary.class);
+		if (optionalSecretary.isPresent()) {
+			Secretary secretary = optionalSecretary.get();
+		}
 
 
 	}

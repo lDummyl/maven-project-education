@@ -26,8 +26,16 @@ public class Office {
 
 	void invitePeople(Object human){
 		hr.checkEmployee(human);
-		secretary = getOptional(secretary).orElseGet(() -> director.chooseEmployee(hr.getListEmployee(), Secretary.class));
-		lawyer = getOptional(lawyer).orElseGet(() -> director.chooseEmployee(hr.getListEmployee(), Lawyer.class));
+		Optional<Secretary> optionalSecretary = director.chooseEmployee(hr.getListEmployee(), Secretary.class);
+
+
+
+
+
+
+
+		optionalSecretary.ifPresent(value -> secretary = value);
+		//lawyer = getOptional(lawyer).orElseGet(() -> director.chooseEmployee(hr.getListEmployee(), Lawyer.class));
 
 
 //		secretary = director.chooseEmployee(hr.getListEmployee(), Secretary.class);
@@ -37,8 +45,4 @@ public class Office {
 //		secondAccountant = (Accountant) director.chooseEmployee(secondAccountant, hr.getListEmployee(), Accountant.class);
 	}
 
-	// TODO: 24.11.2020 задача не возвращать null, а что возвращает директор?
-	private <T extends Employee> Optional<T> getOptional(T employee) {
-		return Optional.ofNullable(employee);
-	}
 }
