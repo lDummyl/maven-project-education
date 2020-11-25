@@ -14,7 +14,7 @@ public class Main {
 		Hr hr = new Hr();
 		Office appleInc = new Office(director, hr);
 
-		providerEmployee.provide().forEach((k, v) -> v.forEach(appleInc::invitePeople));
+		//providerEmployee.provide().forEach((k, v) -> v.forEach(appleInc::invitePeople));
 
 		System.out.println(appleInc.secretary);
 		System.out.println(appleInc.lawyer);
