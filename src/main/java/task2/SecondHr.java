@@ -1,5 +1,7 @@
 package task2;
 
+import lombok.var;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,35 +20,23 @@ public class SecondHr implements Hr {
         return secCandidates;
     }
 
+    @Override
+    public void addCandidate(Object candidate) {
 
-    // TODO: 11/16/20  да, это норма! А вот Unchecked cast это то что делать не стоит так жк как и проверять через instanceof,
-    //  но с этим у тебя все получится.
-    // TODO: 24.11.2020 так вроде лаконичнее
-    public <T extends Worker> void addCandidate(T candidate) {
-        Class<? extends Worker> aClass = candidate.getClass();
-        List<Worker> workers = candidates.get(aClass);
-        if (workers != null && candidate.passInterview()) {
-            workers.add(candidate);
-        } else if ((workers == null && candidate.passInterview())) {
-            ArrayList<Worker> workersNew = new ArrayList<>();
-            workersNew.add((Worker) candidate);
-            candidates.put(aClass, workersNew);
-        }
     }
 
-    public void addCandidate(Object candidate) {
-        Class<?> candidateClass = candidate.getClass();
-        if (!(candidate instanceof Worker)) {
-            throw new IllegalStateException("Wrong object");
+    public <T extends Worker> void addCandidateDet(T candidate) {
+        if (!candidate.passInterview()) {
+            return;
         }
-        List<Worker> workers = candidates.get(candidateClass);
+        Class<? extends Worker> aClass = candidate.getClass();
+        List<Worker> workers = candidates.get(aClass);
         if (workers != null) {
-            Worker candidateChecked = (Worker) candidate;
-            workers.add((Worker) candidate);
+            workers.add(candidate);
         } else {
             ArrayList<Worker> workersNew = new ArrayList<>();
-            workersNew.add((Worker) candidate);
-            candidates.put(candidateClass, workersNew);
+            workersNew.add(candidate);
+            candidates.put(aClass, workersNew);
         }
     }
 
@@ -55,4 +45,14 @@ public class SecondHr implements Hr {
     public Map<Class<?>, List<Worker>> getCandidates() {
         return this.candidates;
     }
+
+    public <T extends Worker> List<T> getPureCandList(Class<T> candidateClass) {
+
+
+        List<Worker> workers = this.candidates.get(candidateClass);
+        List<Worker> relevantWorkers = workers.stream().filter(Worker::passInterview).collect(Collectors.toList());
+        return null;
+    }
+
+
 }

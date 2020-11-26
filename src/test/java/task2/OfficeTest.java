@@ -29,9 +29,9 @@ public class OfficeTest {
         managers.forEach(secondHr::addCandidate);
         lawyers.forEach(secondHr::addCandidate);
 
-        Worker guard = localDirector.chooseWorker(secondHr.getCandidates(), Guard.class);
-        Worker manager = localDirector.chooseWorker(secondHr.getCandidates(), Manager.class);
-        Worker lawyer = localDirector.chooseWorker(secondHr.getCandidates(), Lawyer.class);
+//        Worker guard = localDirector.chooseWorker(secondHr.getCandidates(), Guard.class);
+//        Worker manager = localDirector.chooseWorker(secondHr.getCandidates(), Manager.class);
+//        Worker lawyer = localDirector.chooseWorker(secondHr.getCandidates(), Lawyer.class);
 
         //apple.setGuard((Guard) guard);
         //apple.setManager((Manager) manager);
@@ -51,17 +51,17 @@ public class OfficeTest {
         managers.forEach(secondHr::addCandidate);
         lawyers.forEach(secondHr::addCandidate);
 
-        Worker guard = localDirector.chooseWorker(secondHr.getCandidates(), Guard.class);
-        Worker manager = localDirector.chooseWorker(secondHr.getCandidates(), Manager.class);
-        Worker lawyer = localDirector.chooseWorker(secondHr.getCandidates(), Lawyer.class);
-
-        apple.setWorker(guard);
-        apple.setWorker(manager);
-        apple.setWorker(lawyer);
-
-        assertNotNull(apple.guard);
-        assertNotNull(apple.manager);
-        assertNotNull(apple.lawyer);
+//        Worker guard = localDirector.chooseWorker(secondHr.getCandidates(), Guard.class);
+//        Worker manager = localDirector.chooseWorker(secondHr.getCandidates(), Manager.class);
+//        Worker lawyer = localDirector.chooseWorker(secondHr.getCandidates(), Lawyer.class);
+//
+//        apple.setWorker(guard);
+//        apple.setWorker(manager);
+//        apple.setWorker(lawyer);
+//
+//        assertNotNull(apple.guard);
+//        assertNotNull(apple.manager);
+//        assertNotNull(apple.lawyer);
 
     }
 

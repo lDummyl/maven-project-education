@@ -15,6 +15,7 @@ public class SecondHrTest {
     int numberOfCandidate = 100;
 
 
+
     @Test
     public void addCandidate() {
         SecondHr secondHr = new SecondHr();
@@ -72,4 +73,6 @@ public class SecondHrTest {
             throw e;
         }
     }
+
+
 }

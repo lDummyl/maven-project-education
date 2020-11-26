@@ -1,9 +1,14 @@
 package task2;
 
+import lombok.var;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class Office {
-    Worker secretary;
+    Secretary secretary;
     Director director;
     Hr hr;
     Manager manager;
@@ -16,7 +21,7 @@ public class Office {
         this.hr = hr;
     }
 
-    public void setSecretary(Worker secretary) {
+    public void setSecretary(Secretary secretary) {
         this.secretary = secretary;
     }
 
@@ -50,20 +55,16 @@ public class Office {
             throw new IllegalStateException("It's not worker");
         } else {
             this.hr.addCandidate(human);
-            Worker worker = this.director.chooseWorker(hr.getCandidates(), human.getClass());
+            Map<Class<?>, List<Worker>> candidates = hr.getCandidates();
+            Optional<SecretaryImpl> optionalSecretary = director.chooseWorker(candidates, SecretaryImpl.class);
+
+
+            optionalSecretary.ifPresent(s -> secretary = s);
         }
     }
-
-    // FIXME: 22.11.2020 Остаётся unchecked cast
-    // TODO: 23.11.2020 короче говоря нужно чтобы директор возвращал сразу кого надо и только когда надо, директор много работать не любит
-
-    // TODO: 23.11.2020 там внизу в скобочках это называется downcast, чем его больше тем хуже,
-    //  ищи спасение от него в дженериках(они почти только за тем и сделаны) тебе должно помочь видео и то что мы делали в candidateProvider
-    //  ну если  станет не в моготу то глянь в ветку eWheat.
 
 
 }
 
-// TODO: 11/16/20 для всех одна дверь, нет двери для охраниников и для секретарей отдельно
 
 

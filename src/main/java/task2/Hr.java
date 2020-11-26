@@ -9,5 +9,5 @@ public interface Hr {
     Collection<SecretaryImpl> addSecretaryCandidate(Object candidate);
     public void addCandidate(Object candidate);
     public Map<Class<?>, List<Worker>> getCandidates();
-    public<T extends Worker> void addCandidate(T candidate);
+    public <T extends Worker> void addCandidateDet(T candidate);
 }
