@@ -37,29 +37,25 @@ public class Office {
         this.guard = guard;
     }
 
-    public <T> void setWorker(T worker) {
-        if (worker instanceof Guard) {
-            setGuard((Guard) worker);
-        } else if (worker instanceof Secretary) {
-            setSecretary((SecretaryImpl) worker);
-        } else if (worker instanceof Lawyer) {
-            setLawyer((Lawyer) worker);
-        } else if (worker instanceof Manager) {
-            setManager((Manager) worker);
-        }
-    }
 
-    // FIXME: 24.11.2020 Не работает
     void invitePeople(Object human) {
         if (!(human instanceof Worker)) {
             throw new IllegalStateException("It's not worker");
         } else {
             this.hr.addCandidate(human);
-            Map<Class<?>, List<Worker>> candidates = hr.getCandidates();
-            Optional<SecretaryImpl> optionalSecretary = director.chooseWorker(candidates, SecretaryImpl.class);
-
-
+        }
+        if (human instanceof Secretary) {
+            Optional<SecretaryImpl> optionalSecretary = director.chooseWorker(this.hr.getCandidates(), SecretaryImpl.class);
             optionalSecretary.ifPresent(s -> secretary = s);
+        } else if (human instanceof Guard) {
+            Optional<Guard> optionalGuard = director.chooseWorker(this.hr.getCandidates(), Guard.class);
+            optionalGuard .ifPresent(s -> guard = s);
+        } else if (human instanceof Lawyer) {
+            Optional<Lawyer> optionalLawyer = director.chooseWorker(this.hr.getCandidates(), Lawyer.class);
+            optionalLawyer.ifPresent(s -> lawyer = s);
+        }else if (human instanceof Manager) {
+            Optional<Manager> optionalManager = director.chooseWorker(this.hr.getCandidates(), Manager.class);
+            optionalManager.ifPresent(s -> manager = s);
         }
     }
 

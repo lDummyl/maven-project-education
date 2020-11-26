@@ -45,14 +45,4 @@ public class SecondHr implements Hr {
     public Map<Class<?>, List<Worker>> getCandidates() {
         return this.candidates;
     }
-
-    public <T extends Worker> List<T> getPureCandList(Class<T> candidateClass) {
-
-
-        List<Worker> workers = this.candidates.get(candidateClass);
-        List<Worker> relevantWorkers = workers.stream().filter(Worker::passInterview).collect(Collectors.toList());
-        return null;
-    }
-
-
 }

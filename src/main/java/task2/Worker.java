@@ -9,6 +9,7 @@ import java.util.Random;
 public abstract class Worker extends Person {
     public Integer experience;
     public Period possibleExperience;
+    Random random = new Random();
 
     public Worker(Person person) {
         Random random = new Random();
@@ -30,7 +31,7 @@ public abstract class Worker extends Person {
     }
 
     public Integer getExperience() {
-        Random random = new Random();
+
         Integer possibleExperience;
         possibleExperience = this.age.getYears() - CandidateProvider.adultAge.getYears();
         //System.out.println(possibleExperience);
