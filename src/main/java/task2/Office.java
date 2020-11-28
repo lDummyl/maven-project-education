@@ -1,7 +1,6 @@
 package task2;
 
 import java.util.Optional;
-import java.util.function.Supplier;
 
 public class Office {
 
@@ -27,22 +26,8 @@ public class Office {
 	void invitePeople(Object human){
 		hr.checkEmployee(human);
 		Optional<Secretary> optionalSecretary = director.chooseEmployee(hr.getListEmployee(), Secretary.class);
-
-
-
-
-
-
-
 		optionalSecretary.ifPresent(value -> secretary = value);
-		//lawyer = getOptional(lawyer).orElseGet(() -> director.chooseEmployee(hr.getListEmployee(), Lawyer.class));
 
-
-//		secretary = director.chooseEmployee(hr.getListEmployee(), Secretary.class);
-//		lawyer = (Lawyer) director.chooseEmployee(lawyer, hr.getListEmployee(), Lawyer.class);
-//		security = (Security) director.chooseEmployee(security, hr.getListEmployee(), Security.class);
-//		firstAccountant = (Accountant) director.chooseEmployee(firstAccountant, hr.getListEmployee(), Accountant.class);
-//		secondAccountant = (Accountant) director.chooseEmployee(secondAccountant, hr.getListEmployee(), Accountant.class);
 	}
 
 }

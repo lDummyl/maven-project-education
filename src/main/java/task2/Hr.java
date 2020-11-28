@@ -12,7 +12,7 @@ public class Hr {
     public void checkEmployee(Object human) {
         Class<?> classEmployee = human.getClass();
         List<Employee> employeeList = EMPLOYEES.get(classEmployee);
-        if (((Employee)human).skills.getLevelOfSkills() > MIN_SKILLS && new Random().nextBoolean()) {
+        if (((Employee)human).skills.getLevelOfSkills() > MIN_SKILLS) {
             if (employeeList != null) {
                 employeeList.add((Employee) human);
             } else {

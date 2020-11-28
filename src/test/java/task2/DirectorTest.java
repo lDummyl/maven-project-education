@@ -39,10 +39,10 @@ public class DirectorTest {
 
     @Test
     public void tempEmployeeDoesntInstanceEmployeeClass() {
-        List<Employee> list = new ArrayList<>();
-        list.add(new Secretary());
-        list.add(new Secretary());
-        map.put(Security.class, list);
+        List<Employee> employeeList = new ArrayList<>();
+        employeeList.add(new Secretary());
+        employeeList.add(new Secretary());
+        map.put(Security.class, employeeList);
 
         try {
             Optional<Security> optionalSecretary = director.chooseEmployee(map, Security.class);
@@ -50,4 +50,5 @@ public class DirectorTest {
         } catch (IllegalStateException e) {
         }
     }
+
 }
