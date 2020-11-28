@@ -6,7 +6,7 @@ import org.junit.Test;
 public class OfficeTest {
 
 	@Test
-	public void invitePeaople() {
+	public void invitePeople() {
 		Office office = new Office(new Director(), new Hr());
 
 	}
