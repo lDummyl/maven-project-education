@@ -12,43 +12,30 @@ public class DirectorTest {
     Map<Class<?>, List<Employee>> map = new HashMap<>();
 
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     public void listNull() {
         map.put(Secretary.class, null);
         Optional<Secretary> optionalSecretary = director.chooseEmployee(map, Secretary.class);
-        try {
-            Secretary secretary = optionalSecretary.get();
-            fail();
-        } catch (NoSuchElementException e) {
-        }
+        Secretary secretary = optionalSecretary.get();
     }
 
-    @Test
+
+    @Test(expected = NoSuchElementException.class)
     public void listSizeLowerThanEnoughToDecide() {
         List<Employee> secretaryList = new ArrayList<>();
         secretaryList.add(new Secretary());
         map.put(Secretary.class, secretaryList);
         Optional<Secretary> optionalSecretary = director.chooseEmployee(map, Secretary.class);
-
-        try {
-            Secretary secretary = optionalSecretary.get();
-            fail();
-        } catch (NoSuchElementException e) {
-        }
+        Secretary secretary = optionalSecretary.get();
     }
 
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void tempEmployeeDoesntInstanceEmployeeClass() {
         List<Employee> employeeList = new ArrayList<>();
         employeeList.add(new Secretary());
         employeeList.add(new Secretary());
         map.put(Security.class, employeeList);
-
-        try {
-            Optional<Security> optionalSecretary = director.chooseEmployee(map, Security.class);
-            fail();
-        } catch (IllegalStateException e) {
-        }
+        Optional<Security> optionalSecretary = director.chooseEmployee(map, Security.class);
     }
 
 }

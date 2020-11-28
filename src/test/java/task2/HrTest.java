@@ -12,14 +12,12 @@ public class HrTest {
 
     Hr hr = new Hr();
 
-    @Test
+    @Test(expected = ClassCastException.class)
     public void objectDoesntInstanceOfEmployee() {
-        class Test{}
+        class Test {}
         Test test = new Test();
-        try {
-            hr.checkEmployee(test);
-            fail();
-        } catch (ClassCastException e){}
+        hr.checkEmployee(test);
+
     }
 
     @Test
