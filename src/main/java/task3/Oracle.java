@@ -3,54 +3,62 @@ package task3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
 import java.util.Random;
 
 
 public class Oracle {
-    public static final int sleepChance = 10;
-    public static final int rudenessChance = 20;
-    public static final int hitChance = 30;
-    public static final int answerChance = 60;
-    public static final int allChances = sleepChance + rudenessChance + hitChance + answerChance;
+    public int sleepChance = 10;
+    public int rudenessChance = 20;
+    public int hitChance = 30;
+    public int answerChance = 60;
+    public int allChances = sleepChance + rudenessChance + hitChance + answerChance;
 
-    // TODO: 13.11.2020 начни с тестов
-    public void roulettAction() {
+    Random random = new Random();
 
-        String question = null;
-                Random random = new Random();
-                int dealChance = random.nextInt(allChances);
-
-                if (dealChance <= sleepChance) {
-                    Slepping slepping = new Slepping();
-                    System.out.println("Ещё пять минут");
-                    System.out.println("(＿ ＿*) Z z z");
-                    slepping.sleepRandom();
-
-                } else if (dealChance <= rudenessChance) {
-                    rudeness();
-                } else if (dealChance <= hitChance) {
-                    stickHit();
-                } else {
-                    giveAnswer(question);
-                }
-
-        }
-        
-    public void stickHit() {
-        System.out.println("(；一_一) ┻━┻༼ つ ಥ_ಥ ༽つ");
-        System.out.println("-Оракул бьёт вас палкой");
+    public Oracle(int sleepChance, int rudenessChance, int hitChance, int answerChance) {
+        this.sleepChance = sleepChance;
+        this.rudenessChance = rudenessChance;
+        this.hitChance = hitChance;
+        this.answerChance = answerChance;
+        this.allChances = sleepChance + rudenessChance + hitChance + answerChance;
     }
 
-    public void sleeping(String question) {
+    public Oracle() {
+    }
 
+    // TODO: 13.11.2020 начни с тестов
+    public void casualAction(String question) {
+
+
+        int dealChance = random.nextInt(allChances);
+
+        if (dealChance <= sleepChance) {
+            sleep();
+        } else if (dealChance <= rudenessChance) {
+            rudeness();
+        } else if (dealChance <= hitChance) {
+            stickHit();
+        } else {
+            giveAnswer(question);
+        }
+
+    }
+
+    public void stickHit() {
+        String rudeness = "(；一_一) ┻━┻༼ つ ಥ_ಥ ༽つ" + "\n" + "-Оракул бьёт вас палкой";
+        System.out.println(rudeness);
     }
 
     public void giveAnswer(String question) {
         Question question1 = new Question(question);
-        Answer answer = new Answer(question1);
-        String antwort = answer.giveAnswer();
-        System.out.println(antwort);
+        System.out.println(new Answer(question1).giveAnswer());
     }
+
+    public void sleep(){
+        LocalDate now = LocalDate.now();
+    }
+
 
     public void rudeness() {
         System.out.println("Дай-ка угадаю, кто-то украл твой сладкий рулет?");

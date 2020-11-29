@@ -29,6 +29,18 @@ public class RegularAnswer {
 
         answers.put("Как", " Собравшись с духом");
 
+        answers.put("rudeness", "Дай-ка угадаю, кто-то украл твой сладкий рулет?");
+
+        answers.put("tooLong", "Будь лаконичнее");
+
+        answers.put("tooShort" ,"Будь красноречивие");
+
+        answers.put("noKey", "Не еслышу вопроса в речах твоих");
+
+        answers.put("moreKey", "Ты задаешь слишком много вопросов");
+
+        answers.put("stickHit" , "(；一_一) ┻━┻༼ つ ಥ_ಥ ༽つ" + "\n" + "-Оракул бьёт вас палкой");
+
     }
 
     public static String getSAnswers(String key) {
