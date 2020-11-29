@@ -2,7 +2,6 @@ package task2;
 
 import org.junit.Test;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,8 +13,8 @@ public class HrTest {
 
     @Test(expected = ClassCastException.class)
     public void objectDoesntInstanceOfEmployee() {
-        class Test {}
-        Test test = new Test();
+        class TestClass {}
+        TestClass test = new TestClass();
         hr.checkEmployee(test);
 
     }

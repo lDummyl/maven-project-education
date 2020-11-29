@@ -19,7 +19,7 @@ public class Director {
 		List<Employee> tempList = employees.get(employeeClass);
 		if (tempList != null && tempList.size() >= enoughToDecide) {
 			randomChoose = new Random();
-			Employee tempEmployee = tempList.get(randomChoose.nextInt(employees.size()));
+			Employee tempEmployee = tempList.get(randomChoose.nextInt(tempList.size()));
 			tempList.remove(tempEmployee);
 			if (employeeClass.isInstance(tempEmployee)) {
 				return Optional.of(employeeClass.cast(tempEmployee));

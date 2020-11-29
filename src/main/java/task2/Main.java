@@ -5,16 +5,16 @@ package task2;
 // все это происходит в офисе
 
 
-public class Main {
+ public class Main {
 	public static void main(String[] args) {
 
 		ProviderEmployee providerEmployee = new ProviderEmployee(100);
 
-		Director director = new Director(10);
+		Director director = new Director(2);
 		Hr hr = new Hr();
 		Office appleInc = new Office(director, hr);
 
-		//providerEmployee.provide().forEach((k, v) -> v.forEach(appleInc::invitePeople));
+		providerEmployee.getMapProvider().forEach((k, v) -> v.forEach(appleInc::invitePeople));
 
 		System.out.println(appleInc.secretary);
 		System.out.println(appleInc.lawyer);

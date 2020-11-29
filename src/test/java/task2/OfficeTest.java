@@ -1,26 +1,30 @@
 package task2;
 
+import static org.junit.Assert.*;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class OfficeTest {
-	 /*не понимаю что тут тестировать, этот метод обращается только к внешним объектам и присваивает
-	 package-protected полям значения
-	 нужно ли соблюдать первоначальное условие о том что у класса должен быть только
-	 один публичный метод?*/
+
+	ProviderEmployee providerEmployee = new ProviderEmployee(100);
+
 	@Test
 	public void invitePeople() {
 
 		Office office = new Office(new Director(2), new Hr());
-		List<Employee> employeeList = new ArrayList<>();
-		employeeList.add(new Secretary());
-		employeeList.add(new Secretary());
+		providerEmployee.getMapProvider().forEach((k,v) -> v.forEach(office::invitePeople));
 
-		employeeList.forEach(office::invitePeople);
+		assertNotNull(office.secretary);
+		assertNotNull(office.security);
+		assertNotNull(office.lawyer);
+		assertNotNull(office.firstAccountant);
+		assertNotNull(office.secondAccountant);
 
-
+		assertEquals(Secretary.class, office.secretary.getClass());
+		assertEquals(Security.class, office.security.getClass());
+		assertEquals(Lawyer.class, office.lawyer.getClass());
+		assertEquals(Accountant.class, office.firstAccountant.getClass());
+		assertEquals(Accountant.class, office.secondAccountant.getClass());
 	}
 }
