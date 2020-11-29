@@ -1,22 +1,15 @@
 package task3;
 
-import junit.framework.TestCase;
+import org.junit.Test;
 
-public class OracleTest extends TestCase {
+import static org.junit.Assert.*;
 
-    public void testRoulettAction() {
-    }
+public class OracleTest {
 
-    public void testStickHit() {
-    }
+    @Test
+    public void ask() {
 
-    public void testSleeping() {
-    }
 
-    public void testGiveAnswer() {
 
-    }
-
-    public void testRudeness() {
     }
 }

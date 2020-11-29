@@ -25,7 +25,7 @@ public class QuestionTest extends TestCase {
         }
     }
 
-
+    // TODO: 29.11.2020 Сделать подробнее
     public void testGetQuestionText() {
         Question some = new Question("Что то там");
         assertEquals("Что то там", some.questionText);
