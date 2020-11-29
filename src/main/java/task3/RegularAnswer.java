@@ -43,7 +43,7 @@ public class RegularAnswer {
 
     }
 
-    public static String getSAnswers(String key) {
+    public static String getAnswer(String key) {
         return answers.get(key);
     }
 }

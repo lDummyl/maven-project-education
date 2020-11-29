@@ -1,7 +1,7 @@
 package task3;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class Answer {
     Question question;
@@ -19,24 +19,34 @@ public class Answer {
     }
 
     public String rudeness() {
-        return RegularAnswer.getSAnswers("rudeness");
+        return RegularAnswer.getAnswer("rudeness");
     }
 
     public String stickHit() {
-        return RegularAnswer.getSAnswers("stickHit");
+        return RegularAnswer.getAnswer("stickHit");
+    }
+
+    public Answer() {
+    }
+
+    public void setQuestion(String question) {
+        this.question = new Question(question);
     }
 
     public String giveAnswer() {
         if (this.question.questionLength > maxLength) {
-            return RegularAnswer.getSAnswers("");
+            return RegularAnswer.getAnswer("tooLong");
         } else if (this.question.questionLength < minimumLength) {
-            return RegularAnswer.getSAnswers("tooShort");
+            return RegularAnswer.getAnswer("tooShort");
         } else if (this.question.keyWort.size() < 1) {
-            return RegularAnswer.getSAnswers("noKey");
+            return RegularAnswer.getAnswer("noKey");
         } else if (this.question.keyWort.size() > 1) {
-            return RegularAnswer.getSAnswers("moreKey");
+            return RegularAnswer.getAnswer("moreKey");
         } else {
-            return RegularAnswer.getSAnswers(this.question.keyWort.get(0));
+            return RegularAnswer.getAnswer(this.question.keyWort.get(0));
         }
+    }
+    public String sleepAnswer(LocalDateTime stopSleepTime){
+        return "До каонца сна осталось " + Duration.between(stopSleepTime,LocalDateTime.now()).getSeconds() + " секунд";
     }
 }
