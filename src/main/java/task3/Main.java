@@ -19,10 +19,14 @@ package task3;
 
 */
 
+import java.io.IOException;
+
 public class Main {
     public static void main(String[] args) {
         Oracle oracle = new Oracle();
-
+        for (int i = 0; i < 100; i++) {
+            oracle.askJson("afdsfsdgd s dgsd gs gsg ag das gasd gas");
+        }
 
     }
 }

@@ -2,6 +2,7 @@ package task3;
 
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -65,6 +66,18 @@ public class OracleTest {
         int testTime= 100;
         for (int i = 0; i < testTime; i++) {
             String ask = oracle.ask(testString1);
+            assertNotNull(ask);
+        }
+    }
+    @Test
+    public void askTestJson(){
+        Oracle oracle = new Oracle(1, 2,3 , 10);
+        oracle.setMaximumSleepTimeSec(1);
+        String testString1 = oracle.ask("This is text for testing");
+        int testTime= 100;
+        for (int i = 0; i < testTime; i++) {
+            String ask = null;
+            ask = oracle.askJson(testString1);
             assertNotNull(ask);
         }
     }
