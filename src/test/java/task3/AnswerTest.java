@@ -9,13 +9,13 @@ public class AnswerTest {
     @Test
     public void rudeness() {
         Answer answer = new Answer();
-        assertEquals(RegularAnswer.getAnswer("rudeness"), answer.rudeness());
+        assertEquals(answer.rudeness, answer.rudeness());
     }
 
     @Test
     public void stickHit() {
         Answer answer = new Answer();
-        assertEquals(RegularAnswer.getAnswer("stickHit"), answer.stickHit());
+        assertEquals(answer.stickHit, answer.stickHit());
     }
 
     @Test

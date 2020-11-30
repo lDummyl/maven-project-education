@@ -1,24 +1,19 @@
 package task3;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Random;
 
 
 public class Oracle {
-    public int sleepChance = 10;
-    public int rudenessChance = 20;
-    public int hitChance = 30;
-    public int answerChance = 60;
-    public int allChances = sleepChance + rudenessChance + hitChance + answerChance;
-    public static final int maximumSleepTimeSec = 60;
+    private int sleepChance = 10;
+    private int rudenessChance = 20;
+    private int hitChance = 30;
+    private int answerChance = 60;
+    private int allChances = sleepChance + rudenessChance + hitChance + answerChance;
+    private int maximumSleepTimeSec = 59;
 
-    LocalDateTime stopSleepTime;
-    int sleepTimeSec;
+    LocalDateTime stopSleepTime = LocalDateTime.now();
 
     Random random = new Random();
     Answer answer = new Answer();
@@ -34,16 +29,20 @@ public class Oracle {
     public Oracle() {
     }
 
+    public void setMaximumSleepTimeSec(int maximumSleepTimeSec) {
+        this.maximumSleepTimeSec = maximumSleepTimeSec;
+    }
+
+
     // TODO: 13.11.2020 начни с тестов
     public String ask(String question) {
-        int dealChance = random.nextInt(allChances);
+        int dealChance = 1 + random.nextInt(allChances);
         if (Duration.between(LocalDateTime.now(), stopSleepTime).isNegative() ||
                 Duration.between(LocalDateTime.now(), stopSleepTime).isZero()) {
 
             if (dealChance <= sleepChance) {
-                this.sleepTimeSec = random.nextInt(maximumSleepTimeSec);
+                int sleepTimeSec =1 + random.nextInt(maximumSleepTimeSec);
                 this.stopSleepTime = LocalDateTime.now().plusSeconds(sleepTimeSec);
-                this.sleepTimeSec = 0;
                 return "Оракул заснул";
             } else if (dealChance <= rudenessChance) {
                 return answer.rudeness();
