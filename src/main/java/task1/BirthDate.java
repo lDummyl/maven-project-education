@@ -16,6 +16,12 @@ public class BirthDate {
         year = bottomYear - random.nextInt(100);
     }
 
+    public BirthDate(int day, int month, int year) {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+    }
+
     public boolean before(BirthDate other) {
         if (year < other.year) {
             return true;

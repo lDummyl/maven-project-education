@@ -13,6 +13,11 @@ public class Person implements HasAge {
         birthDate = new BirthDate(2020);
     }
 
+    public Person(Name name, BirthDate birthDate) {
+        this.name = name;
+        this.birthDate = birthDate;
+    }
+
     @Override
     public BirthDate getBd() {
         return birthDate;

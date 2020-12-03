@@ -1,7 +1,5 @@
 package task1;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Random;
 

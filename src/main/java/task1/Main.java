@@ -2,7 +2,6 @@ package task1;
 
 
 import java.util.List;
-import java.util.Random;
 
 
 public class Main {
@@ -11,7 +10,7 @@ public class Main {
         try {
             Provider<Dino> provider = Dino::new;
             Dino dino = generateAndFind(provider);
-            //oldest.scream();
+            dino.scream();
 
             Provider<Person> providerPerson = Person::new;
             Person oldPerson = generateAndFind(providerPerson);
