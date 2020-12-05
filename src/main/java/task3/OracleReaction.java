@@ -9,6 +9,7 @@ public enum OracleReaction {
     TO_MATCH_KEY_WORT("Ты задаёшь слишком много вопросов");
 
     private String value;
+
     OracleReaction(String reactionAnswer) {
         this.value = reactionAnswer;
     }

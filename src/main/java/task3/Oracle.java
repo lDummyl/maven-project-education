@@ -19,7 +19,7 @@ public class Oracle {
 
     public static final String[] specialQuests = {"Кто", "Что", "Где", "Когда", "Почему", "Зачем", "Куда", "Сколько", "Как"};
 
-    public static final  String left = "Ещё осталось: ";
+    public static final String left = "Ещё осталось: ";
 
     public Oracle() {
     }

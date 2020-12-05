@@ -38,8 +38,8 @@ public class QuestionsGenerator {
         int longChance = 100;
         int longChance2 = 90;
         String longWort = "";
-        if (random.nextInt(longChance) > longChance2){
-             longWort = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        if (random.nextInt(longChance) > longChance2) {
+            longWort = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
         }
         return firstWord + secondWord + thirdWord + longWort;
     }

@@ -39,7 +39,7 @@ public class OracleTest {
             if (ask.answer.equals(OracleReaction.TOO_LONG.getValue())) {
                 freqToLong++;
             }
-            if (ask.answer.equals(OracleReaction.TOO_SHORT.getValue())){
+            if (ask.answer.equals(OracleReaction.TOO_SHORT.getValue())) {
                 freqOfToShort++;
             }
         }
@@ -89,19 +89,20 @@ public class OracleTest {
         assertTrue(freqOfStickHits > 0);
         assertTrue(freqOfRudeness > 0);
     }
+
     @Test
     public void askValid() {
         Oracle oracle = new Oracle();
         oracle.setMaximumSleepTimeSec(1);
 
         QuestionsGenerator questionsGenerator = new QuestionsGenerator();
-        int freqOfValid = 0 ;
+        int freqOfValid = 0;
         int timesOfAsk = 1000;
 
         ArrayList<Resolution> resolutions = new ArrayList<>();
         for (int i = 0; i < timesOfAsk; i++) {
             Resolution ask = oracle.ask(questionsGenerator.getQuestion());
-            if (RegularAnswer.getAnswers().containsValue(ask.answer)){
+            if (RegularAnswer.getAnswers().containsValue(ask.answer)) {
                 freqOfValid++;
             }
         }
