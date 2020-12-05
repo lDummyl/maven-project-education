@@ -1,4 +1,7 @@
-package task3;
+package task4;
+
+import task3.Oracle;
+import task3.RegularAnswer;
 
 import java.util.HashMap;
 import java.util.Random;

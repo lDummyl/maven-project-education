@@ -1,9 +1,9 @@
 package task3;
 
 import org.junit.Test;
+import task4.QuestionsGenerator;
 
 import java.util.ArrayList;
-import java.util.function.Function;
 
 import static org.junit.Assert.*;
 
