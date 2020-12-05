@@ -11,13 +11,15 @@ public class Oracle {
     private final int allChances = 100;
     private int maximumSleepTimeSec = 59;
 
-    public static final int maxLength = 60;
-    public static final int minLength = 10;
+    public static final int maxLength = 30;
+    public static final int minLength = 15;
 
     Random random = new Random();
     LocalDateTime stopSleepTime = LocalDateTime.now();
 
     public static final String[] specialQuests = {"Кто", "Что", "Где", "Когда", "Почему", "Зачем", "Куда", "Сколько", "Как"};
+
+    public static final  String left = "Ещё осталось: ";
 
     public Oracle() {
     }
@@ -39,7 +41,7 @@ public class Oracle {
                 return new Resolution(question, reaction.getValue());
             }
         } else {
-            return new Resolution(question,"Ещё осталось" + Duration.between(LocalDateTime.now(), stopSleepTime).toString());
+            return new Resolution(question, left + Duration.between(LocalDateTime.now(), stopSleepTime).toString());
         }
     }
 
@@ -56,7 +58,8 @@ public class Oracle {
     }
 
     private Resolution validAnswer(String question) throws OracleException {
-        throw new NotImplementedException();
+
+        return new Resolution(question, RegularAnswer.getAnswer(keyWordSearch(question).get(0)));
     }
 
     // TODO: 03.12.2020 Механизм сна пока прежний
@@ -81,22 +84,25 @@ public class Oracle {
     }
 
     private void questionPresenceCheck(String question) throws OracleException {
+        ArrayList<String> keyWords = keyWordSearch(question);
 
+
+        if (keyWords.size() < 1) {
+            throw new OracleException(OracleReaction.NO_KEY_WORT);
+        } else if ((keyWords.size() > 1)) {
+            throw new OracleException(OracleReaction.TO_MATCH_KEY_WORT);
+        }
+    }
+
+    private ArrayList<String> keyWordSearch(String question) {
         ArrayList<String> keyWord = new ArrayList<>();
-
         for (String s : specialQuests) {
             if (question.contains(s) || question.contains(s.toLowerCase())) {
                 keyWord.add(s);
             }
         }
-
-        if (keyWord.size() < 1) {
-            throw new OracleException(OracleReaction.NO_KEY_WORT);
-        } else if ((keyWord.size() > 1)) {
-            throw new OracleException(OracleReaction.TO_MATCH_KEY_WORT);
-        }
+        return keyWord;
     }
-
 
 }
 
