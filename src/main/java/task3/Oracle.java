@@ -8,7 +8,7 @@ import java.util.Random;
 
 
 public class Oracle {
-    private int allChances = 100;
+    private final int allChances = 100;
     private int maximumSleepTimeSec = 59;
 
     public static final int maxLength = 60;
@@ -39,7 +39,7 @@ public class Oracle {
                 return new Resolution(question, reaction.getValue());
             }
         } else {
-            return new Resolution(question, Duration.between(LocalDateTime.now(), stopSleepTime).toString());
+            return new Resolution(question,"Ещё осталось" + Duration.between(LocalDateTime.now(), stopSleepTime).toString());
         }
     }
 
