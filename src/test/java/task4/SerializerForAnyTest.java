@@ -27,7 +27,7 @@ public class SerializerForAnyTest {
         SerializerForAny serializerForAny = new SerializerForAny();
         serializerForAny.serializeCollectionToJSON(resolutions, file);
 
-        serializerForAny.deserialize(file,Resolution.class);
+        oracleQuestionProvider.deserializeResolution(file);
 
     }
 }
