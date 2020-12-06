@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
+
 
 // TODO: 05.12.2020 Можно было поместить в другое место, но я посчитал удобным сделать его отдельным классом
 public class SerializerForAny {
