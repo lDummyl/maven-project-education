@@ -1,6 +1,7 @@
 package task4;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import task3.Resolution;
 
@@ -76,4 +77,29 @@ public class SerializerForAny {
 
         return null;
     }
+    // TODO: 07.12.2020 JsonMappingException
+    /*public<T extends JsonReady> Collection<T> deserializeResolution(String fileName, Class<T> tClass) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String type = ".json";
+        String jsonArrayString = null;
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(fileName + type), StandardCharsets.UTF_8);
+            jsonArrayString = lines.get(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+
+            TypeReference<List<T>> valueTypeRef = new TypeReference<List<T>>() {
+            };
+            Collection<Resolution> list = objectMapper.readValue(jsonArrayString, valueTypeRef);
+            System.out.println(list);
+            return (Collection<T>) list;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }*/
 }

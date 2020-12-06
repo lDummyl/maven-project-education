@@ -18,6 +18,18 @@ public class SerializerForAnyTest {
         serializerForAny.serializeCollectionToJSON(resolutions, file);
     }
     @Test
+    public void serializeCollectionToJSONandDeserialize() {
+        OracleQuestionProvider oracleQuestionProvider = new OracleQuestionProvider();
+        List<Resolution> resolutions = oracleQuestionProvider.askOracle(1000);
+
+        String file = "newFileJSON";
+        SerializerForAny serializerForAny = new SerializerForAny();
+        serializerForAny.serializeCollectionToJSON(resolutions, file);
+
+        serializerForAny.deserializeResolution(file, Resolution.class);
+    }
+
+    @Test
     public void serializeToCustom() {
         OracleQuestionProvider oracleQuestionProvider = new OracleQuestionProvider();
         List<Resolution> resolutions = oracleQuestionProvider.askOracle(1000);
