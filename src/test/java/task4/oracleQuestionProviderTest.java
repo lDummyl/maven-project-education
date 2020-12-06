@@ -22,7 +22,7 @@ public class oracleQuestionProviderTest {
         String format = ".json";
         try {
             FileReader reader = new FileReader(fileName + format);
-            reader.
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
