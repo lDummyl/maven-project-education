@@ -17,6 +17,15 @@ public class SerializerForAnyTest {
         SerializerForAny serializerForAny = new SerializerForAny();
         serializerForAny.serializeCollectionToJSON(resolutions, file);
     }
+    @Test
+    public void serializeToCustom() {
+        OracleQuestionProvider oracleQuestionProvider = new OracleQuestionProvider();
+        List<Resolution> resolutions = oracleQuestionProvider.askOracle(1000);
+
+        String file = "newFileJSON";
+        SerializerForAny serializerForAny = new SerializerForAny();
+        serializerForAny.serializeCollectionToCustomJSON(resolutions, file);
+    }
 
    @Test
     public void deserialize() {
@@ -25,9 +34,9 @@ public class SerializerForAnyTest {
 
         String file = "newFileJSON";
         SerializerForAny serializerForAny = new SerializerForAny();
-        serializerForAny.serializeCollectionToJSON(resolutions, file);
+        serializerForAny.serializeCollectionToCustomJSON(resolutions, file);
 
-        oracleQuestionProvider.deserializeResolution(file);
+       serializerForAny.deserializeCollectionFromFileCustom(file, Resolution.class);
 
     }
 }
