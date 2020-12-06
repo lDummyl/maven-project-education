@@ -1,6 +1,5 @@
 package task4;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import task3.Oracle;
 import task3.Resolution;
 
@@ -8,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 // TODO: 05.12.2020 возможно сделал слишком много классов
-public class oracleQuestionProvider {
+public class OracleQuestionProvider {
     Oracle oracle = new Oracle();
     QuestionsGenerator questionsGenerator = new QuestionsGenerator();
     SerializerForAny serializer = new SerializerForAny();
 
     public void askOracleAndSerialize(int numberOfQuestions, String fileName) {
         List<Resolution> resolutions = askOracle(numberOfQuestions);
-        serializer.serializeListToJSON(resolutions, fileName);
+        serializer.serializeCollectionToJSON(resolutions, fileName);
     }
 
     public List<Resolution> askOracle(int numberOfQuestions) {

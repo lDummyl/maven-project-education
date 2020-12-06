@@ -45,9 +45,6 @@ public class Oracle {
         }
     }
 
-    public static void main(String[] args) {
-
-    }
 
     private void lengthCheck(String question) throws OracleException {
         if (question.length() < minLength) {

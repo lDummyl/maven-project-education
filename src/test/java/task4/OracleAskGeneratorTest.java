@@ -8,7 +8,6 @@ public class OracleAskGeneratorTest {
 
     @Test
     public void askAndSerialize() {
-        OracleAskGenerator oracleAskGenerator = new OracleAskGenerator();
-        oracleAskGenerator.askAndSerialize(1000);
+
     }
 }

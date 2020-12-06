@@ -41,6 +41,6 @@ public class QuestionsGenerator {
         if (random.nextInt(longChance) > longChance2) {
             longWort = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
         }
-        return firstWord + secondWord + thirdWord + longWort;
+        return firstWord + " " + secondWord + " " + thirdWord + " " + longWort;
     }
 }
