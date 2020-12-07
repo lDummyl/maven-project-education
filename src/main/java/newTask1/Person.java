@@ -1,10 +1,14 @@
 package newTask1;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import task4.JsonReady;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
-public class Person implements Comparable<Person>{
+@JsonAutoDetect
+public class Person implements Comparable<Person>, JsonReady {
     private final Name name;
     private final BirthDate birthDate;
     private Integer age;
@@ -20,6 +24,10 @@ public class Person implements Comparable<Person>{
         this.name = new Name();
         this.birthDate = new BirthDate();
         this.age = Period.between(this.birthDate.getLocalBirthDate(), LocalDate.now()).getYears();
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public Name getName() {

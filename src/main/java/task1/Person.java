@@ -1,5 +1,8 @@
 package task1;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import task4.JsonReady;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
@@ -7,8 +10,8 @@ import java.util.Objects;
 
 // TODO: 9/12/20 тройка с минусом
 // Что нужно улучшить для увеличения оценки?
-
-public class Person implements Comparable<Person> {
+@JsonAutoDetect
+public class Person implements Comparable<Person>, JsonReady {
     public Name name;
     public BirthDate birthDate;
     public Period age;
@@ -40,6 +43,17 @@ public class Person implements Comparable<Person> {
         this.age = Period.between(birthDate.localBirthDate, LocalDate.now());
     }
 
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    public void setBirthDate(BirthDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setAge(Period age) {
+        this.age = age;
+    }
 
     @Override
     public boolean equals(Object o) {
