@@ -73,7 +73,7 @@ public class OracleTest {
         QuestionsGenerator questionsGenerator = new QuestionsGenerator();
         int freqOfRudeness = 0;
         int freqOfStickHits = 0;
-        int timesOfAsk = 10000;
+        int timesOfAsk = 100000;
 
         for (int i = 0; i < timesOfAsk; i++) {
             Resolution ask = oracle.ask(questionsGenerator.getQuestion());

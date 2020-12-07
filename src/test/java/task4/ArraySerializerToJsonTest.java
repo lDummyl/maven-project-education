@@ -43,28 +43,4 @@ public class ArraySerializerToJsonTest {
             assertEquals(Resolution.class, resolution.getClass());
         }
     }
-    // TODO: 07.12.2020 Для составного класса не сработало
-    /*@Test
-    public void deserializePerson() {
-        PersonsProvider personsProvider = new PersonsProvider();
-        TreeSet<Person> people = personsProvider.generatePersons(1000);
-        ArraySerializerToJson arraySerializerToJson = new ArraySerializerToJson();
-
-        List<Person> peopleList = new ArrayList<>();
-        peopleList.addAll(people);
-
-        String file = "newFilePersons";
-        arraySerializerToJson.serializeCollectionToJSON(peopleList, file);
-
-        Collection<Person> deserialized = arraySerializerToJson.deserializeJsonArray(file, Person.class);
-
-        assertEquals(people.size(), deserialized.size());
-
-        for (Person person : deserialized) {
-            assertNotNull(person);
-            assertEquals(Person.class, person.getClass());
-        }
-    }*/
-
-
 }

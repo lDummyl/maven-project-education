@@ -26,14 +26,4 @@ public class PersonsProviderTest {
             assertTrue(people.size() == numberOfPersons);
         }
     }
-
-    @Test
-    public void generateCandidate() {
-        int numberOfCandidates = 100;
-
-        PersonsProvider personsProvider = new PersonsProvider();
-        ArrayList<SecretaryImpl> objects = (ArrayList<SecretaryImpl>) personsProvider.generateCandidate(100, SecretaryImpl.class);
-
-
-    }
 }

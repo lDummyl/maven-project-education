@@ -1,13 +1,10 @@
 package task1;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import task4.JsonReady;
-
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Random;
-@JsonAutoDetect
-public class BirthDate implements Comparable<BirthDate>, JsonReady {
+
+public class BirthDate implements Comparable<BirthDate> {
     LocalDate localBirthDate;
     int year;
     int month;
@@ -19,14 +16,6 @@ public class BirthDate implements Comparable<BirthDate>, JsonReady {
         this.day = day;
     }
 
-    public LocalDate getLocalBirthDate() {
-        return localBirthDate;
-    }
-
-    public BirthDate(LocalDate localBirthDate) {
-        this.localBirthDate = localBirthDate;
-    }
-
     public BirthDate() {
         Random random = new Random();
         while (localBirthDate == null) {
@@ -36,22 +25,6 @@ public class BirthDate implements Comparable<BirthDate>, JsonReady {
                 //  System.out.println("Invalid date generated");
             }
         }
-    }
-
-    public void setLocalBirthDate(LocalDate localBirthDate) {
-        this.localBirthDate = localBirthDate;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
     }
 
     @Override

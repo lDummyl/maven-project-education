@@ -34,7 +34,6 @@ public abstract class Worker extends Person {
 
         Integer possibleExperience;
         possibleExperience = this.age.getYears() - CandidateProvider.adultAge.getYears();
-        //System.out.println(possibleExperience);
         if (possibleExperience >= 1) {
             return random.nextInt(possibleExperience);
         } else if (possibleExperience == 0) {

@@ -1,7 +1,6 @@
+/*
 package task2;
 
-import junit.framework.TestCase;
-import org.junit.Ignore;
 import org.junit.Test;
 import task1.CandidateProvider;
 
@@ -12,7 +11,7 @@ import static org.junit.Assert.*;
 public class SecondHrTest {
     Office apple = new Office(new GeneralDirector(), new SecondHr());
     CandidateProvider candidateProvider = new CandidateProvider();
-    int numberOfCandidate = 100;
+
 
 
 
@@ -21,7 +20,9 @@ public class SecondHrTest {
         SecondHr secondHr = new SecondHr();
         Collection<Guard> guards = candidateProvider.generateAnyWorkers(1, Guard::new);
         ArrayList<Guard> guardsList = new ArrayList<>(guards);
-        secondHr.addCandidate(guardsList.get(0));
+        boolean b = guardsList.get(0).passInterview();
+        System.out.println(b);
+        System.out.println(secondHr.getCandidates().size());
         assertEquals(guardsList.size(), secondHr.getCandidates().size());
         System.out.println(secondHr.getCandidates());
     }
@@ -75,4 +76,4 @@ public class SecondHrTest {
     }
 
 
-}
+}*/

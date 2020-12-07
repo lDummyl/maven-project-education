@@ -5,7 +5,8 @@ import task4.JsonReady;
 
 import java.util.Objects;
 import java.util.Random;
-import java.util.UUID;
+
+
 @JsonAutoDetect
 public class Name implements JsonReady {
 
@@ -25,17 +26,6 @@ public class Name implements JsonReady {
         Random random = new Random();
         this.firstName = fnames[random.nextInt(fnames.length)];
         this.lastName = lnames[random.nextInt(lnames.length)];
-
-        //this.firstName = (UUID.randomUUID()).toString();
-        //this.lastName = (UUID.randomUUID()).toString();
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     @Override
