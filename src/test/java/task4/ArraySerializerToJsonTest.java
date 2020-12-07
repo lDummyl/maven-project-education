@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 public class ArraySerializerToJsonTest {
 
     @Test
-    public void serializeCollectionToJSON() {
+    public void serializeCollectionToJSON() throws InterruptedException {
         OracleQuestionProvider oracleQuestionProvider = new OracleQuestionProvider();
         List<Resolution> resolutions = oracleQuestionProvider.askOracle(1000);
 
@@ -22,7 +22,7 @@ public class ArraySerializerToJsonTest {
         arraySerializerToJson.serializeCollectionToJSON(resolutions, file);
     }
     @Test
-    public void deserializeCollectionFromJSON() {
+    public void deserializeCollectionFromJSON() throws InterruptedException {
         OracleQuestionProvider oracleQuestionProvider = new OracleQuestionProvider();
         List<Resolution> resolutions = oracleQuestionProvider.askOracle(1000);
 

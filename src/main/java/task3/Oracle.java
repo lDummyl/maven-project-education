@@ -41,7 +41,7 @@ public class Oracle {
                 return new Resolution(question, reaction.getValue());
             }
         } else {
-            return new Resolution(question, left + Duration.between(LocalDateTime.now(), stopSleepTime).toString());
+            return new Resolution(question, left + Duration.between(LocalDateTime.now(), stopSleepTime).getSeconds());
         }
     }
 

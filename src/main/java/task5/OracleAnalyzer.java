@@ -13,28 +13,28 @@ public class OracleAnalyzer {
         Collection<Resolution> resolutions = arraySerializerToJson.deserializeJsonArray(fileName, Resolution.class);
 
 
-        getTimesOfRudeness();
-        getTimesOfStickHit();
-        mostPopularValidAnswer();
-        getAbsoluteTimeOFSleep();
+        getTimesOfRudeness(resolutions);
+        getTimesOfStickHit(resolutions);
+        mostPopularValidAnswer(resolutions);
+        getAbsoluteTimeOFSleep(resolutions);
 
-
-        return new ReportData(getTimesOfRudeness(), getTimesOfStickHit(), getAbsoluteTimeOFSleep().getSecond(), mostPopularValidAnswer());
+        return null;
+        //return new ReportData(getTimesOfRudeness(), getTimesOfStickHit(), getAbsoluteTimeOFSleep().getSecond(), mostPopularValidAnswer());
     }
 
-    private LocalDateTime getAbsoluteTimeOFSleep() {
+    private LocalDateTime getAbsoluteTimeOFSleep(Collection<Resolution> resolutions) {
         return null;
     }
 
-    private String mostPopularValidAnswer() {
+    private String mostPopularValidAnswer(Collection<Resolution> resolutions) {
         return null;
     }
 
-    private Integer getTimesOfStickHit() {
+    private Integer getTimesOfStickHit(Collection<Resolution> resolutions) {
         return null;
     }
 
-    private Integer getTimesOfRudeness() {
+    private Integer getTimesOfRudeness(Collection<Resolution> resolutions) {
         return null;
     }
 
