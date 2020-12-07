@@ -87,6 +87,7 @@ public class OfficeTest {
         assertNotNull(office.lawyer);
 
         assertEquals(Guard.class, office.guard.getClass());
+
         assertEquals(Manager.class, office.manager.getClass());
         assertEquals(Lawyer.class, office.lawyer.getClass());
     }

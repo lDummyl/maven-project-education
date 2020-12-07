@@ -16,7 +16,7 @@ public class OracleTest {
 
         QuestionsGenerator questionsGenerator = new QuestionsGenerator();
 
-        int timesOfAsk = 1000;
+        int timesOfAsk = 10000;
         for (int i = 0; i < timesOfAsk; i++) {
             Resolution ask = oracle.ask(questionsGenerator.getQuestion());
             assertNotNull(ask);
@@ -31,7 +31,7 @@ public class OracleTest {
         QuestionsGenerator questionsGenerator = new QuestionsGenerator();
         int freqToLong = 0;
         int freqOfToShort = 0;
-        int timesOfAsk = 1000;
+        int timesOfAsk = 10000;
 
         for (int i = 0; i < timesOfAsk; i++) {
             Resolution ask = oracle.ask(questionsGenerator.getQuestion());
@@ -54,7 +54,7 @@ public class OracleTest {
 
         QuestionsGenerator questionsGenerator = new QuestionsGenerator();
         int freqOfSleep = 0;
-        int timesOfAsk = 1000;
+        int timesOfAsk = 10000;
         for (int i = 0; i < timesOfAsk; i++) {
             Resolution ask = oracle.ask(questionsGenerator.getQuestion());
             if (ask.answer.contains(Oracle.left)) {
@@ -97,7 +97,7 @@ public class OracleTest {
 
         QuestionsGenerator questionsGenerator = new QuestionsGenerator();
         int freqOfValid = 0;
-        int timesOfAsk = 1000;
+        int timesOfAsk = 10000;
 
         ArrayList<Resolution> resolutions = new ArrayList<>();
         for (int i = 0; i < timesOfAsk; i++) {

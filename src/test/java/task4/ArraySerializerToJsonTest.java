@@ -1,15 +1,11 @@
 package task4;
 
-import org.junit.*;
-import org.junit.Test;
-import task1.Person;
-import task1.PersonsProvider;
-import task3.Resolution;
 
-import java.util.ArrayList;
+import org.junit.Test;
+import task3.Resolution;
 import java.util.Collection;
 import java.util.List;
-import java.util.TreeSet;
+
 
 import static org.junit.Assert.*;
 
