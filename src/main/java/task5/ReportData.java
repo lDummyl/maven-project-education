@@ -4,12 +4,12 @@ public class ReportData {
     Integer timesOfRudeness;
     Integer timesOfStickHits;
     Integer secondsOfSleep;
-    String mostPopularValidAnswer;
+    String mostPopularQuestion;
 
-    public ReportData(Integer timesOfRudeness, Integer timesOfStickHits, Integer secondsOfSleep, String mostPopularValidAnswer) {
+    public ReportData(Integer timesOfRudeness, Integer timesOfStickHits, Integer secondsOfSleep, String mostPopularQuestion) {
         this.timesOfRudeness = timesOfRudeness;
         this.timesOfStickHits = timesOfStickHits;
         this.secondsOfSleep = secondsOfSleep;
-        this.mostPopularValidAnswer = mostPopularValidAnswer;
+        this.mostPopularQuestion = mostPopularQuestion;
     }
 }

@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-// FIXME: 07.12.2020 Подчистить классы
 public class ArraySerializerToJson {
 
     String type = ".json";

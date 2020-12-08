@@ -13,15 +13,15 @@ public class OracleQuestionProvider {
     ArraySerializerToJson serializer = new ArraySerializerToJson();
 
     public void askOracleAndSerialize(int numberOfQuestions, String fileName) throws InterruptedException {
-        List<Resolution> resolutions = askOracle(numberOfQuestions);
+        List<Resolution> resolutions = askOracle(numberOfQuestions, 100);
         serializer.serializeCollectionToJSON(resolutions, fileName);
     }
 
-    public List<Resolution> askOracle(int numberOfQuestions) throws InterruptedException {
+    public List<Resolution> askOracle(int numberOfQuestions, int timeToWait) throws InterruptedException {
 
         List<Resolution> resolutions = new ArrayList<>();
         for (int i = 0; i < numberOfQuestions; i++) {
-            Thread.sleep(100);
+            Thread.sleep(timeToWait);
             resolutions.add(oracle.ask(questionsGenerator.getQuestion()));
         }
         return resolutions;
