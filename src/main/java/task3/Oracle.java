@@ -4,6 +4,7 @@ package task3;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 
@@ -17,9 +18,34 @@ public class Oracle {
     Random random = new Random();
     LocalDateTime stopSleepTime = LocalDateTime.now();
 
-    public static final String[] specialQuests = {"Кто", "Что", "Где", "Когда", "Почему", "Зачем", "Куда", "Сколько", "Как"};
+    public static final String leftTimeToSleepMarker = "Ещё осталось: ";
 
-    public static final String left = "Ещё осталось: ";
+    public static final HashMap<String, String> answers = new HashMap<>();
+
+    static {
+        answers.put("Что", "С точки зрения банальной эрудиции, каждый индивидуум, критически мотивирующий абстракцию," + "\n" +
+                " не может игнорировать критерии утопического субъективизма, концептуально интерпретируя общепринятые " + "\n" +
+                "дефанизирующие поляризаторы, поэтому консенсус, достигнутый диалектической материальной классификацией " + "\n" +
+                "всеобщих мотиваций в парадигматических связях предикатов, решает проблему усовершенствования формирующих " + "\n" +
+                "геотрансплантационных квазипузлистатов всех кинетически кореллирующих аспектов.");
+
+        answers.put("Когда", " Я думаю, мы еще вернемся к этой теме и не раз. И это говорит о том, что все идет " + "\n" +
+                "в правильном направлении. А детали мы будем решать по ходу дела.");
+
+        answers.put("Почему", "Так исторически сложилось");
+
+        answers.put("Кто", "Иногда ответ в загадке бывает настолько явным, что мы просто его не замечаем.");
+
+        answers.put("Где", "Огромная мудрость сокрыта в каждом из нас. Ведь на все вопросы, которые мы задаем, у нас уже есть ответы.");
+
+        answers.put("Зачем", "Такова структура момента.");
+
+        answers.put("Куда", " Ну, тогда все равно и куда идти...");
+
+        answers.put("Сколько", " Сколько нужно...");
+
+        answers.put("Как", " Собравшись с духом");
+    }
 
     public Oracle() {
     }
@@ -32,7 +58,6 @@ public class Oracle {
         if (LocalDateTime.now().isAfter(stopSleepTime)) {
             try {
                 lengthCheck(question);
-                questionPresenceCheck(question);
                 moodCheck();
                 fatigueCheck();
                 return validAnswer(question);
@@ -41,7 +66,7 @@ public class Oracle {
                 return new Resolution(question, reaction.getValue());
             }
         } else {
-            return new Resolution(question, left + Duration.between(LocalDateTime.now(), stopSleepTime).getSeconds());
+            return new Resolution(question, leftTimeToSleepMarker + Duration.between(LocalDateTime.now(), stopSleepTime).getSeconds());
         }
     }
 
@@ -55,8 +80,8 @@ public class Oracle {
     }
 
     private Resolution validAnswer(String question) throws OracleException {
-
-        return new Resolution(question, RegularAnswer.getAnswer(keyWordSearch(question).get(0)));
+        String key = questionPresenceCheck(question);
+        return new Resolution(question, answers.get(key));
     }
 
     // TODO: 03.12.2020 Механизм сна пока прежний
@@ -80,20 +105,23 @@ public class Oracle {
         }
     }
 
-    private void questionPresenceCheck(String question) throws OracleException {
-        ArrayList<String> keyWords = keyWordSearch(question);
 
+    private String questionPresenceCheck(String question) throws OracleException {
+        ArrayList<String> keyWords = keyWordSearch(question);
 
         if (keyWords.size() < 1) {
             throw new OracleException(OracleReaction.NO_KEY_WORT);
         } else if ((keyWords.size() > 1)) {
             throw new OracleException(OracleReaction.TO_MATCH_KEY_WORT);
+        } else {
+            return keyWords.get(0);
         }
     }
 
+    // TODO: 09.12.2020 Метод пока оставил
     private ArrayList<String> keyWordSearch(String question) {
         ArrayList<String> keyWord = new ArrayList<>();
-        for (String s : specialQuests) {
+        for (String s : Oracle.answers.keySet()) {
             if (question.contains(s) || question.contains(s.toLowerCase())) {
                 keyWord.add(s);
             }

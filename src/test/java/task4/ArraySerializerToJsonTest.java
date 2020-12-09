@@ -50,4 +50,5 @@ public class ArraySerializerToJsonTest {
             assertEquals(resolutions.get(i), deserializedList.get(i));
         }
     }
+
 }

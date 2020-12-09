@@ -7,10 +7,7 @@ import task4.ArraySerializerToJson;
 
 
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class OracleAnalyzer {
@@ -28,13 +25,14 @@ public class OracleAnalyzer {
         String mostPopularQuestion = mostPopularQuestion(resolutions);
         Integer absoluteTimeOFSleep = getAbsoluteTimeOFSleep(resolutions);
 
-
+        // TODO: 09.12.2020 добавить поле когда в орвкул
         return new ReportData(timesOfRudeness, timesOfStickHit, absoluteTimeOFSleep, mostPopularQuestion);
     }
 
     private Integer getAbsoluteTimeOFSleep(Collection<Resolution> resolutions) {
         int sum = resolutions.stream().map(Resolution::getAnswer)
-                .filter(s -> s.contains(Oracle.left))
+                // TODO: 09.12.2020 переименовать
+                .filter(s -> s.contains(Oracle.leftTimeToSleepMarker))
                 .map(s -> s.replaceAll("[^0-9.]", ""))
                 .mapToInt(Integer::parseInt).sum();
         return sum;

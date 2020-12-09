@@ -57,7 +57,7 @@ public class OracleTest {
         int timesOfAsk = 10000;
         for (int i = 0; i < timesOfAsk; i++) {
             Resolution ask = oracle.ask(questionsGenerator.getQuestion());
-            if (ask.answer.contains(Oracle.left)) {
+            if (ask.answer.contains(Oracle.leftTimeToSleepMarker)) {
                 freqOfSleep++;
             }
             assertNotNull(ask);
@@ -102,7 +102,7 @@ public class OracleTest {
         ArrayList<Resolution> resolutions = new ArrayList<>();
         for (int i = 0; i < timesOfAsk; i++) {
             Resolution ask = oracle.ask(questionsGenerator.getQuestion());
-            if (RegularAnswer.getAnswers().containsValue(ask.answer)) {
+            if (Oracle.answers.containsValue(ask.answer)) {
                 freqOfValid++;
             }
         }

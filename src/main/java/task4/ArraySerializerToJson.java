@@ -1,7 +1,9 @@
 package task4;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import task3.Resolution;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -32,6 +34,8 @@ public class ArraySerializerToJson {
         try {
             List<String> collect = Files.lines(Paths.get(fileName + type), StandardCharsets.UTF_8).collect(Collectors.toList());
             String objectArray = collect.get(0).replaceAll("[\\[\\]]", "");
+
+          //  objectMapper.readValue(fileName + type, new TypeReference<List<T>>() {});
 
             String[] split = objectArray.split("},*");
             ArrayList<String> jsonStrings = new ArrayList<>();

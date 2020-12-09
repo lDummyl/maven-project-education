@@ -1,30 +1,29 @@
 package task4;
 
 import task3.Oracle;
-import task3.RegularAnswer;
 
-import java.util.HashMap;
-import java.util.Random;
+
+import java.util.*;
 
 public class QuestionsGenerator {
     public static final String[] secondWords = {"случится", "произойдёт", "поедет"};
     public static final String[] thirdWords = {"кот", "лампа", "пикабу", "запад"};
-    String[] keyWords = Oracle.specialQuests;
+    //String[] keyWords = Oracle.specialQuests;
 
     Random random = new Random();
+    List<String> keyWords = new ArrayList<>(Oracle.answers.keySet());
 
     public QuestionsGenerator() {
-        HashMap<String, String> answers = RegularAnswer.getAnswers();
     }
 
     public String getQuestion() {
         String firstWord = null;
         if (random.nextBoolean()) {
-            firstWord = keyWords[(random.nextInt(keyWords.length))];
+            firstWord = keyWords.get(random.nextInt(keyWords.size()));
         } else if (random.nextBoolean()) {
             firstWord = "";
         } else {
-            firstWord = keyWords[(random.nextInt(keyWords.length))] + keyWords[(random.nextInt(keyWords.length))];
+            firstWord = keyWords.get(random.nextInt(keyWords.size())) + keyWords.get(random.nextInt(keyWords.size()));
         }
 
         String secondWord = secondWords[random.nextInt(secondWords.length)];

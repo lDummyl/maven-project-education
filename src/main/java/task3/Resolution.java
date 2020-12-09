@@ -28,6 +28,14 @@ public class Resolution implements JsonReady {
         return answer;
     }
 
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
