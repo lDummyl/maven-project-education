@@ -1,3 +1,4 @@
+/*
 package bonus.refactor.funhell.readonly;
 
 import lombok.Getter;
@@ -69,9 +70,11 @@ public abstract class NoteCustom {
         for (int i = 0; i < getLINEDisposizioni(); ++i)
             setDettaglio(i, copy.getDettaglio(i));
     }
-    /**
+    */
+/**
      * @param LINEDisposizioni The LINEDisposizioni to set.
-     */
+     *//*
+
     public void setLINEDisposizioni(int LINEDisposizioni) {
         if (LINEDisposizioni > 0) {
             this.LINEDisposizioni = LINEDisposizioni;
@@ -79,18 +82,22 @@ public abstract class NoteCustom {
         }
     }
 
-    /**
+    */
+/**
      * @param i Occurence of dettaglio to allocate.
-     */
+     *//*
+
     public void addDettaglio(int i) {
 	    if (i < LINEDisposizioni) {
 		    dettagli[i] = new DetailsF();
 	    }
     }
 
-    /**
+    */
+/**
      * @param i Occurence of dettaglio to return.
-     */
+     *//*
+
     public DetailsF getDettaglio(int i) {
         if (i < LINEDisposizioni) {
             return (dettagli[i]);
@@ -98,10 +105,12 @@ public abstract class NoteCustom {
         return (null);
     }
 
-    /**
+    */
+/**
      * @param i         Occurence of dettaglio to set.
      * @param dettaglio Dettaglio instance to set.
-     */
+     *//*
+
     public void setDettaglio(int i, DetailsF dettaglio) {
         if (i < LINEDisposizioni) {
             dettagli[i] = dettaglio;
@@ -134,3 +143,4 @@ public abstract class NoteCustom {
 
 }
 
+*/

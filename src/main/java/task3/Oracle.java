@@ -27,7 +27,6 @@ public class Oracle {
     int sleepChance = 1;
 
 
-
     static {
         answers.put("Что", "С точки зрения банальной эрудиции, каждый индивидуум, критически мотивирующий абстракцию," + "\n" +
                 " не может игнорировать критерии утопического субъективизма, концептуально интерпретируя общепринятые " + "\n" +
@@ -55,16 +54,24 @@ public class Oracle {
 
     public Oracle() {
     }
-
-
-    public  void angryKindOrTired(String preset){
-        if (preset.equals("angry")){
-            this.
-        }
-
+    // Так по названию метода понятно, как будет себя вести оракл
+    // ДУмаю над другими вариантми
+    public void angryPreset() {
+        this.rudenessChance = 20;
+        this.stickHitChance = 20;
+        this.sleepChance = 1;
     }
-    public void temperamentPreset(){
 
+    public void kindPreset() {
+        this.rudenessChance = 5;
+        this.stickHitChance = 5;
+        this.sleepChance = 1;
+    }
+
+    public void tiredPreset() {
+        this.rudenessChance = 5;
+        this.stickHitChance = 5;
+        this.sleepChance = 10;
     }
 
     public void setMaximumSleepTimeSec(int maximumSleepTimeSec) {
@@ -101,7 +108,7 @@ public class Oracle {
         return new Resolution(question, answers.get(key));
     }
 
-    // TODO: 03.12.2020 Механизм сна пока прежний
+
     private void fatigueCheck() {
         int current = random.nextInt(allChances);
         if (current < sleepChance) {
@@ -133,7 +140,7 @@ public class Oracle {
         }
     }
 
-    // TODO: 09.12.2020 Метод пока оставил
+
     private ArrayList<String> keyWordSearch(String question) {
         ArrayList<String> keyWord = new ArrayList<>();
         for (String s : Oracle.answers.keySet()) {
