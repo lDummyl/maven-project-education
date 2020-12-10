@@ -22,6 +22,12 @@ public class Oracle {
 
     public static final HashMap<String, String> answers = new HashMap<>();
 
+    int rudenessChance = 10;
+    int stickHitChance = 20;
+    int sleepChance = 1;
+
+
+
     static {
         answers.put("Что", "С точки зрения банальной эрудиции, каждый индивидуум, критически мотивирующий абстракцию," + "\n" +
                 " не может игнорировать критерии утопического субъективизма, концептуально интерпретируя общепринятые " + "\n" +
@@ -48,6 +54,17 @@ public class Oracle {
     }
 
     public Oracle() {
+    }
+
+
+    public  void angryKindOrTired(String preset){
+        if (preset.equals("angry")){
+            this.
+        }
+
+    }
+    public void temperamentPreset(){
+
     }
 
     public void setMaximumSleepTimeSec(int maximumSleepTimeSec) {
@@ -87,7 +104,6 @@ public class Oracle {
     // TODO: 03.12.2020 Механизм сна пока прежний
     private void fatigueCheck() {
         int current = random.nextInt(allChances);
-        int sleepChance = 1;
         if (current < sleepChance) {
             this.stopSleepTime = LocalDateTime.now().plusSeconds(1 + random.nextInt(maximumSleepTimeSec));
         }
@@ -95,8 +111,7 @@ public class Oracle {
 
     private void moodCheck() throws OracleException {
         int current = random.nextInt(allChances);
-        int rudenessChance = 10;
-        int stickHitChance = 20;
+
 
         if (current <= rudenessChance) {
             throw new OracleException(OracleReaction.RUDENESS);
