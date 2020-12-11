@@ -1,0 +1,29 @@
+package task4;
+
+import task3.Oracle;
+import task3.Resolution;
+
+import java.util.ArrayList;
+import java.util.List;
+
+// TODO: 05.12.2020 возможно сделал слишком много классов
+public class OracleQuestionProvider {
+    Oracle oracle = new Oracle();
+    QuestionsGenerator questionsGenerator = new QuestionsGenerator();
+    ArraySerializerToJson serializer = new ArraySerializerToJson();
+
+    public void askOracleAndSerialize(int numberOfQuestions, String fileName) throws InterruptedException {
+        List<Resolution> resolutions = askOracle(numberOfQuestions, 100);
+        serializer.serializeCollectionToJSON(resolutions, fileName);
+    }
+
+    public List<Resolution> askOracle(int numberOfQuestions, int timeToWait) throws InterruptedException {
+
+        List<Resolution> resolutions = new ArrayList<>();
+        for (int i = 0; i < numberOfQuestions; i++) {
+            Thread.sleep(timeToWait);
+            resolutions.add(oracle.ask(questionsGenerator.getQuestion()));
+        }
+        return resolutions;
+    }
+}

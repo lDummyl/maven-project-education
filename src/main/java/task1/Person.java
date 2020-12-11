@@ -1,31 +1,18 @@
 package task1;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
-// TODO: 9/12/20 тройка с минусом
-// Что нужно улучшить для увеличения оценки?
 
 public class Person implements Comparable<Person> {
     public Name name;
     public BirthDate birthDate;
     public Period age;
 
-
-    public Name getName() {
-        return name;
-    }
-
-    public BirthDate getBirthDate() {
-        return birthDate;
-    }
-
-
-    public Person(String name, BirthDate localbirthDate) {
+    public Person(String name, BirthDate localBirthDate) {
         this.name = new Name(name);
-        this.birthDate = localbirthDate;
+        this.birthDate = localBirthDate;
     }
 
 
@@ -39,7 +26,6 @@ public class Person implements Comparable<Person> {
         this.birthDate = new BirthDate();
         this.age = Period.between(birthDate.localBirthDate, LocalDate.now());
     }
-
 
     @Override
     public boolean equals(Object o) {

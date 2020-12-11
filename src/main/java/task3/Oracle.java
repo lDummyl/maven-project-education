@@ -1,96 +1,156 @@
 package task3;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Random;
 
 
-@JsonAutoDetect
 public class Oracle {
-    private int sleepChance = 10;
-    private int rudenessChance = 20;
-    private int hitChance = 30;
-    private int answerChance = 60;
-    private int allChances = sleepChance + rudenessChance + hitChance + answerChance;
+    private final int allChances = 100;
     private int maximumSleepTimeSec = 59;
 
-    LocalDateTime stopSleepTime = LocalDateTime.now();
-
-    ObjectMapper mapper = new ObjectMapper();
+    public static final int maxLength = 30;
+    public static final int minLength = 15;
 
     Random random = new Random();
-    Answer answer = new Answer();
+    LocalDateTime stopSleepTime = LocalDateTime.now();
 
-    List<Resolution> resolutions= new ArrayList();
+    public static final String leftTimeToSleepMarker = "Ещё осталось: ";
+
+    public static final HashMap<String, String> answers = new HashMap<>();
+
+    int rudenessChance = 10;
+    int stickHitChance = 20;
+    int sleepChance = 1;
 
 
-    File file;
-    JsonGenerator g;
+    static {
+        answers.put("Что", "С точки зрения банальной эрудиции, каждый индивидуум, критически мотивирующий абстракцию," + "\n" +
+                " не может игнорировать критерии утопического субъективизма, концептуально интерпретируя общепринятые " + "\n" +
+                "дефанизирующие поляризаторы, поэтому консенсус, достигнутый диалектической материальной классификацией " + "\n" +
+                "всеобщих мотиваций в парадигматических связях предикатов, решает проблему усовершенствования формирующих " + "\n" +
+                "геотрансплантационных квазипузлистатов всех кинетически кореллирующих аспектов.");
 
-    public Oracle(int sleepChance, int rudenessChance, int hitChance, int answerChance) {
-        this.sleepChance = sleepChance;
-        this.rudenessChance = rudenessChance;
-        this.hitChance = hitChance;
-        this.answerChance = answerChance;
-        this.allChances = sleepChance + rudenessChance + hitChance + answerChance;
+        answers.put("Когда", " Я думаю, мы еще вернемся к этой теме и не раз. И это говорит о том, что все идет " + "\n" +
+                "в правильном направлении. А детали мы будем решать по ходу дела.");
+
+        answers.put("Почему", "Так исторически сложилось");
+
+        answers.put("Кто", "Иногда ответ в загадке бывает настолько явным, что мы просто его не замечаем.");
+
+        answers.put("Где", "Огромная мудрость сокрыта в каждом из нас. Ведь на все вопросы, которые мы задаем, у нас уже есть ответы.");
+
+        answers.put("Зачем", "Такова структура момента.");
+
+        answers.put("Куда", " Ну, тогда все равно и куда идти...");
+
+        answers.put("Сколько", " Сколько нужно...");
+
+        answers.put("Как", " Собравшись с духом");
     }
 
     public Oracle() {
-        this.file = new File("/home/oblivion/Java/JavaLearn/maven-project-education/src/main/java/task3/Statistic.json");
+    }
+    // Так по названию метода понятно, как будет себя вести оракл
+    // ДУмаю над другими вариантми
+    public void angryPreset() {
+        this.rudenessChance = 20;
+        this.stickHitChance = 20;
+        this.sleepChance = 1;
+    }
+
+    public void kindPreset() {
+        this.rudenessChance = 5;
+        this.stickHitChance = 5;
+        this.sleepChance = 1;
+    }
+
+    public void tiredPreset() {
+        this.rudenessChance = 5;
+        this.stickHitChance = 5;
+        this.sleepChance = 10;
     }
 
     public void setMaximumSleepTimeSec(int maximumSleepTimeSec) {
         this.maximumSleepTimeSec = maximumSleepTimeSec;
     }
 
-    // TODO: 30.11.2020 Компилируется, но не пишет в файл
-
-    public String askJson(String question) {
-        String answer = ask(question);
-        Resolution resolution = new Resolution(question, answer);
-        resolutions.add(resolution);
-        try {
-            mapper.writeValue(file, resolutions);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return answer;
-    }
-
-    // TODO: 13.11.2020 начни с тестов
-    // FIXME: 30.11.2020 Всё время уходит в сон
-    public String ask(String question) {
-        int dealChance = 1 + random.nextInt(allChances);
-        if (Duration.between(LocalDateTime.now(), stopSleepTime).isNegative() ||
-                Duration.between(LocalDateTime.now(), stopSleepTime).isZero()) {
-
-            if (dealChance <= sleepChance) {
-                int sleepTimeSec = 1 + random.nextInt(maximumSleepTimeSec);
-                this.stopSleepTime = LocalDateTime.now().plusSeconds(sleepTimeSec);
-                return "Оракул заснул";
-            } else if (dealChance <= rudenessChance) {
-                return answer.rudeness();
-            } else if (dealChance <= hitChance) {
-                return answer.stickHit();
-            } else {
-                answer.setQuestion(question);
-                return answer.giveAnswer();
+    public Resolution ask(String question) {
+        if (LocalDateTime.now().isAfter(stopSleepTime)) {
+            try {
+                lengthCheck(question);
+                moodCheck();
+                fatigueCheck();
+                return validAnswer(question);
+            } catch (OracleException e) {
+                OracleReaction reaction = e.reaction;
+                return new Resolution(question, reaction.getValue());
             }
         } else {
-            return answer.sleepAnswer(stopSleepTime);
+            return new Resolution(question, leftTimeToSleepMarker + Duration.between(LocalDateTime.now(), stopSleepTime).getSeconds());
         }
     }
+
+
+    private void lengthCheck(String question) throws OracleException {
+        if (question.length() < minLength) {
+            throw new OracleException(OracleReaction.TOO_SHORT);
+        } else if (question.length() > maxLength) {
+            throw new OracleException(OracleReaction.TOO_LONG);
+        }
+    }
+
+    private Resolution validAnswer(String question) throws OracleException {
+        String key = questionPresenceCheck(question);
+        return new Resolution(question, answers.get(key));
+    }
+
+
+    private void fatigueCheck() {
+        int current = random.nextInt(allChances);
+        if (current < sleepChance) {
+            this.stopSleepTime = LocalDateTime.now().plusSeconds(1 + random.nextInt(maximumSleepTimeSec));
+        }
+    }
+
+    private void moodCheck() throws OracleException {
+        int current = random.nextInt(allChances);
+
+
+        if (current <= rudenessChance) {
+            throw new OracleException(OracleReaction.RUDENESS);
+        } else if (current < stickHitChance) {
+            throw new OracleException(OracleReaction.STICK_HIT);
+        }
+    }
+
+
+    private String questionPresenceCheck(String question) throws OracleException {
+        ArrayList<String> keyWords = keyWordSearch(question);
+
+        if (keyWords.size() < 1) {
+            throw new OracleException(OracleReaction.NO_KEY_WORT);
+        } else if ((keyWords.size() > 1)) {
+            throw new OracleException(OracleReaction.TO_MATCH_KEY_WORT);
+        } else {
+            return keyWords.get(0);
+        }
+    }
+
+
+    private ArrayList<String> keyWordSearch(String question) {
+        ArrayList<String> keyWord = new ArrayList<>();
+        for (String s : Oracle.answers.keySet()) {
+            if (question.contains(s) || question.contains(s.toLowerCase())) {
+                keyWord.add(s);
+            }
+        }
+        return keyWord;
+    }
+
 }
 
 

@@ -1,11 +1,7 @@
 package task2;
 
-import lombok.var;
-
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
+
 
 public class Office {
     Secretary secretary;
@@ -21,23 +17,6 @@ public class Office {
         this.hr = hr;
     }
 
-    public void setSecretary(Secretary secretary) {
-        this.secretary = secretary;
-    }
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
-    }
-
-    public void setLawyer(Lawyer lawyer) {
-        this.lawyer = lawyer;
-    }
-
-    public void setGuard(Guard guard) {
-        this.guard = guard;
-    }
-
-
     void invitePeople(Object human) {
         if (!(human instanceof Worker)) {
             throw new IllegalStateException("It's not worker");
@@ -49,11 +28,11 @@ public class Office {
             optionalSecretary.ifPresent(s -> secretary = s);
         } else if (human instanceof Guard) {
             Optional<Guard> optionalGuard = director.chooseWorker(this.hr.getCandidates(), Guard.class);
-            optionalGuard .ifPresent(s -> guard = s);
+            optionalGuard.ifPresent(s -> guard = s);
         } else if (human instanceof Lawyer) {
             Optional<Lawyer> optionalLawyer = director.chooseWorker(this.hr.getCandidates(), Lawyer.class);
             optionalLawyer.ifPresent(s -> lawyer = s);
-        }else if (human instanceof Manager) {
+        } else if (human instanceof Manager) {
             Optional<Manager> optionalManager = director.chooseWorker(this.hr.getCandidates(), Manager.class);
             optionalManager.ifPresent(s -> manager = s);
         }

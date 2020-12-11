@@ -1,10 +1,14 @@
 package task1;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import task4.JsonReady;
+
 import java.util.Objects;
 import java.util.Random;
-import java.util.UUID;
 
-public class Name {
+
+@JsonAutoDetect
+public class Name implements JsonReady {
 
     String firstName;
     String lastName;
@@ -22,9 +26,6 @@ public class Name {
         Random random = new Random();
         this.firstName = fnames[random.nextInt(fnames.length)];
         this.lastName = lnames[random.nextInt(lnames.length)];
-
-        //this.firstName = (UUID.randomUUID()).toString();
-        //this.lastName = (UUID.randomUUID()).toString();
     }
 
     @Override

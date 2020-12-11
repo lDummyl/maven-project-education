@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Random;
 
-public class BirthDate implements Comparable<BirthDate>{
+public class BirthDate implements Comparable<BirthDate> {
     LocalDate localBirthDate;
     int year;
     int month;
@@ -14,14 +14,6 @@ public class BirthDate implements Comparable<BirthDate>{
         this.year = year;
         this.month = month;
         this.day = day;
-    }
-
-    public LocalDate getLocalBirthDate() {
-        return localBirthDate;
-    }
-
-    public BirthDate(LocalDate localBirthDate) {
-        this.localBirthDate = localBirthDate;
     }
 
     public BirthDate() {

@@ -1,3 +1,4 @@
+/*
 package bonus.refactor.funhell.readonly;
 
 import lombok.Getter;
@@ -27,3 +28,4 @@ public class DetailsF {
         return (out.toString());
     }
 }
+*/

@@ -50,7 +50,7 @@ public class LocalDirectorTest {
     }
 
     @Test
-    public void testRightKey() {
+    public void testRightKey() throws IllegalStateException{
         LocalDirector localDirector = new LocalDirector(1);
         HashMap<Class<?>, List<Worker>> objectObjectHashMap = new HashMap<>();
         ArrayList<Worker> value = new ArrayList<>();
@@ -61,7 +61,7 @@ public class LocalDirectorTest {
         assertTrue(secretary.isPresent());
         assertEquals(newSecretary, secretary.get());
     }
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void testWrongKey() {
         LocalDirector localDirector = new LocalDirector(1);
         HashMap<Class<?>, List<Worker>> objectObjectHashMap = new HashMap<>();
@@ -71,7 +71,7 @@ public class LocalDirectorTest {
         Optional<SecretaryImpl> secretary = localDirector.chooseWorker(objectObjectHashMap, SecretaryImpl.class);
     }
     @Test
-    public void testEmptyOptional() {
+    public void testEmptyOptional(){
         LocalDirector localDirector = new LocalDirector(2);
         HashMap<Class<?>, List<Worker>> objectObjectHashMap = new HashMap<>();
         ArrayList<Worker> value = new ArrayList<>();
