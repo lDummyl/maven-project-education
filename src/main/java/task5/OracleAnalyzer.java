@@ -8,8 +8,7 @@ import task3.Resolution;
 
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class OracleAnalyzer {
@@ -44,11 +43,20 @@ public class OracleAnalyzer {
 
     private String mostPopularQuestion(Collection<Resolution> resolutions) {
         // TODO: 08.12.2020 Скорее всего можно решить по аналогии с оффисом с помощью map
+        Map<String, List<String>> questionMap = resolutions.stream().map(Resolution::getQuestion).sorted().collect(Collectors.groupingBy(String::valueOf));
 
-       /* Map<String, List<String>> collect = resolutions.stream().map(Resolution::getQuestion).sorted().collect(Collectors.groupingBy(Function.identity()));
-        collect.entrySet().stream().max(s -> s.s)*/
+        int biggestList = 0;
+        String popularQuestion = "";
 
-        return null;
+        for (Map.Entry<String, List<String>> entry : questionMap.entrySet()) {
+            int size = entry.getValue().size();
+            if (size > biggestList){
+                biggestList = size;
+                popularQuestion = entry.getValue().get(0);
+            }
+        }
+
+        return popularQuestion;
     }
 
     private Integer getTimesOfStickHit(Collection<Resolution> resolutions) {

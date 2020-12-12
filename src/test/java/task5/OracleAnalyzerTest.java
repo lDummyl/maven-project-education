@@ -17,6 +17,10 @@ public class OracleAnalyzerTest {
     public void statisticTestWithoutDeserialization() {
         ArrayList<Resolution> resolutions = new ArrayList<>();
         String testQuestion = "TestQuestion";
+        String testAnotherQuestion = "TestQuestion2";
+        String popularQuestion = "TestQuestion3";
+
+
         String stickHitString = OracleReaction.STICK_HIT.getValue();
         String rudenessString = OracleReaction.RUDENESS.getValue();
         int sleepTimesPerQuestion = 5;
@@ -27,6 +31,8 @@ public class OracleAnalyzerTest {
         Integer rudenessTimes = 10;
         Integer validAnswersTimes = 20;
         Integer sleepTimes = 5;
+        Integer timesOfAnotherQuestion = validAnswersTimes + 10;
+        Integer timesOFMostPopularQuestion = timesOfAnotherQuestion + 10;
 
         Integer sleepTimeAtAll = sleepTimes * sleepTimesPerQuestion;
 
@@ -45,6 +51,13 @@ public class OracleAnalyzerTest {
             resolutions.add(new Resolution(testQuestion, sleepString));
         }
 
+        for (int i = 0; i < timesOfAnotherQuestion; i++) {
+            resolutions.add(new Resolution(testAnotherQuestion, validAnswerString));
+        }
+        for (int i = 0; i < timesOFMostPopularQuestion; i++) {
+            resolutions.add(new Resolution(popularQuestion, validAnswerString));
+        }
+
         ReportData reportData = oracleAnalyzer.analyzeOracleData(resolutions);
 
         assertNotNull(reportData);
@@ -52,6 +65,7 @@ public class OracleAnalyzerTest {
         assertEquals(stickHitsTimes, reportData.timesOfStickHits);
         assertEquals(rudenessTimes, reportData.timesOfRudeness);
         assertEquals(sleepTimeAtAll, reportData.secondsOfSleep);
+        assertEquals(popularQuestion, reportData.mostPopularQuestion);
 
 
     }
