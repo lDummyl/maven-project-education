@@ -1,9 +1,8 @@
 package task2;
 
-import lombok.var;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 public class SecondHr implements Hr {
     Collection<SecretaryImpl> secCandidates;
@@ -29,14 +28,15 @@ public class SecondHr implements Hr {
         if (!candidate.passInterview()) {
             return;
         }
-        Class<? extends Worker> aClass = candidate.getClass();
-        List<Worker> workers = candidates.get(aClass);
+        Class<? extends Worker> workerClass = candidate.getClass();
+        List<Worker> workers = candidates.get(workerClass);
+        
         if (workers != null) {
             workers.add(candidate);
         } else {
             ArrayList<Worker> workersNew = new ArrayList<>();
             workersNew.add(candidate);
-            candidates.put(aClass, workersNew);
+            candidates.put(workerClass, workersNew);
         }
     }
 

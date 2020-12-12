@@ -1,4 +1,4 @@
-/*
+
 package task2;
 
 import org.junit.Test;
@@ -13,20 +13,6 @@ public class SecondHrTest {
     CandidateProvider candidateProvider = new CandidateProvider();
 
 
-
-
-    @Test
-    public void addCandidate() {
-        SecondHr secondHr = new SecondHr();
-        Collection<Guard> guards = candidateProvider.generateAnyWorkers(1, Guard::new);
-        ArrayList<Guard> guardsList = new ArrayList<>(guards);
-        boolean b = guardsList.get(0).passInterview();
-        System.out.println(b);
-        System.out.println(secondHr.getCandidates().size());
-        assertEquals(guardsList.size(), secondHr.getCandidates().size());
-        System.out.println(secondHr.getCandidates());
-    }
-
     @Test
     public void addCandidateMany() {
         SecondHr secondHr = new SecondHr();
@@ -34,12 +20,13 @@ public class SecondHrTest {
         Collection<Guard> guards = candidateProvider.generateAnyWorkers(guardSize, Guard::new);
         ArrayList<Guard> guardsList = new ArrayList<>(guards);
         for (Guard guard : guardsList) {
-            secondHr.addCandidate(guard);
+            secondHr.addCandidateDet(guard);
         }
         Map<Class<?>, List<Worker>> candidates = secondHr.getCandidates();
-        assertEquals(1, candidates.size());
-        assertEquals(guardSize, candidates.get(Guard.class).size());
-        System.out.println(candidates);
+        System.out.println(secondHr.getCandidates());
+        candidates.get(Guard.class).size();
+
+        assertTrue(candidates.get(Guard.class).size() > 0);
     }
 
     @Test
@@ -50,30 +37,13 @@ public class SecondHrTest {
         List<Manager> managers = candidateProvider.generateAnyWorkers(candidateSize, Manager::new);
         List<Lawyer> lawyers = candidateProvider.generateAnyWorkers(candidateSize, Lawyer::new);
 
-        guards.forEach(secondHr::addCandidate);
-        managers.forEach(secondHr::addCandidate);
-        lawyers.forEach(secondHr::addCandidate);
+        guards.forEach(secondHr::addCandidateDet);
+        managers.forEach(secondHr::addCandidateDet);
+        lawyers.forEach(secondHr::addCandidateDet);
 
         Map<Class<?>, List<Worker>> candidates = secondHr.getCandidates();
         int numberOfFolders = 3;
         assertEquals(numberOfFolders, candidates.size());
 
-        System.out.println(candidates);
     }
-
-    @Test(expected = IllegalStateException.class)
-    public void addCandidateCrush() {
-        SecondHr secondHr = new SecondHr();
-        int candidateSize = 100;
-
-        try {
-            secondHr.addCandidate(new Object());
-        } catch (IllegalStateException e) {
-            assertTrue(true);
-            assertEquals("Wrong object", e.getMessage());
-            throw e;
-        }
-    }
-
-
-}*/
+}

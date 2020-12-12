@@ -21,7 +21,7 @@ public class Office {
         if (!(human instanceof Worker)) {
             throw new IllegalStateException("It's not worker");
         } else {
-            this.hr.addCandidate(human);
+            this.hr.addCandidateDet((Worker) human);
         }
         if (human instanceof Secretary) {
             Optional<SecretaryImpl> optionalSecretary = director.chooseWorker(this.hr.getCandidates(), SecretaryImpl.class);
@@ -37,8 +37,6 @@ public class Office {
             optionalManager.ifPresent(s -> manager = s);
         }
     }
-
-
 }
 
 

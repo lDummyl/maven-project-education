@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import static task3.OracleCharacters.*;
+
 
 public class Oracle {
     private final int allChances = 100;
@@ -26,6 +28,7 @@ public class Oracle {
     int stickHitChance = 20;
     int sleepChance = 1;
 
+    OracleCharacters character;
 
     static {
         answers.put("Что", "С точки зрения банальной эрудиции, каждый индивидуум, критически мотивирующий абстракцию," + "\n" +
@@ -54,24 +57,21 @@ public class Oracle {
 
     public Oracle() {
     }
-    // Так по названию метода понятно, как будет себя вести оракл
-    // ДУмаю над другими вариантми
-    public void angryPreset() {
-        this.rudenessChance = 20;
-        this.stickHitChance = 20;
-        this.sleepChance = 1;
-    }
 
-    public void kindPreset() {
-        this.rudenessChance = 5;
-        this.stickHitChance = 5;
-        this.sleepChance = 1;
-    }
-
-    public void tiredPreset() {
-        this.rudenessChance = 5;
-        this.stickHitChance = 5;
-        this.sleepChance = 10;
+    public void setCharacter(OracleCharacters character) {
+        if (character == ANGRY) {
+            this.rudenessChance = 20;
+            this.stickHitChance = 20;
+            this.sleepChance = 1;
+        } else if (character == KIND) {
+            this.rudenessChance = 5;
+            this.stickHitChance = 5;
+            this.sleepChance = 1;
+        } else if (character == TIRED) {
+            this.rudenessChance = 5;
+            this.stickHitChance = 5;
+            this.sleepChance = 10;
+        }
     }
 
     public void setMaximumSleepTimeSec(int maximumSleepTimeSec) {
@@ -93,7 +93,6 @@ public class Oracle {
             return new Resolution(question, leftTimeToSleepMarker + Duration.between(LocalDateTime.now(), stopSleepTime).getSeconds());
         }
     }
-
 
     private void lengthCheck(String question) throws OracleException {
         if (question.length() < minLength) {
