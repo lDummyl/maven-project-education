@@ -1,29 +1,57 @@
 package task5;
 
 import org.junit.Test;
+import task3.Oracle;
+import task3.OracleReaction;
 import task3.Resolution;
-import task4.ArraySerializerToJson;
-import task4.ArraySerializerToJsonTest;
-import task4.OracleQuestionProvider;
-import task4.QuestionsGenerator;
-
-import java.util.Collection;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
+
 public class OracleAnalyzerTest {
+    OracleAnalyzer oracleAnalyzer = new OracleAnalyzer();
 
     @Test
-    public void deserializeAndAnalyze() {
-    }
+    public void statisticTestWithoutDeserialization() {
+        ArrayList<Resolution> resolutions = new ArrayList<>();
+        String testQuestion = "TestQuestion";
+        String stickHitString = OracleReaction.STICK_HIT.getValue();
+        String rudenessString = OracleReaction.RUDENESS.getValue();
+        int sleepTimesPerQuestion = 5;
+        String sleepString = Oracle.leftTimeToSleepMarker + sleepTimesPerQuestion;
+        String validAnswerString = "TestValidAnswerString";
 
-    @Test
-    public void analyzeOracleData() {
-        ArraySerializerToJson arraySerializerToJson = new ArraySerializerToJson();
-        Collection<Resolution> newFileJSON = arraySerializerToJson.deserializeJsonArray("newFileJSON", Resolution.class);
+        Integer stickHitsTimes = 5;
+        Integer rudenessTimes = 10;
+        Integer validAnswersTimes = 20;
+        Integer sleepTimes = 5;
 
-        OracleAnalyzer oracleAnalyzer = new OracleAnalyzer();
-       oracleAnalyzer.analyzeOracleData(newFileJSON);
+        Integer sleepTimeAtAll = sleepTimes * sleepTimesPerQuestion;
+
+        for (int i = 0; i < stickHitsTimes; i++) {
+            resolutions.add(new Resolution(testQuestion, stickHitString));
+        }
+
+        for (int i = 0; i < rudenessTimes; i++) {
+            resolutions.add(new Resolution(testQuestion, rudenessString));
+        }
+
+        for (int i = 0; i < validAnswersTimes; i++) {
+            resolutions.add(new Resolution(testQuestion, validAnswerString));
+        }
+        for (int i = 0; i < sleepTimes; i++) {
+            resolutions.add(new Resolution(testQuestion, sleepString));
+        }
+
+        ReportData reportData = oracleAnalyzer.analyzeOracleData(resolutions);
+
+        assertNotNull(reportData);
+
+        assertEquals(stickHitsTimes, reportData.timesOfStickHits);
+        assertEquals(rudenessTimes, reportData.timesOfRudeness);
+        assertEquals(sleepTimeAtAll, reportData.secondsOfSleep);
 
 
     }

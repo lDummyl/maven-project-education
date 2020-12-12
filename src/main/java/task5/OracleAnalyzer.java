@@ -1,22 +1,28 @@
 package task5;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import task3.Oracle;
 import task3.OracleReaction;
 import task3.Resolution;
-import task4.ArraySerializerToJson;
 
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class OracleAnalyzer {
-    ArraySerializerToJson arraySerializerToJson = new ArraySerializerToJson();
+    ObjectMapper objectMapper = new ObjectMapper();
 
     public ReportData deserializeAndAnalyze(String filename) {
-        Collection<Resolution> resolutions = arraySerializerToJson.deserializeJsonArray(filename, Resolution.class);
+        List<Resolution> resolutions = null;
+        try {
+            resolutions = objectMapper.readValue(filename +".json", new TypeReference<List<Resolution>>()  {});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return analyzeOracleData(resolutions);
-
     }
 
     public ReportData analyzeOracleData(Collection<Resolution> resolutions) {
@@ -25,13 +31,11 @@ public class OracleAnalyzer {
         String mostPopularQuestion = mostPopularQuestion(resolutions);
         Integer absoluteTimeOFSleep = getAbsoluteTimeOFSleep(resolutions);
 
-        // TODO: 09.12.2020 добавить поле когда в орвкул
         return new ReportData(timesOfRudeness, timesOfStickHit, absoluteTimeOFSleep, mostPopularQuestion);
     }
 
     private Integer getAbsoluteTimeOFSleep(Collection<Resolution> resolutions) {
         int sum = resolutions.stream().map(Resolution::getAnswer)
-                // TODO: 09.12.2020 переименовать
                 .filter(s -> s.contains(Oracle.leftTimeToSleepMarker))
                 .map(s -> s.replaceAll("[^0-9.]", ""))
                 .mapToInt(Integer::parseInt).sum();

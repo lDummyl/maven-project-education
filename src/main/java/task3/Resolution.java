@@ -2,22 +2,41 @@ package task3;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import task4.JsonReady;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 
 @JsonAutoDetect
-public class Resolution implements JsonReady {
+public class Resolution {
     public String question;
     public String answer;
+    public LocalDateTime timeOfAsk;
 
     public Resolution() {
+    }
+
+    public Resolution(String question, String answer, LocalDateTime timeOfAsk) {
+        this.question = question;
+        this.answer = answer;
+        this.timeOfAsk = timeOfAsk;
     }
 
     public Resolution(String question, String answer) {
         this.question = question;
         this.answer = answer;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public void setTimeOfAsk(LocalDateTime timeOfAsk) {
+        this.timeOfAsk = timeOfAsk;
     }
 
     public String getQuestion() {
@@ -28,12 +47,8 @@ public class Resolution implements JsonReady {
         return answer;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
+    public LocalDateTime getTimeOfAsk() {
+        return timeOfAsk;
     }
 
     @Override

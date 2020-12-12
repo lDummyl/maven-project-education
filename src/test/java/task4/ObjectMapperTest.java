@@ -1,9 +1,9 @@
 package task4;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Function;
+
 import org.junit.Test;
 import task3.Resolution;
 

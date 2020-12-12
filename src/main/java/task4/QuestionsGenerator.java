@@ -8,7 +8,6 @@ import java.util.*;
 public class QuestionsGenerator {
     public static final String[] secondWords = {"случится", "произойдёт", "поедет"};
     public static final String[] thirdWords = {"кот", "лампа", "пикабу", "запад"};
-    //String[] keyWords = Oracle.specialQuests;
 
     Random random = new Random();
     List<String> keyWords = new ArrayList<>(Oracle.answers.keySet());

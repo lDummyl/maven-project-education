@@ -87,10 +87,10 @@ public class Oracle {
                 return validAnswer(question);
             } catch (OracleException e) {
                 OracleReaction reaction = e.reaction;
-                return new Resolution(question, reaction.getValue());
+                return new Resolution(question, reaction.getValue(), LocalDateTime.now());
             }
         } else {
-            return new Resolution(question, leftTimeToSleepMarker + Duration.between(LocalDateTime.now(), stopSleepTime).getSeconds());
+            return new Resolution(question, leftImeToSleep(), LocalDateTime.now());
         }
     }
 
@@ -104,7 +104,7 @@ public class Oracle {
 
     private Resolution validAnswer(String question) throws OracleException {
         String key = questionPresenceCheck(question);
-        return new Resolution(question, answers.get(key));
+        return new Resolution(question, answers.get(key), LocalDateTime.now());
     }
 
 
@@ -137,6 +137,10 @@ public class Oracle {
         } else {
             return keyWords.get(0);
         }
+    }
+    private String leftImeToSleep(){
+        String leftTime = (leftTimeToSleepMarker + Duration.between(LocalDateTime.now(), stopSleepTime).getSeconds() + "секунд");
+        return leftTime;
     }
 
 

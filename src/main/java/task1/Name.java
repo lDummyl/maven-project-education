@@ -1,14 +1,14 @@
 package task1;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import task4.JsonReady;
+
 
 import java.util.Objects;
 import java.util.Random;
 
 
 @JsonAutoDetect
-public class Name implements JsonReady {
+public class Name {
 
     String firstName;
     String lastName;
