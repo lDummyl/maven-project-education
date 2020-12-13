@@ -11,7 +11,7 @@ public class Excel {
         List <FinOperation> finOperations = fileReader.getFinOperations();
         FileWriter fileWriter = new FileWriter();
 //        FileOutputStream file = new FileOutputStream("C:\\java\\book.xlsx");
-        FileOutputStream file2 = new FileOutputStream("C:\\java\\2.xlsx");
+        FileOutputStream file2 = new FileOutputStream("C:\\java\\3.xlsx");
 //        fileWriter.writeToFile(finOperations, file);
         fileWriter.writePaymentsFromIC(finOperations, file2);
     }

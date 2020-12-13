@@ -72,33 +72,33 @@ public class Oracle {
 
     int amountOfSpecialQuestions = 0;
 
-    public boolean checkQuestion(String question) {
+    public String checkQuestion(String question) {
         if (question.length() > 30) {
             answer = "Будь лаконичнее";
             System.out.println(answer);
-            return false;
+            return answer;
         }
         if (question.length() < 10) {
             answer = "Будь красноречивее";
             System.out.println(answer);
-            return false;
+            return answer;
         }
         for (String s : questions) {
-            if (question.contains(s)) {
-                amountOfSpecialQuestions++;
-            }
+                if (question.contains(s)) {
+                    amountOfSpecialQuestions++;
+                }
         }
         if (amountOfSpecialQuestions > 1) {
             answer = "Ты задаешь слишком много вопросов";
             System.out.println(answer);
-            return false;
+            return answer;
         }
         if (amountOfSpecialQuestions == 0) {
             answer = "Не слышу вопроса в твоих речах";
             System.out.println(answer);
-            return false;
+            return answer;
         }
-        return true;
+        return answer;
     }
 
 //    public void launch() {

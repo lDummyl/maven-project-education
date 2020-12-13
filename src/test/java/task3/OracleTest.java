@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.Assert.*;
 
@@ -25,22 +27,66 @@ public class OracleTest {
         String answer = oracle.giveAnswer("Как дела?");
         assertEquals("norm", answer );
     }
-//    @Parameterized.Parameters
-//    public static List<String> inputStrings(){
-//        return Arrays.asList(
-//                "Как дела?", "какая на улице погода?" );
-//    }
+    @Parameterized.Parameters
+    public static List<String> inputStrings(){
+        return Arrays.asList(
+                "как дела?", "какая на улице погода?", "почему жирафы не летают?", "кто, что, как, почему", "некто оказался в затруднительном положении", "как перестать лениться и начать работать");
+
+    }
 
     @Test
     public void oracleAnswer() throws IOException {
         Oracle oracle = new Oracle();
-        String firstQuestion = "Как дела?";
-        String secondQuestion = "какая на улице погода?";
-        String thirdQuestion = "почему жирафы не летают?";
+        List list = inputStrings();
+        for (Object o : list) {
+            String question = o.toString();
             String answer = oracle.answer;
-            String expectedAnswer = oracle.listOfAphorisms.get(oracle.listOfAphorisms.get(firstQuestion));
+            String expectedAnswer = oracle.listOfAphorisms.get(oracle.listOfAphorisms.get(question));
             assertEquals(expectedAnswer, answer);
         }
+    }
+
+    @Test
+    public void checkQuestion() throws IOException {
+        Oracle oracle = new Oracle();
+        List list = inputStrings();
+        for (Object o : list) {
+            String question = o.toString();
+            String answer = String.valueOf(oracle.checkQuestion(question));
+            String expectedAnswer = "";
+            int count = 0;
+            if (question.length() < 10) {
+                expectedAnswer = "Будь красноречивее";
+            } else if (question.length() > 30) {
+                expectedAnswer = "Будь лаконичнее";
+            }
+            for (String s : oracle.questions) {
+                if (question.contains(s)) {
+                    boolean m = question.matches("(?:^|[^а-яА-ЯёЁ])(:" + s + ")(?![а-яА-ЯёЁ])");
+                    if (m)
+                    {
+                        count++;
+                    }
+//                    else if (!s.matches("\b" + s))
+//                    {
+//                        count ++;
+//                    }
+                }
+            }
+                if (count > 1) {
+                    expectedAnswer = "Ты задаешь слишком много вопросов";
+                    System.out.println(expectedAnswer);
+                }
+                if (count == 0) {
+                    expectedAnswer = "Не слышу вопроса в твоих речах";
+
+                }
+                assertEquals(expectedAnswer, answer);
+
+
+            }
+        }
+
 
     @Test
     public void serialize() throws IOException {

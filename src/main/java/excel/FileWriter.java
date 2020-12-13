@@ -120,7 +120,7 @@ public class FileWriter {
                 putValue(finOperation, vsk);
 
             }
-            else if (finOperation.payer.contains("Астроволга") && finOperation.moneyReceipt != 0)
+            else if (finOperation.payer.contains("Астро-волга") && finOperation.moneyReceipt != 0)
             {
                 Sheet vsk = insurancePayments.getSheet("Astrovolga");
                 putValue(finOperation, vsk);
@@ -138,7 +138,7 @@ public class FileWriter {
                 putValue(finOperation, vsk);
 
             }
-            else if (finOperation.payer.contains("Energogarant") && finOperation.moneyReceipt != 0)
+            else if (finOperation.payer.contains("ЭНЕРГОГАРАНТ") && finOperation.moneyReceipt != 0)
             {
                 Sheet vsk = insurancePayments.getSheet("VSK");
                 putValue(finOperation, vsk);
