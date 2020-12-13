@@ -64,8 +64,6 @@ public class Oracle {
                 Pattern pattern = Pattern.compile("(?:^|[^а-яА-ЯёЁ])(?:" + specialQuestion + ")(?![а-яА-ЯёЁ]).*");
                 Matcher matcher = pattern.matcher(question);
                 isQuestion = matcher.matches();
-                if (isQuestion)
-                    break;
             }
             return isQuestion;
         }
@@ -98,22 +96,22 @@ public class Oracle {
             System.out.println(answer);
             return answer;
         }
-        else if (isContainsQuestion(specialQuestions, question)) {
+        if (isContainsQuestion(specialQuestions, question)) {
             amountOfSpecialQuestions++;
+        }
             if (amountOfSpecialQuestions > 1) {
                 answer = "Ты задаешь слишком много вопросов";
                 System.out.println(answer);
                 return answer;
             }
-            else if (amountOfSpecialQuestions == 1) {
+            if (amountOfSpecialQuestions == 1) {
                 return answer(question);
             }
-            else if (amountOfSpecialQuestions == 0) {
+            if (amountOfSpecialQuestions == 0) {
                 answer = "Не слышу вопроса в твоих речах";
                 System.out.println(answer);
                 return answer;
             }
-        }
         return answer;
     }
 

@@ -59,26 +59,23 @@ public class OracleTest {
             int count = 0;
             if (question.length() < 10) {
                 expectedAnswer = "Будь красноречивее";
-                break;
             }
             if (question.length() > 30) {
                 expectedAnswer = "Будь лаконичнее";
-                break;
             }
-            else if (oracle.isContainsQuestion(oracle.specialQuestions, question)) {
+            if (oracle.isContainsQuestion(oracle.specialQuestions, question)) {
                 count++;
+            }
                 if (count > 1) {
                     expectedAnswer = "Ты задаешь слишком много вопросов";
                 }
-                else if (count == 1) {
-                    expectedAnswer = oracle.answer(question);
-                }
-                else if (count == 0) {
+                if (count == 0) {
                     expectedAnswer = "Не слышу вопроса в твоих речах";
                 }
-            }
+                if (count == 1 && expectedAnswer.equals(" ")) {
+                    expectedAnswer = oracle.answer(question);
+                }
             assertEquals(expectedAnswer, answer);
-
         }
     }
 
