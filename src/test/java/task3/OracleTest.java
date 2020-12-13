@@ -19,16 +19,18 @@ public class OracleTest {
     public void answer() throws IOException {
         Oracle oracle = new Oracle();
         String answer = oracle.giveAnswer("Как дела?");
-        assertEquals("ok", answer );
+        assertEquals("ok", answer);
     }
+
     @Test
     public void negativeAnswer() throws IOException {
         Oracle oracle = new Oracle();
         String answer = oracle.giveAnswer("Как дела?");
-        assertEquals("norm", answer );
+        assertEquals("norm", answer);
     }
+
     @Parameterized.Parameters
-    public static List<String> inputStrings(){
+    public static List<String> inputStrings() {
         return Arrays.asList(
                 "как дела?", "какая на улице погода?", "почему жирафы не летают?", "кто, что, как, почему", "некто оказался в затруднительном положении", "как перестать лениться и начать работать");
 
@@ -53,39 +55,32 @@ public class OracleTest {
         for (Object o : list) {
             String question = o.toString();
             String answer = String.valueOf(oracle.checkQuestion(question));
-            String expectedAnswer = "";
+            String expectedAnswer = " ";
             int count = 0;
             if (question.length() < 10) {
                 expectedAnswer = "Будь красноречивее";
-            } else if (question.length() > 30) {
+                break;
+            }
+            if (question.length() > 30) {
                 expectedAnswer = "Будь лаконичнее";
+                break;
             }
-            for (String s : oracle.questions) {
-                if (question.contains(s)) {
-                    boolean m = question.matches("(?:^|[^а-яА-ЯёЁ])(:" + s + ")(?![а-яА-ЯёЁ])");
-                    if (m)
-                    {
-                        count++;
-                    }
-//                    else if (!s.matches("\b" + s))
-//                    {
-//                        count ++;
-//                    }
-                }
-            }
+            else if (oracle.isContainsQuestion(oracle.specialQuestions, question)) {
+                count++;
                 if (count > 1) {
                     expectedAnswer = "Ты задаешь слишком много вопросов";
-                    System.out.println(expectedAnswer);
                 }
-                if (count == 0) {
+                else if (count == 1) {
+                    expectedAnswer = oracle.answer(question);
+                }
+                else if (count == 0) {
                     expectedAnswer = "Не слышу вопроса в твоих речах";
-
                 }
-                assertEquals(expectedAnswer, answer);
-
-
             }
+            assertEquals(expectedAnswer, answer);
+
         }
+    }
 
 
     @Test

@@ -2,6 +2,8 @@ package task3;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Oracle {
@@ -10,7 +12,7 @@ public class Oracle {
     public Oracle() throws IOException {
     }
 
-    ArrayList<String> questions = new ArrayList<>(Arrays.asList("кто", "что", "когда", "как", "зачем", "почему", "где", "куда", "откуда"));
+    ArrayList<String> specialQuestions = new ArrayList<>(Arrays.asList("кто", "что", "когда", "как", "зачем", "почему", "где", "куда", "откуда"));
 
     public int random(int min, int max) {
         int diff = max - min;
@@ -46,28 +48,41 @@ public class Oracle {
         }
     }
 
-    public void answer(String question) {
+    public String answer(String question) {
         for (Map.Entry<String, String> item : listOfAphorisms.entrySet()) {
             if (question.contains(item.getKey())) {
                 answer = item.getValue();
                 System.out.println(answer);
             }
         }
-
+        return answer;
     }
+
+        public boolean isContainsQuestion(List <String> specialQuestions, String question){
+        boolean isQuestion = false;
+            for (String specialQuestion : specialQuestions) {
+                Pattern pattern = Pattern.compile("(?:^|[^а-яА-ЯёЁ])(?:" + specialQuestion + ")(?![а-яА-ЯёЁ]).*");
+                Matcher matcher = pattern.matcher(question);
+                isQuestion = matcher.matches();
+                if (isQuestion)
+                    break;
+            }
+            return isQuestion;
+        }
+
 
     HashMap<String, String> listOfAphorisms = new HashMap<>();
 
     {
-        listOfAphorisms.put(questions.get(0), "Благородный человек предъявляет требования к себе, низкий человек предъявляет требования к другим");
-        listOfAphorisms.put(questions.get(1), "Лишь когда приходят холода, становится ясно, что сосны и кипарисы последними теряют свой убор");
-        listOfAphorisms.put(questions.get(2), "Возможно, что никогда");
-        listOfAphorisms.put(questions.get(3), "Три вещи никогда не возвращаются обратно – время, слово, возможность. Поэтому: не теряй времени, выбирай слова, не упускай возможность");
-        listOfAphorisms.put(questions.get(4), "Легче зажечь одну маленькую свечу, чем клясть темноту");
-        listOfAphorisms.put(questions.get(5), "Пришло несчастье – человек породил его, пришло счастье – человек его вырастил");
-        listOfAphorisms.put(questions.get(6), "Разве истинная человечность далеко от нас? Стоит возжелать ее, и она тут же окажется рядом!");
-        listOfAphorisms.put(questions.get(7), "Бросая камень в воду, каждый раз попадаешь в центр круга");
-        listOfAphorisms.put(questions.get(8), "Того, кто не задумывается о далеких трудностях, непременно поджидают близкие неприятности");
+        listOfAphorisms.put(specialQuestions.get(0), "Благородный человек предъявляет требования к себе, низкий человек предъявляет требования к другим");
+        listOfAphorisms.put(specialQuestions.get(1), "Лишь когда приходят холода, становится ясно, что сосны и кипарисы последними теряют свой убор");
+        listOfAphorisms.put(specialQuestions.get(2), "Возможно, что никогда");
+        listOfAphorisms.put(specialQuestions.get(3), "Три вещи никогда не возвращаются обратно – время, слово, возможность. Поэтому: не теряй времени, выбирай слова, не упускай возможность");
+        listOfAphorisms.put(specialQuestions.get(4), "Легче зажечь одну маленькую свечу, чем клясть темноту");
+        listOfAphorisms.put(specialQuestions.get(5), "Пришло несчастье – человек породил его, пришло счастье – человек его вырастил");
+        listOfAphorisms.put(specialQuestions.get(6), "Разве истинная человечность далеко от нас? Стоит возжелать ее, и она тут же окажется рядом!");
+        listOfAphorisms.put(specialQuestions.get(7), "Бросая камень в воду, каждый раз попадаешь в центр круга");
+        listOfAphorisms.put(specialQuestions.get(8), "Того, кто не задумывается о далеких трудностях, непременно поджидают близкие неприятности");
     }
 
     int amountOfSpecialQuestions = 0;
@@ -83,20 +98,21 @@ public class Oracle {
             System.out.println(answer);
             return answer;
         }
-        for (String s : questions) {
-                if (question.contains(s)) {
-                    amountOfSpecialQuestions++;
-                }
-        }
-        if (amountOfSpecialQuestions > 1) {
-            answer = "Ты задаешь слишком много вопросов";
-            System.out.println(answer);
-            return answer;
-        }
-        if (amountOfSpecialQuestions == 0) {
-            answer = "Не слышу вопроса в твоих речах";
-            System.out.println(answer);
-            return answer;
+        else if (isContainsQuestion(specialQuestions, question)) {
+            amountOfSpecialQuestions++;
+            if (amountOfSpecialQuestions > 1) {
+                answer = "Ты задаешь слишком много вопросов";
+                System.out.println(answer);
+                return answer;
+            }
+            else if (amountOfSpecialQuestions == 1) {
+                return answer(question);
+            }
+            else if (amountOfSpecialQuestions == 0) {
+                answer = "Не слышу вопроса в твоих речах";
+                System.out.println(answer);
+                return answer;
+            }
         }
         return answer;
     }
