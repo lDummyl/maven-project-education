@@ -3,9 +3,7 @@ package task3;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 import static task3.OracleCharacters.*;
 
@@ -28,7 +26,6 @@ public class Oracle {
     int stickHitChance = 20;
     int sleepChance = 1;
 
-    OracleCharacters character;
 
     static {
         answers.put("Что", "С точки зрения банальной эрудиции, каждый индивидуум, критически мотивирующий абстракцию," + "\n" +
@@ -53,25 +50,18 @@ public class Oracle {
         answers.put("Сколько", " Сколько нужно...");
 
         answers.put("Как", " Собравшись с духом");
+
     }
 
+
     public Oracle() {
+
     }
 
     public void setCharacter(OracleCharacters character) {
-        if (character == ANGRY) {
-            this.rudenessChance = 20;
-            this.stickHitChance = 20;
-            this.sleepChance = 1;
-        } else if (character == KIND) {
-            this.rudenessChance = 5;
-            this.stickHitChance = 5;
-            this.sleepChance = 1;
-        } else if (character == TIRED) {
-            this.rudenessChance = 5;
-            this.stickHitChance = 5;
-            this.sleepChance = 10;
-        }
+            this.rudenessChance = character.getRudenessChance();
+            this.stickHitChance = character.getStickHitChance();
+            this.sleepChance = character.getSleepChance();
     }
 
     public void setMaximumSleepTimeSec(int maximumSleepTimeSec) {
@@ -121,7 +111,7 @@ public class Oracle {
 
         if (current <= rudenessChance) {
             throw new OracleException(OracleReaction.RUDENESS);
-        } else if (current < stickHitChance) {
+        } else if (current <stickHitChance) {
             throw new OracleException(OracleReaction.STICK_HIT);
         }
     }
@@ -138,11 +128,11 @@ public class Oracle {
             return keyWords.get(0);
         }
     }
-    private String leftImeToSleep(){
+
+    private String leftImeToSleep() {
         String leftTime = (leftTimeToSleepMarker + Duration.between(LocalDateTime.now(), stopSleepTime).getSeconds() + "секунд");
         return leftTime;
     }
-
 
     private ArrayList<String> keyWordSearch(String question) {
         ArrayList<String> keyWord = new ArrayList<>();
