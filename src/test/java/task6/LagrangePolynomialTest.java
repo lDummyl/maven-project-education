@@ -9,7 +9,7 @@ public class LagrangePolynomialTest extends TestCase {
         Double x= 13.5;
 
         Double testAnswer = x*x*x + 3*x*x + 3*x + 1;
-        System.out.println(testAnswer);
+        System.out.println((double) Math.round(testAnswer * 1000) / 1000);
 
         int size = 10;
 

@@ -1,3 +1,4 @@
+/*
 package task3;
 
 import java.util.EnumMap;
@@ -28,3 +29,4 @@ public enum OracleCharacters {
         return sleepChance;
     }
 }
+*/

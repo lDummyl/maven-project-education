@@ -108,4 +108,9 @@ public class OracleTest {
         }
         assertTrue(freqOfValid > 0);
     }
+    @Test
+    public void oracleCharacterTesting(){
+        Oracle oracle = new Oracle(Character.KIND);
+    }
+
 }

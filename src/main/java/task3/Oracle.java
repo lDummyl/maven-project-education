@@ -5,7 +5,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 
-import static task3.OracleCharacters.*;
+import static task3.Character.*;
 
 
 public class Oracle {
@@ -20,11 +20,10 @@ public class Oracle {
 
     public static final String leftTimeToSleepMarker = "Ещё осталось: ";
 
-    public static final HashMap<String, String> answers = new HashMap<>();
+    public static final Map<String, String> answers = new HashMap<>();
+    public static final Map<Character, CharacterCoef> characters = new EnumMap<>(task3.Character.class);
 
-    int rudenessChance = 10;
-    int stickHitChance = 20;
-    int sleepChance = 1;
+    CharacterCoef character;
 
 
     static {
@@ -51,18 +50,26 @@ public class Oracle {
 
         answers.put("Как", " Собравшись с духом");
 
+        characters.put(KIND, new CharacterCoef(5, 5, 1));
+        characters.put(ANGRY, new CharacterCoef(20, 20, 1));
+        characters.put(TIRED, new CharacterCoef(5, 5, 10));
+
     }
 
 
     public Oracle() {
 
+
+        Collection<CharacterCoef> values = characters.values();
+        ArrayList<CharacterCoef> characterCoefs = new ArrayList<>(values);
+        this.character = characterCoefs.get(random.nextInt(characterCoefs.size()));
+
     }
 
-    public void setCharacter(OracleCharacters character) {
-            this.rudenessChance = character.getRudenessChance();
-            this.stickHitChance = character.getStickHitChance();
-            this.sleepChance = character.getSleepChance();
+    public Oracle(Character character) {
+        this.character = characters.get(character);
     }
+
 
     public void setMaximumSleepTimeSec(int maximumSleepTimeSec) {
         this.maximumSleepTimeSec = maximumSleepTimeSec;
@@ -99,21 +106,24 @@ public class Oracle {
 
 
     private void fatigueCheck() {
-        int current = random.nextInt(allChances);
-        if (current < sleepChance) {
+        int current = getMood();
+        if (current < character.sleepChance) {
             this.stopSleepTime = LocalDateTime.now().plusSeconds(1 + random.nextInt(maximumSleepTimeSec));
         }
     }
 
     private void moodCheck() throws OracleException {
-        int current = random.nextInt(allChances);
 
 
-        if (current <= rudenessChance) {
+        if (getMood() <= character.rudenessChance ) {
             throw new OracleException(OracleReaction.RUDENESS);
-        } else if (current <stickHitChance) {
+        } else if (getMood() < character.stickHitChance) {
             throw new OracleException(OracleReaction.STICK_HIT);
         }
+    }
+
+    private int getMood() {
+        return random.nextInt(allChances);
     }
 
 
@@ -144,6 +154,17 @@ public class Oracle {
         return keyWord;
     }
 
+    static class CharacterCoef {
+        int rudenessChance = 10;
+        int stickHitChance = 20;
+        int sleepChance = 1;
+
+        public CharacterCoef(int rudenessChance, int stickHitChance, int sleepChance) {
+            this.rudenessChance = rudenessChance;
+            this.stickHitChance = stickHitChance;
+            this.sleepChance = sleepChance;
+        }
+    }
 }
 
 

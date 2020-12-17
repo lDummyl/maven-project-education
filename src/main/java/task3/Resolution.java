@@ -63,4 +63,5 @@ public class Resolution {
     public int hashCode() {
         return Objects.hash(question, answer);
     }
+
 }
