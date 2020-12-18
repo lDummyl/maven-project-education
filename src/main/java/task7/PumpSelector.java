@@ -23,6 +23,7 @@ public class PumpSelector {
         }
     }
 
+    // TODO: 12/17/2020 Потенциальная проблема
     public PumpSelector() {
         if (!this.jsonFile.exists()) {
             this.jsonFile = new File("Pumps.json");
@@ -41,6 +42,11 @@ public class PumpSelector {
     }
 
     public void selectPump() {
+        try {
+            Set<Pump> pumps = objectMapper.readValue(this.jsonFile, new TypeReference<Set<Pump>>() {});
 
+        } catch (IOException e) {
+
+        }
     }
 }
