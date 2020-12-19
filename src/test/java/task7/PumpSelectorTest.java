@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -45,12 +46,16 @@ public class PumpSelectorTest {
 
         Double[] consumptionModel1 = {5.0, 5.0, 5.0};
         Double[] pressureModel1 = {10.0, 20.0, 30.0};
+        HashMap<Integer, Pump.Speed> integerSpeedHashMap1 = new HashMap<>();
+        integerSpeedHashMap1.put(1, new Pump.Speed(consumptionModel1,pressureModel1));
 
         Double[] consumptionModel2 = {1.0, 2.0, 3.0};
         Double[] pressureModel2 = {5.0, 10.0, 15.0};
+        HashMap<Integer, Pump.Speed> integerSpeedHashMap2 = new HashMap<>();
 
         Double[] consumptionModel3 = {1.0, 2.0, 3.0};
         Double[] pressureModel3 = {1.0, 4.0, 6.0};
+        HashMap<Integer, Pump.Speed> integerSpeedHashMap3 = new HashMap<>();
 
         Pump pump = new Pump("Model 1", consumptionModel1, pressureModel1, 100.0);
         Pump pump1 = new Pump("Model 2", consumptionModel2, pressureModel2, 120.0);
