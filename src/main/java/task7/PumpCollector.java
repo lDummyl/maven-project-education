@@ -6,16 +6,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Set;
 
-public class PumpSelector {
+public class PumpCollector {
     private File jsonFile;
-    private ObjectMapper objectMapper = new ObjectMapper();
-    private Collection<Pump> pumps = new ArrayList<>();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public PumpSelector(File jsonSerialize) {
+
+    public PumpCollector(File jsonSerialize) {
         if (jsonSerialize.exists()) {
             this.jsonFile = jsonSerialize;
         } else {
@@ -24,7 +22,7 @@ public class PumpSelector {
     }
 
     // TODO: 12/17/2020 Потенциальная проблема
-    public PumpSelector() {
+    public PumpCollector() {
         if (!this.jsonFile.exists()) {
             this.jsonFile = new File("Pumps.json");
         }
@@ -32,21 +30,13 @@ public class PumpSelector {
 
     public void addToJson(Pump pump) {
         try {
-            Set<Pump> pumps = objectMapper.readValue(this.jsonFile, new TypeReference<Set<Pump>>() {
+          /*  Set<Pump> pumps = objectMapper.readValue(this.jsonFile, new TypeReference<Set<Pump>>() {
             });
-            pumps.add(pump);
-            objectMapper.writeValue(this.jsonFile, pumps);
+            pumps.add(pump);*/
+            objectMapper.writeValue(this.jsonFile,pump);
         } catch (IOException e) {
+            e.printStackTrace();
             throw new IllegalArgumentException("Adding pump error");
-        }
-    }
-
-    public void selectPump() {
-        try {
-            Set<Pump> pumps = objectMapper.readValue(this.jsonFile, new TypeReference<Set<Pump>>() {});
-
-        } catch (IOException e) {
-
         }
     }
 }
