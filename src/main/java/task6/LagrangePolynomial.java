@@ -19,6 +19,9 @@ public class LagrangePolynomial {
         }
     }
 
+    public LagrangePolynomial(Double[] consumption, Double[] pressure) {
+    }
+
     public void setxValues(double[] xValues) {
         this.xValues = xValues;
     }

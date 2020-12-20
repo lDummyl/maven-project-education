@@ -2,11 +2,12 @@ package task7;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import task6.LagrangePolynomial;
 
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
+import java.util.*;
 
 public class PumpCollector {
     private File jsonFile;
@@ -30,13 +31,15 @@ public class PumpCollector {
 
     public void addToJson(Pump pump) {
         try {
-          /*  Set<Pump> pumps = objectMapper.readValue(this.jsonFile, new TypeReference<Set<Pump>>() {
+            Set<Pump> pumps = objectMapper.readValue(this.jsonFile, new TypeReference<Set<Pump>>() {
             });
-            pumps.add(pump);*/
-            objectMapper.writeValue(this.jsonFile,pump);
+            pumps.add(pump);
+            objectMapper.writeValue(this.jsonFile, pump);
         } catch (IOException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("Adding pump error");
         }
     }
+
+
 }

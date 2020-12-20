@@ -13,7 +13,9 @@ import java.util.Map;
 
 @JsonAutoDetect
 public class Pump {
+    @JsonProperty
     private String model;
+    @JsonProperty
     private Double rublePrice;
 
     @JsonProperty("list")
@@ -25,8 +27,34 @@ public class Pump {
         this.rublePrice = rublePrice;
     }
 
+    public Pump() {
+    }
 
-    private class Speed{
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public Double getRublePrice() {
+        return rublePrice;
+    }
+
+    public void setRublePrice(Double rublePrice) {
+        this.rublePrice = rublePrice;
+    }
+
+    public List<Speed> getSpeeds() {
+        return speeds;
+    }
+
+    public void setSpeeds(List<Speed> speeds) {
+        this.speeds = speeds;
+    }
+
+    class Speed{
         private Double[] consumption;
         private Double[] pressure;
 
