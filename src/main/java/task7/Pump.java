@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.ser.std.StdArraySerializers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @JsonAutoDetect
@@ -54,6 +51,23 @@ public class Pump {
         this.speeds = speeds;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pump pump = (Pump) o;
+        return Objects.equals(model, pump.model) && Objects.equals(rublePrice, pump.rublePrice) && Objects.equals(speeds, pump.speeds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(model, rublePrice, speeds);
+    }
+
+    public void addSpeed(Double[] consumption, Double[] pressure){
+        this.speeds.add(new Speed(consumption, pressure));
+    }
+
     class Speed{
         private Double[] consumption;
         private Double[] pressure;
@@ -77,6 +91,21 @@ public class Pump {
 
         public void setPressure(Double[] pressure) {
             this.pressure = pressure;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Speed speed = (Speed) o;
+            return Arrays.equals(consumption, speed.consumption) && Arrays.equals(pressure, speed.pressure);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = Arrays.hashCode(consumption);
+            result = 31 * result + Arrays.hashCode(pressure);
+            return result;
         }
     }
 }

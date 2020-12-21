@@ -52,7 +52,7 @@ public class PumpSelector {
 
         @Override
         public int compareTo(pumpVariant o) {
-            return this.bestDiff.compareTo(o.bestDiff) * 2 + this.price.compareTo(o.price);
+            return this.bestDiff.compareTo(o.bestDiff) * 5 + this.price.compareTo(o.price);
         }
     }
 
