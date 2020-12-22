@@ -64,11 +64,12 @@ public class Pump {
         return Objects.hash(model, rublePrice, speeds);
     }
 
-    public void addSpeed(Double[] consumption, Double[] pressure){
+    public void addSpeed(Double[] consumption, Double[] pressure) {
         this.speeds.add(new Speed(consumption, pressure));
     }
+
     @JsonInclude
-    static class Speed{
+    static class Speed {
         @JsonProperty
         private Double[] consumption;
         @JsonProperty

@@ -27,7 +27,7 @@ public class PumpSelector {
 
         public Double searchMinimalDiff(Double consumption, Double pressure) {
             ArrayList<Double> diffrecncies = new ArrayList<>();
-            List<Pump.Speed> speeds =  pump.getSpeeds();
+            List<Pump.Speed> speeds = pump.getSpeeds();
             for (Pump.Speed speed : speeds) {
                 LagrangePolynomial lagrangePolynomial = new LagrangePolynomial(speed.getConsumption(), speed.getPressure());
                 double current = lagrangePolynomial.lagrangePolynomial(consumption);
