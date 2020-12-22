@@ -1,21 +1,21 @@
 package task7;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.ser.std.StdArraySerializers;
+
 
 import java.util.*;
 
 
-@JsonAutoDetect
+@JsonInclude
 public class Pump {
     @JsonProperty
     private String model;
     @JsonProperty
     private Double rublePrice;
 
-    @JsonProperty("list")
+    @JsonProperty
     private List<Speed> speeds = new ArrayList<>();
 
     public Pump(String model, Double[] consumption, Double[] pressure, Double rublePrice) {
@@ -67,10 +67,15 @@ public class Pump {
     public void addSpeed(Double[] consumption, Double[] pressure){
         this.speeds.add(new Speed(consumption, pressure));
     }
-
-    class Speed{
+    @JsonInclude
+    static class Speed{
+        @JsonProperty
         private Double[] consumption;
+        @JsonProperty
         private Double[] pressure;
+
+        public Speed() {
+        }
 
         public Speed(Double[] consumption, Double[] pressure) {
             this.consumption = consumption;

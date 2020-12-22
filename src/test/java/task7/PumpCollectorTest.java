@@ -48,13 +48,14 @@ public class PumpCollectorTest {
 
         Pump pump = new Pump("Model 1", consumptionModel1, pressureModel1, 100.0);
         Pump pump1 = new Pump("Model 2", consumptionModel2, pressureModel2, 120.0);
-      //  pump.addSpeed(consumptionModel2,pressureModel2);
+        pump.addSpeed(consumptionModel2,pressureModel2);
 
         pumpCollector.addToJson(pump);
+       // pumpCollector.addToJson(pump1);
+        Pump pump2 = objectMapper.readValue(testFile, Pump.class);
+        assertEquals(pump, pump2);
 
-
-
-      /*  List<Pump> pumps = objectMapper.readValue(testFile, new TypeReference<List<Pump>>() {
+        /*List<Pump> pumps = objectMapper.readValue(testFile, new TypeReference<List<Pump>>() {
         });
         assertNotNull(pumps.get(0));
         assertEquals(pump, pumps.get(0));
