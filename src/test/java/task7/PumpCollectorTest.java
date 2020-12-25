@@ -3,10 +3,14 @@ package task7;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
+import task1.Person;
+import task1.PersonsProvider;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
+import java.util.TreeSet;
 
 import static org.junit.Assert.*;
 
@@ -48,20 +52,27 @@ public class PumpCollectorTest {
 
         Pump pump = new Pump("Model 1", consumptionModel1, pressureModel1, 100.0);
         Pump pump1 = new Pump("Model 2", consumptionModel2, pressureModel2, 120.0);
-        pump.addSpeed(consumptionModel2,pressureModel2);
+        pump.addSpeed(consumptionModel2, pressureModel2);
 
         pumpCollector.addToJson(pump);
-       // pumpCollector.addToJson(pump1);
-        Pump pump2 = objectMapper.readValue(testFile, Pump.class);
-        assertEquals(pump, pump2);
+        pumpCollector.addToJson(pump1);
 
-        /*List<Pump> pumps = objectMapper.readValue(testFile, new TypeReference<List<Pump>>() {
+        List<Pump> o = objectMapper.readValue(testFile, new TypeReference<List<Pump>>() {
         });
+        System.out.println();
+         /*
         assertNotNull(pumps.get(0));
         assertEquals(pump, pumps.get(0));
         assertNotNull(pumps.get(1));
         assertEquals(pump1, pumps.get(1));*/
     }
+    @Test
+    public void deserializeTwo() throws IOException {
+        List<Pump> pumps = objectMapper.readValue(new File("TwoPumps.json"), new TypeReference<List<Pump>>() {
+        });
+        System.out.println("");
+    }
+
     /*@Test
     public void selectTest() throws IOException {
         testFile.createNewFile();
@@ -86,5 +97,73 @@ public class PumpCollectorTest {
         pumpCollector.addToJson(pump1);
         pumpCollector.addToJson(pump2);
     }*/
+    @Test
+    public void testRuntime() {
+        System.out.println();
+        try {
+            testChecked();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        testUnchecked();
+
+    }
+
+    public void testChecked() throws IOException {
+        throw new IOException();
+    }
+
+    public void testUnchecked() throws OutOfMemoryError {
+        throw new OutOfMemoryError();
+    }
+
+    @Test
+    public void bank() {
+        int amountOfMoney = 1_000_000;
+        int checkedSumm = 80000;
+
+
+        PersonsProvider personsProvider = new PersonsProvider();
+        TreeSet<Person> people = personsProvider.generatePersons(100);
+        Random random = new Random();
+        for (Person person : people) {
+            if (random.nextInt(100)<10){
+                checkInCurrentState("Russia");
+            }
+                transactionCheck(person);
+            System.out.println("Вы перевели миллион долларов");
+        }
+    }
+
+    private void transactionCheck(Person person) {
+
+        try {
+            checkPerson(person);
+        } catch (Exception e) {
+            System.out.println(person.birthDate);
+            System.out.println(person.name);
+        }
+    }
+
+    private void checkPerson(Person person) {
+
+        checkIllegalActivity();
+    }
+
+    private void checkIllegalActivity() {
+        Random random = new Random();
+        String country = "USA";
+        if (random.nextInt(100) < 10) {
+            country = "Russia";
+        }
+        checkInCurrentState(country);
+    }
+
+    private void checkInCurrentState(String currentState) throws IllegalArgumentException {
+
+        if (currentState.equals("Russia")) {
+            throw new IllegalArgumentException();
+        }
+    }
 
 }

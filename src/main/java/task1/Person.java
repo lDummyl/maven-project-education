@@ -45,6 +45,15 @@ public class Person implements Comparable<Person> {
     public int compareTo(Person o) {
         return this.birthDate.compareTo(o.birthDate);
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name=" + name +
+                ", birthDate=" + birthDate +
+                ", age=" + age +
+                '}';
+    }
 }
 
 

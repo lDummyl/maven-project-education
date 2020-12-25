@@ -48,4 +48,14 @@ public class BirthDate implements Comparable<BirthDate> {
     public int compareTo(BirthDate o) {
         return this.localBirthDate.compareTo(o.localBirthDate);
     }
+
+    @Override
+    public String toString() {
+        return "BirthDate{" +
+                "localBirthDate=" + localBirthDate +
+                ", year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                '}';
+    }
 }

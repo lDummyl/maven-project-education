@@ -14,7 +14,6 @@ import java.util.concurrent.TimeoutException;
 
 public class ExecutorsStop {
 
-
 	/**
 	 * Если учитывать риск того что какой-то поток может не остановиться совсем.
 	 */

@@ -1,6 +1,7 @@
 package task7;
 
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,6 +10,7 @@ import java.util.*;
 
 
 @JsonInclude
+@JsonAutoDetect
 public class Pump {
     @JsonProperty
     private String model;
@@ -69,6 +71,7 @@ public class Pump {
     }
 
     @JsonInclude
+    @JsonAutoDetect
     static class Speed {
         @JsonProperty
         private Double[] consumption;

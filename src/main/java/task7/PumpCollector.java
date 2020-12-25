@@ -3,11 +3,10 @@ package task7;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import task6.LagrangePolynomial;
-
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.*;
 import java.util.*;
 
 public class PumpCollector {
@@ -15,46 +14,59 @@ public class PumpCollector {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
 
-    public PumpCollector(File jsonSerialize) {
-        if (jsonSerialize.exists()) {
-            this.jsonFile = jsonSerialize;
+    public PumpCollector(File jsonFile) {
+        if (jsonFile.exists()) {
+            this.jsonFile = jsonFile;
         } else {
-            this.jsonFile = new File(jsonSerialize.getPath());
+            this.jsonFile = new File(jsonFile.getPath());
         }
     }
 
-    // TODO: 12/17/2020 Потенциальная проблема
+    public PumpCollector(String filePath) {
+        this.jsonFile = new File(filePath);
+    }
+
     public PumpCollector() {
-        if (!this.jsonFile.exists()) {
-            this.jsonFile = new File("Pumps.json");
-        }
+    }
+
+    public File getJsonFile() {
+        return jsonFile;
+    }
+
+    public void setJsonFile(File jsonFile) {
+        this.jsonFile = jsonFile;
+    }
+
+    public ObjectMapper getObjectMapper() {
+        return objectMapper;
     }
 
     public void addToJson(Pump pump) {
         try {
-           /* Set<Pump> pumps = objectMapper.readValue(this.jsonFile, new TypeReference<Set<Pump>>() {
-            });
-            pumps.add(pump);*/
-            objectMapper.writeValue(this.jsonFile, pump);
+            Set<Pump> pumps = null;
+            try {
+                pumps = objectMapper.readValue(this.jsonFile, new TypeReference<Set<Pump>>() {
+                });
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+                Files.copy(jsonFile.toPath(), Paths.get("PumpsBackup.json"), StandardCopyOption.REPLACE_EXISTING);
+                pumps = new HashSet<>();
+            }
+            pumps.add(pump);
+            objectMapper.writeValue(this.jsonFile, pumps);
         } catch (IOException e) {
             e.printStackTrace();
             throw new IllegalArgumentException("Adding pump error");
         }
     }
-
-    public Pump selectPump(Collection<Pump> pumps, Double consumption, Double pressure) {
-        ArrayList<Pump> pumpsList = new ArrayList<>(pumps);
-        HashMap<Pump, Double> resultPumpMap = new HashMap<>();
-        for (Pump pump : pumpsList) {
-            List<Pump.Speed> speeds = pump.getSpeeds();
-            for (Pump.Speed s : speeds) {
-                LagrangePolynomial lagrangePolynomial = new LagrangePolynomial(s.getConsumption(), s.getPressure());
-                double current = lagrangePolynomial.lagrangePolynomial(consumption);
-                resultPumpMap.put(pump, Math.abs(pressure - current));
-            }
-
+    public List<Pump> deserializeJson(){
+        try {
+             List<Pump> pumps = objectMapper.readValue(this.jsonFile, new TypeReference<List<Pump>>() {
+            });
+             return pumps;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        return null;
+        return new ArrayList<Pump>();
     }
 }

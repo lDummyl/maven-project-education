@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 public class PumpSelectorTest {
-    PumpSelector pumpSelector = new PumpSelector();
+    /*PumpSelector pumpSelector = new PumpSelector();*/
     @Test
     public void oneSpeedTest(){
         Double[] consumptionModel1 = {5.0, 5.0, 5.0};
