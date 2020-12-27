@@ -105,7 +105,7 @@ public class PumpCollectorTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        testUnchecked();
+      //  testUnchecked();
 
     }
 

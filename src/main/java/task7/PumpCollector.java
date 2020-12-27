@@ -43,15 +43,8 @@ public class PumpCollector {
 
     public void addToJson(Pump pump) {
         try {
-            Set<Pump> pumps = null;
-            try {
-                pumps = objectMapper.readValue(this.jsonFile, new TypeReference<Set<Pump>>() {
-                });
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
-                Files.copy(jsonFile.toPath(), Paths.get("PumpsBackup.json"), StandardCopyOption.REPLACE_EXISTING);
-                pumps = new HashSet<>();
-            }
+            Set<Pump> pumps;
+            pumps = getPumps();
             pumps.add(pump);
             objectMapper.writeValue(this.jsonFile, pumps);
         } catch (IOException e) {
@@ -59,11 +52,36 @@ public class PumpCollector {
             throw new IllegalArgumentException("Adding pump error");
         }
     }
-    public List<Pump> deserializeJson(){
+
+    public void addToJson(Collection<Pump> pumpsColl) {
         try {
-             List<Pump> pumps = objectMapper.readValue(this.jsonFile, new TypeReference<List<Pump>>() {
+            Set<Pump> pumps = getPumps();
+            pumps.addAll(pumpsColl);
+            objectMapper.writeValue(this.jsonFile, pumps);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new IllegalArgumentException("Adding pump error");
+        }
+    }
+
+    private Set<Pump> getPumps() throws IOException {
+        Set<Pump> pumps;
+        try {
+            pumps = objectMapper.readValue(this.jsonFile, new TypeReference<Set<Pump>>() {
             });
-             return pumps;
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            Files.copy(jsonFile.toPath(), Paths.get("PumpsBackup.json"), StandardCopyOption.REPLACE_EXISTING);
+            pumps = new HashSet<>();
+        }
+        return pumps;
+    }
+
+    public List<Pump> deserializeJson() {
+        try {
+            List<Pump> pumps = objectMapper.readValue(this.jsonFile, new TypeReference<List<Pump>>() {
+            });
+            return pumps;
         } catch (IOException e) {
             e.printStackTrace();
         }

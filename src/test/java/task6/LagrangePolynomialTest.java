@@ -24,7 +24,7 @@ public class LagrangePolynomialTest extends TestCase {
         }
 
         LagrangePolynomial lagrangePolynomial = new LagrangePolynomial(xValues, yValues);
-        double lagrange = lagrangePolynomial.lagrangePolynomial(x);
+        Double lagrange = lagrangePolynomial.getValue(x);
 
         assertEquals(testAnswer, lagrange);
     }

@@ -11,19 +11,22 @@ public class PumpSelector {
         this.pumpCollector = new PumpCollector(filePath);
     }
 
-    public Pump selectPumpFromFile(String filePath, Double consumption, Double pressure){
+    public Optional<Pump> selectPumpFromFile(String filePath, Double consumption, Double pressure) {
         Collection<Pump> pumps = pumpCollector.deserializeJson();
         return selectPump(pumps, consumption, pressure);
     }
 
-    public Pump selectPump(Collection<Pump> pumps, Double consumption, Double pressure) {
-        List<PumpVariant> pumpVariants = pumps.stream().map(value -> new PumpVariant(value, consumption, pressure)).collect(Collectors.toList());
-        Collections.sort(pumpVariants);
+    public PumpSelector() {
+    }
+
+    public Optional<Pump> selectPump(Collection<Pump> pumps, Double consumption, Double pressure) {
+        Collection<PumpVariant> pumpVariants = pumps.stream().map(value -> new PumpVariant(value, consumption, pressure)).sorted().collect(Collectors.toList());
         for (PumpVariant pumpVariant : pumpVariants) {
             if (pumpVariant.bestDiff >= 0) {
-                return pumpVariant.pump;
+                System.out.println();
+                return Optional.of(pumpVariant.pump);
             }
         }
-        throw new IllegalArgumentException("There is no suitable pump");
+        return Optional.empty();
     }
 }

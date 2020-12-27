@@ -17,16 +17,19 @@ public class PumpVariant implements Comparable<PumpVariant> {
         this.price = this.pump.getRublePrice();
         this.bestDiff = searchMinimalDiff(consumption, pressure);
     }
-    public Double searchMinimalDiff(Double consumption, Double pressure) {
+
+    private Double searchMinimalDiff(Double consumption, Double pressure) {
         ArrayList<Double> difference = new ArrayList<>();
-        List<Pump.Speed> speeds = pump.getSpeeds();
+        List<Pump.Speed> speeds = this.pump.getSpeeds();
         for (Pump.Speed speed : speeds) {
             LagrangePolynomial lagrangePolynomial = new LagrangePolynomial(speed.getConsumption(), speed.getPressure());
-            double current = lagrangePolynomial.lagrangePolynomial(consumption);
-            difference.add(Math.abs(current - pressure));
+            double current = lagrangePolynomial.getValue(consumption);
+            double differenceValue = current - pressure;
+            difference.add(differenceValue);
+            System.out.println();
         }
         Collections.sort(difference);
-        return difference.get(0);
+        return difference.get(difference.size()-1);
     }
 
     @Override
@@ -44,6 +47,6 @@ public class PumpVariant implements Comparable<PumpVariant> {
 
     @Override
     public int compareTo(PumpVariant o) {
-         return this.price.compareTo(o.price);
+        return this.price.compareTo(o.price);
     }
 }
