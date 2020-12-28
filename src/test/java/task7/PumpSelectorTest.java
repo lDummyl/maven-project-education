@@ -20,10 +20,10 @@ public class PumpSelectorTest {
 
 
         Double[] consumptionModel3 = {1.0, 2.0, 3.0};
-        Double[] pressureModel3 = {1.0, 4.0, 6.0};
+        Double[] pressureModel3 = {1.0, 2.0, 3.0};
 
         Double[] consumptionModel31 = {1.0, 2.0, 3.0};
-        Double[] pressureModel31 = {10.0, 40.0, 60.0};
+        Double[] pressureModel31 = {20.0, 40.0, 60.0};
 
 
         Pump pump = new Pump("Model 1", consumptionModel1, pressureModel1, 110.0);
@@ -41,6 +41,30 @@ public class PumpSelectorTest {
         PumpSelector pumpSelector = new PumpSelector();
         Optional<Pump> pump3 = pumpSelector.selectPump(pumps, 20.0, 40.0);
 
+
+        assertEquals(pump2, pump3.get());
+    } @Test
+    public void oneSpeedTestNoResult() {
+
+        Double[] consumptionModel3 = {1.0, 2.0, 3.0};
+        Double[] pressureModel3 = {1.0, 2.0, 3.0};
+        Double[] consumptionModel31 = {1.0, 2.0, 3.0};
+        Double[] pressureModel31 = {10.0, 40.0, 60.0};
+
+        Pump pump2 = new Pump("Model 3", consumptionModel3, pressureModel3, 160.0);
+
+
+        ArrayList<Pump> pumps = new ArrayList<>();
+        pump2.addSpeed(consumptionModel31, pressureModel31);
+
+        pumps.add(pump2);
+
+        PumpSelector pumpSelector = new PumpSelector();
+        Optional<Pump> pump3 = pumpSelector.selectPump(pumps, 20.0, 40.0);
+
+        PumpVariant pumpVariant = new PumpVariant(pump2, 20.0, 40.0);
+        Double bestDiff = pumpVariant.bestDiff;
+        System.out.println(bestDiff);
 
         assertEquals(pump2, pump3.get());
     }
