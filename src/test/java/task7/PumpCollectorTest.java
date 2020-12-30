@@ -9,6 +9,7 @@ import task1.PersonsProvider;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.TreeSet;
 
@@ -65,6 +66,22 @@ public class PumpCollectorTest {
         assertEquals(pump, pumps.get(0));
         assertNotNull(pumps.get(1));
         assertEquals(pump1, pumps.get(1));*/
+    }
+    @Test
+    public void addPumpTestFull() throws IOException {
+        PumpSelectionApp pumpSelectionApp = new PumpSelectionApp("PumpTestFull.json");
+        Optional<Pump> pumpOptional = pumpSelectionApp.selectPump(5.0, 10.0);
+
+        assertEquals("Model 1", pumpOptional.get().getModel());
+
+    }
+    @Test
+    public void addPumpTestOverflow() throws IOException {
+        PumpSelectionApp pumpSelectionApp = new PumpSelectionApp("PumpTestFull.json");
+        Optional<Pump> pumpOptional = pumpSelectionApp.selectPump(20000.0, 10.0);
+
+        assertEquals("Model 1", pumpOptional.get().getModel());
+
     }
     @Test
     public void deserializeTwo() throws IOException {

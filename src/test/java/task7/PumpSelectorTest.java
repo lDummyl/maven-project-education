@@ -63,7 +63,7 @@ public class PumpSelectorTest {
         Optional<Pump> pump3 = pumpSelector.selectPump(pumps, 20.0, 40.0);
 
         PumpVariant pumpVariant = new PumpVariant(pump2, 20.0, 40.0);
-        Double bestDiff = pumpVariant.bestDiff;
+        Double bestDiff = pumpVariant.deviationOfPressure;
         System.out.println(bestDiff);
 
         assertEquals(pump2, pump3.get());

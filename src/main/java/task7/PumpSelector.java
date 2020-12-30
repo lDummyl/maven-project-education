@@ -1,6 +1,5 @@
 package task7;
 
-import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,11 +21,12 @@ public class PumpSelector {
     public Optional<Pump> selectPump(Collection<Pump> pumps, Double consumption, Double pressure) {
         Collection<PumpVariant> pumpVariants = pumps.stream().map(value -> new PumpVariant(value, consumption, pressure)).sorted().collect(Collectors.toList());
         for (PumpVariant pumpVariant : pumpVariants) {
-            if (pumpVariant.bestDiff >= 0) {
+            if (pumpVariant.deviationOfPressure >= 0) {
                 System.out.println();
                 return Optional.of(pumpVariant.pump);
             }
         }
+
         return Optional.empty();
     }
 }

@@ -10,12 +10,12 @@ import java.util.Objects;
 public class PumpVariant implements Comparable<PumpVariant> {
     Pump pump;
     Double price;
-    Double bestDiff;
+    Double deviationOfPressure;
 
     public PumpVariant(Pump pump, Double consumption, Double pressure) {
         this.pump = pump;
         this.price = this.pump.getRublePrice();
-        this.bestDiff = searchMinimalDiff(consumption, pressure);
+        this.deviationOfPressure = searchMinimalDiff(consumption, pressure);
     }
 
     private Double searchMinimalDiff(Double consumption, Double pressure) {
@@ -37,12 +37,12 @@ public class PumpVariant implements Comparable<PumpVariant> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PumpVariant that = (PumpVariant) o;
-        return Objects.equals(pump, that.pump) && Objects.equals(price, that.price) && Objects.equals(bestDiff, that.bestDiff);
+        return Objects.equals(pump, that.pump) && Objects.equals(price, that.price) && Objects.equals(deviationOfPressure, that.deviationOfPressure);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pump, price, bestDiff);
+        return Objects.hash(pump, price, deviationOfPressure);
     }
 
     @Override
