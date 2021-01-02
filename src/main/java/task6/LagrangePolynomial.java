@@ -1,7 +1,6 @@
 package task6;
 
 
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +20,6 @@ public class LagrangePolynomial {
 
     public LagrangePolynomial(double[] xValues, double[] yValues) {
         dataCheck(xValues, yValues);
-        arraysCheck(xValues, yValues);
         this.xValues = Arrays.stream(xValues).boxed().collect(Collectors.toList());
         this.yValues = Arrays.stream(yValues).boxed().collect(Collectors.toList());
         this.size = yValues.length;
@@ -76,18 +74,12 @@ public class LagrangePolynomial {
         }
     }
 
-    private void arraysCheck(double[] xValues, double[] yValues) {
-        if (xValues.length != yValues.length || xValues.length == 0) {
-            throw new IllegalArgumentException("Wrong Data");
-        }
-    }
-
     private Double roundOf(double polynome) {
         return (double) Math.round(polynome * 1000) / 1000;
     }
 
 
-    public Double getValueY(double x) {
+    public Double getValueY(Double x) {
         double lagrangePol = 0;
 
         for (int i = 0; i < size; i++) {
@@ -103,7 +95,7 @@ public class LagrangePolynomial {
         return roundOf(lagrangePol);
     }
 
-    public Double getValueX(double y) {
+    public Double getValueX(Double y) {
         double lagrangePol = 0;
 
         for (int i = 0; i < size; i++) {

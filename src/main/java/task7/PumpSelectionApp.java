@@ -10,13 +10,12 @@ public class PumpSelectionApp {
     private String filePathWithPumps;
     PumpCollector pumpCollector = new PumpCollector();
     PumpSelector pumpSelector = new PumpSelector();
+
     public PumpSelectionApp(String filePathWithPumps) {
         this.filePathWithPumps = filePathWithPumps;
-
     }
 
     public Optional<Pump> selectPump(double consumption, double pressure) {
-        PumpCollector pumpCollector = new PumpCollector();
         pumpCollector.setJsonFile(new File(filePathWithPumps));
         List<Pump> pumps = pumpCollector.deserializeJson();
         return pumpSelector.selectPump(pumps, consumption, pressure);

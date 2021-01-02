@@ -4,6 +4,7 @@ package task7;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import task6.LagrangePolynomial;
 
 
 import java.util.*;
@@ -11,7 +12,7 @@ import java.util.*;
 
 @JsonInclude
 @JsonAutoDetect
-public class Pump {
+public class Pump implements Comparable<Pump> {
     @JsonProperty
     private String model;
     @JsonProperty
@@ -70,6 +71,11 @@ public class Pump {
         this.speeds.add(new Speed(consumption, pressure));
     }
 
+    @Override
+    public int compareTo(Pump o) {
+        return this.rublePrice.compareTo(o.rublePrice);
+    }
+
     @JsonInclude
     @JsonAutoDetect
     static class Speed {
@@ -102,6 +108,15 @@ public class Pump {
             this.pressure = pressure;
         }
 
+        public Double getPressureValue(Double consumption) {
+            LagrangePolynomial lagrangePolynomial = new LagrangePolynomial(this.consumption, this.pressure);
+            return lagrangePolynomial.getValueY(consumption);
+        }
+
+        public Double getConsumptionValue(Double pressure) {
+            LagrangePolynomial lagrangePolynomial = new LagrangePolynomial(this.consumption, this.pressure);
+            return lagrangePolynomial.getValueX(pressure);
+        }
 
         @Override
         public boolean equals(Object o) {

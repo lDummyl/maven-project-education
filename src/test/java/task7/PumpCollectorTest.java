@@ -3,15 +3,10 @@ package task7;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
-import task1.Person;
-import task1.PersonsProvider;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-import java.util.TreeSet;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -19,9 +14,10 @@ public class PumpCollectorTest {
     File testFile = new File("PumpTest.json");
     PumpCollector pumpCollector = new PumpCollector(testFile);
     ObjectMapper objectMapper = new ObjectMapper();
-/*
+
     @Test
     public void treeSpeedPump() throws IOException {
+        testFile.delete();
         testFile.createNewFile();
 
         Double[] consumption1 = {5.0, 5.0, 5.0};
@@ -37,12 +33,17 @@ public class PumpCollectorTest {
         pump.addSpeed(consumption2, pressure2);
         pump.addSpeed(consumption3, pressure3);
         pumpCollector.addToJson(pump);
+
+        List<Pump> pumps = pumpCollector.deserializeJson();
+        Pump deserializedPump = pumps.get(0);
+        assertEquals(pump, deserializedPump);
         testFile.delete();
-    }*/
+    }
 
 
     @Test
     public void addPumpTest() throws IOException {
+        testFile.delete();
         testFile.createNewFile();
 
         Double[] consumptionModel1 = {5.0, 5.0, 5.0};
@@ -51,70 +52,41 @@ public class PumpCollectorTest {
         Double[] consumptionModel2 = {1.0, 2.0, 3.0};
         Double[] pressureModel2 = {5.0, 10.0, 15.0};
 
-        Pump pump = new Pump("Model 1", consumptionModel1, pressureModel1, 100.0);
-        Pump pump1 = new Pump("Model 2", consumptionModel2, pressureModel2, 120.0);
-        pump.addSpeed(consumptionModel2, pressureModel2);
+        Pump model1 = new Pump("Model 1", consumptionModel1, pressureModel1, 100.0);
+        Pump model2 = new Pump("Model 2", consumptionModel2, pressureModel2, 120.0);
 
-        pumpCollector.addToJson(pump);
-        pumpCollector.addToJson(pump1);
+        ArrayList<Pump> pumpsTestList = new ArrayList<>();
+        pumpsTestList.add(model1);
+        pumpsTestList.add(model2);
 
-        List<Pump> o = objectMapper.readValue(testFile, new TypeReference<List<Pump>>() {
+        pumpCollector.addToJson(pumpsTestList);
+        List<Pump> pumps = objectMapper.readValue(testFile, new TypeReference<List<Pump>>() {
         });
+        Collections.sort(pumps);
+        Collections.sort(pumpsTestList);
+
+        assertEquals(pumps, pumpsTestList);
         System.out.println();
-         /*
-        assertNotNull(pumps.get(0));
-        assertEquals(pump, pumps.get(0));
-        assertNotNull(pumps.get(1));
-        assertEquals(pump1, pumps.get(1));*/
+        testFile.delete();
     }
+
     @Test
     public void addPumpTestFull() throws IOException {
         PumpSelectionApp pumpSelectionApp = new PumpSelectionApp("PumpTestFull.json");
         Optional<Pump> pumpOptional = pumpSelectionApp.selectPump(5.0, 10.0);
 
         assertEquals("Model 1", pumpOptional.get().getModel());
-
     }
+
     @Test
     public void addPumpTestOverflow() throws IOException {
         PumpSelectionApp pumpSelectionApp = new PumpSelectionApp("PumpTestFull.json");
         Optional<Pump> pumpOptional = pumpSelectionApp.selectPump(20000.0, 10.0);
 
         assertEquals("Model 1", pumpOptional.get().getModel());
-
-    }
-    @Test
-    public void deserializeTwo() throws IOException {
-        List<Pump> pumps = objectMapper.readValue(new File("TwoPumps.json"), new TypeReference<List<Pump>>() {
-        });
-        System.out.println("");
     }
 
-    /*@Test
-    public void selectTest() throws IOException {
-        testFile.createNewFile();
 
-        Double[] consumptionModel1 = {5.0, 5.0, 5.0};
-        Double[] pressureModel1 = {10.0, 20.0, 30.0};
-
-
-        Double[] consumptionModel2 = {1.0, 2.0, 3.0};
-        Double[] pressureModel2 = {5.0, 10.0, 15.0};
-
-
-        Double[] consumptionModel3 = {1.0, 2.0, 3.0};
-        Double[] pressureModel3 = {1.0, 4.0, 6.0};
-
-
-        Pump pump = new Pump("Model 1", consumptionModel1, pressureModel1, 100.0);
-        Pump pump1 = new Pump("Model 2", consumptionModel2, pressureModel2, 120.0);
-        Pump pump2 = new Pump("Model 3", consumptionModel3, pressureModel3, 110.0);
-
-        pumpCollector.addToJson(pump);
-        pumpCollector.addToJson(pump1);
-        pumpCollector.addToJson(pump2);
-    }*/
-    @Test
     public void testRuntime() {
         System.out.println();
         try {
@@ -122,7 +94,7 @@ public class PumpCollectorTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-      //  testUnchecked();
+        //  testUnchecked();
 
     }
 
@@ -134,7 +106,7 @@ public class PumpCollectorTest {
         throw new OutOfMemoryError();
     }
 
-    @Test
+    /*@Test
     public void bank() {
         int amountOfMoney = 1_000_000;
         int checkedSumm = 80000;
@@ -144,10 +116,10 @@ public class PumpCollectorTest {
         TreeSet<Person> people = personsProvider.generatePersons(100);
         Random random = new Random();
         for (Person person : people) {
-            if (random.nextInt(100)<10){
+            if (random.nextInt(100) < 10) {
                 checkInCurrentState("Russia");
             }
-                transactionCheck(person);
+            transactionCheck(person);
             System.out.println("Вы перевели миллион долларов");
         }
     }
@@ -181,6 +153,6 @@ public class PumpCollectorTest {
         if (currentState.equals("Russia")) {
             throw new IllegalArgumentException();
         }
-    }
-
+    }*/
 }
+

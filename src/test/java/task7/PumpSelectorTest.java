@@ -8,16 +8,13 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 public class PumpSelectorTest {
-    PumpSelector pumpSelector = new PumpSelector();
     @Test
     public void oneSpeedTest() {
         Double[] consumptionModel1 = {1.0, 2.0, 3.0};
         Double[] pressureModel1 = {1.0, 2.0, 3.0};
 
-
         Double[] consumptionModel2 = {1.0, 2.0, 3.0};
         Double[] pressureModel2 = {1.0, 2.0, 3.0};
-
 
         Double[] consumptionModel3 = {1.0, 2.0, 3.0};
         Double[] pressureModel3 = {1.0, 2.0, 3.0};
@@ -41,9 +38,10 @@ public class PumpSelectorTest {
         PumpSelector pumpSelector = new PumpSelector();
         Optional<Pump> pump3 = pumpSelector.selectPump(pumps, 20.0, 40.0);
 
-
         assertEquals(pump2, pump3.get());
-    } @Test
+    }
+
+    @Test
     public void oneSpeedTestNoResult() {
 
         Double[] consumptionModel3 = {1.0, 2.0, 3.0};
@@ -53,7 +51,6 @@ public class PumpSelectorTest {
 
         Pump pump2 = new Pump("Model 3", consumptionModel3, pressureModel3, 160.0);
 
-
         ArrayList<Pump> pumps = new ArrayList<>();
         pump2.addSpeed(consumptionModel31, pressureModel31);
 
@@ -62,11 +59,7 @@ public class PumpSelectorTest {
         PumpSelector pumpSelector = new PumpSelector();
         Optional<Pump> pump3 = pumpSelector.selectPump(pumps, 20.0, 40.0);
 
-        PumpVariant pumpVariant = new PumpVariant(pump2, 20.0, 40.0);
-        Double bestDiff = pumpVariant.deviationOfPressure;
-        System.out.println(bestDiff);
-
-        assertEquals(pump2, pump3.get());
+        assertFalse(pump3.isPresent());
     }
 
 }
