@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PumpPackageSelector {
     PumpCollector pumpCollector = new PumpCollector();
@@ -27,8 +28,8 @@ public class PumpPackageSelector {
         getReport(pumpRequests, pumpsList);
     }
 
-    private void getReport(Collection<PumpRequest> requests, List<Pump> pumpsList) {
-
+    private Collection<PumpReport> getReport(Collection<PumpRequest> requests, List<Pump> pumpsList) {
+       return requests.stream().map(request -> new PumpReport(request, pumpsList)).collect(Collectors.toList());
     }
 
     private Collection<PumpRequest> initializePumpRequestFile(File fileWithRequests) {

@@ -54,6 +54,7 @@ public class Pump implements Comparable<Pump> {
         this.speeds = speeds;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -78,7 +79,7 @@ public class Pump implements Comparable<Pump> {
 
     @JsonInclude
     @JsonAutoDetect
-    static class Speed {
+    public static class Speed {
         @JsonProperty
         private Double[] consumption;
         @JsonProperty
@@ -117,6 +118,7 @@ public class Pump implements Comparable<Pump> {
             LagrangePolynomial lagrangePolynomial = new LagrangePolynomial(this.consumption, this.pressure);
             return lagrangePolynomial.getValueX(pressure);
         }
+
 
         @Override
         public boolean equals(Object o) {
