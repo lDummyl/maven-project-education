@@ -30,7 +30,6 @@ public class RequestGeneratorTest {
             assertTrue(pumpRequest.getPressure() >= 1);
             assertTrue(pumpRequest.getConsumption() >=1);
         }
-        System.out.println();
     }
 
 }
