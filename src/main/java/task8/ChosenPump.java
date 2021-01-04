@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Optional;
 
 @JsonAutoDetect
-public class PumpTechnicalBlock {
+public class ChosenPump {
     private Pump pump;
     private String model;
     private PumpRequest request;
     private WorkPoint workPoint;
 
 
-    public PumpTechnicalBlock(PumpRequest request, List<Pump> pumpsList) {
+    public ChosenPump(PumpRequest request, List<Pump> pumpsList) {
         this.request = request;
         this.pump = selectPump(request, pumpsList);
         this.model = pump.getModel();
@@ -35,7 +35,7 @@ public class PumpTechnicalBlock {
         }
     }
 
-    public PumpTechnicalBlock() {
+    public ChosenPump() {
     }
 
     public Pump getPump() {
