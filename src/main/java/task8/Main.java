@@ -11,9 +11,7 @@ package task8;
 	доставка бесплатно.
  */
 public class Main {
-
 	public static void main(String[] args) {
 
 	}
-
 }

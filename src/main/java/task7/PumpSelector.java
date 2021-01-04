@@ -28,7 +28,6 @@ public class PumpSelector {
                 }
             }
         }
-
         return Optional.empty();
     }
 }
