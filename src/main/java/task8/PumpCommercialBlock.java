@@ -9,24 +9,26 @@ import java.util.stream.Collectors;
 
 @JsonAutoDetect
 public class PumpCommercialBlock {
-    Set<Pump> uniquePumps;
-    Integer numberOFUniqModels;
-    Double priceInTotal;
-    Double priceWithDelivery;
+   private Set<Pump> uniquePumps;
+   private Integer numberOFUniqModels;
+   private Double priceInTotal;
+   private Double priceWithDelivery;
 
-    public PumpCommercialBlock(Collection<PumpTechResponse> pumpTechResponse) {
+    public PumpCommercialBlock(Collection<PumpTechResponse> pumpTechResponse)  {
         this.uniquePumps = getUniModels(pumpTechResponse);
         this.numberOFUniqModels = uniquePumps.size();
         this.priceInTotal = getTotalPrice(pumpTechResponse);
-        this.priceWithDelivery = getPriceWithDelivery();
+        this.priceWithDelivery = calculatePriceWithDelivery();
+        System.out.println();
     }
 
-    private Double getPriceWithDelivery() {
-        if (this.priceInTotal > 10_000) {
+    private Double calculatePriceWithDelivery() {
+        if (this.priceInTotal > 10_000.0) {
             return this.priceInTotal;
         } else {
             return priceInTotal * 1.1;
         }
+
     }
 
     private Double getTotalPrice(Collection<PumpTechResponse> pumpTechResponse) {
@@ -72,5 +74,9 @@ public class PumpCommercialBlock {
 
     public void setPriceWithDelivery(Double priceWithDelivery) {
         this.priceWithDelivery = priceWithDelivery;
+    }
+
+    public Double getPriceWithDelivery() {
+        return priceWithDelivery;
     }
 }

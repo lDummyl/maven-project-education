@@ -2,12 +2,14 @@ package task8;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Assert;
 import org.junit.Test;
 import task7.Pump;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -16,9 +18,8 @@ public class PumpPackageSelectorTest {
     ObjectMapper objectMapper = new ObjectMapper();
 
 
-
     @Test
-    public void fullSelectorTest() {
+    public void fullSelectorTest() throws IOException {
         String fileWithPumps = "PumpFile.json";
         String fileToReport = "PumpReport.json";
 
@@ -42,11 +43,57 @@ public class PumpPackageSelectorTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
+
+        PumpReport pumpReport = objectMapper.readValue(fileReport, PumpReport.class);
+
+        List<PumpTechResponse> pumpTechResponses = pumpReport.getPumpTechResponses();
+        pumpTechResponses.forEach(Assert::assertNotNull);
+
+
+        PumpCommercialBlock commercialBlock = pumpReport.getCommercialBlock();
+        assertNotNull(commercialBlock.getPriceInTotal());
+        assertTrue(commercialBlock.getPriceInTotal() > 10_000);
+
+
+        assertTrue(commercialBlock.getPriceWithDelivery() > 10_000);
+        assertTrue(commercialBlock.getNumberOFUniqModels() > 0);
+    }
+    @Test
+    public void anotherDeliveryCoastTest() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String fileWithPumps = "PumpFile.json";
+        String fileToReport = "PumpReport.json";
+
+        File fileReport = new File(fileToReport);
+        List<Pump> pumps = CollectionPump.addPumps();
+        Collections.sort(pumps);
+        File filePumps = new File(fileWithPumps);
+
         try {
-            objectMapper.readValue(fileReport, new TypeReference<PumpReport>(){});
+            objectMapper.writeValue(filePumps, pumps);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        ArrayList<PumpRequest> pumpRequests = new ArrayList<>();
+        PumpRequest pumpRequest = new PumpRequest(1.0, 64.0);
+        pumpRequests.add(pumpRequest);
+
+        PumpPackageSelector pumpPackageSelector = new PumpPackageSelector(filePumps);
+        pumpPackageSelector.getPumpReport(pumpRequests, fileReport);
+
+
+        PumpReport pumpReport = objectMapper.readValue(fileReport, PumpReport.class);
+
+        List<PumpTechResponse> pumpTechResponses = pumpReport.getPumpTechResponses();
+        pumpTechResponses.forEach(Assert::assertNotNull);
+
+
+        PumpCommercialBlock commercialBlock = pumpReport.getCommercialBlock();
+        assertEquals(pumps.get(0), pumpReport.getPumpTechResponses().get(0).getPumpOrNull());
+        assertEquals(pumps.get(0).getRublePrice(), commercialBlock.getPriceInTotal());
+        Double onePumpWithDelivery = pumps.get(0).getRublePrice() * 1.1;
+        assertEquals(onePumpWithDelivery, commercialBlock.getPriceWithDelivery());
 
     }
 }

@@ -78,7 +78,7 @@ public class PumpTechResponse {
     }
 
     @JsonAutoDetect
-    private class WorkPoint {
+    private static class WorkPoint {
         Double consumption;
         Double pressure;
 

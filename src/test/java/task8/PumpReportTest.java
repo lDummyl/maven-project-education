@@ -51,7 +51,7 @@ public class PumpReportTest {
         List<PumpRequest> pumpRequestList = requestGenerator.generateRequests(1000);
         PumpReport pumpReport = new PumpReport(pumps, pumpRequestList);
 
-        assertTrue(pumpReport.getCommercialBlock().priceInTotal > 0);
+        assertTrue(pumpReport.getCommercialBlock().getPriceInTotal() > 0);
         assertEquals(pumps.size(), pumpReport.getCommercialBlock().getUniquePumps().size());
 
     }

@@ -32,6 +32,15 @@ public class PumpPackageSelector {
             e.printStackTrace();
         }
     }
+    public void getPumpReport(Collection<PumpRequest> requests, File fileToReport) {
+        List<Pump> pumpsList = initializePumpFile(fileWithPumps);
+        PumpReport report = getReport(requests, pumpsList);
+        try {
+            objectMapper.writeValue(fileToReport, report);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private PumpReport getReport(Collection<PumpRequest> requests, List<Pump> pumpsList) {
         return new PumpReport(pumpsList, requests);
