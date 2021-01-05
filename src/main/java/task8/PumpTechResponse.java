@@ -6,44 +6,51 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import task7.Pump;
 import task7.PumpSelector;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 @JsonAutoDetect
-public class ChosenPump {
-    private Pump pump;
+public class PumpTechResponse {
+    private Pump pumpOrNull;
     private String model;
     private PumpRequest request;
     private WorkPoint workPoint;
 
 
-    public ChosenPump(PumpRequest request, List<Pump> pumpsList) {
+    public PumpTechResponse(PumpRequest request, Optional<Pump> pumpOrNull) {
+        defineAvailabilityOfPump(pumpOrNull, request);
         this.request = request;
-        this.pump = selectPump(request, pumpsList);
-        this.model = pump.getModel();
-        this.workPoint = new WorkPoint(this.pump, request.getConsumption(), request.getPressure());
     }
 
-    private Pump selectPump(PumpRequest request, Collection<Pump> pumps) {
-        PumpSelector pumpSelector = new PumpSelector();
-        Optional<Pump> pumpOptional = pumpSelector.selectPump(pumps, request.getConsumption(), request.getPressure());
-        if (pumpOptional.isPresent()) {
-            return pumpOptional.get();
+    private void defineAvailabilityOfPump(Optional<Pump> pump, PumpRequest request) {
+        if (pump.isPresent()) {
+            presetPump(pump.get(), request);
         } else {
-            throw new IllegalStateException("There is no needed pump");
+            presetNoPump();
         }
     }
 
-    public ChosenPump() {
+    private void presetNoPump() {
+        this.model = "none";
+        this.pumpOrNull = null;
+        this.workPoint = null;
     }
 
-    public Pump getPump() {
-        return pump;
+    private void presetPump(Pump pump, PumpRequest request) {
+        this.pumpOrNull = pump;
+        this.model = pump.getModel();
+        this.workPoint = new WorkPoint(this.pumpOrNull, request.getConsumption(), request.getPressure());
     }
 
-    public void setPump(Pump pump) {
-        this.pump = pump;
+
+    public PumpTechResponse() {
+    }
+
+    public Pump getPumpOrNull() {
+        return pumpOrNull;
+    }
+
+    public void setPumpOrNull(Pump pumpOrNull) {
+        this.pumpOrNull = pumpOrNull;
     }
 
     public String getModel() {

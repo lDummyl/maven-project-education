@@ -114,10 +114,9 @@ public class Pump implements Comparable<Pump> {
             Double pressure = lagrangePolynomial.getValueY(consumption);
             Double[] clonePressure = this.pressure.clone();
             Arrays.sort(clonePressure, Collections.reverseOrder());
-            if (pressure > clonePressure[0]){
+            if (pressure > clonePressure[0]) {
                 return clonePressure[0];
-            }
-            else {
+            } else {
                 return pressure;
             }
         }
@@ -127,10 +126,9 @@ public class Pump implements Comparable<Pump> {
             Double consumption = lagrangePolynomial.getValueX(pressure);
             Double[] cloneConsumption = this.consumption.clone();
             Arrays.sort(cloneConsumption, Collections.reverseOrder());
-            if (pressure > cloneConsumption[0]){
+            if (pressure > cloneConsumption[0]) {
                 return cloneConsumption[0];
-            }
-            else {
+            } else {
                 return pressure;
             }
         }

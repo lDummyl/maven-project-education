@@ -22,27 +22,32 @@ public class PumpPackageSelector {
         this.fileWithPumps = fileWithPumps;
     }
 
-    public void getPumpReport(File fileWithRequests) {
+    public void getPumpReport(File fileWithRequests, File fileToReport) {
         Collection<PumpRequest> pumpRequests = initializePumpRequestFile(fileWithRequests);
         List<Pump> pumpsList = initializePumpFile(fileWithPumps);
-        getReport(pumpRequests, pumpsList);
+        PumpReport report = getReport(pumpRequests, pumpsList);
+        try {
+            objectMapper.writeValue(fileToReport, report);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private PumpReport getReport(Collection<PumpRequest> requests, List<Pump> pumpsList) {
-       return new PumpReport(pumpsList, requests);
+        return new PumpReport(pumpsList, requests);
     }
 
     private Collection<PumpRequest> initializePumpRequestFile(File fileWithRequests) {
         ArrayList<PumpRequest> pumpRequests = new ArrayList<>();
         try {
-           pumpRequests = objectMapper.readValue(fileWithRequests, new TypeReference<List<PumpRequest>>() {});
+            pumpRequests = objectMapper.readValue(fileWithRequests, new TypeReference<List<PumpRequest>>() {
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (pumpRequests.size() == 0){
+        if (pumpRequests.size() == 0) {
             throw new IllegalStateException("There is no Requests");
-        }
-        else {
+        } else {
             return pumpRequests;
         }
     }
