@@ -1,65 +1,42 @@
 package task7;
 
 import org.junit.Test;
+import task8.CollectionPump;
+import task8.PumpRequest;
 
-import java.util.ArrayList;
+
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
 
 public class PumpSelectorTest {
     @Test
-    public void oneSpeedTest() {
-        Double[] consumptionModel1 = {1.0, 2.0, 3.0};
-        Double[] pressureModel1 = {1.0, 2.0, 3.0};
-
-        Double[] consumptionModel2 = {1.0, 2.0, 3.0};
-        Double[] pressureModel2 = {1.0, 2.0, 3.0};
-
-        Double[] consumptionModel3 = {1.0, 2.0, 3.0};
-        Double[] pressureModel3 = {1.0, 2.0, 3.0};
-
-        Double[] consumptionModel31 = {1.0, 2.0, 3.0};
-        Double[] pressureModel31 = {20.0, 40.0, 60.0};
-
-
-        Pump pump = new Pump("Model 1", consumptionModel1, pressureModel1, 110.0);
-        Pump pump1 = new Pump("Model 2", consumptionModel2, pressureModel2, 120.0);
-        Pump pump2 = new Pump("Model 3", consumptionModel3, pressureModel3, 160.0);
-
-
-        ArrayList<Pump> pumps = new ArrayList<>();
-        pump2.addSpeed(consumptionModel31, pressureModel31);
-
-        pumps.add(pump);
-        pumps.add(pump1);
-        pumps.add(pump2);
-
+    public void selectorOneRequestTest() {
         PumpSelector pumpSelector = new PumpSelector();
-        Optional<Pump> pump3 = pumpSelector.selectPump( 20.0, 40.0);
+        PumpRequest pumpRequest = new PumpRequest(0.24, 5.0);
 
-        assertEquals(pump2, pump3.get());
+        List<Pump> pumps = CollectionPump.addPumps();
+        Collections.sort(pumps);
+
+        Optional<Pump> pump = pumpSelector.selectPump(pumpRequest);
+        assertTrue(pump.isPresent());
+        assertEquals(pumps.get(0), pump.get());
     }
-
     @Test
-    public void oneSpeedTestNoResult() {
-
-        Double[] consumptionModel3 = {1.0, 2.0, 3.0};
-        Double[] pressureModel3 = {1.0, 2.0, 3.0};
-        Double[] consumptionModel31 = {1.0, 2.0, 3.0};
-        Double[] pressureModel31 = {10.0, 40.0, 60.0};
-
-        Pump pump2 = new Pump("Model 3", consumptionModel3, pressureModel3, 160.0);
-
-        ArrayList<Pump> pumps = new ArrayList<>();
-        pump2.addSpeed(consumptionModel31, pressureModel31);
-
-        pumps.add(pump2);
-
+    public void selectorNoRealPumpTest() {
         PumpSelector pumpSelector = new PumpSelector();
-       // Optional<Pump> pump3 = pumpSelector.selectPump(pumps, 20.0, 40.0);
+        PumpRequest pumpRequest = new PumpRequest(4.0, 500.0);
 
-        //assertFalse(pump3.isPresent());
+        List<Pump> pumps = CollectionPump.addPumps();
+        Collections.sort(pumps);
+
+        Optional<Pump> pump = pumpSelector.selectPump(pumpRequest);
+        assertFalse(pump.isPresent());
+
     }
+
+
 
 }

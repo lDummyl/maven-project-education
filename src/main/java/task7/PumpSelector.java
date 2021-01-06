@@ -1,21 +1,12 @@
 package task7;
 
-import java.io.File;
+import task8.PumpRequest;
 import java.util.*;
 
 public class PumpSelector {
     private final PumpCollector pumpCollector;
     Collection<Pump> pumpCollection;
 
-    public PumpSelector(String filePath) {
-        this.pumpCollector = new PumpCollector(filePath);
-    }
-
-   /* public Optional<Pump> selectPumpFromFile(String filePath, Double consumption, Double pressure) {
-        Collection<Pump> pumps = pumpCollector.deserializeJson();
-        return selectPump(pumps, consumption, pressure);
-    }
-    */
 
     public PumpSelector() {
         pumpCollector = new PumpCollector();
@@ -33,7 +24,18 @@ public class PumpSelector {
         return Optional.empty();
     }
 
-    public Optional<Pump.Speed> getWorkSpeed(Double consumption, Double pressure, Pump pump) {
+    public Optional<Pump> selectPump(PumpRequest request) {
+        ArrayList<task7.Pump> pumpsList = new ArrayList<>(pumpCollection);
+        Collections.sort(pumpsList);
+        for (task7.Pump pump : pumpsList) {
+            if (getWorkSpeed(request.getConsumption(), request.getPressure(), pump).isPresent()) {
+                return Optional.of(pump);
+            }
+        }
+        return Optional.empty();
+    }
+
+    private Optional<Pump.Speed> getWorkSpeed(Double consumption, Double pressure, Pump pump) {
         for (Pump.Speed speed : pump.getSpeeds()) {
             Double pressureValue = speed.getPressureValue(consumption);
             if (pressureValue >= pressure) {

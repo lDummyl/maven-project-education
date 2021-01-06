@@ -14,17 +14,14 @@ public class PumpCollector {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
 
-    public PumpCollector(File jsonFile) {
+    public PumpCollector(File jsonPumpFile) {
         if (jsonFile.exists()) {
-            this.jsonFile = jsonFile;
+            this.jsonFile = jsonPumpFile;
         } else {
             this.jsonFile = new File(jsonFile.getPath());
         }
     }
 
-    public PumpCollector(String filePath) {
-        this.jsonFile = new File(filePath);
-    }
 
     public PumpCollector() {
         this.jsonFile = new File("PumpFile.json");

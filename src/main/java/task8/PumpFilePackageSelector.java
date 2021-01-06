@@ -12,8 +12,9 @@ import java.util.List;
 public class PumpFilePackageSelector {
     private final PumpPackageSelector selector;
     ObjectMapper objectMapper = new ObjectMapper();
+
     public PumpFilePackageSelector() {
-         this.selector = new PumpPackageSelector();
+        this.selector = new PumpPackageSelector();
     }
 
     public File selectPumpsToFile(File fileWithRequests) {
@@ -21,6 +22,7 @@ public class PumpFilePackageSelector {
         List<PumpTechResponse> pumps = selector.selectPumps(requests);
         return writePumpsToFile(pumps);
     }
+
     @SneakyThrows
     private List<PumpRequest> readFileWithRequests(File fileWithRequests) {
         return objectMapper.readValue(fileWithRequests, new TypeReference<List<PumpRequest>>() {
@@ -32,7 +34,7 @@ public class PumpFilePackageSelector {
         LocalDateTime now = LocalDateTime.now();
         File resultFile = new File("PumpSelection" + now.toString().replaceAll(":", "-") + ".json");
         resultFile.createNewFile();
-        objectMapper.writeValue(resultFile,pumps);
+        objectMapper.writeValue(resultFile, pumps);
         return resultFile;
     }
 }

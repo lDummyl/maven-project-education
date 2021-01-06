@@ -1,26 +1,22 @@
 package task8;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Logger;
+
 
 public class RequestGenerator {
 
     private final Random random = new Random();
     private final ObjectMapper mapper = new ObjectMapper();
 
-
-    public void generateRequestsToJson(File fileWithRequests,int numberOfRequests){
-        try {
-            mapper.writeValue(fileWithRequests, generateRequests(numberOfRequests));
-        } catch (IOException e) {
-           e.printStackTrace();
-        }
+    @SneakyThrows
+    public void generateRequestsToJson(File fileWithRequests, int numberOfRequests) {
+        mapper.writeValue(fileWithRequests, generateRequests(numberOfRequests));
     }
 
     public List<PumpRequest> generateRequests(int numberOfRequests) {

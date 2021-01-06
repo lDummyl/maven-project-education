@@ -7,16 +7,16 @@ import java.util.Optional;
 public class PumpSelectionApp {
 
 
-    private String filePathWithPumps;
+    private final File filePathWithPumps;
     PumpCollector pumpCollector = new PumpCollector();
     PumpSelector pumpSelector = new PumpSelector();
 
-    public PumpSelectionApp(String filePathWithPumps) {
+    public PumpSelectionApp(File filePathWithPumps) {
         this.filePathWithPumps = filePathWithPumps;
     }
 
     public Optional<Pump> selectPump(double consumption, double pressure) {
-        pumpCollector.setJsonFile(new File(filePathWithPumps));
+        pumpCollector.setJsonFile(filePathWithPumps);
         List<Pump> pumps = pumpCollector.deserializeJson();
         return pumpSelector.selectPump( consumption, pressure);
     }

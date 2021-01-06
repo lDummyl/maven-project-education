@@ -72,7 +72,7 @@ public class PumpCollectorTest {
 
     @Test
     public void addPumpTestFull() throws IOException {
-        PumpSelectionApp pumpSelectionApp = new PumpSelectionApp("PumpTestFull.json");
+        PumpSelectionApp pumpSelectionApp = new PumpSelectionApp(new File("PumpTestFull.json"));
         Optional<Pump> pumpOptional = pumpSelectionApp.selectPump(5.0, 10.0);
 
         assertEquals("Model 1", pumpOptional.get().getModel());
@@ -80,7 +80,7 @@ public class PumpCollectorTest {
 
     @Test
     public void addPumpTestOverflow() throws IOException {
-        PumpSelectionApp pumpSelectionApp = new PumpSelectionApp("PumpTestFull.json");
+        PumpSelectionApp pumpSelectionApp = new PumpSelectionApp(new File("PumpTestFull.json"));
         Optional<Pump> pumpOptional = pumpSelectionApp.selectPump(20000.0, 10.0);
 
         assertEquals("Model 1", pumpOptional.get().getModel());
@@ -105,54 +105,5 @@ public class PumpCollectorTest {
     public void testUnchecked() throws OutOfMemoryError {
         throw new OutOfMemoryError();
     }
-
-    /*@Test
-    public void bank() {
-        int amountOfMoney = 1_000_000;
-        int checkedSumm = 80000;
-
-
-        PersonsProvider personsProvider = new PersonsProvider();
-        TreeSet<Person> people = personsProvider.generatePersons(100);
-        Random random = new Random();
-        for (Person person : people) {
-            if (random.nextInt(100) < 10) {
-                checkInCurrentState("Russia");
-            }
-            transactionCheck(person);
-            System.out.println("Вы перевели миллион долларов");
-        }
-    }
-
-    private void transactionCheck(Person person) {
-
-        try {
-            checkPerson(person);
-        } catch (Exception e) {
-            System.out.println(person.birthDate);
-            System.out.println(person.name);
-        }
-    }
-
-    private void checkPerson(Person person) {
-
-        checkIllegalActivity();
-    }
-
-    private void checkIllegalActivity() {
-        Random random = new Random();
-        String country = "USA";
-        if (random.nextInt(100) < 10) {
-            country = "Russia";
-        }
-        checkInCurrentState(country);
-    }
-
-    private void checkInCurrentState(String currentState) throws IllegalArgumentException {
-
-        if (currentState.equals("Russia")) {
-            throw new IllegalArgumentException();
-        }
-    }*/
 }
 

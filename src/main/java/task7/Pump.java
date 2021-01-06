@@ -9,16 +9,11 @@ import task6.LagrangePolynomial;
 
 import java.util.*;
 
-
-@JsonInclude
-@JsonAutoDetect
 public class Pump implements Comparable<Pump> {
-    @JsonProperty
     private String model;
-    @JsonProperty
     private Double rublePrice;
 
-    @JsonProperty
+
     private List<Speed> speeds = new ArrayList<>();
 
     public Pump(String model, Double[] consumption, Double[] pressure, Double rublePrice) {
@@ -111,25 +106,23 @@ public class Pump implements Comparable<Pump> {
 
         public Double getPressureValue(Double consumption) {
             LagrangePolynomial lagrangePolynomial = new LagrangePolynomial(this.consumption, this.pressure);
-            Double pressure = lagrangePolynomial.getValueY(consumption);
-            Double[] clonePressure = this.pressure.clone();
-            Arrays.sort(clonePressure, Collections.reverseOrder());
-            if (pressure > clonePressure[0]) {
-                return clonePressure[0];
+            Double[] cloneConsumption = getConsumption().clone();
+            Arrays.sort(cloneConsumption);
+            if (consumption > cloneConsumption[cloneConsumption.length - 1] || consumption < cloneConsumption[0]) {
+                return 0.0;
             } else {
-                return pressure;
+               return lagrangePolynomial.getValueY(consumption);
             }
         }
 
         public Double getConsumptionValue(Double pressure) {
             LagrangePolynomial lagrangePolynomial = new LagrangePolynomial(this.consumption, this.pressure);
-            Double consumption = lagrangePolynomial.getValueX(pressure);
-            Double[] cloneConsumption = this.consumption.clone();
-            Arrays.sort(cloneConsumption, Collections.reverseOrder());
-            if (pressure > cloneConsumption[0]) {
-                return cloneConsumption[0];
+            Double[] clonePressure = getPressure().clone();
+            Arrays.sort(clonePressure);
+            if (pressure> clonePressure[clonePressure.length - 1] || pressure < clonePressure[0]) {
+                return 0.0;
             } else {
-                return pressure;
+                return lagrangePolynomial.getValueX(pressure);
             }
         }
 

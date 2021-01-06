@@ -1,25 +1,24 @@
 package task8;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
+
 import task7.Pump;
 
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@JsonAutoDetect
-public class PumpCommercialBlock {
-   private Set<Pump> uniquePumps;
-   private Integer numberOFUniqModels;
-   private Double priceInTotal;
-   private Double priceWithDelivery;
 
-    public PumpCommercialBlock(Collection<PumpTechResponse> pumpTechResponse)  {
+public class PumpCommercialBlock {
+    private Set<Pump> uniquePumps;
+    private Integer numberOFUniqModels;
+    private Double priceInTotal;
+    private Double priceWithDelivery;
+
+    public PumpCommercialBlock(Collection<PumpTechResponse> pumpTechResponse) {
         this.uniquePumps = getUniModels(pumpTechResponse);
         this.numberOFUniqModels = uniquePumps.size();
         this.priceInTotal = getTotalPrice(pumpTechResponse);
         this.priceWithDelivery = calculatePriceWithDelivery();
-        System.out.println();
     }
 
     private Double calculatePriceWithDelivery() {
@@ -28,7 +27,6 @@ public class PumpCommercialBlock {
         } else {
             return priceInTotal * 1.1;
         }
-
     }
 
     private Double getTotalPrice(Collection<PumpTechResponse> pumpTechResponse) {
@@ -72,11 +70,11 @@ public class PumpCommercialBlock {
         this.priceInTotal = priceInTotal;
     }
 
-    public void setPriceWithDelivery(Double priceWithDelivery) {
-        this.priceWithDelivery = priceWithDelivery;
-    }
-
     public Double getPriceWithDelivery() {
         return priceWithDelivery;
+    }
+
+    public void setPriceWithDelivery(Double priceWithDelivery) {
+        this.priceWithDelivery = priceWithDelivery;
     }
 }
