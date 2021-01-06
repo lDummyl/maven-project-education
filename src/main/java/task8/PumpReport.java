@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public class PumpReport {
     private List<Pump> pumpsList;
     private Collection<PumpRequest> pumpRequests;
@@ -28,7 +29,7 @@ public class PumpReport {
     private List<PumpTechResponse> choosePumps() {
         PumpSelector selector = new PumpSelector();
         return this.pumpRequests.stream().
-                map(value -> new PumpTechResponse(value, selector.selectPump(this.pumpsList, value.getConsumption(), value.getPressure())))
+                map(value -> new PumpTechResponse(value, selector.selectPump( value.getConsumption(), value.getPressure())))
                 .collect(Collectors.toList());
     }
 

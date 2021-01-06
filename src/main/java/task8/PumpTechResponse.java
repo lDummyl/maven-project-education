@@ -3,6 +3,7 @@ package task8;
 // насос, входные параметры,рабочая точка модель, первый технический блок
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import task7.Pump;
 import task7.PumpSelector;
 
@@ -52,7 +53,7 @@ public class PumpTechResponse {
     public void setPumpOrNull(Pump pumpOrNull) {
         this.pumpOrNull = pumpOrNull;
     }
-
+    @JsonProperty("Модель")
     public String getModel() {
         return model;
     }

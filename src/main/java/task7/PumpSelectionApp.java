@@ -18,6 +18,6 @@ public class PumpSelectionApp {
     public Optional<Pump> selectPump(double consumption, double pressure) {
         pumpCollector.setJsonFile(new File(filePathWithPumps));
         List<Pump> pumps = pumpCollector.deserializeJson();
-        return pumpSelector.selectPump(pumps, consumption, pressure);
+        return pumpSelector.selectPump( consumption, pressure);
     }
 }

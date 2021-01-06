@@ -5,21 +5,28 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import task7.Pump;
 import task7.PumpCollector;
+import task7.PumpSelector;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 
 public class PumpPackageSelector {
     PumpCollector pumpCollector = new PumpCollector();
     ObjectMapper objectMapper = new ObjectMapper();
+    PumpSelector pumpSelector = new PumpSelector();
     File fileWithPumps;
 
     public PumpPackageSelector(File fileWithPumps) {
         this.fileWithPumps = fileWithPumps;
+    }
+
+    public PumpPackageSelector() {
+        this.fileWithPumps = new File("PumpFile.json");
     }
 
     public void getPumpReport(File fileWithRequests, File fileToReport) {
@@ -41,6 +48,7 @@ public class PumpPackageSelector {
             e.printStackTrace();
         }
     }
+
 
     private PumpReport getReport(Collection<PumpRequest> requests, List<Pump> pumpsList) {
         return new PumpReport(pumpsList, requests);
@@ -64,5 +72,19 @@ public class PumpPackageSelector {
     private List<Pump> initializePumpFile(File fileWithPumps) {
         pumpCollector.setJsonFile(fileWithPumps);
         return pumpCollector.deserializeJson();
+    }
+
+    public List<PumpTechResponse> selectPumps(Collection<PumpRequest> requests) {
+        ArrayList<PumpTechResponse> pumps = new ArrayList<>();
+        for (PumpRequest request : requests) {
+            Optional<Pump> pump = selectPump(request);
+            pumps.add(new PumpTechResponse(request, pump));
+        }
+        return pumps;
+    }
+
+    private Optional<Pump> selectPump(PumpRequest request) {
+        Optional<Pump> pump = pumpSelector.selectPump(request.getConsumption(), request.getPressure());
+        return pump;
     }
 }

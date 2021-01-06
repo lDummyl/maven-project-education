@@ -27,6 +27,7 @@ public class PumpCollector {
     }
 
     public PumpCollector() {
+        this.jsonFile = new File("PumpFile.json");
     }
 
     public File getJsonFile() {

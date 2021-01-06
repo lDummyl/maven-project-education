@@ -1,6 +1,6 @@
 package task8;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,6 +9,7 @@ import task7.Pump;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -87,7 +88,7 @@ public class PumpPackageSelectorTest {
 
         List<PumpTechResponse> pumpTechResponses = pumpReport.getPumpTechResponses();
         pumpTechResponses.forEach(Assert::assertNotNull);
-
+        assertEquals(pumpTechResponses.size(), 1);
 
         PumpCommercialBlock commercialBlock = pumpReport.getCommercialBlock();
         assertEquals(pumps.get(0), pumpReport.getPumpTechResponses().get(0).getPumpOrNull());
@@ -95,5 +96,26 @@ public class PumpPackageSelectorTest {
         Double onePumpWithDelivery = pumps.get(0).getRublePrice() * 1.1;
         assertEquals(onePumpWithDelivery, commercialBlock.getPriceWithDelivery());
 
+    }
+    @Test
+    public void testBatch(){
+        List<PumpRequest> pumpRequestList = Arrays.asList(new PumpRequest(1.0, 60.0), new PumpRequest(100.0, 200.0));
+
+
+        PumpPackageSelector selector = new PumpPackageSelector();
+        List<PumpTechResponse> pumps = selector.selectPumps(pumpRequestList);
+
+
+        assertEquals(pumpRequestList.size(), pumps.size());
+
+    }
+    @Test
+    public void testFilesBatch(){
+        File fileWithRequests = new File("RequestFile.json");
+        PumpFilePackageSelector selector = new PumpFilePackageSelector();
+        File fileWithSelectedPumps =  selector.selectPumpsToFile(fileWithRequests);
+
+
+        /*assertEquals(5, selectedPupsList.size());*/
     }
 }
