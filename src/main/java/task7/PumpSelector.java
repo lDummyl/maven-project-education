@@ -4,12 +4,11 @@ import task8.PumpRequest;
 import java.util.*;
 
 public class PumpSelector {
-    private final PumpCollector pumpCollector;
     Collection<Pump> pumpCollection;
 
 
     public PumpSelector() {
-        pumpCollector = new PumpCollector();
+        PumpCollector pumpCollector = new PumpCollector();
         pumpCollection = pumpCollector.deserializeJson();
     }
 
