@@ -27,14 +27,17 @@ public class PumpPackageSelectorTest {
 
     @Test
     public void testBatch(){
-        List<PumpRequest> pumpRequestList = Arrays.asList(new PumpRequest(1.0, 60.0), new PumpRequest(100.0, 200.0));
-
-
+        double consumption = 0.94;
+        double pressure = 2.6;
+        List<PumpRequest> pumpRequestList = Arrays.asList(new PumpRequest(consumption, pressure), new PumpRequest(100.0, 200.0));
         PumpPackageSelector selector = new PumpPackageSelector();
         List<PumpTechResponse> pumps = selector.selectPumps(pumpRequestList);
 
 
         assertEquals(pumpRequestList.size(), pumps.size());
+
+        assertTrue(pumps.get(0).getWorkPoint().getPressure() >= pressure);
+        assertTrue(pumps.get(0).getWorkPoint().getConsumption() >= consumption);
 
     }
     @Test

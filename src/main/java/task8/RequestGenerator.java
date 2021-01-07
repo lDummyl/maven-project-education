@@ -30,10 +30,10 @@ public class RequestGenerator {
     }
 
     private Double randomPressure(Double consumption) {
-        return consumption * (1 + random.nextInt(39) + random.nextDouble());
+        return  (0.1 + random.nextInt(4) + random.nextDouble())/(consumption/4);
     }
 
     private Double randomConsumption() {
-        return 1.0 + random.nextInt(69) + random.nextDouble();
+        return 0.1 + random.nextInt(30) + random.nextDouble();
     }
 }

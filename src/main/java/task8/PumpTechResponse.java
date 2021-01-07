@@ -68,10 +68,10 @@ public class PumpTechResponse {
         Double systemCurrentPressure = 0.0;
 
 
-        while ((Math.abs(pumpCurrentPressure - systemCurrentPressure)) > 0.01 ){
+        while ((Math.abs(pumpCurrentPressure - systemCurrentPressure)) > 0.5 ){
             pumpCurrentPressure = workSpeed.getPressureValue(currentConsumption);
-            systemCurrentPressure = systemCurve.getValueX(currentConsumption);
-            currentConsumption+=0.01;
+            systemCurrentPressure = systemCurve.getValueY(currentConsumption);
+            currentConsumption+=0.1;
         }
         return new WorkPoint(currentConsumption, pumpCurrentPressure);
     }
@@ -114,7 +114,7 @@ public class PumpTechResponse {
     }
 
     @JsonAutoDetect
-    private static class WorkPoint {
+    public static class WorkPoint {
         Double consumption;
         Double pressure;
 
