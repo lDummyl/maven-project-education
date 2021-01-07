@@ -1,8 +1,8 @@
 package task7;
 
 import java.io.File;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public class PumpSelectionApp {
 
@@ -16,8 +16,8 @@ public class PumpSelectionApp {
     }
 
     public Optional<Pump> selectPump(double consumption, double pressure) {
-        pumpCollector.setJsonFile(filePathWithPumps);
-        List<Pump> pumps = pumpCollector.deserializeJson();
-        return pumpSelector.selectPump( consumption, pressure);
+        pumpCollector.setJsonPumpFile(filePathWithPumps);
+        Set<Pump> pumps = pumpCollector.deserializePumpJson();
+        return pumpSelector.selectPump(consumption, pressure);
     }
 }

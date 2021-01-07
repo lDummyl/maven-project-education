@@ -111,7 +111,7 @@ public class Pump implements Comparable<Pump> {
             if (consumption > cloneConsumption[cloneConsumption.length - 1] || consumption < cloneConsumption[0]) {
                 return 0.0;
             } else {
-               return lagrangePolynomial.getValueY(consumption);
+                return lagrangePolynomial.getValueY(consumption);
             }
         }
 
@@ -119,7 +119,7 @@ public class Pump implements Comparable<Pump> {
             LagrangePolynomial lagrangePolynomial = new LagrangePolynomial(this.consumption, this.pressure);
             Double[] clonePressure = getPressure().clone();
             Arrays.sort(clonePressure);
-            if (pressure> clonePressure[clonePressure.length - 1] || pressure < clonePressure[0]) {
+            if (pressure > clonePressure[clonePressure.length - 1] || pressure < clonePressure[0]) {
                 return 0.0;
             } else {
                 return lagrangePolynomial.getValueX(pressure);

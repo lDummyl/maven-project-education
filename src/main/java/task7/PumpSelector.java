@@ -1,6 +1,7 @@
 package task7;
 
 import task8.PumpRequest;
+
 import java.util.*;
 
 public class PumpSelector {
@@ -9,7 +10,7 @@ public class PumpSelector {
 
     public PumpSelector() {
         PumpCollector pumpCollector = new PumpCollector();
-        pumpCollection = pumpCollector.deserializeJson();
+        pumpCollection = pumpCollector.deserializePumpJson();
     }
 
     public Optional<Pump> selectPump(Double consumption, Double pressure) {
