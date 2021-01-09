@@ -1,7 +1,9 @@
 package task8;
 
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import org.junit.Assert;
 import org.junit.Test;
 import task7.Pump;
@@ -38,15 +40,34 @@ public class PumpPackageSelectorTest {
 
         assertTrue(pumps.get(0).getWorkPoint().getPressure() >= pressure);
         assertTrue(pumps.get(0).getWorkPoint().getConsumption() >= consumption);
-
     }
     @Test
+    public void testBatchMany(){
+        double consumption = 0.94;
+        double pressure = 2.6;
+
+        RequestGenerator requestGenerator = new RequestGenerator();
+        List<PumpRequest> pumpRequestList = requestGenerator.generateRequests(100);
+
+        PumpPackageSelector selector = new PumpPackageSelector();
+        List<PumpTechResponse> pumps = selector.selectPumps(pumpRequestList);
+
+
+        assertEquals(pumpRequestList.size(), pumps.size());
+
+       // assertTrue(pumps.get(0).getWorkPoint().getPressure() >= pressure);
+       // assertTrue(pumps.get(0).getWorkPoint().getConsumption() >= consumption);
+    }
+    @Test
+    @SneakyThrows
     public void testFilesBatch(){
         File fileWithRequests = new File("RequestFile.json");
         PumpFilePackageSelector selector = new PumpFilePackageSelector();
-        File fileWithSelectedPumps =  selector.selectPumpsToFile(fileWithRequests);
+        File fileWithResponse = selector.selectPumpsToFile(fileWithRequests);
 
+        List<PumpTechResponse>  selectedPupsList = objectMapper.readValue(fileWithResponse, new TypeReference<List<PumpTechResponse>>() {
+        });
 
-        /*assertEquals(5, selectedPupsList.size());*/
+        assertEquals(5, selectedPupsList.size());
     }
 }

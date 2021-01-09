@@ -52,6 +52,20 @@ public class PumpTechResponse {
                 break;
             }
         }
+        Double consumptionValue = workSpeed.getConsumptionValue(request.getPressure());
+        return new WorkPoint(consumptionValue, request.getPressure());
+    }
+
+
+  /*  private WorkPoint workPointSearch() {
+        Pump.Speed workSpeed = null;
+        for (Pump.Speed speed : pumpOrNull.getSpeeds()) {
+            Double pressureValue = speed.getPressureValue(request.getConsumption());
+            if (pressureValue >= request.getPressure()) {
+                workSpeed = speed;
+                break;
+            }
+        }
         ArrayList<Double> consumptionSystemCurve = new ArrayList<>();
         ArrayList<Double> pressureSystemCurve = new ArrayList<>();
 
@@ -74,7 +88,7 @@ public class PumpTechResponse {
             currentConsumption+=0.1;
         }
         return new WorkPoint(currentConsumption, pumpCurrentPressure);
-    }
+    }*/
 
 
     public PumpTechResponse() {
