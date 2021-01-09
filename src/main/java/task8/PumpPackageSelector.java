@@ -5,7 +5,6 @@ import task7.PumpSelector;
 
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,12 +21,12 @@ public class PumpPackageSelector {
     }
 
 
-    public PumpReport selectPumpsWithReport(Collection<PumpRequest> requests) {
+    public PumpReport selectPumpsWithReport(List<PumpRequest> requests) {
         List<PumpTechResponse> pumpTechResponses = selectPumps(requests);
         return new PumpReport(pumpTechResponses);
     }
 
-    public List<PumpTechResponse> selectPumps(Collection<PumpRequest> requests) {
+    public List<PumpTechResponse> selectPumps(List<PumpRequest> requests) {
         ArrayList<PumpTechResponse> pumps = new ArrayList<>();
         for (PumpRequest request : requests) {
             Optional<Pump> pump = pumpSelector.selectPump(request);
@@ -35,5 +34,4 @@ public class PumpPackageSelector {
         }
         return pumps;
     }
-
 }

@@ -42,6 +42,20 @@ public class PumpPackageSelectorTest {
         assertTrue(pumps.get(0).getWorkPoint().getConsumption() >= consumption);
     }
     @Test
+    public void nullRequest(){
+        double consumption = 0.94;
+        double pressure = 2.6;
+        List<PumpRequest> pumpRequestList = Arrays.asList(new PumpRequest(consumption, pressure), new PumpRequest(null, null));
+        PumpPackageSelector selector = new PumpPackageSelector();
+        List<PumpTechResponse> pumps = selector.selectPumps(pumpRequestList);
+
+
+        assertEquals(pumpRequestList.size(), pumps.size());
+
+        assertTrue(pumps.get(0).getWorkPoint().getPressure() >= pressure);
+        assertTrue(pumps.get(0).getWorkPoint().getConsumption() >= consumption);
+    }
+    @Test
     public void testBatchMany(){
         double consumption = 0.94;
         double pressure = 2.6;
@@ -58,6 +72,7 @@ public class PumpPackageSelectorTest {
        // assertTrue(pumps.get(0).getWorkPoint().getPressure() >= pressure);
        // assertTrue(pumps.get(0).getWorkPoint().getConsumption() >= consumption);
     }
+
     @Test
     @SneakyThrows
     public void testFilesBatch(){
@@ -65,9 +80,17 @@ public class PumpPackageSelectorTest {
         PumpFilePackageSelector selector = new PumpFilePackageSelector();
         File fileWithResponse = selector.selectPumpsToFile(fileWithRequests);
 
+        List<PumpRequest> requests = objectMapper.readValue(fileWithRequests, new TypeReference<List<PumpRequest>>() {
+        });
         List<PumpTechResponse>  selectedPupsList = objectMapper.readValue(fileWithResponse, new TypeReference<List<PumpTechResponse>>() {
         });
 
-        assertEquals(5, selectedPupsList.size());
+        assertEquals(requests.size(), selectedPupsList.size());
+
+        for (PumpTechResponse pumpTechResponse : selectedPupsList) {
+            assertNotNull(pumpTechResponse);
+
+        }
+
     }
 }
