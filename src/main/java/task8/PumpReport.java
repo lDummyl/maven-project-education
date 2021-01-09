@@ -17,7 +17,7 @@ public class PumpReport {
         this.commercialBlock = new PumpCommercialBlock(getPumpTechResponses());
         this.successSelected = getSuccessNumber(pumpTechResponses);
         this.requestIntTotal = pumpTechResponses.size();
-        this.requestIntTotal = requestIntTotal - successSelected;
+        this.failSelected = requestIntTotal - successSelected;
     }
 
     private Integer getSuccessNumber(List<PumpTechResponse> pumpTechResponses) {

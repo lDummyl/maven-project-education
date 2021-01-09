@@ -40,7 +40,7 @@ public class PumpCommercialBlock {
     }
 
     private Set<Pump> getUniModels(Collection<PumpTechResponse> pumpTechResponse) {
-        return pumpTechResponse.stream().map(PumpTechResponse::getPumpOrNull).collect(Collectors.toSet());
+        return pumpTechResponse.stream().map(PumpTechResponse::getPumpOrNull).filter(value -> value!=null).collect(Collectors.toSet());
     }
 
     public PumpCommercialBlock() {

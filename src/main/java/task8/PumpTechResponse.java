@@ -32,9 +32,14 @@ public class PumpTechResponse {
     }
 
     private void presetNoPump() {
-        this.model = "none";
         this.pumpOrNull = null;
         this.workPoint = null;
+        if (this.request.getPressure() == null || this.request.getConsumption() == null) {
+            this.model = "Wrong Request";
+        }
+        else {
+            this.model = "None";
+        }
     }
 
     private void presetPump(Pump pump) {
