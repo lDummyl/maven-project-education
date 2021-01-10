@@ -73,7 +73,7 @@ public class PumpPackageSelectorTest {
         pumpTechResponses.forEach(Assert::assertNotNull);
 
         PumpCommercialBlock commercialBlock = pumpReport.getCommercialBlock();
-        assertEquals(1, commercialBlock.getUniquePumps());
+        assertEquals(1, commercialBlock.getUniquePumps().size());
 
         Double expectedPriceInTotal = 104.0;
         assertEquals(expectedPriceInTotal, commercialBlock.getPriceInTotal());

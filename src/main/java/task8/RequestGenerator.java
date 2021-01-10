@@ -4,9 +4,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 
 public class RequestGenerator {
@@ -29,6 +31,7 @@ public class RequestGenerator {
         return pumpRequests;
     }
 
+
     private Double randomPressure(Double consumption) {
         return  (0.1 + random.nextInt(4) + random.nextDouble())/(consumption/4);
     }
@@ -36,4 +39,5 @@ public class RequestGenerator {
     private Double randomConsumption() {
         return 0.1 + random.nextInt(30) + random.nextDouble();
     }
+
 }
