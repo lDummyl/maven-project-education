@@ -29,4 +29,32 @@ public class CirculationPumpSelectorTest {
 
     }
 
+    @Test
+    public void notValidRequestTestNull() {
+        Double consumption = null;
+        Double pressure = 2.7;
+        CirculationPumpSelector circulationPumpSelector = new CirculationPumpSelector();
+
+        Optional<Pump> pump = null;
+        try {
+            pump = circulationPumpSelector.selectPump(consumption, pressure);
+        } catch (CirculationPumpSelectorException e) {
+            assertEquals("Null value in request", e.getMessage());
+        }
+    }
+
+    @Test
+    public void notValidRequestTestNegativeValue() {
+        Double consumption = -5.0;
+        Double pressure = 2.7;
+        CirculationPumpSelector circulationPumpSelector = new CirculationPumpSelector();
+
+        Optional<Pump> pump = null;
+        try {
+            pump = circulationPumpSelector.selectPump(consumption, pressure);
+        } catch (CirculationPumpSelectorException e) {
+            assertEquals("Negative value in request", e.getMessage());
+        }
+    }
+
 }
