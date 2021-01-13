@@ -6,11 +6,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.Test;
 import task7.Pump;
+import task7.PumpCollector;
 
 import java.io.File;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -34,8 +33,9 @@ public class CirculationPumpSelectorTest {
     @Test
     public void selectionRightPumpTest() throws CirculationPumpSelectorException {
 
-        List<Pump> pumpsValid = mapper.readValue(notChangedTestFileWithPumps, new TypeReference<List<Pump>>() {
-        });
+        PumpCollector pumpCollector = new PumpCollector();
+        Set<Pump> pumpsThatWeHave = pumpCollector.deserializePumpJson();
+        ArrayList<Pump> pumpsValid = new ArrayList<>(pumpsThatWeHave);
 
         Collections.sort(pumpsValid);
         Pump neededPump = pumpsValid.get(0);
