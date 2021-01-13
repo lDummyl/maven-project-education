@@ -1,5 +1,6 @@
 package newpumpselector;
 
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -7,6 +8,7 @@ import org.junit.Test;
 import task7.Pump;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +28,27 @@ public class CirculationPumpSelectorTest {
 
         Optional<Pump> pump = circulationPumpSelector.selectPump(consumption, pressure);
         assertTrue(pump.isPresent());
+
+    }
+    @SneakyThrows
+    @Test
+    public void selectionRightPumpTest() throws CirculationPumpSelectorException {
+
+        List<Pump> pumpsValid = mapper.readValue(notChangedTestFileWithPumps, new TypeReference<List<Pump>>() {
+        });
+
+        Collections.sort(pumpsValid);
+        Pump neededPump = pumpsValid.get(0);
+        Pump.Speed speed = neededPump.getSpeeds().get(0);
+
+        Double pressure = speed.getPressure()[1];
+        Double consumption = speed.getConsumption()[1];
+
+        CirculationPumpSelector circulationPumpSelector = new CirculationPumpSelector();
+
+        Optional<Pump> pump = circulationPumpSelector.selectPump(consumption, pressure);
+        assertTrue(pump.isPresent());
+        assertEquals(neededPump ,pump.get());
 
     }
 
