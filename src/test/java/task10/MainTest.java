@@ -1,5 +1,7 @@
 package task10;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import org.junit.Test;
 
 import task8.PumpPackageSelector;
@@ -31,5 +33,11 @@ public class MainTest {
         assertNotNull(report.getTotalForDelivery());
 
     }
-
+    @SneakyThrows
+    public static void main(String[] args) {
+        String fdf = "fdsf";
+        ObjectMapper objectMapper = new ObjectMapper();
+        String s = objectMapper.writeValueAsString(fdf);
+        System.out.println(s);
+    }
 }

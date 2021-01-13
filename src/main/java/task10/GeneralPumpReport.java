@@ -33,6 +33,7 @@ public class GeneralPumpReport {
         this.totalProYear = totalProYear;
     }
 
+    // FIXME: 1/12/2021 сделать суммы покупок
     public Double getAveragePerMonth() {
         return averagePerMonth;
     }
