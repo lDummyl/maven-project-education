@@ -9,8 +9,8 @@ public class CirculationPumpSelector {
     private final List<Pump> pumpList;
 
     public CirculationPumpSelector() {
-        this.collector = new CirculationPumpCollector();
-        pumpList = collector.getPumpList();
+        this.collector = new CirculationPumpFileCollector();
+        pumpList = new ArrayList<>(collector.getPumps());
     }
 
 
