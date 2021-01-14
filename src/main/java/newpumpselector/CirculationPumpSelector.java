@@ -1,6 +1,7 @@
 package newpumpselector;
 
 import task7.Pump;
+import task8.PumpRequest;
 
 import java.util.*;
 
@@ -15,6 +16,13 @@ public class CirculationPumpSelector {
 
 
     public Optional<Pump> selectPump(Double consumption, Double pressure) throws CirculationPumpSelectorException {
+        requestCheck(consumption, pressure);
+        return searchPump(consumption, pressure);
+    }
+
+    public Optional<Pump> selectPump(PumpRequest request) throws CirculationPumpSelectorException {
+        Double consumption = request.getConsumption();
+        Double pressure = request.getPressure();
         requestCheck(consumption, pressure);
         return searchPump(consumption, pressure);
     }

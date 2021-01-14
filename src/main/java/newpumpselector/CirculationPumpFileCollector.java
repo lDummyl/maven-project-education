@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 
 public class CirculationPumpFileCollector implements CirculationPumpCollector {
@@ -27,12 +28,7 @@ public class CirculationPumpFileCollector implements CirculationPumpCollector {
     public void addPump(Pump pump) {
         HashSet<Pump> pumps = new HashSet<>(getPumps());
         pumps.add(pump);
-        try {
-            mapper.writeValue(fileWithPumps, pumps);
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-            Files.copy(fileWithPumps.toPath(), Paths.get("PumpsBackup.json"), StandardCopyOption.REPLACE_EXISTING);
-        }
+        writePumps(pumps);
     }
 
     @SneakyThrows
@@ -47,5 +43,15 @@ public class CirculationPumpFileCollector implements CirculationPumpCollector {
             pumps = new HashSet<>();
         }
         return pumps;
+    }
+
+    @SneakyThrows
+    private void writePumps(Set<Pump> pumps) {
+        try {
+            mapper.writeValue(fileWithPumps, pumps);
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            Files.copy(fileWithPumps.toPath(), Paths.get("PumpsBackup.json"), StandardCopyOption.REPLACE_EXISTING);
+        }
     }
 }
