@@ -7,11 +7,11 @@ import java.util.*;
 
 public class CirculationPumpSelector {
     private final CirculationPumpCollector collector;
-    private final List<Pump> pumpList;
+    private final TreeSet<Pump> pumpsTree;
 
     public CirculationPumpSelector() {
         this.collector = new CirculationPumpFileCollector();
-        pumpList = new ArrayList<>(collector.getPumps());
+        pumpsTree = new TreeSet<>(collector.getPumps());
     }
 
 
@@ -36,8 +36,7 @@ public class CirculationPumpSelector {
     }
 
     private Optional<Pump> searchPump(Double consumption, Double pressure) {
-        pumpList.sort(Pump::compareTo);
-        for (task7.Pump pump : pumpList) {
+        for (task7.Pump pump : pumpsTree) {
             if (getWorkSpeed(consumption, pressure, pump).isPresent()) {
                 return Optional.of(pump);
             }

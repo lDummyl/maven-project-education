@@ -3,7 +3,6 @@ package newpumpbutchselector;
 import org.junit.Test;
 import task8.PumpRequest;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -21,7 +20,7 @@ import static org.junit.Assert.*;
 public class CirculationPumpButchSelectorTest {
     @Test
     public void generalTest(){
-        CirculationPumpButchSelector selector = new CirculationPumpButchSelector();
+        CirculationBatchSelector selector = new CirculationBatchSelector();
         List<PumpRequest> requests = Arrays.asList(new PumpRequest(1.0, 2.0), new PumpRequest(2.0, 2.0));
 
         Collection<CirculationPumpResponse> circulationPumpResponses = selector.selectPumps(requests);

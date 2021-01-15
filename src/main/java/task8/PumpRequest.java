@@ -14,6 +14,7 @@ public class PumpRequest {
     public PumpRequest(Double consumption, Double pressure) {
         this.consumption = consumption;
         this.pressure = pressure;
+        this.dateTime = LocalDate.now();
     }
 
     public PumpRequest(Double consumption, Double pressure, LocalDate dateTime) {
