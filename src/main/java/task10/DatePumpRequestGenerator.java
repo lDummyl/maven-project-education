@@ -26,6 +26,8 @@ public class DatePumpRequestGenerator {
 
 
     public List<List<PumpRequest>> generateRequests() {
+        // TODO: 16.01.2021 декларативней наглядней и короче
+//        return Stream.generate(this::getRequestList).limit(numberOfGeneration).collect(Collectors.toList())
         ArrayList<List<PumpRequest>> lists = new ArrayList<>();
         for (int i = 0; i < numberOfGeneration; i++) {
             lists.add(getRequestList());
@@ -49,6 +51,9 @@ public class DatePumpRequestGenerator {
     }
 
     private LocalDate getRandomDate() {
+        // TODO: 16.01.2021 короче и изящней, изучай либы, есть масса способов.
+//        int daysInYear = Year.of(2020).length();
+//        return LocalDate.ofYearDay(2020, daysInYear).minusDays(random.nextInt(daysInYear));
         LocalDate localDate = null;
 
         while (localDate == null) {

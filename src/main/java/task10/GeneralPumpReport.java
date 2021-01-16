@@ -1,7 +1,13 @@
 package task10;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Map;
 
+// TODO: 16.01.2021 переползай не lombok
+@Getter
+@Setter
 public class GeneralPumpReport {
     private Map<Integer, Integer> purshuasesProMonth;
     private int totalProYear;

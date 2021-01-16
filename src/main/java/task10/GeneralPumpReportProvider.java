@@ -73,10 +73,18 @@ public class GeneralPumpReportProvider {
     }
 
     private Map<Integer, Integer> getPurshuasesProMonth() {
+//        Month august = Month.AUGUST;
+//        int numVal = august.getValue();
+//        Month feb = Month.of(2);
+//        EnumMap<Month, Integer> qtyPerMonth;
+//        но я бы сделал сисок EnumMap<Month, Set<PumpReport>> yearlyReport а из него стримами можешь получить все данные что хочешь. Количество, среднее, сумма  и все что хочешь
+
         HashMap<Integer, Integer> proMonthMap = new HashMap<>();
 
         for (PumpReport pumpReport : pumpReportList) {
             int monthValue = pumpReport.getDateTime().getMonthValue();
+            // TODO: 16.01.2021 делается в одну строчку
+//            proMonthMap.merge(monthValue,  pumpReport.getSuccessSelected(), Integer::sum);
             if (proMonthMap.containsKey(monthValue)) {
                 Integer currentInMonth = proMonthMap.get(monthValue) + pumpReport.getSuccessSelected();
                 proMonthMap.put(monthValue, currentInMonth);
@@ -86,6 +94,8 @@ public class GeneralPumpReportProvider {
         }
         return proMonthMap;
     }
+
+    // TODO: 16.01.2021 поищи поизящней решение
     private Double roundOf(Double value){
         return (double) Math.round(value * 100) / 100;
     }
