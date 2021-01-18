@@ -9,10 +9,10 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class CirculationBatchSelector {
+public class CirculationPumpBatchSelector {
     private final CirculationPumpSelector selector;
 
-    public CirculationBatchSelector() {
+    public CirculationPumpBatchSelector() {
         this.selector = new CirculationPumpSelector();
     }
 

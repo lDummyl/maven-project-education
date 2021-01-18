@@ -61,7 +61,9 @@ public class CirculationPumpBatchReport {
         }
 
         private Double calculatePriceWithoutDelivery(Collection<CirculationPumpResponse> responses) {
-            return responses.stream().map(response -> response.getPumpOrNull().getRublePrice()).mapToDouble(Double::doubleValue).sum();
+            double sum = responses.stream().map(CirculationPumpResponse::getPumpOrNull).filter(Objects::nonNull).map(Pump::getRublePrice).mapToDouble(Double::doubleValue).sum();
+            return sum;
+
         }
 
         private Set<Pump> searchUniqueModels(Collection<CirculationPumpResponse> responses) {

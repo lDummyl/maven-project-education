@@ -19,23 +19,22 @@ import java.util.Collection;
 
 */
 public class CirculationBatchFileSelector {
-    private final CirculationBatchSelector selector;
+    private final CirculationPumpBatchSelector selector;
     ObjectMapper mapper;
 
     public CirculationBatchFileSelector() {
-        this.selector = new CirculationBatchSelector();
+        this.selector = new CirculationPumpBatchSelector();
         this.mapper = new ObjectMapper();
     }
 
-    public File selectPumpsFromRequestFile(File fileWithRequests, File fileToWrite) {
+    public void selectPumpsFromRequestFile(File fileWithRequests, File fileToWrite) {
         Collection<PumpRequest> requests = getRequests(fileWithRequests);
         writeToFile(requests, fileToWrite);
-        return null;//selector.selectPumps(requests);
     }
 
-    public File getReportFromRequestFile(File fileWithRequests) {
+    public CirculationPumpBatchReport getReportFromRequestFile(File fileWithRequests) {
         Collection<PumpRequest> requests = getRequests(fileWithRequests);
-        return null;//selector.selectPumpsWithReport(requests);
+       return selector.selectPumpsWithReport(requests);
     }
 
     @SneakyThrows
@@ -53,6 +52,4 @@ public class CirculationBatchFileSelector {
         return mapper.readValue(fileWithRequests, new TypeReference<Collection<PumpRequest>>() {
         });
     }
-
-
 }

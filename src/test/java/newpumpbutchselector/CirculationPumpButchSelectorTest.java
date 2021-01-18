@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 public class CirculationPumpButchSelectorTest {
     @Test
     public void generalTest(){
-        CirculationBatchSelector selector = new CirculationBatchSelector();
+        CirculationPumpBatchSelector selector = new CirculationPumpBatchSelector();
         List<PumpRequest> requests = Arrays.asList(new PumpRequest(1.0, 2.0), new PumpRequest(2.0, 2.0));
 
         Collection<CirculationPumpResponse> circulationPumpResponses = selector.selectPumps(requests);

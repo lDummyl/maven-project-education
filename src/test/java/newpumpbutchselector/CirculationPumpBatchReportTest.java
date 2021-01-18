@@ -12,8 +12,8 @@ public class CirculationPumpBatchReportTest {
     @Test
     public void reportTest() {
         List<PumpRequest> requests = Arrays.asList(new PumpRequest(1.0, 2.0), new PumpRequest(2.0, 2.0));
-        CirculationBatchSelector circulationBatchSelector = new CirculationBatchSelector();
-        CirculationPumpBatchReport report = circulationBatchSelector.selectPumpsWithReport(requests);
+        CirculationPumpBatchSelector circulationPumpBatchSelector = new CirculationPumpBatchSelector();
+        CirculationPumpBatchReport report = circulationPumpBatchSelector.selectPumpsWithReport(requests);
 
         Double priceInTotal = report.getCommercialBLock().priceInTotal;
         Double priceWithoutDelivery = report.getCommercialBLock().priceWithoutDelivery;

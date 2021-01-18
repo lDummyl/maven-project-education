@@ -1,39 +1,115 @@
 package task10;
 
-import java.util.Map;
+import newpumpbutchselector.CirculationPumpBatchReport;
+import newpumpbutchselector.CirculationPumpResponse;
+import newpumpselector.CirculationPumpSelectorException;
+
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.*;
+import java.util.stream.Collectors;
+
+/*
+	Модифицировать генератор запросов чтобы создать эмулятор запросов на год
+	добавить в запросы и резульататы дату. Сгенерировать 100 запросов,
+	с некорорым распредением по году
+	выдать отчет по этим отчетам сколько куплено по месяцам, всего за год, среднее в мес
+	всего за доставку затраты, сколько в месяц ошибок в данных.
+
+ */
 
 public class GeneralPumpReport {
-    private Map<Integer, Integer> purshuasesProMonth;
-    private int totalProYear;
-    Double  averagePerMonth;
+    private List<CirculationPumpBatchReport> reports;
+    private Map<Month, Integer> purchasesPerMonth;
+    private Integer perYearInTotal;
+    private Double averagePerMonth;
     private Double totalForDelivery;
-    private Integer errorInDataPerMonth;
+    private Map<Month, Integer> errorsPerMonth;
 
-    public GeneralPumpReport(Map<Integer, Integer> purshuasesProMonth, int totalProYear, Double averagePerMonth, Double totalForDelivery, Integer errorInDataPerMonth) {
-        this.purshuasesProMonth = purshuasesProMonth;
-        this.totalProYear = totalProYear;
-        this.averagePerMonth = averagePerMonth;
-        this.totalForDelivery = totalForDelivery;
-        this.errorInDataPerMonth = errorInDataPerMonth;
+    public GeneralPumpReport(List<CirculationPumpBatchReport> reports) {
+        this.reports = reports;
+        this.averagePerMonth = calculateAveragePerMonth();
+        this.perYearInTotal = calculatePerYear();
+        this.errorsPerMonth = calculateMonthErrors();
+        this.totalForDelivery = calculateTotalFoeDelivery();
+        this.purchasesPerMonth = calculatePurchasesPerMonth();
+    }
+    // TODO: 1/18/2021 Реализовать по мемяцам
+    private Map<Month, Integer> calculatePurchasesPerMonth() {
+        /*HashMap<Month, Integer> purchasesPerMonth = new HashMap<>();
+        List<Collection<CirculationPumpResponse>> collect = reports.stream().map(CirculationPumpBatchReport::getResponses).collect(Collectors.toList());
+        for (Collection<CirculationPumpResponse> responses : collect) {
+            for (CirculationPumpResponse respons : responses) {
+                LocalDate currentDate = respons.getRequest().getDateTime();
+                Integer currentValue = purchasesPerMonth.get(currentDate.getMonth());
+                purchasesPerMonth.put(currentDate.getMonth(), currentValue + 1);
+            }
+        }*/
+        return null;
     }
 
-    public Map<Integer, Integer> getPurshuasesProMonth() {
-        return purshuasesProMonth;
+    private Double calculateTotalFoeDelivery() {
+        return reports.stream().map(value -> value.getCommercialBLock().getPriceInTotal() - value.getCommercialBLock().getPriceWithoutDelivery())
+                .mapToDouble(Double::valueOf).sum();
     }
 
-    public void setPurshuasesProMonth(Map<Integer, Integer> purshuasesProMonth) {
-        this.purshuasesProMonth = purshuasesProMonth;
+    // TODO: 1/18/2021 Реализовать по мемяцам
+    private Map<Month, Integer> calculateMonthErrors() {
+        /*HashMap<Month, Integer> errorsPerMonth = new HashMap<>();
+
+        List<Collection<CirculationPumpResponse>> responseCollection = reports.stream().map(CirculationPumpBatchReport::getResponses).collect(Collectors.toList());
+        for (Collection<CirculationPumpResponse> responses : responseCollection) {
+            for (CirculationPumpResponse respons : responses) {
+                LocalDate dateTime = respons.getRequest().getDateTime();
+                CirculationPumpSelectorException error = respons.getError();
+                if (error != null || dateTime != null) {
+                    Month currentMonth = dateTime.getMonth();
+                    Integer currentValue = errorsPerMonth.get(currentMonth);
+                    errorsPerMonth.put(currentMonth, currentValue + 1);
+                }
+            }
+        }*/
+        return null;
     }
 
-    public int getTotalProYear() {
-        return totalProYear;
+    public GeneralPumpReport() {
     }
 
-    public void setTotalProYear(int totalProYear) {
-        this.totalProYear = totalProYear;
+    private Integer calculatePerYear() {
+        return reports.stream().map(CirculationPumpBatchReport::getResponses).map(Collection::size).mapToInt(Integer::valueOf).sum();
     }
 
-    // FIXME: 1/12/2021 сделать суммы покупок
+    private Double calculateAveragePerMonth() {
+        double sum = reports.stream().map(CirculationPumpBatchReport::getResponses)
+                .map(Collection::size)
+                .mapToDouble(Double::valueOf).sum();
+        return sum / 12;
+    }
+
+    public List<CirculationPumpBatchReport> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<CirculationPumpBatchReport> reports) {
+        this.reports = reports;
+    }
+
+    public Map<Month, Integer> getPurchasesPerMonth() {
+        return purchasesPerMonth;
+    }
+
+    public void setPurchasesPerMonth(Map<Month, Integer> purchasesPerMonth) {
+        this.purchasesPerMonth = purchasesPerMonth;
+    }
+
+    public Integer getPerYearInTotal() {
+        return perYearInTotal;
+    }
+
+    public void setPerYearInTotal(Integer perYearInTotal) {
+        this.perYearInTotal = perYearInTotal;
+    }
+
     public Double getAveragePerMonth() {
         return averagePerMonth;
     }
@@ -50,11 +126,11 @@ public class GeneralPumpReport {
         this.totalForDelivery = totalForDelivery;
     }
 
-    public Integer getErrorInDataPerMonth() {
-        return errorInDataPerMonth;
+    public Map<Month, Integer> getErrorsPerMonth() {
+        return errorsPerMonth;
     }
 
-    public void setErrorInDataPerMonth(Integer errorInDataPerMonth) {
-        this.errorInDataPerMonth = errorInDataPerMonth;
+    public void setErrorsPerMonth(Map<Month, Integer> errorsPerMonth) {
+        this.errorsPerMonth = errorsPerMonth;
     }
 }
