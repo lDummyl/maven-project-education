@@ -1,6 +1,7 @@
 package task10;
 
-
+import task8.PumpPackageSelector;
+import task8.PumpReport;
 import task8.PumpRequest;
 import task8.RequestGenerator;
 
@@ -10,34 +11,45 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/*
+public class DateWorkSimulation {
+    DatePumpRequestGenerator generator;
+    PumpPackageSelector selector;
+
+    public DateWorkSimulation() {
+        this.generator = new DatePumpRequestGenerator();
+        this.selector = new PumpPackageSelector();
+    }
+
+    public List<PumpReport> simulate() {
+        // TODO: 16.01.2021 одной строкой, в функциональном стиле, привыкай
+//        return generator.generateRequests().stream().map(selector::selectPumpsWithReport)
+//                .collect(Collectors.toList());
+
+        ArrayList<PumpReport> pumpReports = new ArrayList<>();
+        List<List<PumpRequest>> lists = generator.generateRequests();
+        for (List<PumpRequest> list : lists) {
+            PumpReport pumpReport = selector.selectPumpsWithReport(list);
+            pumpReports.add(pumpReport);
+        }
+        return pumpReports;
+    }
+}
+*/
+
+
 public class DatePumpRequestGenerator {
-    Integer monthPeriod;
-    Integer numberOfRequestsInMoment;
-    Integer numberOfGeneration;
-    RequestGenerator generator;
+    private final Integer numberOfMonths;
+    private final RequestGenerator generator;
     public static final Random random = new Random();
 
     public DatePumpRequestGenerator() {
-        this.monthPeriod = 12;
-        this.numberOfRequestsInMoment = 10;
+        this.numberOfMonths = 12;
         this.generator = new RequestGenerator();
-        this.numberOfGeneration = 100;
     }
 
-
-    public List<List<PumpRequest>> generateRequests() {
-        // TODO: 16.01.2021 декларативней наглядней и короче
-//        return Stream.generate(this::getRequestList).limit(numberOfGeneration).collect(Collectors.toList())
-        ArrayList<List<PumpRequest>> lists = new ArrayList<>();
-        for (int i = 0; i < numberOfGeneration; i++) {
-            lists.add(getRequestList());
-        }
-        return lists;
-
-    }
-
-    private List<PumpRequest> getRequestList() {
-        List<PumpRequest> requests = generator.generateRequests(numberOfRequestsInMoment);
+    public List<PumpRequest> generateRequestList(int numberOfRequests) {
+        List<PumpRequest> requests = generator.generateRequests(numberOfRequests);
         addData(requests);
         return requests;
     }
@@ -47,13 +59,9 @@ public class DatePumpRequestGenerator {
         for (PumpRequest request : requests) {
             request.setDateTime(randomDate);
         }
-
     }
 
     private LocalDate getRandomDate() {
-        // TODO: 16.01.2021 короче и изящней, изучай либы, есть масса способов.
-//        int daysInYear = Year.of(2020).length();
-//        return LocalDate.ofYearDay(2020, daysInYear).minusDays(random.nextInt(daysInYear));
         LocalDate localDate = null;
 
         while (localDate == null) {
@@ -62,10 +70,9 @@ public class DatePumpRequestGenerator {
             try {
                 localDate = LocalDate.of(LocalDateTime.now().getYear(), month, day);
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
         return localDate;
-
     }
 }
