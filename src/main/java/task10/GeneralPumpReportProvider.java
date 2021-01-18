@@ -19,7 +19,7 @@ import java.util.Map;
  */
 
 public class GeneralPumpReportProvider {
-    File fileWithReports;
+   /* File fileWithReports;
     List<PumpReport> pumpReportList;
 
 
@@ -99,5 +99,5 @@ public class GeneralPumpReportProvider {
     private Double roundOf(Double value){
         return (double) Math.round(value * 100) / 100;
     }
-
+*/
 }
