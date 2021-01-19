@@ -53,6 +53,7 @@ public class CirculationPumpBatchReport {
         }
 
         private Double calculatePriceInTotal(Double price) {
+            // TODO: 19.01.2021 magic numbers!
             if (price > 10_000) {
                 return price;
             } else {
@@ -61,9 +62,11 @@ public class CirculationPumpBatchReport {
         }
 
         private Double calculatePriceWithoutDelivery(Collection<CirculationPumpResponse> responses) {
-            double sum = responses.stream().map(CirculationPumpResponse::getPumpOrNull).filter(Objects::nonNull).map(Pump::getRublePrice).mapToDouble(Double::doubleValue).sum();
-            return sum;
-
+            return responses.stream()
+                    .map(CirculationPumpResponse::getPumpOrNull)
+                    .filter(Objects::nonNull).map(Pump::getRublePrice)
+                    .mapToDouble(Double::doubleValue)
+                    .sum();
         }
 
         private Set<Pump> searchUniqueModels(Collection<CirculationPumpResponse> responses) {

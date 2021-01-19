@@ -1,27 +1,13 @@
 package task10;
 
 
-import newpumpbutchselector.CirculationPumpBatchReport;
-import newpumpbutchselector.CirculationPumpResponse;
-import newpumpselector.CirculationPumpSelectorException;
-
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.*;
-import java.util.stream.Collectors;
-
-/*
-	Модифицировать генератор запросов чтобы создать эмулятор запросов на год
-	добавить в запросы и резульататы дату. Сгенерировать 100 запросов,
-	с некорорым распредением по году
-	выдать отчет по этим отчетам сколько куплено по месяцам, всего за год, среднее в мес
-	всего за доставку затраты, сколько в месяц ошибок в данных.
-
- */
-
 import lombok.Getter;
 import lombok.Setter;
+import newpumpbutchselector.CirculationPumpBatchReport;
 
+import java.time.Month;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 
@@ -38,6 +24,7 @@ public class GeneralPumpReport {
 
     public GeneralPumpReport(List<CirculationPumpBatchReport> reports) {
         this.reports = reports;
+        // TODO: 19.01.2021 по взрослому не принято вызывать методы в конструкторе, в нем просто присвоение полям значений. Такой отчет лучше все-таки не пытаться сделать шибко ООПшным. Сделай службу их формирующую, а отчет просто как dto, которые он выдает.
         this.averagePerMonth = calculateAveragePerMonth();
         this.perYearInTotal = calculatePerYear();
         this.errorsPerMonth = calculateMonthErrors();
@@ -46,15 +33,7 @@ public class GeneralPumpReport {
     }
     // TODO: 1/18/2021 Реализовать по мемяцам
     private Map<Month, Integer> calculatePurchasesPerMonth() {
-        /*HashMap<Month, Integer> purchasesPerMonth = new HashMap<>();
-        List<Collection<CirculationPumpResponse>> collect = reports.stream().map(CirculationPumpBatchReport::getResponses).collect(Collectors.toList());
-        for (Collection<CirculationPumpResponse> responses : collect) {
-            for (CirculationPumpResponse respons : responses) {
-                LocalDate currentDate = respons.getRequest().getDateTime();
-                Integer currentValue = purchasesPerMonth.get(currentDate.getMonth());
-                purchasesPerMonth.put(currentDate.getMonth(), currentValue + 1);
-            }
-        }*/
+        // TODO: 19.01.2021 не оставляй в коммитах мертвый код учись привыкай работать с VCS и если что-то не готово лучше бросать ex, чем возвращать null.
         return null;
     }
 
@@ -65,20 +44,6 @@ public class GeneralPumpReport {
 
     // TODO: 1/18/2021 Реализовать по мемяцам
     private Map<Month, Integer> calculateMonthErrors() {
-        /*HashMap<Month, Integer> errorsPerMonth = new HashMap<>();
-
-        List<Collection<CirculationPumpResponse>> responseCollection = reports.stream().map(CirculationPumpBatchReport::getResponses).collect(Collectors.toList());
-        for (Collection<CirculationPumpResponse> responses : responseCollection) {
-            for (CirculationPumpResponse respons : responses) {
-                LocalDate dateTime = respons.getRequest().getDateTime();
-                CirculationPumpSelectorException error = respons.getError();
-                if (error != null || dateTime != null) {
-                    Month currentMonth = dateTime.getMonth();
-                    Integer currentValue = errorsPerMonth.get(currentMonth);
-                    errorsPerMonth.put(currentMonth, currentValue + 1);
-                }
-            }
-        }*/
         return null;
     }
 
@@ -89,6 +54,7 @@ public class GeneralPumpReport {
         return reports.stream().map(CirculationPumpBatchReport::getResponses).map(Collection::size).mapToInt(Integer::valueOf).sum();
     }
 
+    // TODO: 19.01.2021 а теперь сделай отчет по месяцам со средним КП по сумме в каждом месяце.
     private Double calculateAveragePerMonth() {
         double sum = reports.stream().map(CirculationPumpBatchReport::getResponses)
                 .map(Collection::size)
