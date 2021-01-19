@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RequestSimulator {
-    private final DatePumpRequestGenerator generator;
+    private final YearPumpRequestGenerator generator;
     private final CirculationPumpBatchSelector selector;
 
     public RequestSimulator() {
-        this.generator = new DatePumpRequestGenerator();
+        this.generator = new YearPumpRequestGenerator();
         this.selector = new CirculationPumpBatchSelector();
     }
 

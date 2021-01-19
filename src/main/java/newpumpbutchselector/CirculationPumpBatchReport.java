@@ -53,7 +53,7 @@ public class CirculationPumpBatchReport {
         }
 
         private Double calculatePriceInTotal(Double price) {
-            if (price > 10_000) {
+            if (price > 10_000.0) {
                 return price;
             } else {
                 return price * 1.1;

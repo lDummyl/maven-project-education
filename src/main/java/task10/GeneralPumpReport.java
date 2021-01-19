@@ -8,6 +8,7 @@ import newpumpselector.CirculationPumpSelectorException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /*
@@ -23,6 +24,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Map;
+import java.util.stream.Stream;
 
 
 // TODO: 16.01.2021 переползай не lombok
@@ -44,42 +46,39 @@ public class GeneralPumpReport {
         this.totalForDelivery = calculateTotalFoeDelivery();
         this.purchasesPerMonth = calculatePurchasesPerMonth();
     }
-    // TODO: 1/18/2021 Реализовать по мемяцам
-    private Map<Month, Integer> calculatePurchasesPerMonth() {
-        /*HashMap<Month, Integer> purchasesPerMonth = new HashMap<>();
-        List<Collection<CirculationPumpResponse>> collect = reports.stream().map(CirculationPumpBatchReport::getResponses).collect(Collectors.toList());
-        for (Collection<CirculationPumpResponse> responses : collect) {
-            for (CirculationPumpResponse respons : responses) {
-                LocalDate currentDate = respons.getRequest().getDateTime();
-                Integer currentValue = purchasesPerMonth.get(currentDate.getMonth());
-                purchasesPerMonth.put(currentDate.getMonth(), currentValue + 1);
-            }
-        }*/
-        return null;
+
+    private Map<Month, Integer> calculateMonthErrors() {
+        HashMap<Month, Integer> monthErrors = new HashMap<>();
+        List<CirculationPumpResponse> onlyErrorsList = getAllResponses().stream().filter(value -> value.getError() != null).collect(Collectors.toList());
+        for (CirculationPumpResponse response : onlyErrorsList) {
+            Month currentMonth = response.getRequest().getDateTime().getMonth();
+            monthErrors.putIfAbsent(currentMonth, 0);
+            monthErrors.put(currentMonth, monthErrors.get(currentMonth) + 1);
+            System.out.println();
+        }
+        return monthErrors;
     }
+    private Map<Month, Integer> calculatePurchasesPerMonth() {
+        HashMap<Month, Integer> monthPurchases = new HashMap<>();
+        List<CirculationPumpResponse> onlyByedList = getAllResponses().stream().filter(value -> value.getPumpOrNull() != null).collect(Collectors.toList());
+        for (CirculationPumpResponse response : onlyByedList) {
+            Month currentMonth = response.getRequest().getDateTime().getMonth();
+            monthPurchases.putIfAbsent(currentMonth, 0);
+            monthPurchases.put(currentMonth, monthPurchases.get(currentMonth) + 1);
+            System.out.println();
+        }
+        return monthPurchases;
+    }
+
+    private List<CirculationPumpResponse> getAllResponses(){
+       return reports.stream().map(CirculationPumpBatchReport::getResponses).flatMap(Collection::stream).collect(Collectors.toList());
+    }
+
 
     private Double calculateTotalFoeDelivery() {
-        return reports.stream().map(value -> value.getCommercialBLock().getPriceInTotal() - value.getCommercialBLock().getPriceWithoutDelivery())
+        double sum = reports.stream().map(value -> value.getCommercialBLock().getPriceInTotal() - value.getCommercialBLock().getPriceWithoutDelivery())
                 .mapToDouble(Double::valueOf).sum();
-    }
-
-    // TODO: 1/18/2021 Реализовать по мемяцам
-    private Map<Month, Integer> calculateMonthErrors() {
-        /*HashMap<Month, Integer> errorsPerMonth = new HashMap<>();
-
-        List<Collection<CirculationPumpResponse>> responseCollection = reports.stream().map(CirculationPumpBatchReport::getResponses).collect(Collectors.toList());
-        for (Collection<CirculationPumpResponse> responses : responseCollection) {
-            for (CirculationPumpResponse respons : responses) {
-                LocalDate dateTime = respons.getRequest().getDateTime();
-                CirculationPumpSelectorException error = respons.getError();
-                if (error != null || dateTime != null) {
-                    Month currentMonth = dateTime.getMonth();
-                    Integer currentValue = errorsPerMonth.get(currentMonth);
-                    errorsPerMonth.put(currentMonth, currentValue + 1);
-                }
-            }
-        }*/
-        return null;
+        return Math.floor(sum);
     }
 
     public GeneralPumpReport() {
@@ -93,6 +92,6 @@ public class GeneralPumpReport {
         double sum = reports.stream().map(CirculationPumpBatchReport::getResponses)
                 .map(Collection::size)
                 .mapToDouble(Double::valueOf).sum();
-        return sum / 12;
+        return Math.floor(sum / 12);
     }
 }

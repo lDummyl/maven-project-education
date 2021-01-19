@@ -13,7 +13,7 @@ public class RequestSimulatorTest {
     public void simulationTest(){
         RequestSimulator requestSimulator = new RequestSimulator();
         Integer numberOfReports = 10;
-        int numberOfRequests = 10;
+        int numberOfRequests = 7;
 
 
         List<CirculationPumpBatchReport> simulate = requestSimulator.simulate(numberOfReports, numberOfRequests);
