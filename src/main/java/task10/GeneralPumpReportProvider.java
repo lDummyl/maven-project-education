@@ -53,6 +53,7 @@ public class GeneralPumpReportProvider {
         return monthErrors;
     }
 
+    // FIXME: 1/19/2021 Убрать повторение
     private Map<Month, Integer> calculatePurchasesPerMonth() {
         HashMap<Month, Integer> monthPurchases = new HashMap<>();
         List<CirculationPumpResponse> onlyByedList = getAllResponses().stream().filter(value -> value.getPumpOrNull() != null).collect(Collectors.toList());
@@ -80,7 +81,7 @@ public class GeneralPumpReportProvider {
     private Integer calculatePerYear() {
         return reports.stream().map(CirculationPumpBatchReport::getResponses).map(Collection::size).mapToInt(Integer::valueOf).sum();
     }
-
+    //TODO: 19.01.2021 а теперь сделай отчет по месяцам со средним КП по сумме в каждом месяце.
     private Double calculateAveragePerMonth() {
         double sum = reports.stream().map(CirculationPumpBatchReport::getResponses)
                 .map(Collection::size)

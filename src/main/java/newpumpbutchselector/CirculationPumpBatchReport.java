@@ -1,5 +1,7 @@
 package newpumpbutchselector;
 
+import lombok.Getter;
+import lombok.Setter;
 import task7.Pump;
 
 import java.util.Collection;
@@ -16,29 +18,28 @@ import java.util.stream.Collectors;
 	доставка бесплатно.
  */
 
+@Getter
 public class CirculationPumpBatchReport {
     private final Collection<CirculationPumpResponse> responses;
     private final CommercialBLock commercialBLock;
+    private final double priceToCoastLosDelivery;
 
     public CirculationPumpBatchReport(Collection<CirculationPumpResponse> responses) {
         this.responses = responses;
+        this.priceToCoastLosDelivery = 10_000.0;
         this.commercialBLock = new CommercialBLock(responses);
     }
 
-    public Collection<CirculationPumpResponse> getResponses() {
-        return responses;
-    }
 
-    public CommercialBLock getCommercialBLock() {
-        return commercialBLock;
-    }
-
+    @Getter
+    @Setter
     public static class CommercialBLock {
         Set<Pump> uniqueModels;
         Integer uniqueModelsNumber;
         Double priceInTotal;
         Double priceWithoutDelivery;
         Double averagePrice;
+        private Double priceToCoastLosDelivery;
 
         public CommercialBLock(Collection<CirculationPumpResponse> responses) {
             this.uniqueModels = searchUniqueModels(responses);
@@ -53,7 +54,7 @@ public class CirculationPumpBatchReport {
         }
 
         private Double calculatePriceInTotal(Double price) {
-            if (price > 10_000.0) {
+            if (price > priceToCoastLosDelivery) {
                 return price;
             } else {
                 return price * 1.1;
@@ -68,38 +69,6 @@ public class CirculationPumpBatchReport {
 
         private Set<Pump> searchUniqueModels(Collection<CirculationPumpResponse> responses) {
             return responses.stream().map(CirculationPumpResponse::getPumpOrNull).filter(Objects::nonNull).collect(Collectors.toSet());
-        }
-
-        public Set<Pump> getUniqueModels() {
-            return uniqueModels;
-        }
-
-        public void setUniqueModels(Set<Pump> uniqueModels) {
-            this.uniqueModels = uniqueModels;
-        }
-
-        public Integer getUniqueModelsNumber() {
-            return uniqueModelsNumber;
-        }
-
-        public void setUniqueModelsNumber(Integer uniqueModelsNumber) {
-            this.uniqueModelsNumber = uniqueModelsNumber;
-        }
-
-        public Double getPriceInTotal() {
-            return priceInTotal;
-        }
-
-        public void setPriceInTotal(Double priceInTotal) {
-            this.priceInTotal = priceInTotal;
-        }
-
-        public Double getPriceWithoutDelivery() {
-            return priceWithoutDelivery;
-        }
-
-        public void setPriceWithoutDelivery(Double priceWithoutDelivery) {
-            this.priceWithoutDelivery = priceWithoutDelivery;
         }
     }
 }

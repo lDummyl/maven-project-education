@@ -17,7 +17,7 @@ public class RequestSimulatorTest {
 
 
         List<CirculationPumpBatchReport> simulate = requestSimulator.simulate(numberOfReports, numberOfRequests);
-        GeneralPumpReport generalPumpReport = new GeneralPumpReport(simulate);
+        GeneralPumpReport generalPumpReport = new GeneralPumpReport();
         System.out.println();
     }
 
