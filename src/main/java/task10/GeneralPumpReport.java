@@ -38,15 +38,6 @@ public class GeneralPumpReport {
     private Double totalForDelivery;
     private Map<Month, Integer> errorsPerMonth;
 
-    public GeneralPumpReport(List<CirculationPumpBatchReport> reports) {
-        this.reports = reports;
-        this.averagePerMonth = calculateAveragePerMonth();
-        this.perYearInTotal = calculatePerYear();
-        this.errorsPerMonth = calculateMonthErrors();
-        this.totalForDelivery = calculateTotalFoeDelivery();
-        this.purchasesPerMonth = calculatePurchasesPerMonth();
-    }
-
     private Map<Month, Integer> calculateMonthErrors() {
         HashMap<Month, Integer> monthErrors = new HashMap<>();
         List<CirculationPumpResponse> onlyErrorsList = getAllResponses().stream().filter(value -> value.getError() != null).collect(Collectors.toList());

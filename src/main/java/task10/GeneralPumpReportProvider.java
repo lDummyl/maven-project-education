@@ -1,12 +1,17 @@
 package task10;
 
+import newpumpbutchselector.CirculationPumpBatchReport;
+import newpumpbutchselector.CirculationPumpResponse;
 import task8.PumpReport;
 import task8.PumpTechResponse;
 
 import java.io.File;
+import java.time.Month;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /*
@@ -19,85 +24,67 @@ import java.util.Map;
  */
 
 public class GeneralPumpReportProvider {
-   /* File fileWithReports;
-    List<PumpReport> pumpReportList;
+    private List<CirculationPumpBatchReport> reports;
 
-
-    public GeneralPumpReportProvider(List<PumpReport> pumpReportList) {
-        this.pumpReportList = pumpReportList;
+    public GeneralPumpReportProvider(List<CirculationPumpBatchReport> reports) {
+        this.reports = reports;
     }
 
-    public GeneralPumpReport createReport() {
-        Map<Integer, Integer> purshuasesProMonth = getPurshuasesProMonth();
-        int totalProYear = getTotalProYear(purshuasesProMonth);
-        Double averagePerMonth = averagePerMonth(totalProYear);
-        Double totalForDelivery = getTotalForDelivery();
-        Integer errorInDataPerMonth = getErrorInDataPerMonth();
-        return new GeneralPumpReport(purshuasesProMonth, totalProYear, averagePerMonth, totalForDelivery, errorInDataPerMonth);
+    public GeneralPumpReport getReport() {
+        GeneralPumpReport generalPumpReport = new GeneralPumpReport();
+        generalPumpReport.setReports(reports);
+        generalPumpReport.setAveragePerMonth(calculateAveragePerMonth());
+        generalPumpReport.setErrorsPerMonth(calculateMonthErrors());
+        generalPumpReport.setPerYearInTotal(calculatePerYear());
+        generalPumpReport.setPurchasesPerMonth(calculatePurchasesPerMonth());
+        generalPumpReport.setTotalForDelivery(calculateTotalFoeDelivery());
+        return generalPumpReport;
     }
 
-    private int getTotalProYear(Map<Integer, Integer> purshuasesProMonth) {
-        int sum = 0;
-        for (Integer value : purshuasesProMonth.values()) {
-            sum += value;
+    private Map<Month, Integer> calculateMonthErrors() {
+        HashMap<Month, Integer> monthErrors = new HashMap<>();
+        List<CirculationPumpResponse> onlyErrorsList = getAllResponses().stream().filter(value -> value.getError() != null).collect(Collectors.toList());
+        for (CirculationPumpResponse response : onlyErrorsList) {
+            Month currentMonth = response.getRequest().getDateTime().getMonth();
+            monthErrors.putIfAbsent(currentMonth, 0);
+            monthErrors.put(currentMonth, monthErrors.get(currentMonth) + 1);
+            System.out.println();
         }
-        return sum;
+        return monthErrors;
     }
 
-    private Integer getErrorInDataPerMonth() {
-        int errorsInTotal = 0;
-        for (PumpReport pumpReport : pumpReportList) {
-            for (PumpTechResponse pumpTechRespons : pumpReport.getPumpTechResponses()) {
-                Double consumption = pumpTechRespons.getRequest().getConsumption();
-                Double pressure = pumpTechRespons.getRequest().getPressure();
-                if (consumption == null || pressure == null) {
-                    errorsInTotal++;
-                }
-            }
+    private Map<Month, Integer> calculatePurchasesPerMonth() {
+        HashMap<Month, Integer> monthPurchases = new HashMap<>();
+        List<CirculationPumpResponse> onlyByedList = getAllResponses().stream().filter(value -> value.getPumpOrNull() != null).collect(Collectors.toList());
+        for (CirculationPumpResponse response : onlyByedList) {
+            Month currentMonth = response.getRequest().getDateTime().getMonth();
+            monthPurchases.putIfAbsent(currentMonth, 0);
+            monthPurchases.put(currentMonth, monthPurchases.get(currentMonth) + 1);
+            System.out.println();
         }
-        return errorsInTotal;
+        return monthPurchases;
     }
 
-    private Double getTotalForDelivery() {
-        Double totalForDelivery = 0.0;
-        for (PumpReport pumpReport : pumpReportList) {
-            Double priceWithDelivery = pumpReport.getCommercialBlock().getPriceWithDelivery();
-            Double priceInTotal = pumpReport.getCommercialBlock().getPriceInTotal();
-            totalForDelivery += priceWithDelivery - priceInTotal;
-        }
-        return roundOf(totalForDelivery);
+    private List<CirculationPumpResponse> getAllResponses() {
+        return reports.stream().map(CirculationPumpBatchReport::getResponses).flatMap(Collection::stream).collect(Collectors.toList());
     }
 
-    private Double averagePerMonth(int totalProYear) {
-        return roundOf( totalProYear / 12.0);
+
+    private Double calculateTotalFoeDelivery() {
+        double sum = reports.stream().map(value -> value.getCommercialBLock().getPriceInTotal() - value.getCommercialBLock().getPriceWithoutDelivery())
+                .mapToDouble(Double::valueOf).sum();
+        return Math.floor(sum);
     }
 
-    private Map<Integer, Integer> getPurshuasesProMonth() {
-//        Month august = Month.AUGUST;
-//        int numVal = august.getValue();
-//        Month feb = Month.of(2);
-//        EnumMap<Month, Integer> qtyPerMonth;
-//        но я бы сделал сисок EnumMap<Month, Set<PumpReport>> yearlyReport а из него стримами можешь получить все данные что хочешь. Количество, среднее, сумма  и все что хочешь
 
-        HashMap<Integer, Integer> proMonthMap = new HashMap<>();
-
-        for (PumpReport pumpReport : pumpReportList) {
-            int monthValue = pumpReport.getDateTime().getMonthValue();
-            // TODO: 16.01.2021 делается в одну строчку
-//            proMonthMap.merge(monthValue,  pumpReport.getSuccessSelected(), Integer::sum);
-            if (proMonthMap.containsKey(monthValue)) {
-                Integer currentInMonth = proMonthMap.get(monthValue) + pumpReport.getSuccessSelected();
-                proMonthMap.put(monthValue, currentInMonth);
-            } else {
-                proMonthMap.put(monthValue, pumpReport.getSuccessSelected());
-            }
-        }
-        return proMonthMap;
+    private Integer calculatePerYear() {
+        return reports.stream().map(CirculationPumpBatchReport::getResponses).map(Collection::size).mapToInt(Integer::valueOf).sum();
     }
 
-    // TODO: 16.01.2021 поищи поизящней решение
-    private Double roundOf(Double value){
-        return (double) Math.round(value * 100) / 100;
+    private Double calculateAveragePerMonth() {
+        double sum = reports.stream().map(CirculationPumpBatchReport::getResponses)
+                .map(Collection::size)
+                .mapToDouble(Double::valueOf).sum();
+        return Math.floor(sum / 12);
     }
-*/
 }
