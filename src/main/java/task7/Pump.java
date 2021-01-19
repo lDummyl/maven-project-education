@@ -6,12 +6,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import task6.LagrangePolynomial;
 
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 public class Pump implements Comparable<Pump> {
     private String model;
-    private Double rublePrice;
+    private Double rublePrice; // TODO: 19.01.2021 заведи класс Price
 
 
     private List<Speed> speeds = new ArrayList<>();

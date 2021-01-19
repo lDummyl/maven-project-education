@@ -4,8 +4,6 @@ import newpumpselector.CirculationPumpSelectorException;
 import task7.Pump;
 import task8.PumpRequest;
 
-import java.util.Optional;
-
 /*
 	Реализовать пакетный подбор насосов
 	создать генератор Json, который содержит пары расход/напор
@@ -16,7 +14,7 @@ import java.util.Optional;
 	доставка бесплатно.
  */
 public class CirculationPumpResponse {
-    private Pump pumpOrNull;
+    private Pump pumpOrNull; // TODO: 19.01.2021 это называется Optional<Pump>
     private String model;
     private PumpRequest request;
     private CirculationPumpSelectorException error;
