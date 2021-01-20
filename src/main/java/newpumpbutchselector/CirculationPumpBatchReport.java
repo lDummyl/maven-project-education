@@ -39,7 +39,7 @@ public class CirculationPumpBatchReport {
         Double priceInTotal;
         Double priceWithoutDelivery;
         Double averagePrice;
-        private Double priceToCoastLosDelivery;
+        private Double priceToCoastLosDelivery = 100_000.0;
 
         public CommercialBLock(Collection<CirculationPumpResponse> responses) {
             this.uniqueModels = searchUniqueModels(responses);
@@ -62,7 +62,7 @@ public class CirculationPumpBatchReport {
         }
 
         private Double calculatePriceWithoutDelivery(Collection<CirculationPumpResponse> responses) {
-            double sum = responses.stream().map(CirculationPumpResponse::getPumpOrNull).filter(Objects::nonNull).map(Pump::getRublePrice).mapToDouble(Double::doubleValue).sum();
+            double sum = responses.stream().map(CirculationPumpResponse::getPumpOrNull).filter(Objects::nonNull).map(value -> value.getPrice().getRublePrice()).mapToDouble(Double::doubleValue).sum();
             return sum;
 
         }

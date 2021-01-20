@@ -6,6 +6,7 @@ import task8.RequestGenerator;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 
@@ -29,8 +30,12 @@ public class YearPumpRequestGenerator {
         }
     }
 
+    // FIXME: 1/20/2021 Иногда кидает java.time.DateTimeException: Invalid value for DayOfYear (valid values 1 - 365/366): 0
     private LocalDate getRandomDate() {
         int daysInYear = LocalDate.now().lengthOfYear();
-        return LocalDate.ofYearDay(LocalDate.now().getYear(), random.nextInt(daysInYear));
+        LocalDate localDate = LocalDate.ofYearDay(LocalDate.now().getYear(), random.nextInt(daysInYear));
+        Optional<Object> empty = Optional.empty();
+       // empty.
+        return null;
     }
 }

@@ -1,8 +1,12 @@
 package newpumpbutchselector;
 
+import lombok.Getter;
+import lombok.Setter;
 import newpumpselector.CirculationPumpSelectorException;
 import task7.Pump;
 import task8.PumpRequest;
+
+import java.util.Optional;
 
 /*
 	Реализовать пакетный подбор насосов
@@ -13,8 +17,10 @@ import task8.PumpRequest;
 	плюс всего за предложение, с доставкой(отдельно) 10% от стоимости, при стоиомсти выше 10 000
 	доставка бесплатно.
  */
+@Getter
+@Setter
 public class CirculationPumpResponse {
-    private Pump pumpOrNull; // TODO: 19.01.2021 это называется Optional<Pump>
+    private Optional<Pump> pump;
     private String model;
     private PumpRequest request;
     private CirculationPumpSelectorException error;
@@ -22,9 +28,8 @@ public class CirculationPumpResponse {
 
     public CirculationPumpResponse(Pump pump, PumpRequest request) {
         this.request = request;
-        this.pumpOrNull = pump;
+        this.pump = Optional.of(pump);
         this.model = pump.getModel();
-        ;
         this.workPoint = workPointSearch();
     }
 
@@ -39,7 +44,7 @@ public class CirculationPumpResponse {
     private CirculationPumpWorkPoint workPointSearch() {
 
         Pump.Speed workSpeed = null;
-        for (Pump.Speed speed : pumpOrNull.getSpeeds()) {
+        for (Pump.Speed speed : pump.get().getSpeeds()) {
             Double pressureValue = speed.getPressureValue(request.getConsumption());
             if (pressureValue >= request.getPressure()) {
                 workSpeed = speed;
@@ -51,45 +56,6 @@ public class CirculationPumpResponse {
         return new CirculationPumpWorkPoint(consumptionValue, request.getPressure());
     }
 
-    public Pump getPumpOrNull() {
-        return pumpOrNull;
-    }
-
-    public void setPumpOrNull(Pump pumpOrNull) {
-        this.pumpOrNull = pumpOrNull;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public PumpRequest getRequest() {
-        return request;
-    }
-
-    public void setRequest(PumpRequest request) {
-        this.request = request;
-    }
-
-    public CirculationPumpSelectorException getError() {
-        return error;
-    }
-
-    public void setError(CirculationPumpSelectorException error) {
-        this.error = error;
-    }
-
-    public CirculationPumpWorkPoint getWorkPoint() {
-        return workPoint;
-    }
-
-    public void setWorkPoint(CirculationPumpWorkPoint workPoint) {
-        this.workPoint = workPoint;
-    }
 
     private static class CirculationPumpWorkPoint {
         private Double consumption;

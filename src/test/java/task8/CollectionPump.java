@@ -1,8 +1,11 @@
 package task8;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import task7.Pump;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,5 +96,10 @@ public class CollectionPump {
         pumps.add(GHN_Basic_80_190_F);
 
         return pumps;
+    }
+
+    public static void main(String[] args) throws IOException {
+        List<Pump> pumps = addPumps();
+        new ObjectMapper().writeValue(new File("Fill.json"), pumps);
     }
 }

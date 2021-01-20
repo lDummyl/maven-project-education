@@ -33,7 +33,7 @@ public class PumpCommercialBlock {
         Double sum = 0.0;
         for (PumpTechResponse techResponse : pumpTechResponse) {
             if (techResponse.getPumpOrNull() != null) {
-                sum += techResponse.getPumpOrNull().getRublePrice();
+                sum += techResponse.getPumpOrNull().getPrice().getRublePrice();
             }
         }
         return sum;
