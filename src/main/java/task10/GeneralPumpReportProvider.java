@@ -1,3 +1,4 @@
+/*
 package task10;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,6 +17,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
+*/
 /*
 	Модифицировать генератор запросов чтобы создать эмулятор запросов на год
 	добавить в запросы и резульататы дату. Сгенерировать 100 запросов,
@@ -23,7 +25,8 @@ import java.util.stream.Collectors;
 	выдать отчет по этим отчетам сколько куплено по месяцам, всего за год, среднее в мес
 	всего за доставку затраты, сколько в месяц ошибок в данных.
 
- */
+ *//*
+
 
 public class GeneralPumpReportProvider {
     private List<CirculationPumpBatchReport> reports;
@@ -91,3 +94,4 @@ public class GeneralPumpReportProvider {
         return Math.floor(sum / 12);
     }
 }
+*/
