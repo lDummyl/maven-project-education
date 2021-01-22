@@ -10,5 +10,4 @@ import lombok.Setter;
 public class PumpDto {
     String a;
     String b;
-
 }
