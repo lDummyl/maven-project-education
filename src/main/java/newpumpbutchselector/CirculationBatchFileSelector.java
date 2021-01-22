@@ -25,7 +25,7 @@ public class CirculationBatchFileSelector {
 
     public CirculationPumpBatchReport getReportFromRequestFile(File fileWithRequests) {
         Collection<PumpRequest> requests = getRequests(fileWithRequests);
-       return selector.selectPumpsWithReport(requests);
+        return selector.selectPumpsWithReport(requests);
     }
 
     @SneakyThrows

@@ -7,8 +7,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CommercialBLockProvider {
-    private Collection<CirculationPumpResponse> responses;
-    private final Double priceToCoastLosDelivery = 100_000.0;
+    private final Collection<CirculationPumpResponse> responses;
+    private final Double priceToCoastLosDelivery = 1000_000.0;
+
+    public CommercialBLockProvider(Collection<CirculationPumpResponse> responses) {
+        this.responses = responses;
+    }
 
     public CommercialBLock createCommercialBlock() {
         CommercialBLock commercialBLock = new CommercialBLock();

@@ -1,24 +1,22 @@
 package newpumpbutchselector;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import task7.Pump;
 
 import java.util.Collection;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 
 @Setter
 @Getter
+@NoArgsConstructor
 public class CirculationPumpBatchReport {
-    private final Collection<CirculationPumpResponse> responses;
-    private final CommercialBLock commercialBLock;
-    private final double priceToCoastLosDelivery;
+    private Collection<CirculationPumpResponse> responses;
+    private CommercialBLock commercialBLock;
 
-    public CirculationPumpBatchReport(Collection<CirculationPumpResponse> responses) {
+    public CirculationPumpBatchReport(Collection<CirculationPumpResponse> responses, CommercialBLock commercialBLock) {
         this.responses = responses;
-        this.priceToCoastLosDelivery = 10_000.0;
-        this.commercialBLock = new CommercialBLock(responses);
+        this.commercialBLock = commercialBLock;
     }
 
 }

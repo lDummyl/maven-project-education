@@ -1,6 +1,7 @@
 package newpumpselector;
 
 import task7.Pump;
+import task7.Speed;
 import task8.PumpRequest;
 
 import java.util.*;
@@ -44,8 +45,8 @@ public class CirculationPumpSelector {
         return Optional.empty();
     }
 
-    private Optional<Pump.Speed> getWorkSpeed(Double consumption, Double pressure, Pump pump) {
-        for (Pump.Speed speed : pump.getSpeeds()) {
+    private Optional<Speed> getWorkSpeed(Double consumption, Double pressure, Pump pump) {
+        for (Speed speed : pump.getSpeeds()) {
             Double pressureValue = speed.getPressureValue(consumption);
             if (pressureValue >= pressure) {
                 return Optional.of(speed);

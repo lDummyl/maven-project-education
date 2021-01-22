@@ -1,31 +1,13 @@
-/*
+
 package task10;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import newpumpbutchselector.CirculationPumpBatchReport;
 import newpumpbutchselector.CirculationPumpResponse;
-import newpumpselector.CirculationPumpSelector;
-import newpumpselector.CirculationPumpSelectorException;
-import task7.Pump;
-import task8.PumpReport;
-import task8.PumpTechResponse;
 
-import java.io.File;
+
 import java.time.Month;
 import java.util.*;
 import java.util.stream.Collectors;
-
-
-*/
-/*
-	Модифицировать генератор запросов чтобы создать эмулятор запросов на год
-	добавить в запросы и резульататы дату. Сгенерировать 100 запросов,
-	с некорорым распредением по году
-	выдать отчет по этим отчетам сколько куплено по месяцам, всего за год, среднее в мес
-	всего за доставку затраты, сколько в месяц ошибок в данных.
-
- *//*
 
 
 public class GeneralPumpReportProvider {
@@ -49,26 +31,26 @@ public class GeneralPumpReportProvider {
     private Map<Month, Integer> calculateMonthErrors() {
         HashMap<Month, Integer> monthErrors = new HashMap<>();
         List<CirculationPumpResponse> onlyErrorsList = getAllResponses().stream().filter(value -> value.getError() != null).collect(Collectors.toList());
-        for (CirculationPumpResponse response : onlyErrorsList) {
-            Month currentMonth = response.getRequest().getDateTime().getMonth();
-            monthErrors.putIfAbsent(currentMonth, 0);
-            monthErrors.put(currentMonth, monthErrors.get(currentMonth) + 1);
-            System.out.println();
-        }
-        return monthErrors;
+
+        return createMonthMapWithNumberOfElements(onlyErrorsList);
     }
 
-    // FIXME: 1/19/2021 Убрать повторение
-    private Map<Month, Integer> calculatePurchasesPerMonth() {
-        HashMap<Month, Integer> monthPurchases = new HashMap<>();
-        List<CirculationPumpResponse> onlyByedList = getAllResponses().stream().filter(value -> value.getPumpOrNull() != null).collect(Collectors.toList());
-        for (CirculationPumpResponse response : onlyByedList) {
+    private Map<Month, Integer> createMonthMapWithNumberOfElements(List<CirculationPumpResponse> responses) {
+        HashMap<Month, Integer> monthMap = new HashMap<>();
+
+        for (CirculationPumpResponse response : responses) {
             Month currentMonth = response.getRequest().getDateTime().getMonth();
-            monthPurchases.putIfAbsent(currentMonth, 0);
-            monthPurchases.put(currentMonth, monthPurchases.get(currentMonth) + 1);
+            monthMap.putIfAbsent(currentMonth, 0);
+            monthMap.put(currentMonth, monthMap.get(currentMonth) + 1);
             System.out.println();
         }
-        return monthPurchases;
+        return monthMap;
+    }
+
+    private Map<Month, Integer> calculatePurchasesPerMonth() {
+        List<CirculationPumpResponse> onlyByedList = getAllResponses().stream().filter(value -> value.getPump().isPresent()).collect(Collectors.toList());
+
+        return createMonthMapWithNumberOfElements(onlyByedList);
     }
 
     private List<CirculationPumpResponse> getAllResponses() {
@@ -86,12 +68,13 @@ public class GeneralPumpReportProvider {
     private Integer calculatePerYear() {
         return reports.stream().map(CirculationPumpBatchReport::getResponses).map(Collection::size).mapToInt(Integer::valueOf).sum();
     }
-    //TODO: 19.01.2021 а теперь сделай отчет по месяцам со средним КП по сумме в каждом месяце.
+
     private Double calculateAveragePerMonth() {
-        double sum = reports.stream().map(CirculationPumpBatchReport::getResponses)
-                .map(Collection::size)
-                .mapToDouble(Double::valueOf).sum();
-        return Math.floor(sum / 12);
+
+        double sum = getAllResponses().stream().filter(value -> value.getPump().isPresent())
+                .map(value -> value.getPump().get().getPrice().getRublePrice())
+                .mapToDouble(Double::doubleValue).sum();
+        return sum / 12;
     }
 }
-*/
+

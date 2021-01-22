@@ -7,6 +7,7 @@ import lombok.SneakyThrows;
 import org.junit.Test;
 import task7.Pump;
 import task7.PumpCollector;
+import task7.Speed;
 
 import java.io.File;
 import java.util.*;
@@ -39,7 +40,7 @@ public class CirculationPumpSelectorTest {
 
         Collections.sort(pumpsValid);
         Pump neededPump = pumpsValid.get(0);
-        Pump.Speed speed = neededPump.getSpeeds().get(0);
+        Speed speed = neededPump.getSpeeds().get(0);
 
         Double pressure = speed.getPressure()[1];
         Double consumption = speed.getConsumption()[1];

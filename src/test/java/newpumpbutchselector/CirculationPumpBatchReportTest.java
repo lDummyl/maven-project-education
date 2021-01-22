@@ -15,16 +15,9 @@ public class CirculationPumpBatchReportTest {
         CirculationPumpBatchSelector circulationPumpBatchSelector = new CirculationPumpBatchSelector();
         CirculationPumpBatchReport report = circulationPumpBatchSelector.selectPumpsWithReport(requests);
 
-        Double priceInTotal = report.getCommercialBLock().priceInTotal;
-        Double priceWithoutDelivery = report.getCommercialBLock().priceWithoutDelivery;
+        CommercialBLock commercialBLock = report.getCommercialBLock();
+        commercialBLock.getAveragePrice();
 
-        assertNotNull(report);
-        assertTrue(priceInTotal > 0);
-        assertTrue(priceWithoutDelivery > 0);
-        assertTrue(priceInTotal > priceWithoutDelivery);
-        assertTrue(report.getCommercialBLock().uniqueModels.size() > 0);
-        assertFalse(report.getCommercialBLock().uniqueModels.contains(null));
-        assertEquals(requests.size(), report.getResponses().size());
 
     }
 

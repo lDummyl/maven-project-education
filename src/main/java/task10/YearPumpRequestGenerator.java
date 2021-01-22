@@ -34,8 +34,6 @@ public class YearPumpRequestGenerator {
     private LocalDate getRandomDate() {
         int daysInYear = LocalDate.now().lengthOfYear();
         LocalDate localDate = LocalDate.ofYearDay(LocalDate.now().getYear(), random.nextInt(daysInYear));
-        Optional<Object> empty = Optional.empty();
-       // empty.
-        return null;
+        return localDate;
     }
 }

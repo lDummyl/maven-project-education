@@ -50,8 +50,8 @@ public class PumpSelector {
         return Optional.empty();
     }
 
-    private Optional<Pump.Speed> getWorkSpeed(Double consumption, Double pressure, Pump pump) {
-        for (Pump.Speed speed : pump.getSpeeds()) {
+    private Optional<Speed> getWorkSpeed(Double consumption, Double pressure, Pump pump) {
+        for (Speed speed : pump.getSpeeds()) {
             Double pressureValue = speed.getPressureValue(consumption);
 
             if (pressureValue >= pressure) {

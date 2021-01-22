@@ -2,6 +2,7 @@ package newpumpbutchselector;
 
 import newpumpselector.CirculationPumpSelectorException;
 import task7.Pump;
+import task7.Speed;
 import task8.PumpRequest;
 
 import java.util.Optional;
@@ -34,13 +35,6 @@ public class PumpResponseProvider {
         return response;
     }
 
-    public CirculationPumpResponse createPumpResponse(PumpRequest request) {
-        CirculationPumpResponse response = new CirculationPumpResponse();
-        response.setRequest(request);
-
-        return response;
-    }
-
     public CirculationPumpResponse createPumpResponse(CirculationPumpSelectorException e, PumpRequest request) {
         CirculationPumpResponse response = new CirculationPumpResponse();
         response.setError(e);
@@ -51,8 +45,8 @@ public class PumpResponseProvider {
 
     private CirculationPumpWorkPoint workPointSearch(Pump pump, PumpRequest request) {
 
-        Pump.Speed workSpeed = null;
-        for (Pump.Speed speed : pump.getSpeeds()) {
+        Speed workSpeed = null;
+        for (Speed speed : pump.getSpeeds()) {
             Double pressureValue = speed.getPressureValue(request.getConsumption());
             if (pressureValue >= request.getPressure()) {
                 workSpeed = speed;

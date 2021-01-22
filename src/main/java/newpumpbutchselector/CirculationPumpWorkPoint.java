@@ -13,5 +13,4 @@ public class CirculationPumpWorkPoint {
         this.consumption = consumption;
         this.pressure = pressure;
     }
-
 }
