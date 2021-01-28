@@ -14,14 +14,13 @@ import java.util.Map;
 
 public class FileWriter {
     Workbook myExcelBook = new XSSFWorkbook(new FileInputStream("C:\\java\\fin.xlsx"));
-    Workbook insurancePayments = new XSSFWorkbook(new FileInputStream("C:\\Users\\Krugl\\OneDrive\\Рабочий стол\\1.Игра престолов\\Работа\\paymentsFromIC.xlsx"));
+    Workbook insurancePayments = new XSSFWorkbook(new FileInputStream("C:\\java\\paymentsFromIC.xlsx"));
 
 
     public FileWriter() throws IOException {
     }
 
-    public CellStyle getDateStyle(Workbook workbook)
-    {
+    public CellStyle getDateStyle(Workbook workbook) {
         String excelFormatPattern = DateFormatConverter.convert(Locale.ENGLISH, "dd.MM.yyyy");
 
         CellStyle cellStyle = workbook.createCellStyle();
@@ -107,7 +106,8 @@ public class FileWriter {
         return proceeds % 10 == 0;
     }
 
-    HashMap <String, String> russianNamesOfInsuranceCompanies = new HashMap <>();
+    HashMap<String, String> russianNamesOfInsuranceCompanies = new HashMap<>();
+
     {
         russianNamesOfInsuranceCompanies.put("Согласие", "SOGLASIE");
         russianNamesOfInsuranceCompanies.put("РОСЭНЕРГО", "ROSENERGO");
@@ -118,22 +118,24 @@ public class FileWriter {
         russianNamesOfInsuranceCompanies.put("Страховое общество газовой промышленности", "SOGAZ");
     }
 
-
-    public void writePaymentsFromIC (List <FinOperation> list, FileOutputStream file) throws IOException {
+    public void writePaymentsFromIC(List<FinOperation> list, FileOutputStream file) throws IOException {
         for (FinOperation finOperation : list) {
-            for (String companyName : russianNamesOfInsuranceCompanies.keySet()) {
-                if (finOperation.moneyReceipt != 0) {
-                    if (finOperation.payer.contains(companyName)) {
-                        String transliterationName = russianNamesOfInsuranceCompanies.get(companyName);
-                        Sheet sheet = insurancePayments.getSheet(transliterationName);
-                        putValue(finOperation, sheet);
-                    } else if (finOperation.description.contains("страх") || finOperation.description.contains("вознагр")) {
-                        Sheet anotherIC = insurancePayments.getSheet("AnotherIC");
-                        putValueForAnotherIC(finOperation, anotherIC);
+            if (finOperation.moneyReceipt != 0) {
+                    for (String companyName : russianNamesOfInsuranceCompanies.keySet()) {
+                        if (finOperation.payer.contains(companyName)) {
+                            String transliterationName = russianNamesOfInsuranceCompanies.get(companyName);
+                            Sheet sheet = insurancePayments.getSheet(transliterationName);
+                            putValue(finOperation, sheet);
+                        }
+                    }
+                     if (!russianNamesOfInsuranceCompanies.containsKey(finOperation.payer)) {
+                        if (finOperation.description.contains("агент") || finOperation.description.contains("вознагр")) {
+                            Sheet anotherIC = insurancePayments.getSheet("AnotherIC");
+                            putValueForAnotherIC(finOperation, anotherIC);
+                        }
                     }
                 }
             }
-        }
         insurancePayments.write(file);
         insurancePayments.close();
 
@@ -142,7 +144,7 @@ public class FileWriter {
     public void putValue(FinOperation finOperation, Sheet sheet) {
 
         int lastRowNum = sheet.getLastRowNum();
-        Row row = sheet.createRow(lastRowNum+1);
+        Row row = sheet.createRow(lastRowNum + 1);
         Cell date = row.createCell(0);
         Cell sum = row.createCell(1);
         Cell description = row.createCell(2);
@@ -152,10 +154,11 @@ public class FileWriter {
         sum.setCellValue(finOperation.moneyReceipt);
         description.setCellValue(finOperation.description);
     }
+
     public void putValueForAnotherIC(FinOperation finOperation, Sheet sheet) {
 
         int lastRowNum = sheet.getLastRowNum();
-        Row row = sheet.createRow(lastRowNum+1);
+        Row row = sheet.createRow(lastRowNum + 1);
         Cell payer = row.createCell(0);
         Cell date = row.createCell(1);
         Cell sum = row.createCell(2);
