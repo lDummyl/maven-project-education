@@ -7,8 +7,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class FileWriter {
     Workbook myExcelBook = new XSSFWorkbook(new FileInputStream("C:\\java\\fin.xlsx"));
@@ -35,63 +37,62 @@ public class FileWriter {
         int i = 2;
         for (FinOperation finOperation : list) {
             Row row = clonedSheet.createRow(i);
-            Cell cell = row.createCell(0);
-            Cell cell1 = row.createCell(1);
-            Cell cell2 = row.createCell(2);
-            Cell cell3 = row.createCell(3);
-            Cell cell4 = row.createCell(4);
-            Cell cell5 = row.createCell(5);
-            Cell cell6 = row.createCell(6);
-            Cell cell7 = row.createCell(7);
-            Cell cell8 = row.createCell(8);
-            Cell cell9 = row.createCell(9);
-            Cell cell10 = row.createCell(10);
-            Cell cell11 = row.createCell(11);
-            Cell cell12 = row.createCell(12);
-            Cell cell13 = row.createCell(13);
-            Cell cell14 = row.createCell(14);
-
-            cell.setCellStyle(getDateStyle(myExcelBook));
-            cell.setCellValue(finOperation.date);
+            Cell cellDate = row.createCell(0);
+            Cell incomeFromInsuranceCompany = row.createCell(1);
+            Cell insuranceCompanyPayer = row.createCell(2);
+            Cell incomePayment = row.createCell(3);
+            Cell acquiringCommission = row.createCell(4);
+            Cell earnings = row.createCell(5);
+            Cell agentCommission = row.createCell(6);
+            Cell sumToPayToInsuranceCompany = row.createCell(7);
+            Cell depositingMoney = row.createCell(8);
+            Cell transferMoney = row.createCell(9);
+            Cell paymentToInsuranceCompany = row.createCell(10);
+            Cell insuranceCompanyRecipientPayment = row.createCell(11);
+            Cell payTax = row.createCell(12);
+            Cell otherOutlay = row.createCell(13);
+            Cell comments = row.createCell(14);
+            cellDate.setCellStyle(getDateStyle(myExcelBook));
+            cellDate.setCellValue(finOperation.date);
             Double incomeMoney = finOperation.moneyReceipt;
             Double outcomeMoney = finOperation.consumption;
             if (incomeMoney != 0.00 && !finOperation.payer.contains("СБЕРБАНК")) {
-                cell1.setCellValue(incomeMoney);
-                cell2.setCellValue(finOperation.payer);
+                incomeFromInsuranceCompany.setCellValue(incomeMoney);
+                insuranceCompanyPayer.setCellValue(finOperation.payer);
             }
             if (finOperation.payer.contains("СБЕРБАНК")) {
-                cell3.setCellValue(incomeMoney);
+                incomePayment.setCellValue(incomeMoney);
                 Double commission = getAcquiringCommission(finOperation);
-                cell4.setCellValue(commission);
+                acquiringCommission.setCellValue(commission);
                 double proceeds = incomeMoney + commission;
-                cell5.setCellValue(proceeds);
+                earnings.setCellValue(proceeds);
                 double tax;
                 if (isGreenCard(proceeds)) {
                     tax = proceeds * 0.2;
                 } else {
                     tax = proceeds * 0.1;
                 }
-                cell6.setCellValue(tax);
-                double sumToPayToInsuranceCompany = proceeds - tax;
-                cell7.setCellValue(sumToPayToInsuranceCompany);
+                agentCommission.setCellValue(tax);
+                double payToInsuranceCompany = proceeds - tax;
+                sumToPayToInsuranceCompany.setCellValue(payToInsuranceCompany);
             }
             if (finOperation.payer.contains("Финогенов")) {
                 if (incomeMoney != 0) {
-                    cell8.setCellValue(incomeMoney);
+                    depositingMoney.setCellValue(incomeMoney);
                 } else if (outcomeMoney != 0) {
-                    cell9.setCellValue(outcomeMoney);
+                    transferMoney.setCellValue(outcomeMoney);
                 }
             }
             if (outcomeMoney != 0) {
                 if (finOperation.payer.contains("Согласие") || finOperation.description.contains("страхов") || finOperation.payer.contains("РОСЭНЕРГО")) {
-                    cell10.setCellValue(outcomeMoney);
-                    cell11.setCellValue(finOperation.payer);
+                    paymentToInsuranceCompany.setCellValue(outcomeMoney);
+                    insuranceCompanyRecipientPayment.setCellValue(finOperation.payer);
                 } else if (finOperation.payer.contains("ИФНС")) {
-                    cell12.setCellValue(outcomeMoney);
-                    cell14.setCellValue("оплата налогов");
+                    payTax.setCellValue(outcomeMoney);
+                    comments.setCellValue("оплата налогов");
                 } else if (!finOperation.payer.contains("Финогенов")) {
-                    cell13.setCellValue(outcomeMoney);
-                    cell14.setCellValue(finOperation.payer);
+                    otherOutlay.setCellValue(outcomeMoney);
+                    comments.setCellValue(finOperation.payer);
                 }
             }
 
@@ -106,50 +107,32 @@ public class FileWriter {
         return proceeds % 10 == 0;
     }
 
+    HashMap <String, String> russianNamesOfInsuranceCompanies = new HashMap <>();
+    {
+        russianNamesOfInsuranceCompanies.put("Согласие", "SOGLASIE");
+        russianNamesOfInsuranceCompanies.put("РОСЭНЕРГО", "ROSENERGO");
+        russianNamesOfInsuranceCompanies.put("ВСК", "VSK");
+        russianNamesOfInsuranceCompanies.put("Ингосстрах", "INGOSSTRAH");
+        russianNamesOfInsuranceCompanies.put("Росгосстрах", "RGS");
+        russianNamesOfInsuranceCompanies.put("РЕСО-Гарантия", "RESO");
+        russianNamesOfInsuranceCompanies.put("Страховое общество газовой промышленности", "SOGAZ");
+    }
+
+
     public void writePaymentsFromIC (List <FinOperation> list, FileOutputStream file) throws IOException {
         for (FinOperation finOperation : list) {
-            if (finOperation.payer.contains("РОСЭНЕРГО") && finOperation.moneyReceipt != 0)
-            {
-                Sheet rosenergo = insurancePayments.getSheet("Rosenergo");
-                putValue(finOperation, rosenergo);
-
+            for (String companyName : russianNamesOfInsuranceCompanies.keySet()) {
+                if (finOperation.moneyReceipt != 0) {
+                    if (finOperation.payer.contains(companyName)) {
+                        String transliterationName = russianNamesOfInsuranceCompanies.get(companyName);
+                        Sheet sheet = insurancePayments.getSheet(transliterationName);
+                        putValue(finOperation, sheet);
+                    } else if (finOperation.description.contains("страх") || finOperation.description.contains("вознагр")) {
+                        Sheet anotherIC = insurancePayments.getSheet("AnotherIC");
+                        putValueForAnotherIC(finOperation, anotherIC);
+                    }
+                }
             }
-            else if (finOperation.payer.contains("ВСК") && finOperation.moneyReceipt != 0)
-            {
-                Sheet vsk = insurancePayments.getSheet("VSK");
-                putValue(finOperation, vsk);
-
-            }
-            else if (finOperation.payer.contains("Астро-волга") && finOperation.moneyReceipt != 0)
-            {
-                Sheet vsk = insurancePayments.getSheet("Astrovolga");
-                putValue(finOperation, vsk);
-
-            }
-            else if (finOperation.payer.contains("Согласие") && finOperation.moneyReceipt != 0)
-            {
-                Sheet vsk = insurancePayments.getSheet("Soglasie");
-                putValue(finOperation, vsk);
-
-            }
-            else if (finOperation.payer.contains("Ингосстрах") && finOperation.moneyReceipt != 0)
-            {
-                Sheet vsk = insurancePayments.getSheet("Ingosstrah");
-                putValue(finOperation, vsk);
-
-            }
-            else if (finOperation.payer.contains("ЭНЕРГОГАРАНТ") && finOperation.moneyReceipt != 0)
-            {
-                Sheet vsk = insurancePayments.getSheet("VSK");
-                putValue(finOperation, vsk);
-            }
-            else if (finOperation.moneyReceipt != 0 && finOperation.description.contains("страх") || finOperation.description.contains("вознагр"))
-            {
-                Sheet anotherIC = insurancePayments.getSheet("AnotherIC");
-                putValueForAnotherIC(finOperation, anotherIC);
-
-            }
-
         }
         insurancePayments.write(file);
         insurancePayments.close();

@@ -6,79 +6,68 @@ import org.junit.runners.Parameterized;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
 public class OracleTest {
 
-    @Test
-    public void answer() throws IOException {
-        Oracle oracle = new Oracle();
-        String answer = oracle.giveAnswer("Как дела?");
-        assertEquals("ok", answer);
-    }
-
-    @Test
-    public void negativeAnswer() throws IOException {
-        Oracle oracle = new Oracle();
-        String answer = oracle.giveAnswer("Как дела?");
-        assertEquals("norm", answer);
-    }
-
     @Parameterized.Parameters
     public static List<String> inputStrings() {
         return Arrays.asList(
-                "как дела?", "какая на улице погода?", "почему жирафы не летают?", "кто, что, как, почему", "некто оказался в затруднительном положении", "как перестать лениться и начать работать");
+                "кто, что, как, почему", "как дела?", "какая на улице погода?", "почему жирафы не летают?", "некто оказался в затруднительном положении", "как перестать лениться и начать работать");
 
     }
 
     @Test
-    public void oracleAnswer() throws IOException {
+    public void validAnswer() throws IOException {
         Oracle oracle = new Oracle();
-        List list = inputStrings();
-        for (Object o : list) {
-            String question = o.toString();
-            String answer = oracle.answer;
-            String expectedAnswer = oracle.listOfAphorisms.get(oracle.listOfAphorisms.get(question));
-            assertEquals(expectedAnswer, answer);
-        }
+        String question = "почему жирафы не летают?";
+        String answer = oracle.answer(question);
+        assertFalse(answer.isEmpty());
     }
 
     @Test
-    public void checkQuestion() throws IOException {
+    public void invalidAnswer() throws IOException {
         Oracle oracle = new Oracle();
-        List list = inputStrings();
-        for (Object o : list) {
-            String question = o.toString();
-            String answer = String.valueOf(oracle.checkQuestion(question));
-            String expectedAnswer = " ";
-            int count = 0;
-            if (question.length() < 10) {
-                expectedAnswer = "Будь красноречивее";
-            }
-            if (question.length() > 30) {
-                expectedAnswer = "Будь лаконичнее";
-            }
-            if (oracle.isContainsQuestion(oracle.specialQuestions, question)) {
-                count++;
-            }
-                if (count > 1) {
-                    expectedAnswer = "Ты задаешь слишком много вопросов";
-                }
-                if (count == 0) {
-                    expectedAnswer = "Не слышу вопроса в твоих речах";
-                }
-                if (count == 1 && expectedAnswer.equals(" ")) {
-                    expectedAnswer = oracle.answer(question);
-                }
-            assertEquals(expectedAnswer, answer);
-        }
+        String invalidQuestion = "некто оказался в затруднительном положении";
+        String answer = oracle.answer(invalidQuestion);
+        Collection<String> validAnswers = oracle.mapOfQuestionsAndAnswers.values();
+        boolean contains = validAnswers.contains(answer);
+        assertTrue(contains);
     }
 
+    @Test
+    public void testShortQuestion() throws IOException {
+        Oracle oracle = new Oracle();
+        String shortQuestion = "как дела?";
+        String answer = oracle.checkLengthAndQtySpecialQuestions(shortQuestion);
+        assertEquals(oracle.invalidAnswers.get(Oracle.Action.MORE_ELOQUENCE), answer);
+    }
+
+    @Test
+    public void testLongQuestion() throws IOException {
+        Oracle oracle = new Oracle();
+        String longQuestion = "как перестать лениться и начать работать";
+        String answer = oracle.checkLengthAndQtySpecialQuestions(longQuestion);
+        assertEquals(oracle.invalidAnswers.get(Oracle.Action.MORE_LACONIC), answer);
+    }
+
+    @Test
+    public void testNoQuestions() throws IOException {
+        Oracle oracle = new Oracle();
+        String questionsWithoutSpecialQuestion = "некто оказался в затруднительном положении";
+        String answer = oracle.checkLengthAndQtySpecialQuestions(questionsWithoutSpecialQuestion);
+        assertEquals(oracle.invalidAnswers.get(Oracle.Action.NO_QUESTIONS), answer);
+    }
+
+    @Test
+    public void testTooMuchQuestions() throws IOException {
+        Oracle oracle = new Oracle();
+        String questionsWithoutSpecialQuestion = "кто, что, как, почему";
+        String answer = oracle.checkLengthAndQtySpecialQuestions(questionsWithoutSpecialQuestion);
+        assertEquals(oracle.invalidAnswers.get(Oracle.Action.MANY_QUESTIONS), answer);
+    }
 
     @Test
     public void serialize() throws IOException {
@@ -88,7 +77,57 @@ public class OracleTest {
         objectMapper.writeValue(file, conversation);
         Conversation resultConversation = objectMapper.readValue(file, Conversation.class);
         assertEquals(conversation, resultConversation);
+    }
 
+    @Test
+    public void wordSeparation() {
+        String question = "какая   на улице погода?";
+        String question2 = "какая, на улице погода?";
+        String[] rawWords = question.split(" ");
+        String[] rawWordsInQuestion2 = question2.split(" ");
+        ArrayList<String> list = new ArrayList<>();
+        for (String rawWord : rawWordsInQuestion2) {
+            String replace = rawWord.replaceAll(",", "");
+            list.add(replace);
+        }
+        System.out.println(rawWords);
+    }
+
+    @Test
+    public void giveAnswer() {
+
+        HashMap<String, Collection<String>> questionAnswerMap = new HashMap<>();
+        questionAnswerMap.put("какая", Arrays.asList("answer1", "answer2"));
+        String question = "какая на улице погода?";
+        Random random = new Random();
+        String[] words = question.split(" ");
+        for (String word : words) {
+            Collection<String> possibleAnswers = questionAnswerMap.get(word);
+            if (possibleAnswers != null) {
+                ArrayList<String> list = new ArrayList<>(possibleAnswers);
+                System.out.println(list.get(random.nextInt(list.size())));
+            }
+        }
+    }
+
+    @Test
+    public void invalidActions() throws IOException {
+        Oracle oracle = new Oracle();
+        Random random = new Random();
+        String question = "какая на улице погода?";
+        if (random.nextBoolean()) {
+            System.out.println(oracle.invalidAnswers.get(Oracle.Action.HIT));
+        }
+    }
+
+    @Test
+    public void testSleep() throws IOException {
+        Oracle oracle = new Oracle();
+        Random random = new Random();
+        String question = "какая на улице погода?";
+        if (random.nextBoolean()) {
+            oracle.sleep();
+        }
     }
 
 

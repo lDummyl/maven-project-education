@@ -29,15 +29,15 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Oracle oracle = new Oracle();
         QuestionReader reader = new QuestionReader();
-        oracle.answer(reader.question);
-        Conversation conversation = new Conversation(reader.question, oracle.answer);
         FileOutputStream outputStream = new FileOutputStream("D:\\test.txt");
         StringWriter writer = new StringWriter();
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.writeValue(writer, conversation);
-        String result = writer.toString();
-        System.out.println(result);
-        System.out.println(objectMapper.canSerialize(Conversation.class));
+        while (!reader.question.equals("exit")) {
+            String answer = oracle.answer(reader.question);
+            Conversation conversation = new Conversation(reader.question, answer);
+            objectMapper.writeValue(writer, conversation);
+        }
+
 
     }
 }

@@ -2,8 +2,6 @@ package task3;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class Oracle {
@@ -12,7 +10,34 @@ public class Oracle {
     public Oracle() throws IOException {
     }
 
-    ArrayList<String> specialQuestions = new ArrayList<>(Arrays.asList("кто", "что", "когда", "как", "зачем", "почему", "где", "куда", "откуда"));
+    HashMap<String, String> mapOfQuestionsAndAnswers = new HashMap<>();
+
+    {
+        mapOfQuestionsAndAnswers.put("кто", "Благородный человек предъявляет требования к себе, низкий человек предъявляет требования к другим");
+        mapOfQuestionsAndAnswers.put("что", "Лишь когда приходят холода, становится ясно, что сосны и кипарисы последними теряют свой убор");
+        mapOfQuestionsAndAnswers.put("когда", "Возможно, что никогда");
+        mapOfQuestionsAndAnswers.put("как", "Три вещи никогда не возвращаются обратно – время, слово, возможность. Поэтому: не теряй времени, выбирай слова, не упускай возможность");
+        mapOfQuestionsAndAnswers.put("зачем", "Легче зажечь одну маленькую свечу, чем клясть темноту");
+        mapOfQuestionsAndAnswers.put("почему", "Пришло несчастье – человек породил его, пришло счастье – человек его вырастил");
+        mapOfQuestionsAndAnswers.put("где", "Разве истинная человечность далеко от нас? Стоит возжелать ее, и она тут же окажется рядом!");
+        mapOfQuestionsAndAnswers.put("куда", "Бросая камень в воду, каждый раз попадаешь в центр круга");
+        mapOfQuestionsAndAnswers.put("откуда", "Того, кто не задумывается о далеких трудностях, непременно поджидают близкие неприятности");
+    }
+
+    enum Action {
+        HIT, RUDE, MORE_LACONIC, MORE_ELOQUENCE, MANY_QUESTIONS, NO_QUESTIONS
+    }
+
+    HashMap<Action, String> invalidAnswers = new HashMap<>();
+
+    {
+        invalidAnswers.put(Action.HIT, "Стукнуть палкой");
+        invalidAnswers.put(Action.RUDE, "Вопрос не стоит моего внимания");
+        invalidAnswers.put(Action.MORE_LACONIC, "Будь лаконичнее");
+        invalidAnswers.put(Action.MORE_ELOQUENCE, "Будь красноречивее");
+        invalidAnswers.put(Action.MANY_QUESTIONS, "Ты задаешь слишком много вопросов");
+        invalidAnswers.put(Action.NO_QUESTIONS, "Не слышу вопроса в твоих речах");
+    }
 
     public int random(int min, int max) {
         int diff = max - min;
@@ -21,35 +46,24 @@ public class Oracle {
         return min + i;
     }
 
-    public void rude() {
-        answer = "Вопрос не стоит моего внимания";
-        System.out.println(answer);
-    }
-
-    public void hit() {
-        answer = "Стукнуть палкой";
-        System.out.println(answer);
-    }
-
-    public void relax() {
+    public void sleep() {
         int second = 1;
         int minute = 60;
         int sleepTime = random(10 * second, minute);
-        for (int i = sleepTime; i > 0; ) {
+        for (int i = sleepTime; i >= second; i--) {
             answer = "Оракул устал. Нужно подождать " + i + " секунд";
             System.out.println(answer);
-            i--;
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 answer = "Сон оракула прерван!";
-                System.out.println(answer);
             }
         }
     }
 
+
     public String answer(String question) {
-        for (Map.Entry<String, String> item : listOfAphorisms.entrySet()) {
+        for (Map.Entry<String, String> item : mapOfQuestionsAndAnswers.entrySet()) {
             if (question.contains(item.getKey())) {
                 answer = item.getValue();
                 System.out.println(answer);
@@ -58,80 +72,52 @@ public class Oracle {
         return answer;
     }
 
-        public boolean isContainsQuestion(List <String> specialQuestions, String question){
-        boolean isQuestion = false;
-            for (String specialQuestion : specialQuestions) {
-                Pattern pattern = Pattern.compile("(?:^|[^а-яА-ЯёЁ])(?:" + specialQuestion + ")(?![а-яА-ЯёЁ]).*");
-                Matcher matcher = pattern.matcher(question);
-                isQuestion = matcher.matches();
+    public int isContainsQuestion(Map<String, String> questionsAnswers, String question) {
+        int amountOfSpecialQuestions = 0;
+        for (String specialQuestion : questionsAnswers.keySet()) {
+            String[] rawWords = question.split(", ");
+            for (String rawWord : rawWords) {
+                if (specialQuestion.equalsIgnoreCase(rawWord))
+                    amountOfSpecialQuestions++;
             }
-            return isQuestion;
         }
-
-
-    HashMap<String, String> listOfAphorisms = new HashMap<>();
-
-    {
-        listOfAphorisms.put(specialQuestions.get(0), "Благородный человек предъявляет требования к себе, низкий человек предъявляет требования к другим");
-        listOfAphorisms.put(specialQuestions.get(1), "Лишь когда приходят холода, становится ясно, что сосны и кипарисы последними теряют свой убор");
-        listOfAphorisms.put(specialQuestions.get(2), "Возможно, что никогда");
-        listOfAphorisms.put(specialQuestions.get(3), "Три вещи никогда не возвращаются обратно – время, слово, возможность. Поэтому: не теряй времени, выбирай слова, не упускай возможность");
-        listOfAphorisms.put(specialQuestions.get(4), "Легче зажечь одну маленькую свечу, чем клясть темноту");
-        listOfAphorisms.put(specialQuestions.get(5), "Пришло несчастье – человек породил его, пришло счастье – человек его вырастил");
-        listOfAphorisms.put(specialQuestions.get(6), "Разве истинная человечность далеко от нас? Стоит возжелать ее, и она тут же окажется рядом!");
-        listOfAphorisms.put(specialQuestions.get(7), "Бросая камень в воду, каждый раз попадаешь в центр круга");
-        listOfAphorisms.put(specialQuestions.get(8), "Того, кто не задумывается о далеких трудностях, непременно поджидают близкие неприятности");
+        return amountOfSpecialQuestions;
     }
 
-    int amountOfSpecialQuestions = 0;
+    public String checkLengthAndQtySpecialQuestions(String question) {
+        int amountOfSpecialQuestions = isContainsQuestion(mapOfQuestionsAndAnswers, question);
 
-    public String checkQuestion(String question) {
-        if (question.length() > 30) {
-            answer = "Будь лаконичнее";
-            System.out.println(answer);
-            return answer;
+        if (amountOfSpecialQuestions > 1) {
+            return invalidAnswers.get(Action.MANY_QUESTIONS);
         }
-        if (question.length() < 10) {
-            answer = "Будь красноречивее";
-            System.out.println(answer);
-            return answer;
+        else if (amountOfSpecialQuestions == 1) {
+            return answer(question);
         }
-        if (isContainsQuestion(specialQuestions, question)) {
-            amountOfSpecialQuestions++;
+        else if (amountOfSpecialQuestions == 0) {
+            return invalidAnswers.get(Action.NO_QUESTIONS);
         }
-            if (amountOfSpecialQuestions > 1) {
-                answer = "Ты задаешь слишком много вопросов";
-                System.out.println(answer);
-                return answer;
-            }
-            if (amountOfSpecialQuestions == 1) {
-                return answer(question);
-            }
-            if (amountOfSpecialQuestions == 0) {
-                answer = "Не слышу вопроса в твоих речах";
-                System.out.println(answer);
-                return answer;
-            }
+        else if (question.length() > 30) {
+            return invalidAnswers.get(Action.MORE_LACONIC);
+        }
+        else if (question.length() < 10) {
+            return invalidAnswers.get(Action.MORE_ELOQUENCE);
+        }
         return answer;
     }
 
-//    public void launch() {
-//        if (checkQuestion()) {
-//            int percent = random(1, 100);
-//            if (percent <= 5) {
-//                relax();
-//            } else if (percent <= 15) {
-//                rude();
-//            } else if (percent <= 20) {
-//                hit();
-//            } else {
-//                answer();
-//            }
-//        }
-//    }
+    public void giveAnswer(String question) {
+        int percent = random(1, 100);
+        if (percent <= 5) {
+           sleep();
+        } else if (percent <= 15) {
+            invalidAnswers.get(Action.RUDE);
+        } else if (percent <= 25) {
+            invalidAnswers.get(Action.HIT);
+        } else {
+            checkLengthAndQtySpecialQuestions(question);
 
-    public String giveAnswer(String question) {
-        return "ok";
+        }
     }
+
 }
 
