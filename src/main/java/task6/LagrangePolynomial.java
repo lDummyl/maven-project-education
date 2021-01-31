@@ -1,11 +1,15 @@
 package task6;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Getter
+@Setter
 public class LagrangePolynomial {
     private List<Double> xValues;
     private List<Double> yValues;
@@ -32,29 +36,6 @@ public class LagrangePolynomial {
         this.size = yValues.size();
     }
 
-    public List<Double> getxValues() {
-        return xValues;
-    }
-
-    public void setxValues(List<Double> xValues) {
-        this.xValues = xValues;
-    }
-
-    public List<Double> getyValues() {
-        return yValues;
-    }
-
-    public void setyValues(List<Double> yValues) {
-        this.yValues = yValues;
-    }
-
-    public int getSize() {
-        return size;
-    }
-
-    public void setSize(int size) {
-        this.size = size;
-    }
 
     private void dataCheck(Double[] xValues, Double[] yValues) {
         if (xValues.length != yValues.length || xValues.length == 0) {

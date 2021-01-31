@@ -1,9 +1,7 @@
 package task1;
 
 import org.junit.Test;
-import task2.SecretaryImpl;
 
-import java.util.ArrayList;
 import java.util.TreeSet;
 
 import static org.junit.Assert.*;

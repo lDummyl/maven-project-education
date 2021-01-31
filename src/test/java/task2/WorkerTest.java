@@ -3,6 +3,7 @@ package task2;
 import junit.framework.TestCase;
 import task1.CandidateProvider;
 
+
 import java.util.List;
 
 public class WorkerTest extends TestCase {

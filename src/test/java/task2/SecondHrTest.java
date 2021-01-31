@@ -4,6 +4,7 @@ package task2;
 import org.junit.Test;
 import task1.CandidateProvider;
 
+
 import java.util.*;
 
 import static org.junit.Assert.*;

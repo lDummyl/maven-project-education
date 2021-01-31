@@ -4,7 +4,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import task1.CandidateProvider;
 
-import java.util.Collection;
+
 import java.util.List;
 
 import static org.junit.Assert.*;

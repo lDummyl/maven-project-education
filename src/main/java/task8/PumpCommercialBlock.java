@@ -1,6 +1,9 @@
 package task8;
 
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import task7.Pump;
 
 import java.util.Collection;
@@ -8,6 +11,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
+@Setter
+@Getter
+@NoArgsConstructor
 public class PumpCommercialBlock {
     private Set<Pump> uniquePumps;
     private Integer numberOFUniqModels;
@@ -41,40 +47,5 @@ public class PumpCommercialBlock {
 
     private Set<Pump> getUniModels(Collection<PumpTechResponse> pumpTechResponse) {
         return pumpTechResponse.stream().map(PumpTechResponse::getPumpOrNull).filter(value -> value!=null).collect(Collectors.toSet());
-    }
-
-    public PumpCommercialBlock() {
-    }
-
-    public Set<Pump> getUniquePumps() {
-        return uniquePumps;
-    }
-
-    public void setUniquePumps(Set<Pump> uniquePumps) {
-        this.uniquePumps = uniquePumps;
-    }
-
-    public Integer getNumberOFUniqModels() {
-        return numberOFUniqModels;
-    }
-
-    public void setNumberOFUniqModels(Integer numberOFUniqModels) {
-        this.numberOFUniqModels = numberOFUniqModels;
-    }
-
-    public Double getPriceInTotal() {
-        return priceInTotal;
-    }
-
-    public void setPriceInTotal(Double priceInTotal) {
-        this.priceInTotal = priceInTotal;
-    }
-
-    public Double getPriceWithDelivery() {
-        return priceWithDelivery;
-    }
-
-    public void setPriceWithDelivery(Double priceWithDelivery) {
-        this.priceWithDelivery = priceWithDelivery;
     }
 }

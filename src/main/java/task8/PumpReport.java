@@ -1,12 +1,16 @@
 package task8;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Getter
+@Setter
 public class PumpReport {
     private List<PumpTechResponse> pumpTechResponses;
     private PumpCommercialBlock commercialBlock;
@@ -45,45 +49,5 @@ public class PumpReport {
 
     public void setPumpTechResponses(List<PumpTechResponse> pumpTechResponses) {
         this.pumpTechResponses = pumpTechResponses;
-    }
-
-    public PumpCommercialBlock getCommercialBlock() {
-        return commercialBlock;
-    }
-
-    public void setCommercialBlock(PumpCommercialBlock commercialBlock) {
-        this.commercialBlock = commercialBlock;
-    }
-
-    public Integer getSuccessSelected() {
-        return successSelected;
-    }
-
-    public void setSuccessSelected(Integer successSelected) {
-        this.successSelected = successSelected;
-    }
-
-    public Integer getFailSelected() {
-        return failSelected;
-    }
-
-    public void setFailSelected(Integer failSelected) {
-        this.failSelected = failSelected;
-    }
-
-    public Integer getRequestIntTotal() {
-        return requestIntTotal;
-    }
-
-    public void setRequestIntTotal(Integer requestIntTotal) {
-        this.requestIntTotal = requestIntTotal;
-    }
-
-    public LocalDate getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDate dateTime) {
-        this.dateTime = dateTime;
     }
 }
