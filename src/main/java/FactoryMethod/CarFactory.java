@@ -2,7 +2,7 @@ package FactoryMethod;
 
 import FactoryMethod.Cars.*;
 
-public class CarFactory {
+public  class CarFactory {
     public Car createCar(CarsType carType) {
         Car car = null;
 

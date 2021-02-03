@@ -1,14 +1,21 @@
 package task1;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Random;
 
+@Setter
+@Getter
+@EqualsAndHashCode
 public class BirthDate implements Comparable<BirthDate> {
-    LocalDate localBirthDate;
-    int year;
-    int month;
-    int day;
+    private LocalDate localBirthDate;
+    private int year;
+    private int month;
+    private int day;
 
     public BirthDate(int year, int month, int day) {
         this.year = year;
@@ -25,22 +32,6 @@ public class BirthDate implements Comparable<BirthDate> {
                 //  System.out.println("Invalid date generated");
             }
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BirthDate birthDate = (BirthDate) o;
-        return year == birthDate.year &&
-                month == birthDate.month &&
-                day == birthDate.day &&
-                Objects.equals(localBirthDate, birthDate.localBirthDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(localBirthDate, year, month, day);
     }
 
 

@@ -17,7 +17,7 @@ public class Lawyer extends Worker {
     @Override
     public boolean passInterview() {
         int neededScore = 70;
-        return ((this.experience + this.winDeal - this.age.getYears()) > neededScore);
+        return ((this.experience + this.winDeal - this.getAge().getYears()) > neededScore);
     }
 
 }

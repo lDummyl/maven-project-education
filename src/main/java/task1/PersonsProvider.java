@@ -19,7 +19,7 @@ public class PersonsProvider {
 
         while (persons.size() < numberOfPersons) {
             Person person = new Person();
-            if (person.age.getYears() >= adultAge) {
+            if (person.getAge().getYears() >= adultAge) {
                 persons.add(person);
             }
         }

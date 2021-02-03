@@ -19,7 +19,7 @@ public class PersonsProviderTest {
         assertTrue(people.size() == numberOfPersons);
         for (Person p : people) {
             assertTrue(p != null);
-            assertTrue(p.age.getYears() >= 18);
+            assertTrue(p.getAge().getYears() >= 18);
             //System.out.println(p.age.getYears());
             assertTrue(people.size() == numberOfPersons);
         }

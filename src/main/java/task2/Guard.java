@@ -17,11 +17,11 @@ public class Guard extends Worker {
     @Override
     public boolean passInterview() {
         int neededScore = 50;
-        return (this.stressTolerance + this.experience - this.age.getYears()) > neededScore;
+        return (this.stressTolerance + this.experience - this.getAge().getYears()) > neededScore;
     }
 
     public int compareTo(Guard o) {
-        return this.stressTolerance.compareTo(o.stressTolerance) * 2 + (Integer.compare(this.age.getYears(), o.age.getYears())) + this.experience.compareTo(o.experience) * 3;
+        return this.stressTolerance.compareTo(o.stressTolerance) * 2 + (Integer.compare(this.getAge().getYears(), o.getAge().getYears())) + this.experience.compareTo(o.experience) * 3;
     }
 
 }
