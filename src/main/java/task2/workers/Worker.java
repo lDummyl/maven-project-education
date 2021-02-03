@@ -1,4 +1,4 @@
-package task2;
+package task2.workers;
 
 import task1.CandidateProvider;
 import task1.Person;
@@ -8,6 +8,7 @@ import java.util.Random;
 
 public abstract class Worker extends Person {
     public Integer experience;
+    public Period possibleExperience;
     Random random = new Random();
 
     public Worker(Person person) {
