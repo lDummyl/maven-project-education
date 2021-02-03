@@ -34,7 +34,6 @@ public class BirthDate implements Comparable<BirthDate> {
         }
     }
 
-
     @Override
     public int compareTo(BirthDate o) {
         return this.localBirthDate.compareTo(o.localBirthDate);

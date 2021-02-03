@@ -21,6 +21,7 @@ public class Person implements Comparable<Person> {
         this.birthDate = localBirthDate;
     }
 
+
     public Person(Name name, BirthDate birthDate) {
         this.name = name;
         this.birthDate = birthDate;
