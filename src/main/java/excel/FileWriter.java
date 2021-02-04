@@ -7,10 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class FileWriter {
     Workbook myExcelBook = new XSSFWorkbook(new FileInputStream("C:\\java\\fin.xlsx"));
@@ -121,24 +118,17 @@ public class FileWriter {
     public void writePaymentsFromIC(List<FinOperation> list, FileOutputStream file) throws IOException {
         for (FinOperation finOperation : list) {
             if (finOperation.moneyReceipt != 0) {
-                    for (String companyName : russianNamesOfInsuranceCompanies.keySet()) {
-                        if (finOperation.payer.contains(companyName)) {
-                            String transliterationName = russianNamesOfInsuranceCompanies.get(companyName);
-                            Sheet sheet = insurancePayments.getSheet(transliterationName);
-                            putValue(finOperation, sheet);
-                        }
-                    }
-                     if (!russianNamesOfInsuranceCompanies.containsKey(finOperation.payer)) {
-                        if (finOperation.description.contains("агент") || finOperation.description.contains("вознагр")) {
-                            Sheet anotherIC = insurancePayments.getSheet("AnotherIC");
-                            putValueForAnotherIC(finOperation, anotherIC);
-                        }
+                for (String companyName : russianNamesOfInsuranceCompanies.keySet()) {
+                    if (finOperation.payer.contains(companyName)) {
+                        String transliterationName = russianNamesOfInsuranceCompanies.get(companyName);
+                        Sheet sheet = insurancePayments.getSheet(transliterationName);
+                        putValue(finOperation, sheet);
                     }
                 }
             }
+        }
         insurancePayments.write(file);
         insurancePayments.close();
-
     }
 
     public void putValue(FinOperation finOperation, Sheet sheet) {

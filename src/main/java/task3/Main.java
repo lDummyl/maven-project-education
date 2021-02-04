@@ -21,23 +21,21 @@ package task3;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.FileOutputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         Oracle oracle = new Oracle();
         QuestionReader reader = new QuestionReader();
-        FileOutputStream outputStream = new FileOutputStream("D:\\test.txt");
-        StringWriter writer = new StringWriter();
+        File JsonFormatFile = new File("conversation.json");
         ObjectMapper objectMapper = new ObjectMapper();
-        while (!reader.question.equals("exit")) {
-            String answer = oracle.answer(reader.question);
-            Conversation conversation = new Conversation(reader.question, answer);
-            objectMapper.writeValue(writer, conversation);
+        List <String> questionList = reader.getQuestionList();
+        for (String question : questionList) {
+            String answer = oracle.giveAnswer(question);
+            Conversation conversation = new Conversation(question, answer);
+            objectMapper.writeValue(JsonFormatFile, conversation);
         }
-
-
     }
 }

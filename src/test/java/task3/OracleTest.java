@@ -36,6 +36,13 @@ public class OracleTest {
         boolean contains = validAnswers.contains(answer);
         assertTrue(contains);
     }
+    @Test
+    public void isContains() throws IOException {
+        Oracle oracle = new Oracle();
+        String shortQuestion = "как дела?";
+        int qty = oracle.isContainsQuestion(oracle.mapOfQuestionsAndAnswers, shortQuestion);
+        assertEquals(qty, 1);
+    }
 
     @Test
     public void testShortQuestion() throws IOException {
@@ -48,7 +55,7 @@ public class OracleTest {
     @Test
     public void testLongQuestion() throws IOException {
         Oracle oracle = new Oracle();
-        String longQuestion = "как перестать лениться и начать работать";
+        String longQuestion = "сколько котов может поместиться в одной комнате";
         String answer = oracle.checkLengthAndQtySpecialQuestions(longQuestion);
         assertEquals(oracle.invalidAnswers.get(Oracle.Action.MORE_LACONIC), answer);
     }
@@ -73,7 +80,7 @@ public class OracleTest {
     public void serialize() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         Conversation conversation = new Conversation("a", "b");
-        File file = new File("test.json");
+        File file = new File("conversation.json");
         objectMapper.writeValue(file, conversation);
         Conversation resultConversation = objectMapper.readValue(file, Conversation.class);
         assertEquals(conversation, resultConversation);

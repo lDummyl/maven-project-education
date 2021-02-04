@@ -22,15 +22,19 @@ public class Oracle {
         mapOfQuestionsAndAnswers.put("где", "Разве истинная человечность далеко от нас? Стоит возжелать ее, и она тут же окажется рядом!");
         mapOfQuestionsAndAnswers.put("куда", "Бросая камень в воду, каждый раз попадаешь в центр круга");
         mapOfQuestionsAndAnswers.put("откуда", "Того, кто не задумывается о далеких трудностях, непременно поджидают близкие неприятности");
+        mapOfQuestionsAndAnswers.put("какая", "Прекрасная во всех отношениях");
+        mapOfQuestionsAndAnswers.put("какой", "Безмятежный");
+        mapOfQuestionsAndAnswers.put("сколько", "Время бесконечно");
     }
 
     enum Action {
-        HIT, RUDE, MORE_LACONIC, MORE_ELOQUENCE, MANY_QUESTIONS, NO_QUESTIONS
+        SLEEP, HIT, RUDE, MORE_LACONIC, MORE_ELOQUENCE, MANY_QUESTIONS, NO_QUESTIONS
     }
 
     HashMap<Action, String> invalidAnswers = new HashMap<>();
 
     {
+        invalidAnswers.put(Action.SLEEP, "Оракул устал");
         invalidAnswers.put(Action.HIT, "Стукнуть палкой");
         invalidAnswers.put(Action.RUDE, "Вопрос не стоит моего внимания");
         invalidAnswers.put(Action.MORE_LACONIC, "Будь лаконичнее");
@@ -51,7 +55,7 @@ public class Oracle {
         int minute = 60;
         int sleepTime = random(10 * second, minute);
         for (int i = sleepTime; i >= second; i--) {
-            answer = "Оракул устал. Нужно подождать " + i + " секунд";
+            answer = "Нужно подождать " + i + " секунд";
             System.out.println(answer);
             try {
                 Thread.sleep(1000);
@@ -75,9 +79,10 @@ public class Oracle {
     public int isContainsQuestion(Map<String, String> questionsAnswers, String question) {
         int amountOfSpecialQuestions = 0;
         for (String specialQuestion : questionsAnswers.keySet()) {
-            String[] rawWords = question.split(", ");
+            String[] rawWords = question.split(" ");
             for (String rawWord : rawWords) {
-                if (specialQuestion.equalsIgnoreCase(rawWord))
+                String replace = rawWord.replaceAll(",", "");
+                if (specialQuestion.equalsIgnoreCase(replace))
                     amountOfSpecialQuestions++;
             }
         }
@@ -86,38 +91,47 @@ public class Oracle {
 
     public String checkLengthAndQtySpecialQuestions(String question) {
         int amountOfSpecialQuestions = isContainsQuestion(mapOfQuestionsAndAnswers, question);
-
-        if (amountOfSpecialQuestions > 1) {
-            return invalidAnswers.get(Action.MANY_QUESTIONS);
-        }
-        else if (amountOfSpecialQuestions == 1) {
+        if (question.length() > 30) {
+            answer = invalidAnswers.get(Action.MORE_LACONIC);
+            System.out.println(answer);
+            return answer;
+        } else if (question.length() < 10) {
+            answer = invalidAnswers.get(Action.MORE_ELOQUENCE);
+            System.out.println(answer);
+            return answer;
+        } else if (amountOfSpecialQuestions > 1) {
+            answer = invalidAnswers.get(Action.MANY_QUESTIONS);
+            System.out.println(answer);
+            return answer;
+        } else if (amountOfSpecialQuestions == 1) {
             return answer(question);
-        }
-        else if (amountOfSpecialQuestions == 0) {
-            return invalidAnswers.get(Action.NO_QUESTIONS);
-        }
-        else if (question.length() > 30) {
-            return invalidAnswers.get(Action.MORE_LACONIC);
-        }
-        else if (question.length() < 10) {
-            return invalidAnswers.get(Action.MORE_ELOQUENCE);
+        } else if (amountOfSpecialQuestions == 0) {
+            answer = invalidAnswers.get(Action.NO_QUESTIONS);
+            System.out.println(answer);
+            return answer;
         }
         return answer;
     }
 
-    public void giveAnswer(String question) {
+    public String giveAnswer(String question) {
         int percent = random(1, 100);
+        System.out.println(percent);
         if (percent <= 5) {
-           sleep();
-        } else if (percent <= 15) {
-            invalidAnswers.get(Action.RUDE);
-        } else if (percent <= 25) {
-            invalidAnswers.get(Action.HIT);
+            answer = invalidAnswers.get(Action.SLEEP);
+            System.out.println(answer);
+            sleep();
+            return answer;
+        } else if (percent > 6 && percent <= 10) {
+            answer = invalidAnswers.get(Action.RUDE);
+            System.out.println(answer);
+            return answer;
+        } else if (percent > 11 && percent <= 15) {
+            answer = invalidAnswers.get(Action.HIT);
+            System.out.println(answer);
+            return answer;
         } else {
-            checkLengthAndQtySpecialQuestions(question);
-
+            return checkLengthAndQtySpecialQuestions(question);
         }
     }
-
 }
 
