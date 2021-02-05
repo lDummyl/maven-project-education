@@ -7,11 +7,10 @@ import task8.PumpRequest;
 import java.util.*;
 
 public class CirculationPumpSelector {
-    private final CirculationPumpCollector collector;
     private final TreeSet<Pump> pumpsTree;
 
     public CirculationPumpSelector() {
-        this.collector = new CirculationPumpFileCollector();
+        CirculationPumpCollector collector = new CirculationPumpFileCollector();
         pumpsTree = new TreeSet<>(collector.getPumps());
     }
 

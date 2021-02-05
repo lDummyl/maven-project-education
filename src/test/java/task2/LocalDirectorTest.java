@@ -4,6 +4,7 @@ package task2;
 import org.junit.Test;
 import task1.CandidateProvider;
 import task1.Person;
+import task2.workers.*;
 
 
 import java.util.*;
@@ -33,21 +34,7 @@ public class LocalDirectorTest {
         managers.forEach(secondHr::addCandidate);
         lawyers.forEach(secondHr::addCandidate);
 
-//        Worker guard = localDirector.chooseWorker(secondHr.getCandidates(), Guard.class);
-//        Worker manager = localDirector.chooseWorker(secondHr.getCandidates(), Manager.class);
-//        Worker lawyer = localDirector.chooseWorker(secondHr.getCandidates(), Lawyer.class);
 //
-//        assertNotNull(guard);
-//        assertNotNull(manager);
-//        assertNotNull(lawyer);
-//
-//        assertEquals(Guard.class, guard.getClass());
-//        assertEquals(Manager.class, manager.getClass());
-//        assertEquals(Lawyer.class, lawyer.getClass());
-//
-//        assertTrue(guard.passInterview());
-//        assertTrue(manager.passInterview());
-//        assertTrue(lawyer.passInterview());
     }
 
     @Test

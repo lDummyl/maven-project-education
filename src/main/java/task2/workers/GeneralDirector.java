@@ -1,4 +1,8 @@
-package task2;
+package task2.workers;
+
+import task2.Director;
+import task2.Secretary;
+
 
 import java.util.Collection;
 import java.util.TreeSet;

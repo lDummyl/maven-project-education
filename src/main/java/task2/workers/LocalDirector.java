@@ -1,4 +1,8 @@
-package task2;
+package task2.workers;
+
+import task2.Director;
+import task2.workers.SecretaryImpl;
+import task2.workers.Worker;
 
 import java.util.*;
 

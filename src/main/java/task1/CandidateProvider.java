@@ -1,6 +1,6 @@
 package task1;
 
-import task2.*;
+import task2.workers.Worker;
 
 import java.time.Period;
 import java.util.*;

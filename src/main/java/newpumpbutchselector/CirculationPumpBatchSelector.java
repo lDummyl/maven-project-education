@@ -37,4 +37,8 @@ public class CirculationPumpBatchSelector {
             return responseProvider.createPumpResponse(e, request);
         }
     }
+
+    public void selectPumps() {
+
+    }
 }

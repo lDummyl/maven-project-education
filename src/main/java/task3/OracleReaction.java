@@ -1,7 +1,5 @@
 package task3;
 
-import java.util.function.Function;
-
 public enum OracleReaction {
     TOO_LONG("Будь лаконичнее"),
     TOO_SHORT("Будь красноречивее"),

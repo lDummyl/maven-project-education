@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 public class CommercialBLockProvider {
     private final Collection<CirculationPumpResponse> responses;
-    private final Double priceToCoastLosDelivery = 1000_000.0;
 
     public CommercialBLockProvider(Collection<CirculationPumpResponse> responses) {
         this.responses = responses;
@@ -38,6 +37,7 @@ public class CommercialBLockProvider {
     }
 
     private Double calculatePriceInTotal(Double price) {
+        Double priceToCoastLosDelivery = 1000_000.0;
         if (price > priceToCoastLosDelivery) {
             return price;
         } else {

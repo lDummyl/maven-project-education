@@ -2,15 +2,12 @@ package task8;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import task6.LagrangePolynomial;
 import task7.Pump;
 import task7.Speed;
 
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 @JsonAutoDetect

@@ -9,7 +9,6 @@ import static task3.Character.*;
 
 
 public class Oracle {
-    private final int allChances = 100;
     private int maximumSleepTimeSec = 59;
 
     public static final int maxLength = 30;
@@ -123,6 +122,7 @@ public class Oracle {
     }
 
     private int getMood() {
+        int allChances = 100;
         return random.nextInt(allChances);
     }
 

@@ -1,13 +1,11 @@
 package task1;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Objects;
 
+@Generated
 @Setter
 @Getter
 @EqualsAndHashCode
@@ -37,15 +35,6 @@ public class Person implements Comparable<Person> {
     @Override
     public int compareTo(Person o) {
         return this.birthDate.compareTo(o.birthDate);
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "name=" + name +
-                ", birthDate=" + birthDate +
-                ", age=" + age +
-                '}';
     }
 }
 

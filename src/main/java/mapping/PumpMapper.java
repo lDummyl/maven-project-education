@@ -1,7 +1,5 @@
 package mapping;
 
-import java.util.*;
-
 public class PumpMapper {
     public PumpDto map(Pump pump) {
         PumpDto pumpDto = new PumpDto();

@@ -31,27 +31,5 @@ public class ObjectMapperTest {
             String resolutionString = objectMapper.writeValueAsString(resol);
             System.out.println(resolutionString);
         }
-
-
-
-        // TODO: 09.12.2020 Exception
-       /*
-        Function<Object, String> methodReference
-        try {
-            methodReference= objectMapper::writeValueAsString;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        methodReference.apply(resolutions.get(0));*/
-     /*   resolutionsDeserialized.stream().map(value -> {
-            try {
-                return objectMapper.writeValueAsString(value);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }).forEach(System.out::println);*/
-
-
     }
 }

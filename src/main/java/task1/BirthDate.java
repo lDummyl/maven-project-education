@@ -1,13 +1,11 @@
 package task1;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.Random;
 
+@Generated
 @Setter
 @Getter
 @EqualsAndHashCode
@@ -24,6 +22,10 @@ public class BirthDate implements Comparable<BirthDate> {
     }
 
     public BirthDate() {
+        getRandomBirthdate();
+    }
+
+    private void getRandomBirthdate() {
         Random random = new Random();
         while (localBirthDate == null) {
             try {
@@ -39,13 +41,4 @@ public class BirthDate implements Comparable<BirthDate> {
         return this.localBirthDate.compareTo(o.localBirthDate);
     }
 
-    @Override
-    public String toString() {
-        return "BirthDate{" +
-                "localBirthDate=" + localBirthDate +
-                ", year=" + year +
-                ", month=" + month +
-                ", day=" + day +
-                '}';
-    }
 }

@@ -3,7 +3,8 @@ package task7;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.SneakyThrows;
 
 import java.io.File;
@@ -11,6 +12,8 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
 
+@Getter
+@Setter
 public class PumpCollector {
     private File jsonPumpFile;
     private final ObjectMapper objectMapper = new ObjectMapper();
@@ -29,17 +32,6 @@ public class PumpCollector {
         this.jsonPumpFile = new File("PumpFile.json");
     }
 
-    public File getJsonPumpFile() {
-        return jsonPumpFile;
-    }
-
-    public void setJsonPumpFile(File jsonPumpFile) {
-        this.jsonPumpFile = jsonPumpFile;
-    }
-
-    public ObjectMapper getObjectMapper() {
-        return objectMapper;
-    }
 
     @SneakyThrows
     public void addToJson(Pump pump) {

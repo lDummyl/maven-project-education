@@ -2,9 +2,6 @@ package SortingExperiment;
 
 import lombok.Data;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Data
 public class Freq implements Comparable<Freq> {
     Double hzValue;

@@ -1,5 +1,8 @@
 package task2;
 
+import task2.workers.SecretaryImpl;
+import task2.workers.Worker;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;

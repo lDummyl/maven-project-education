@@ -3,7 +3,7 @@ package task3;
 import org.junit.Test;
 import task4.QuestionsGenerator;
 
-import java.util.ArrayList;
+
 
 import static org.junit.Assert.*;
 
@@ -36,10 +36,10 @@ public class OracleTest {
         for (int i = 0; i < timesOfAsk; i++) {
             Resolution ask = oracle.ask(questionsGenerator.getQuestion());
             assertNotNull(ask);
-            if (ask.answer.equals(OracleReaction.TOO_LONG.getValue())) {
+            if (ask.getAnswer().equals(OracleReaction.TOO_LONG.getValue())) {
                 freqToLong++;
             }
-            if (ask.answer.equals(OracleReaction.TOO_SHORT.getValue())) {
+            if (ask.getAnswer().equals(OracleReaction.TOO_SHORT.getValue())) {
                 freqOfToShort++;
             }
         }
@@ -57,7 +57,7 @@ public class OracleTest {
         int timesOfAsk = 10000;
         for (int i = 0; i < timesOfAsk; i++) {
             Resolution ask = oracle.ask(questionsGenerator.getQuestion());
-            if (ask.answer.contains(Oracle.leftTimeToSleepMarker)) {
+            if (ask.getAnswer().contains(Oracle.leftTimeToSleepMarker)) {
                 freqOfSleep++;
             }
             assertNotNull(ask);
@@ -79,10 +79,10 @@ public class OracleTest {
             Resolution ask = oracle.ask(questionsGenerator.getQuestion());
 
             assertNotNull(ask);
-            if (ask.answer.contains(OracleReaction.STICK_HIT.getValue())) {
+            if (ask.getAnswer().contains(OracleReaction.STICK_HIT.getValue())) {
                 freqOfStickHits++;
             }
-            if (ask.answer.contains(OracleReaction.RUDENESS.getValue())) {
+            if (ask.getAnswer().contains(OracleReaction.RUDENESS.getValue())) {
                 freqOfRudeness++;
             }
         }
@@ -99,10 +99,10 @@ public class OracleTest {
         int freqOfValid = 0;
         int timesOfAsk = 10000;
 
-        ArrayList<Resolution> resolutions = new ArrayList<>();
+
         for (int i = 0; i < timesOfAsk; i++) {
             Resolution ask = oracle.ask(questionsGenerator.getQuestion());
-            if (Oracle.answers.containsValue(ask.answer)) {
+            if (Oracle.answers.containsValue(ask.getAnswer())) {
                 freqOfValid++;
             }
         }

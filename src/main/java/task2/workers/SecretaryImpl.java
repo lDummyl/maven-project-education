@@ -1,6 +1,7 @@
-package task2;
+package task2.workers;
 
 import task1.Person;
+import task2.Secretary;
 
 public class SecretaryImpl extends Worker implements Secretary {
     public SecretaryImpl(Person person) {
@@ -10,7 +11,7 @@ public class SecretaryImpl extends Worker implements Secretary {
     @Override
     public boolean passInterview() {
         int neededScore = 200;
-        return ((this.experience - this.age.getYears() * 2) > neededScore);
+        return ((this.experience - this.getAge().getYears() * 2) > neededScore);
     }
 
     @Override

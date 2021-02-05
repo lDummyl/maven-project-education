@@ -1,6 +1,10 @@
 package task2;
 
 
+import task2.workers.GeneralDirector;
+import task2.workers.GeneralHr;
+import task2.workers.LocalDirector;
+import task2.workers.SecondHr;
 
 /**
  * Создать 2 офиса Apple и Google и трудоустроить в них секретарей на конкурсной основе, не модифицируя существующий код.

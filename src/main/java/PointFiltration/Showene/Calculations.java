@@ -1,7 +1,5 @@
 package PointFiltration.Showene;
 
-import SortingExperiment.Freq;
-
 import java.util.List;
 
 public class Calculations {

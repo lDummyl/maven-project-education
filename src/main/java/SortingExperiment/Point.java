@@ -1,10 +1,5 @@
 package SortingExperiment;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-import java.util.List;
-
 public class Point implements Comparable<Point> {
     Integer code;
     Temperature temperature;

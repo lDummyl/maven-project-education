@@ -1,6 +1,5 @@
 package CollectionWork;
 
-import java.util.Objects;
 import java.util.Random;
 
 public class Varming implements Comparable<Varming>{

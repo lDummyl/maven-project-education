@@ -3,12 +3,11 @@ package task1;
 
 
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Random;
 
+@Generated
 @Setter
 @Getter
 @EqualsAndHashCode
@@ -32,12 +31,4 @@ public class Name {
         this.lastName = lnames[random.nextInt(lnames.length)];
     }
 
-
-    @Override
-    public String toString() {
-        return "Name{" +
-                "firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
-    }
 }

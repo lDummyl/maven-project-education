@@ -3,6 +3,7 @@ package task2;
 import org.junit.Ignore;
 import org.junit.Test;
 import task1.CandidateProvider;
+import task2.workers.*;
 
 
 import java.util.List;

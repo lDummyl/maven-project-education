@@ -6,8 +6,6 @@ import task8.PumpRequest;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 public class CirculationPumpBatchReportTest {
     @Test
     public void reportTest() {
@@ -17,8 +15,6 @@ public class CirculationPumpBatchReportTest {
 
         CommercialBLock commercialBLock = report.getCommercialBLock();
         commercialBLock.getAveragePrice();
-
-
     }
 
 }

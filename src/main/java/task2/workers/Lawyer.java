@@ -1,4 +1,4 @@
-package task2;
+package task2.workers;
 
 import task1.Person;
 

@@ -1,4 +1,4 @@
-package task2;
+package task2.workers;
 
 import task1.Person;
 
@@ -21,7 +21,9 @@ public class Guard extends Worker {
     }
 
     public int compareTo(Guard o) {
-        return this.stressTolerance.compareTo(o.stressTolerance) * 2 + (Integer.compare(this.getAge().getYears(), o.getAge().getYears())) + this.experience.compareTo(o.experience) * 3;
+        return this.stressTolerance.compareTo(o.stressTolerance) * 2
+                + (Integer.compare(this.getAge().getYears(), o.getAge().getYears()))
+                + this.experience.compareTo(o.experience) * 3;
     }
 
 }

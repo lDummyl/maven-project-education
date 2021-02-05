@@ -1,28 +1,17 @@
 package task5;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import task3.Oracle;
 import task3.OracleReaction;
 import task3.Resolution;
 
 
-import java.io.IOException;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class OracleAnalyzer {
     ObjectMapper objectMapper = new ObjectMapper();
-
-    public ReportData deserializeAndAnalyze(String filename) {
-        List<Resolution> resolutions = null;
-        try {
-            resolutions = objectMapper.readValue(filename +".json", new TypeReference<List<Resolution>>()  {});
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return analyzeOracleData(resolutions);
-    }
 
     public ReportData analyzeOracleData(Collection<Resolution> resolutions) {
         Integer timesOfRudeness = getTimesOfRudeness(resolutions);
@@ -42,7 +31,6 @@ public class OracleAnalyzer {
     }
 
     private String mostPopularQuestion(Collection<Resolution> resolutions) {
-        // TODO: 08.12.2020 Скорее всего можно решить по аналогии с оффисом с помощью map
         Map<String, List<String>> questionMap = resolutions.stream().map(Resolution::getQuestion).sorted().collect(Collectors.groupingBy(String::valueOf));
 
         int biggestList = 0;

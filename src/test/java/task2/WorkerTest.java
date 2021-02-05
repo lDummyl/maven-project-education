@@ -2,6 +2,9 @@ package task2;
 
 import junit.framework.TestCase;
 import task1.CandidateProvider;
+import task2.workers.Guard;
+import task2.workers.Lawyer;
+import task2.workers.Manager;
 
 
 import java.util.List;
