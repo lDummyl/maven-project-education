@@ -1,7 +1,7 @@
 package task10;
 
 
-import newpumpbutchselector.CirculationPumpBatchReport;
+import task8.report.PumpBatchReport;
 
 import org.junit.Test;
 
@@ -17,7 +17,7 @@ public class RequestSimulatorTest {
         int numberOfRequests = 7;
 
 
-        List<CirculationPumpBatchReport> simulate = requestSimulator.simulate(numberOfReports, numberOfRequests);
+        List<PumpBatchReport> simulate = requestSimulator.simulate(numberOfReports, numberOfRequests);
         GeneralPumpReportProvider reportProvider = new GeneralPumpReportProvider(simulate);
         GeneralPumpReport report = reportProvider.getReport();
         System.out.println();

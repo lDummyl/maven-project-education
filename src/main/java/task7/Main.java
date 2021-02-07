@@ -6,11 +6,8 @@ package task7;
 	При вводе значений расход напор, нужно подобрать самый дешевый, подходящий.
 
 */
-
 public class Main {
+    public static void main(String[] args) {
 
-	public static void main(String[] args) {
-
-	}
-
+    }
 }

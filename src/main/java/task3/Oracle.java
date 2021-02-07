@@ -140,8 +140,7 @@ public class Oracle {
     }
 
     private String leftImeToSleep() {
-        String leftTime = (leftTimeToSleepMarker + Duration.between(LocalDateTime.now(), stopSleepTime).getSeconds() + "секунд");
-        return leftTime;
+        return  (leftTimeToSleepMarker + Duration.between(LocalDateTime.now(), stopSleepTime).getSeconds() + "секунд");
     }
 
     private ArrayList<String> keyWordSearch(String question) {

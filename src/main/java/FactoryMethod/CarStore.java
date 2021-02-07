@@ -11,8 +11,6 @@ public class CarStore {
     }
 
     public Car lookCars(CarsType carType){
-        Car car = factory.createCar(carType);
-
-        return car;
+       return factory.createCar(carType);
     }
 }

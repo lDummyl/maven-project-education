@@ -1,8 +1,8 @@
 
 package task10;
 
-import newpumpbutchselector.CirculationPumpBatchReport;
-import newpumpbutchselector.CirculationPumpResponse;
+import task8.report.PumpBatchReport;
+import task8.report.PumpResponse;
 
 
 import java.time.Month;
@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 
 public class GeneralPumpReportProvider {
-    private List<CirculationPumpBatchReport> reports;
+    private List<PumpBatchReport> reports;
 
-    public GeneralPumpReportProvider(List<CirculationPumpBatchReport> reports) {
+    public GeneralPumpReportProvider(List<PumpBatchReport> reports) {
         this.reports = reports;
     }
 
@@ -30,15 +30,15 @@ public class GeneralPumpReportProvider {
 
     private Map<Month, Integer> calculateMonthErrors() {
         HashMap<Month, Integer> monthErrors = new HashMap<>();
-        List<CirculationPumpResponse> onlyErrorsList = getAllResponses().stream().filter(value -> value.getError() != null).collect(Collectors.toList());
+        List<PumpResponse> onlyErrorsList = getAllResponses().stream().filter(value -> value.getError() != null).collect(Collectors.toList());
 
         return createMonthMapWithNumberOfElements(onlyErrorsList);
     }
 
-    private Map<Month, Integer> createMonthMapWithNumberOfElements(List<CirculationPumpResponse> responses) {
+    private Map<Month, Integer> createMonthMapWithNumberOfElements(List<PumpResponse> responses) {
         HashMap<Month, Integer> monthMap = new HashMap<>();
 
-        for (CirculationPumpResponse response : responses) {
+        for (PumpResponse response : responses) {
             Month currentMonth = response.getRequest().getDateTime().getMonth();
             monthMap.putIfAbsent(currentMonth, 0);
             monthMap.put(currentMonth, monthMap.get(currentMonth) + 1);
@@ -48,13 +48,13 @@ public class GeneralPumpReportProvider {
     }
 
     private Map<Month, Integer> calculatePurchasesPerMonth() {
-        List<CirculationPumpResponse> onlyByedList = getAllResponses().stream().filter(value -> value.getPump().isPresent()).collect(Collectors.toList());
+        List<PumpResponse> onlyByedList = getAllResponses().stream().filter(value -> value.getPump().isPresent()).collect(Collectors.toList());
 
         return createMonthMapWithNumberOfElements(onlyByedList);
     }
 
-    private List<CirculationPumpResponse> getAllResponses() {
-        return reports.stream().map(CirculationPumpBatchReport::getResponses).flatMap(Collection::stream).collect(Collectors.toList());
+    private List<PumpResponse> getAllResponses() {
+        return reports.stream().map(PumpBatchReport::getResponses).flatMap(Collection::stream).collect(Collectors.toList());
     }
 
 
@@ -66,7 +66,7 @@ public class GeneralPumpReportProvider {
 
 
     private Integer calculatePerYear() {
-        return reports.stream().map(CirculationPumpBatchReport::getResponses).map(Collection::size).mapToInt(Integer::valueOf).sum();
+        return reports.stream().map(PumpBatchReport::getResponses).map(Collection::size).mapToInt(Integer::valueOf).sum();
     }
 
     private Double calculateAveragePerMonth() {

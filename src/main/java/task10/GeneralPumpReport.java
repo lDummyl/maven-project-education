@@ -2,7 +2,7 @@ package task10;
 
 
 import lombok.NoArgsConstructor;
-import newpumpbutchselector.CirculationPumpBatchReport;
+import task8.report.PumpBatchReport;
 
 import java.time.Month;
 import java.util.*;
@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class GeneralPumpReport {
-    private List<CirculationPumpBatchReport> reports;
+    private List<PumpBatchReport> reports;
     private Map<Month, Integer> purchasesPerMonth;
     private Integer perYearInTotal;
     private Double averagePerMonth;

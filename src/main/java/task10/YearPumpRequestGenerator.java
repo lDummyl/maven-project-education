@@ -2,7 +2,7 @@ package task10;
 
 
 import task8.PumpRequest;
-import task8.RequestGenerator;
+import task8.PumpRequestGenerator;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -10,11 +10,11 @@ import java.util.Random;
 
 
 public class YearPumpRequestGenerator {
-    private final RequestGenerator generator;
+    private final PumpRequestGenerator generator;
     public static final Random random = new Random();
 
     public YearPumpRequestGenerator() {
-        this.generator = new RequestGenerator();
+        this.generator = new PumpRequestGenerator();
     }
 
     public List<PumpRequest> generateRequestList(int numberOfRequests) {
@@ -32,7 +32,6 @@ public class YearPumpRequestGenerator {
     // FIXME: 1/20/2021 Иногда кидает java.time.DateTimeException: Invalid value for DayOfYear (valid values 1 - 365/366): 0
     private LocalDate getRandomDate() {
         int daysInYear = LocalDate.now().lengthOfYear();
-        LocalDate localDate = LocalDate.ofYearDay(LocalDate.now().getYear(), random.nextInt(daysInYear));
-        return localDate;
+        return LocalDate.ofYearDay(LocalDate.now().getYear(), random.nextInt(daysInYear));
     }
 }

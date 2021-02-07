@@ -6,7 +6,6 @@ import task3.OracleReaction;
 import task3.Resolution;
 
 
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,11 +22,10 @@ public class OracleAnalyzer {
     }
 
     private Integer getAbsoluteTimeOFSleep(Collection<Resolution> resolutions) {
-        int sum = resolutions.stream().map(Resolution::getAnswer)
+        return resolutions.stream().map(Resolution::getAnswer)
                 .filter(s -> s.contains(Oracle.leftTimeToSleepMarker))
                 .map(s -> s.replaceAll("[^0-9.]", ""))
                 .mapToInt(Integer::parseInt).sum();
-        return sum;
     }
 
     private String mostPopularQuestion(Collection<Resolution> resolutions) {
@@ -38,7 +36,7 @@ public class OracleAnalyzer {
 
         for (Map.Entry<String, List<String>> entry : questionMap.entrySet()) {
             int size = entry.getValue().size();
-            if (size > biggestList){
+            if (size > biggestList) {
                 biggestList = size;
                 popularQuestion = entry.getValue().get(0);
             }

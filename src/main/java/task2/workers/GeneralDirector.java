@@ -1,5 +1,7 @@
 package task2.workers;
 
+import lombok.Getter;
+import lombok.Setter;
 import task2.Director;
 import task2.Secretary;
 
@@ -7,6 +9,8 @@ import task2.Secretary;
 import java.util.Collection;
 import java.util.TreeSet;
 
+@Setter
+@Getter
 public class GeneralDirector extends LocalDirector implements Director {
     Secretary assistant;
 
@@ -20,10 +24,4 @@ public class GeneralDirector extends LocalDirector implements Director {
             return null;
         }
     }
-
-    public void setAssistant(Secretary secretary) {
-        this.assistant = secretary;
-    }
-
-
 }
