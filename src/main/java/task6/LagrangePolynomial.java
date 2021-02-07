@@ -60,33 +60,24 @@ public class LagrangePolynomial {
     }
 
 
-    public Double getValueY(Double x) {
-        double lagrangePol = 0;
-
-        for (int i = 0; i < size; i++) {
-            double basicsPol = 1;
-            for (int j = 0; j < size; j++) {
-                if (j != i) {
-                    basicsPol *= (x - this.xValues.get(j)) / (this.xValues.get(i) - this.xValues.get(j));
-                }
-            }
-            lagrangePol += basicsPol * this.yValues.get(i);
-        }
-
-        return roundOf(lagrangePol);
+    public Double getValueX(Double y) {
+        return getValue(y, this.yValues, this.xValues);
     }
 
-    public Double getValueX(Double y) {
-        double lagrangePol = 0;
+    public Double getValueY(Double x) {
+        return getValue(x, this.xValues, this.yValues);
+    }
 
+    private Double getValue(Double value, List<Double> firstPoints, List<Double> secondPoints) {
+        double lagrangePol = 0;
         for (int i = 0; i < size; i++) {
             double basicsPol = 1;
             for (int j = 0; j < size; j++) {
                 if (j != i) {
-                    basicsPol *= (y - this.yValues.get(j)) / (this.yValues.get(i) - this.yValues.get(j));
+                    basicsPol *= (value - firstPoints.get(j)) / (firstPoints.get(i) - firstPoints.get(j));
                 }
             }
-            lagrangePol += basicsPol * this.xValues.get(i);
+            lagrangePol += basicsPol * secondPoints.get(i);
         }
         return roundOf(lagrangePol);
     }
