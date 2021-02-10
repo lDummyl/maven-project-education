@@ -1,9 +1,11 @@
 package bonus;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class DeadLock {
 
@@ -27,10 +29,17 @@ public class DeadLock {
         Object room1 = new Object();
         Object room2 = new Object();
 
+
         ExecutorService executorService = Executors.newFixedThreadPool(2);
 
         Future<?> andrewAttempt = executorService.submit(() -> {
             synchronized (room1) {
+                System.out.println("Journal 1 visited");
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 synchronized (room2) {
                     System.out.println("Journal 2 visited");
                 }
@@ -39,7 +48,14 @@ public class DeadLock {
 
         Future<?> jacobAttempt = executorService.submit(() -> {
             synchronized (room2) {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("Journal 2 visited");
                 synchronized (room1) {
+
                     System.out.println("Journal 1 visited");
                 }
             }
@@ -48,6 +64,8 @@ public class DeadLock {
         andrewAttempt.get();
         jacobAttempt.get();
         executorService.shutdown();
+        List<Runnable> runnables = executorService.shutdownNow();
+
     }
 
 }

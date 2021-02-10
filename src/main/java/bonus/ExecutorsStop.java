@@ -18,7 +18,7 @@ public class ExecutorsStop {
 	 * Если учитывать риск того что какой-то поток может не остановиться совсем.
 	 */
 	public static void main(String[] args) throws InterruptedException, TimeoutException {
-
+		// TODO: 2/9/2021 Библиотеки
 		ExecutorService executorService = Executors.newFixedThreadPool(10);
 		for (int i = 0; i < 10; i++) {
 			executorService.submit(() -> runForever());
