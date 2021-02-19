@@ -43,14 +43,14 @@ public class Oracle {
         invalidAnswers.put(Action.NO_QUESTIONS, "Не слышу вопроса в твоих речах");
     }
 
-    public int random(int min, int max) {
+    private int random(int min, int max) {
         int diff = max - min;
         Random random = new Random();
         int i = random.nextInt(diff);
         return min + i;
     }
 
-    public void sleep() {
+    private void sleep() {
         int second = 1;
         int minute = 60;
         int sleepTime = random(10 * second, minute);
@@ -66,7 +66,7 @@ public class Oracle {
     }
 
 
-    public String answer(String question) {
+    private String answer(String question) {
         for (Map.Entry<String, String> item : mapOfQuestionsAndAnswers.entrySet()) {
             if (question.contains(item.getKey())) {
                 answer = item.getValue();
@@ -76,7 +76,7 @@ public class Oracle {
         return answer;
     }
 
-    public int isContainsQuestion(Map<String, String> questionsAnswers, String question) {
+    private int isContainsQuestion(Map<String, String> questionsAnswers, String question) {
         int amountOfSpecialQuestions = 0;
         for (String specialQuestion : questionsAnswers.keySet()) {
             String[] rawWords = question.split(" ");
@@ -89,7 +89,7 @@ public class Oracle {
         return amountOfSpecialQuestions;
     }
 
-    public String checkLengthAndQtySpecialQuestions(String question) {
+    private String checkLengthAndQtySpecialQuestions(String question) {
         int amountOfSpecialQuestions = isContainsQuestion(mapOfQuestionsAndAnswers, question);
         if (question.length() > 30) {
             answer = invalidAnswers.get(Action.MORE_LACONIC);

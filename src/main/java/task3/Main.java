@@ -23,18 +23,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Oracle oracle = new Oracle();
-        QuestionReader reader = new QuestionReader();
+        OracleConsole console = new OracleConsole();
         File JsonFormatFile = new File("conversation.json");
         ObjectMapper objectMapper = new ObjectMapper();
-        List <String> questionList = reader.getQuestionList();
-        for (String question : questionList) {
-            String answer = oracle.giveAnswer(question);
-            Conversation conversation = new Conversation(question, answer);
+        while (console.giveAnswer()!=null) {
+            Conversation conversation = new Conversation(console.readQuestion(), console.giveAnswer());
             objectMapper.writeValue(JsonFormatFile, conversation);
         }
     }

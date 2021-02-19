@@ -6,22 +6,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionReader {
+interface QuestionReader {
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    List<String> questionList = new ArrayList<>();
 
-    public List<String> getQuestionList() throws IOException {
-        while (true) {
-            String question = reader.readLine();
-            if (!question.equals("exit"))
-            questionList.add(question);
-            else
-                break;
-        }
-        return questionList;
-    }
+     String readQuestion() throws IOException;
 
 
-    public QuestionReader() throws IOException {
-    }
 }

@@ -19,62 +19,6 @@ public class OracleTest {
 
     }
 
-    @Test
-    public void validAnswer() throws IOException {
-        Oracle oracle = new Oracle();
-        String question = "почему жирафы не летают?";
-        String answer = oracle.answer(question);
-        assertFalse(answer.isEmpty());
-    }
-
-    @Test
-    public void invalidAnswer() throws IOException {
-        Oracle oracle = new Oracle();
-        String invalidQuestion = "некто оказался в затруднительном положении";
-        String answer = oracle.answer(invalidQuestion);
-        Collection<String> validAnswers = oracle.mapOfQuestionsAndAnswers.values();
-        boolean contains = validAnswers.contains(answer);
-        assertTrue(contains);
-    }
-    @Test
-    public void isContains() throws IOException {
-        Oracle oracle = new Oracle();
-        String shortQuestion = "как дела?";
-        int qty = oracle.isContainsQuestion(oracle.mapOfQuestionsAndAnswers, shortQuestion);
-        assertEquals(qty, 1);
-    }
-
-    @Test
-    public void testShortQuestion() throws IOException {
-        Oracle oracle = new Oracle();
-        String shortQuestion = "как дела?";
-        String answer = oracle.checkLengthAndQtySpecialQuestions(shortQuestion);
-        assertEquals(oracle.invalidAnswers.get(Oracle.Action.MORE_ELOQUENCE), answer);
-    }
-
-    @Test
-    public void testLongQuestion() throws IOException {
-        Oracle oracle = new Oracle();
-        String longQuestion = "сколько котов может поместиться в одной комнате";
-        String answer = oracle.checkLengthAndQtySpecialQuestions(longQuestion);
-        assertEquals(oracle.invalidAnswers.get(Oracle.Action.MORE_LACONIC), answer);
-    }
-
-    @Test
-    public void testNoQuestions() throws IOException {
-        Oracle oracle = new Oracle();
-        String questionsWithoutSpecialQuestion = "некто оказался в затруднительном положении";
-        String answer = oracle.checkLengthAndQtySpecialQuestions(questionsWithoutSpecialQuestion);
-        assertEquals(oracle.invalidAnswers.get(Oracle.Action.NO_QUESTIONS), answer);
-    }
-
-    @Test
-    public void testTooMuchQuestions() throws IOException {
-        Oracle oracle = new Oracle();
-        String questionsWithoutSpecialQuestion = "кто, что, как, почему";
-        String answer = oracle.checkLengthAndQtySpecialQuestions(questionsWithoutSpecialQuestion);
-        assertEquals(oracle.invalidAnswers.get(Oracle.Action.MANY_QUESTIONS), answer);
-    }
 
     @Test
     public void serialize() throws IOException {
@@ -127,15 +71,7 @@ public class OracleTest {
         }
     }
 
-    @Test
-    public void testSleep() throws IOException {
-        Oracle oracle = new Oracle();
-        Random random = new Random();
-        String question = "какая на улице погода?";
-        if (random.nextBoolean()) {
-            oracle.sleep();
-        }
-    }
+
 
 
 }

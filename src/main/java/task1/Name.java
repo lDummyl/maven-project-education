@@ -2,8 +2,8 @@ package task1;
 
 public class Name {
 
-    String firstName;
-    String lastName;
+    public String firstName;
+    public String lastName;
 
     public Name(String name) {
         firstName = name;

@@ -1,6 +1,6 @@
 package task2;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 import task1.Age;
 import task1.Name;
 import task1.Person;
