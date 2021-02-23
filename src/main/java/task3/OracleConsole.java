@@ -24,4 +24,6 @@ public class OracleConsole extends Oracle implements QuestionReader{
     public String readQuestion() throws IOException {
          return reader.readLine();
     }
+
+
 }

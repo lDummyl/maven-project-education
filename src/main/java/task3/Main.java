@@ -32,7 +32,8 @@ public class Main {
         File JsonFormatFile = new File("conversation.json");
         ObjectMapper objectMapper = new ObjectMapper();
         while (console.giveAnswer()!=null) {
-            Conversation conversation = new Conversation(console.readQuestion(), console.giveAnswer());
+            String answer = console.giveAnswer();
+            Conversation conversation = new Conversation(console.readQuestion(), answer);
             objectMapper.writeValue(JsonFormatFile, conversation);
         }
     }
