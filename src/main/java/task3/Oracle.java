@@ -113,9 +113,8 @@ public class Oracle {
         return answer;
     }
 
-    public String giveAnswer(String question) {
+    public String giveAnswer(String question) throws IOException {
         int percent = random(1, 100);
-        System.out.println(percent);
         if (percent <= 5) {
             answer = invalidAnswers.get(Action.SLEEP);
             System.out.println(answer);

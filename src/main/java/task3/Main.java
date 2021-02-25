@@ -31,10 +31,14 @@ public class Main {
         OracleConsole console = new OracleConsole();
         File JsonFormatFile = new File("conversation.json");
         ObjectMapper objectMapper = new ObjectMapper();
-        while (console.giveAnswer()!=null) {
-            String answer = console.giveAnswer();
-            Conversation conversation = new Conversation(console.readQuestion(), answer);
-            objectMapper.writeValue(JsonFormatFile, conversation);
+        List list = console.getConversationList();
+        for (Object o : list) {
+            objectMapper.writeValue(JsonFormatFile, o);
+        }
+//        while (console.giveAnswer()!=null) {
+//            String answer = console.giveAnswer();
+//            Conversation conversation = new Conversation(console.readQuestion(), answer);
+//            objectMapper.writeValue(JsonFormatFile, conversation);
         }
     }
-}
+
