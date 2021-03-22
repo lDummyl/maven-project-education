@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 /*Способы корректной остановки пула потоков и их особенности
@@ -18,29 +19,35 @@ public class ExecutorsStop {
 	/**
 	 * Если учитывать риск того что какой-то поток может не остановиться совсем.
 	 */
-	public static void main(String[] args) throws InterruptedException, TimeoutException {
+	public static void main2(String[] args) throws InterruptedException, TimeoutException {
 
 		ExecutorService executorService = Executors.newFixedThreadPool(10);
 		for (int i = 0; i < 10; i++) {
 			executorService.submit(() -> runForever());
 		}
-		// TODO: 1/23/20 put code here
+		executorService.shutdown();
+		if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {
+			executorService.shutdownNow();
+			throw new TimeoutException("Executor stopped before finishing all tasks after 10 seconds timeout");
+		}
 		System.out.println("Main done!");
 
 	}
 
 	/**
-	 * Ждем до последнего.
+	 * Ждем до последнего
 	 */
-	public static void main2(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException {
 
 		ExecutorService executorService = Executors.newFixedThreadPool(10);
 		List<Callable<Object>> tasks = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {
 			Runnable runnable = () -> run();
-			// TODO: 1/23/20 put code here
+			Callable<Object> callable = Executors.callable(runnable);
+			tasks.add(callable);
 		}
-		// TODO: 1/23/20 and here
+		executorService.invokeAll(tasks);
+		executorService.shutdown();
 		System.out.println("Main done!");
 
 	}

@@ -1,9 +1,10 @@
 package bonus;
 
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.stream.IntStream;
 
 public class DeadLock {
 
@@ -18,37 +19,48 @@ public class DeadLock {
     // (комната заперта или открыта всегда со всех сторон)
     // и идет ко второй. Яков, в то же время, зашел во вторую комнату по направлению к первой, в которую он сможет попасть
     // только когда ее покинет Андрей, который сможет это сделать только когда вторая будет свободна от Якова.
-    // Поскольку код не исполянется назад, каждый будет ждать пока что-то не здастся? чего не произойдет никогда. Это и есть DeadLock.
+    // Поскольку код не исполянется назад, каждый будет ждать пока кто-то не здатся, чего не произойдет никогда. Это и есть DeadLock.
 
     // Для того чтобы считать это задание выполненным нужно преобразовтаь код так чтобы он достигал состояния DeadLock с почти 100% вроятностью при запуске.
 
+    static Random random = new Random();
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+
+    public static void main(String[] args) {
+
         Object room1 = new Object();
         Object room2 = new Object();
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
 
-        Future<?> andrewAttempt = executorService.submit(() -> {
+        Runnable andrewVisit = () -> {
             synchronized (room1) {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 synchronized (room2) {
                     System.out.println("Journal 2 visited");
                 }
             }
-        });
+        };
 
-        Future<?> jacobAttempt = executorService.submit(() -> {
+        Runnable jacobVisit = () -> {
             synchronized (room2) {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 synchronized (room1) {
                     System.out.println("Journal 1 visited");
                 }
             }
-        });
+        };
 
-        andrewAttempt.get();
-        jacobAttempt.get();
+        IntStream.range(1, 1000).forEach(i -> executorService.submit(random.nextBoolean() ? andrewVisit : jacobVisit));
         executorService.shutdown();
     }
-
 }
 

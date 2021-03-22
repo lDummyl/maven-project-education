@@ -1,6 +1,7 @@
 package bonus;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Recursion {
@@ -28,8 +29,20 @@ public class Recursion {
 	}
 
 	private static Data createData(char[] chars) {
-		// уложить эти данные рекурсивно в дерево
-		return null;
+		Data result = new Data();
+		for (int i = 1; i < chars.length; i++) {
+			result.length++;
+			if (chars[i] == ')') {
+				return result;
+			}
+			if (chars[i] == '(') {
+				Data data = createData(Arrays.copyOfRange(chars, i, chars.length));
+				i += data.length;
+				result.length += data.length;
+				result.nested.add(data);
+			} else result.name.append(chars[i]);
+		}
+		return result;
 	}
 
 }
