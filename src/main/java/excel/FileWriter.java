@@ -29,7 +29,7 @@ public class FileWriter {
 
     public void writeToFile(List<FinOperation> list, FileOutputStream file) throws IOException {
         Sheet clonedSheet = myExcelBook.cloneSheet(myExcelBook.getSheetIndex("month"));
-        myExcelBook.setSheetName(myExcelBook.getSheetIndex(clonedSheet), "10");
+        myExcelBook.setSheetName(myExcelBook.getSheetIndex(clonedSheet), "12");
         int i = 2;
         for (FinOperation finOperation : list) {
             Row row = clonedSheet.createRow(i);

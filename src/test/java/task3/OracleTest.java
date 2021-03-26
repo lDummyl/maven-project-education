@@ -19,6 +19,53 @@ public class OracleTest {
 
     }
 
+    @Test
+    public void shortQuestion() throws IOException {
+        Oracle oracle = new Oracle();
+        String question = "как дела?";
+        String expectedAnswer = "Будь красноречивее";
+        assertEquals(oracle.giveAnswer(question), expectedAnswer);
+    }
+
+    @Test
+    public void longQuestion() throws IOException {
+        Oracle oracle = new Oracle();
+        String question = "как перестать лениться и начать работать";
+        String expectedAnswer = "Будь лаконичнее";
+        assertEquals(oracle.giveAnswer(question), expectedAnswer);
+    }
+
+    @Test
+    public void manyQuestions() throws IOException {
+        Oracle oracle = new Oracle();
+        String question = "кто, что, как, почему";
+        String expectedAnswer = "Ты задаешь слишком много вопросов";
+        assertEquals(oracle.giveAnswer(question), expectedAnswer);
+    }
+
+    @Test
+    public void noQuestions() throws IOException {
+        Oracle oracle = new Oracle();
+        String question = "это слишком сложный вопрос";
+        String expectedAnswer = "Не слышу вопроса в твоих речах";
+        assertEquals(oracle.giveAnswer(question), expectedAnswer);
+    }
+
+    @Test
+    public void getPositiveAnswer() throws IOException {
+        Oracle oracle = new Oracle();
+        String question = "какая на улице погода?";
+        String expectedAnswer = "Прекрасная во всех отношениях";
+        assertEquals(oracle.giveAnswer(question), expectedAnswer);
+    }
+
+    @Test
+    public void getNegativeAnswer() throws IOException {
+        Oracle oracle = new Oracle();
+        String question = "какая на улице погода?";
+        String expectedAnswer = "Возможно, что никогда";
+        assertNotEquals(oracle.giveAnswer(question), expectedAnswer);
+    }
 
     @Test
     public void serialize() throws IOException {
@@ -31,37 +78,6 @@ public class OracleTest {
     }
 
     @Test
-    public void wordSeparation() {
-        String question = "какая   на улице погода?";
-        String question2 = "какая, на улице погода?";
-        String[] rawWords = question.split(" ");
-        String[] rawWordsInQuestion2 = question2.split(" ");
-        ArrayList<String> list = new ArrayList<>();
-        for (String rawWord : rawWordsInQuestion2) {
-            String replace = rawWord.replaceAll(",", "");
-            list.add(replace);
-        }
-        System.out.println(rawWords);
-    }
-
-    @Test
-    public void giveAnswer() {
-
-        HashMap<String, Collection<String>> questionAnswerMap = new HashMap<>();
-        questionAnswerMap.put("какая", Arrays.asList("answer1", "answer2"));
-        String question = "какая на улице погода?";
-        Random random = new Random();
-        String[] words = question.split(" ");
-        for (String word : words) {
-            Collection<String> possibleAnswers = questionAnswerMap.get(word);
-            if (possibleAnswers != null) {
-                ArrayList<String> list = new ArrayList<>(possibleAnswers);
-                System.out.println(list.get(random.nextInt(list.size())));
-            }
-        }
-    }
-
-    @Test
     public void invalidActions() throws IOException {
         Oracle oracle = new Oracle();
         Random random = new Random();
@@ -70,8 +86,6 @@ public class OracleTest {
             System.out.println(oracle.invalidAnswers.get(Oracle.Action.HIT));
         }
     }
-
-
 
 
 }

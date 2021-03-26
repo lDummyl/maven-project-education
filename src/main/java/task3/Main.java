@@ -21,24 +21,16 @@ package task3;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         OracleConsole console = new OracleConsole();
-        File JsonFormatFile = new File("conversation.json");
         ObjectMapper objectMapper = new ObjectMapper();
-        List list = console.getConversationList();
-        for (Object o : list) {
-            objectMapper.writeValue(JsonFormatFile, o);
-        }
-//        while (console.giveAnswer()!=null) {
-//            String answer = console.giveAnswer();
-//            Conversation conversation = new Conversation(console.readQuestion(), answer);
-//            objectMapper.writeValue(JsonFormatFile, conversation);
-        }
+        File JsonFormatFile = new File("C:\\Users\\Krugl\\IdeaProjects\\maven-project-education\\conversation.json");
+        List<Conversation> list = console.getConversationFromConsole();
+            objectMapper.writeValue(JsonFormatFile, list);
     }
+}
 

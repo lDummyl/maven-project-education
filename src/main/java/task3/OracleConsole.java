@@ -9,15 +9,10 @@ public class OracleConsole extends Oracle implements QuestionReader {
     }
 
 
-    public String giveAnswer() throws IOException {
-        while (true) {
-            String question = readQuestion();
-            if (question.equals("exit")) {
-                answer = null;
-                break;
-            }
+    public String giveAnswer(String question) throws IOException {
+        if (!question.equals("!")) {
             answer = super.giveAnswer(question);
-        }
+        } else answer = null;
         return answer;
     }
 
@@ -26,12 +21,23 @@ public class OracleConsole extends Oracle implements QuestionReader {
         return reader.readLine();
     }
 
-    List<Conversation> getConversationList() throws IOException {
+    public List<Conversation> getConversationFromConsole() throws IOException {
+        String question = readQuestion();
+        String answer = giveAnswer(question);
         List<Conversation> conversation = new ArrayList<>();
-        String answer = giveAnswer();
         while (answer != null) {
-            answer = giveAnswer();
-            conversation.add(new Conversation(readQuestion(), answer));
+            conversation.add(new Conversation(question, answer));
+            answer = giveAnswer(question);
+            question = readQuestion();
+        }
+        return conversation;
+    }
+
+    public List<Conversation> getConversations(List<String> list) throws IOException {
+        List<Conversation> conversation = new ArrayList<>();
+        for (String question : list) {
+            String answer = giveAnswer(question);
+            conversation.add(new Conversation(question, answer));
         }
         return conversation;
     }

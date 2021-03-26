@@ -2,6 +2,8 @@ package task3;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Oracle {
@@ -27,11 +29,11 @@ public class Oracle {
         mapOfQuestionsAndAnswers.put("сколько", "Время бесконечно");
     }
 
-    enum Action {
+    public enum Action {
         SLEEP, HIT, RUDE, MORE_LACONIC, MORE_ELOQUENCE, MANY_QUESTIONS, NO_QUESTIONS
     }
 
-    HashMap<Action, String> invalidAnswers = new HashMap<>();
+    public HashMap<Action, String> invalidAnswers = new HashMap<>();
 
     {
         invalidAnswers.put(Action.SLEEP, "Оракул устал");
@@ -54,35 +56,46 @@ public class Oracle {
         int second = 1;
         int minute = 60;
         int sleepTime = random(10 * second, minute);
+        int count = 0;
         for (int i = sleepTime; i >= second; i--) {
             answer = "Нужно подождать " + i + " секунд";
+            count++;
             System.out.println(answer);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                answer = "Сон оракула прерван!";
+                Logger.getLogger(Thread.class.getName()).log(Level.SEVERE, null, e);
             }
         }
+        answer = "Оракул отдыхал " + count;
+    }
+
+    private String[] separateQuestion (String question) {
+        String[] rawWords = question.split(" ");
+        for (String rawWord : rawWords) {
+            String replace = rawWord.replaceAll(",", "");
+        }
+        return rawWords;
     }
 
 
-    private String answer(String question) {
+    private String answer(String[] separatedQuestion) {
         for (Map.Entry<String, String> item : mapOfQuestionsAndAnswers.entrySet()) {
-            if (question.contains(item.getKey())) {
-                answer = item.getValue();
-                System.out.println(answer);
+            for (String s : separatedQuestion) {
+                if (s.equalsIgnoreCase(item.getKey())) {
+                    answer = item.getValue();
+                    System.out.println(answer);
+                }
             }
         }
         return answer;
     }
 
-    private int isContainsQuestion(Map<String, String> questionsAnswers, String question) {
+    private int isContainsQuestion(Map<String, String> questionsAnswers, String[] separatedQuestion) {
         int amountOfSpecialQuestions = 0;
         for (String specialQuestion : questionsAnswers.keySet()) {
-            String[] rawWords = question.split(" ");
-            for (String rawWord : rawWords) {
-                String replace = rawWord.replaceAll(",", "");
-                if (specialQuestion.equalsIgnoreCase(replace))
+            for (String s : separatedQuestion) {
+                if (specialQuestion.equalsIgnoreCase(s))
                     amountOfSpecialQuestions++;
             }
         }
@@ -90,7 +103,8 @@ public class Oracle {
     }
 
     private String checkLengthAndQtySpecialQuestions(String question) {
-        int amountOfSpecialQuestions = isContainsQuestion(mapOfQuestionsAndAnswers, question);
+        String [] separatedQuestion = separateQuestion(question);
+        int amountOfSpecialQuestions = isContainsQuestion(mapOfQuestionsAndAnswers, separatedQuestion);
         if (question.length() > 30) {
             answer = invalidAnswers.get(Action.MORE_LACONIC);
             System.out.println(answer);
@@ -104,7 +118,7 @@ public class Oracle {
             System.out.println(answer);
             return answer;
         } else if (amountOfSpecialQuestions == 1) {
-            return answer(question);
+            return answer(separatedQuestion);
         } else if (amountOfSpecialQuestions == 0) {
             answer = invalidAnswers.get(Action.NO_QUESTIONS);
             System.out.println(answer);

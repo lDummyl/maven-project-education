@@ -8,7 +8,10 @@ package task6;
  */
 
 public class Main {
-	public static void main(String[] args) {
-
-	}
+    public static void main(String[] args) {
+        {
+            Program program = new Program();
+            program.printInterpolateLagrangePolynomial();
+        }
+    }
 }
