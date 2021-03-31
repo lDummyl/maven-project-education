@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         {
             Program program = new Program();
-            program.printInterpolateLagrangePolynomial();
+            program.printInterpolateLagrangePolynomial(13.6);
         }
     }
 }

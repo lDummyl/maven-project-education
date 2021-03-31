@@ -12,7 +12,7 @@ public class Excel {
         FileWriter fileWriter = new FileWriter();
         FileOutputStream file = new FileOutputStream("C:\\java\\book.xlsx");
         FileOutputStream file2 = new FileOutputStream("C:\\java\\2.xlsx");
-        fileWriter.writeToFile(finOperations, file);
+//        fileWriter.writeToFile(finOperations, file);
         fileWriter.writePaymentsFromIC(finOperations, file2);
     }
 

@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class Oracle {
     String answer;
 
-    public Oracle() throws IOException {
+    public Oracle() {
     }
 
     HashMap<String, String> mapOfQuestionsAndAnswers = new HashMap<>();
@@ -64,7 +64,7 @@ public class Oracle {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                Logger.getLogger(Thread.class.getName()).log(Level.SEVERE, null, e);
+                System.out.println("Сон оракула был прерван");
             }
         }
         answer = "Оракул отдыхал " + count;

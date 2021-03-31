@@ -23,7 +23,7 @@ public class Main {
         ObjectMapper objectMapper = new ObjectMapper();
         File JsonFormatFile = new File("C:\\Users\\Krugl\\IdeaProjects\\maven-project-education\\conversation.json");
         List <String> questionsList = new ArrayList<>();
-        for (int i=0; i<1000; i++) {
+        for (int i=0; i<40; i++) {
             String question = questionFactory.getQuestion();
             questionsList.add(question);
         }

@@ -22,12 +22,12 @@ public class Program {
         return lagrangePol;
     }
 
-    public void printInterpolateLagrangePolynomial() {
+    public void printInterpolateLagrangePolynomial(double x) {
         for (int i = 0; i < size; i++) {
             xValues[i] = i * 1.0;
             yValues[i] = TestF(i);
         }
-        System.out.println(InterpolateLagrangePolynomial(13.6, xValues, yValues, size));
+        System.out.println(InterpolateLagrangePolynomial(x, xValues, yValues, size));
 
     }
 

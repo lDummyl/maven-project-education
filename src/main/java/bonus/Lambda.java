@@ -13,8 +13,10 @@ public class Lambda {
 
 	public static void main(String[] args) {
 
-//		Funkey fun = ???
-//		test(fun);
+		Funkey fun = System.out::println;
+		Funkey fun2 = System.out::print;
+		test(fun);
+		test(fun2);
 
 	}
 
