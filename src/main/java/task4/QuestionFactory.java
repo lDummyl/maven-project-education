@@ -1,9 +1,14 @@
 package task4;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 public class QuestionFactory {
+    // TODO: 01.04.2021 стоит соблюдать конвенции именования с маленькой буквы
     List<String> Who = Arrays.asList("котеночка обидел", "работает врачом", "ходит в гости по утрам");
     List<String> What = Arrays.asList("будет если посмотреть на солнце без очков", "делать при простуде", "подарить на праздник");
     List<String> When = Arrays.asList("пойдет дождь", "ты придешь в гости", "наступают сумерки");
@@ -18,6 +23,7 @@ public class QuestionFactory {
     List<String> HowMany = Arrays.asList("времени", "вешать в граммах", "осталось дней до лета");
 
     HashMap<String, List> questionMap = new HashMap<>();
+//    TODO Map<String, List<String>> questionMap = new HashMap<>();
 
     {
         questionMap.put("Кто", Who);
@@ -39,6 +45,7 @@ public class QuestionFactory {
         List<String> s = new ArrayList<>(questionMap.keySet());
         String key = s.get(random.nextInt(s.size()));
         List list = questionMap.get(key);
+        // TODO: 01.04.2021 тогда этот cast не потребуется
         String value = (String) list.get(random.nextInt(list.size()));
         return key + " " + value;
     }

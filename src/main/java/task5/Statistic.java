@@ -7,7 +7,11 @@ import task3.Oracle;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Statistic {
@@ -19,6 +23,7 @@ public class Statistic {
     }
 
     private List<Conversation> getListFromJSON() throws IOException {
+        // TODO: 01.04.2021 не стоит его создавать каждый раз при использовании метода
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(getFile(), new TypeReference<List<Conversation>>() {
         });
@@ -61,6 +66,8 @@ public class Statistic {
         for (String question : questions) {
             if (questionsStatistic.containsKey(question)) {
                 questionsStatistic.put(question, questionsStatistic.get(question) + 1);
+                // TODO: 01.04.2021 можно сделать так questionsStatistic.merge(question, 1, Integer::sum); праметры: ключ, что приехало, что с ним сделать
+                //  метод что надо, если нет добавит, если есть есть прибавит.
             } else {
                 questionsStatistic.put(question, 1);
             }
@@ -69,6 +76,7 @@ public class Statistic {
     }
 
     public Map<String,Integer> getTopFrequencyQuestions(Map <String,Integer> questionStatistic, int x) throws IOException {
+        // TODO: 01.04.2021 лихо!
         return questionStatistic.entrySet()
                 .stream()
                 .sorted((Map.Entry.<String, Integer>comparingByValue().reversed()))
