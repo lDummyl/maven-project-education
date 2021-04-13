@@ -1,17 +1,43 @@
 package task7;
 
-public class CirculatingPump {
-    String manufacturerName;
-    Double power;
-    Double capacity;
-    int liftingHeight;
-    Double price;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
 
-    public CirculatingPump(String manufacturerName, Double power, Double capacity, int liftingHeight, Double price) {
-        this.manufacturerName = manufacturerName;
-        this.power = power;
-        this.capacity = capacity;
-        this.liftingHeight = liftingHeight;
+public class CirculatingPump {
+    String vendorCode;
+    Double price;
+    List <HydraulicCharacteristics> characteristics;
+
+    public CirculatingPump(String vendorCode, List <HydraulicCharacteristics> characteristics, Double price) {
+        this.vendorCode = vendorCode;
+        this.characteristics = characteristics;
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "CirculatingPump{" +
+                "vendorCode='" + vendorCode + '\'' +
+                ", price=" + price +
+                ", characteristics=" + characteristics +
+                '}';
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CirculatingPump that = (CirculatingPump) o;
+        return Objects.equals(vendorCode, that.vendorCode) && Objects.equals(price, that.price) && Objects.equals(characteristics, that.characteristics);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(vendorCode, price, characteristics);
     }
 }

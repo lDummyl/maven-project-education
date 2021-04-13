@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 public class Statistic {
     Oracle oracle = new Oracle();
+    ObjectMapper objectMapper = new ObjectMapper();
 
     private File getFile() {
         String path = "C:\\Users\\Krugl\\IdeaProjects\\maven-project-education\\conversation.json";
@@ -24,7 +25,6 @@ public class Statistic {
 
     private List<Conversation> getListFromJSON() throws IOException {
         // TODO: 01.04.2021 не стоит его создавать каждый раз при использовании метода
-        ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(getFile(), new TypeReference<List<Conversation>>() {
         });
     }
@@ -75,7 +75,7 @@ public class Statistic {
         return questionsStatistic;
     }
 
-    public Map<String,Integer> getTopFrequencyQuestions(Map <String,Integer> questionStatistic, int x) throws IOException {
+    public Map<String,Integer> getTopFrequencyQuestions(Map <String,Integer> questionStatistic, int x)  {
         // TODO: 01.04.2021 лихо!
         return questionStatistic.entrySet()
                 .stream()
@@ -84,6 +84,4 @@ public class Statistic {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (x1, x2) -> x1, LinkedHashMap::new));
     }
 
-    public Statistic() throws IOException {
-    }
 }

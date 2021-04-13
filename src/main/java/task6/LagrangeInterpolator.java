@@ -1,18 +1,11 @@
 package task6;
 
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-public class LagrangeInterpolator implements Interpolator {
+public class LagrangeInterpolator extends Interpolator {
 
 	Scanner myScanner = new Scanner(System.in);
-	List<Point> points = new ArrayList<>();
-
-	public void setPoints(List<Point> points) {
-		this.points = points;
-	}
 
 	public static void main(String[] args) {
 		LagrangeInterpolator interpolator = new LagrangeInterpolator();
@@ -39,24 +32,6 @@ public class LagrangeInterpolator implements Interpolator {
 			float y = myScanner.nextFloat();
 			points.add(new Point(x, y));
 		}
-	}
-
-	public float getY(float x) {
-		float y = 0;
-		int n = points.size();
-		for (int count = 0; count < n; count++) {
-			float numerator = 1;
-			float denominator = 1;
-
-			for (int count2 = 0; count2 < n; count2++) {
-				if (count2 != count) {
-					numerator = numerator * (x - points.get(count2).x);
-					denominator = denominator * (points.get(count).x - points.get(count2).x);
-				}
-			}
-			y = y + (numerator / denominator) * points.get(count).y;
-		}
-		return y;
 	}
 }
 

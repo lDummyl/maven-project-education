@@ -7,6 +7,8 @@ package task6;
 
  */
 
+import task7.Calculation;
+
 import java.util.Arrays;
 
 public class Main {
