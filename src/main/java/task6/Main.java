@@ -20,6 +20,10 @@ public class Main {
             LagrangeInterpolator lagrangeInterpolator = new LagrangeInterpolator();
             lagrangeInterpolator.setPoints(Arrays.asList(new Point(1,1),new Point(2,4), new Point(3,9)));
             float y = lagrangeInterpolator.getY(5);
+            Calculation calculation = new Calculation();
+            System.out.println(calculation.getSuitablePump(1));
+            System.out.println(calculation.getSuitablePump(3.23f));
+            System.out.println(calculation.getSuitablePump(5.78f));
 
             // TODO: 01.04.2021 и тут мы точно знаем что он будет 25 потому что порабола y = x^2
             //  именно это и длает полином, по двум точкам он формирует линйную функцию, y = ax + с

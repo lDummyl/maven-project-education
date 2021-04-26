@@ -1,26 +1,30 @@
 package task7;
 
+import task6.Interpolator;
+import task6.Point;
+
 import java.util.*;
 
 public class Calculation {
-    List <CirculatingPump> listOfPumps = new ArrayList<>();
+    List<CirculatingPump> listOfPumps = new ArrayList<>();
+
     {
-     listOfPumps.add(new CirculatingPump("solar 15-80", new ArrayList<>
-             (Arrays.asList(new HydraulicCharacteristics(0.3f, 7.0f, 180),
-                     new HydraulicCharacteristics(0.33f,7.8f, 180))), 5395.98));
-     listOfPumps.add(new CirculatingPump("solar 25-40", new ArrayList<>(
-             Arrays.asList(new HydraulicCharacteristics(1.75f, 3.3f, 40),
-             new HydraulicCharacteristics(2.1f, 3.7f, 50))), 3386.04));
-     listOfPumps.add(new CirculatingPump("solar 25-60", new ArrayList<>(
-             Arrays.asList(new HydraulicCharacteristics(2.0f, 5.0f, 65),
-                     new HydraulicCharacteristics(2.55f, 5.6f, 80))),4170.00));
-     listOfPumps.add(new CirculatingPump("solar 25-120", new ArrayList<>(
-             Arrays.asList(new HydraulicCharacteristics(2.25f,9.8f,  180),
-                     new HydraulicCharacteristics(3.25f, 11.7f, 180))), 8201.00));
-     listOfPumps.add(new CirculatingPump("wilo Star-RS 15-4", new ArrayList<>(
-             Arrays.asList(new HydraulicCharacteristics(2.1f, 2.8f),
-                     new HydraulicCharacteristics(3.7f, 3.5f),
-                     new HydraulicCharacteristics(3.7f, 4.9f))), 5835.22));
+        listOfPumps.add(new CirculatingPump("solar 15-80", new ArrayList<>
+                (Arrays.asList(new HydraulicCharacteristics(0.3f, 7.0f, 180),
+                        new HydraulicCharacteristics(0.33f, 7.8f, 180))), 5395.98));
+        listOfPumps.add(new CirculatingPump("solar 25-40", new ArrayList<>(
+                Arrays.asList(new HydraulicCharacteristics(1.75f, 3.3f, 40),
+                        new HydraulicCharacteristics(2.1f, 3.7f, 50))), 3386.04));
+        listOfPumps.add(new CirculatingPump("solar 25-60", new ArrayList<>(
+                Arrays.asList(new HydraulicCharacteristics(2.0f, 5.0f, 65),
+                        new HydraulicCharacteristics(2.55f, 5.6f, 80))), 4170.00));
+        listOfPumps.add(new CirculatingPump("solar 25-120", new ArrayList<>(
+                Arrays.asList(new HydraulicCharacteristics(2.25f, 9.8f, 180),
+                        new HydraulicCharacteristics(3.25f, 11.7f, 180))), 8201.00));
+        listOfPumps.add(new CirculatingPump("wilo Star-RS 15-4", new ArrayList<>(
+                Arrays.asList(new HydraulicCharacteristics(2.1f, 2.8f),
+                        new HydraulicCharacteristics(3.7f, 3.5f),
+                        new HydraulicCharacteristics(3.7f, 4.9f))), 5835.22));
         listOfPumps.add(new CirculatingPump("wilo Star-RS 15-6", new ArrayList<>(
                 Arrays.asList(new HydraulicCharacteristics(2.1f, 4.1f),
                         new HydraulicCharacteristics(2.95f, 5.1f),
@@ -43,20 +47,29 @@ public class Calculation {
                         new HydraulicCharacteristics(5.25f, 7.0f))), 7433.72));
     }
 
-    public List<CirculatingPump> getSorted (List <CirculatingPump> list){
-       list.sort(Comparator.comparing(pump -> pump.price));
-       return list;
+    public List<CirculatingPump> getSorted(List<CirculatingPump> list) {
+        list.sort(Comparator.comparing(pump -> pump.price));
+        return list;
     }
 
-
-
-
-    public static void main(String[] args) {
-        Calculation calculation = new Calculation();
-        System.out.println(calculation.getSorted(calculation.listOfPumps));
-
-
+    public CirculatingPump getSuitablePump(float x) {
+        List<CirculatingPump> list = getSorted(listOfPumps);
+        Interpolator interpolator = new Interpolator();
+        List<Point> points = new ArrayList<>();
+        for (CirculatingPump pump : list) {
+            List<HydraulicCharacteristics> characteristics = pump.characteristics;
+            for (HydraulicCharacteristics characteristic : characteristics) {
+                points.add(new Point(characteristic.getCapacity(), characteristic.getPressure()));
+            }
+            interpolator.setPoints(points);
+            float y = interpolator.getY(x);
+            for (CirculatingPump circulatingPump : list) {
+                for (int j = 0; j < characteristics.size(); j++) {
+                    if (y < circulatingPump.characteristics.get(j).getPressure())
+                        return circulatingPump;
+                }
+            }
+        }
+        return null;
     }
-
-
 }

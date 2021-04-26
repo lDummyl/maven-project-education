@@ -6,7 +6,7 @@ import java.util.List;
 public class Interpolator {
      List<Point> points = new ArrayList<>();
 
-     float getY(float x) {
+     public float getY(float x) {
           float y = 0;
           int n = points.size();
           for (int count = 0; count < n; count++) {
@@ -24,7 +24,7 @@ public class Interpolator {
           return y;
      }
 
-     void setPoints(List<Point> points) {
+     public void setPoints(List<Point> points) {
           this.points = points;
      }
 
