@@ -17,19 +17,14 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) throws IOException {
         {
-            Program program = new Program();
-            program.printInterpolateLagrangePolynomial(13.6);
-
             LagrangeInterpolator lagrangeInterpolator = new LagrangeInterpolator();
             lagrangeInterpolator.setPoints(Arrays.asList(new Point(1,1),new Point(2,4), new Point(3,9)));
             float y = lagrangeInterpolator.getY(5);
             Calculation calculation = new Calculation();
-            System.out.println(calculation.getSuitablePump(1));
-            System.out.println(calculation.getSuitablePump(3.23f));
-            System.out.println(calculation.getSuitablePump(5.78f));
+            System.out.println(calculation.getSuitablePump(calculation.getX()));
             File JsonFormatFile = new File("C:\\Users\\Krugl\\IdeaProjects\\maven-project-education\\circulatingPump.json");
-            calculation.getJsonFormatFile(JsonFormatFile);
-            calculation.getJsonReport(JsonFormatFile);
+//            calculation.getJsonFormatFile(JsonFormatFile, calculation.getSuitablePump(calculation.getX()));
+//            calculation.getJsonReport(JsonFormatFile);
 
 
 

@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import task6.Interpolator;
 import task6.Point;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class Calculation {
@@ -58,6 +60,17 @@ public class Calculation {
         return list;
     }
 
+    public List<Float> getX() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        List<Float> x = new ArrayList<>();
+        while (true) {
+            if (!reader.readLine().isEmpty()) {
+                x.add(Float.parseFloat(reader.readLine()));
+            } else break;
+        }
+        return x;
+    }
+
     public CirculatingPump getSuitablePump(float x) {
         List<CirculatingPump> list = getSorted(listOfPumps);
         Interpolator interpolator = new Interpolator();
@@ -79,20 +92,45 @@ public class Calculation {
         return null;
     }
 
-    public void getJsonFormatFile (File file) throws IOException {
+    public List<CirculatingPump> getSuitablePump(List<Float> x) {
+        List<CirculatingPump> list = getSorted(listOfPumps);
+        Interpolator interpolator = new Interpolator();
+        List<Point> points = new ArrayList<>();
+        List<CirculatingPump> suitablePumps = new ArrayList<>();
+        for (CirculatingPump pump : list) {
+            List<HydraulicCharacteristics> characteristics = pump.characteristics;
+            for (HydraulicCharacteristics characteristic : characteristics) {
+                points.add(new Point(characteristic.getCapacity(), characteristic.getPressure()));
+            }
+            interpolator.setPoints(points);
+            for (Float floatX : x) {
+                float y = interpolator.getY(floatX);
+            for (CirculatingPump circulatingPump : list) {
+                for (int j = 0; j < characteristics.size() - 1; j++) {
+                        if (y < circulatingPump.characteristics.get(j).getPressure())
+                            suitablePumps.add(circulatingPump);
+                    }
+                }
+            }
+        }
+        return suitablePumps;
+    }
+
+    public void getJsonFormatFile(File file, List<CirculatingPump> pumps) throws IOException {
         List<HydraulicCharacteristics> hydraulicCharacteristicsList = new ArrayList<>();
-        for (CirculatingPump listOfPump : listOfPumps) {
-            List <HydraulicCharacteristics> list = listOfPump.characteristics;
+        for (CirculatingPump pump : pumps) {
+            List<HydraulicCharacteristics> list = pump.characteristics;
             hydraulicCharacteristicsList.addAll(list);
         }
         objectMapper.writeValue(file, hydraulicCharacteristicsList);
     }
 
-    public void getJsonReport (File file) throws IOException {
-        List <HydraulicCharacteristics> characteristics = objectMapper.readValue (file, new TypeReference<List<HydraulicCharacteristics>>(){});
-        List <CirculatingPump> list = new ArrayList();
+    public void getJsonReport(File file) throws IOException {
+        List<HydraulicCharacteristics> characteristics = objectMapper.readValue(file, new TypeReference<List<HydraulicCharacteristics>>() {
+        });
+        List<CirculatingPump> list = new ArrayList();
         for (CirculatingPump pump : listOfPumps) {
-            List <HydraulicCharacteristics> pumpHydraulicCharacteristics = pump.characteristics;
+            List<HydraulicCharacteristics> pumpHydraulicCharacteristics = pump.characteristics;
             for (HydraulicCharacteristics characteristic : characteristics) {
                 for (HydraulicCharacteristics pumpHydraulicCharacteristic : pumpHydraulicCharacteristics) {
                     if (characteristic.capacity == pumpHydraulicCharacteristic.capacity &&
@@ -102,12 +140,9 @@ public class Calculation {
                 }
             }
         }
-        System.out.println(list);
-
-
-        }
-
     }
+
+}
 
 
 
