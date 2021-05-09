@@ -8,11 +8,14 @@ package task6;
  */
 
 import task7.Calculation;
+import task7.HydraulicCharacteristics;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         {
             Program program = new Program();
             program.printInterpolateLagrangePolynomial(13.6);
@@ -24,6 +27,12 @@ public class Main {
             System.out.println(calculation.getSuitablePump(1));
             System.out.println(calculation.getSuitablePump(3.23f));
             System.out.println(calculation.getSuitablePump(5.78f));
+            File JsonFormatFile = new File("C:\\Users\\Krugl\\IdeaProjects\\maven-project-education\\circulatingPump.json");
+            calculation.getJsonFormatFile(JsonFormatFile);
+            calculation.getJsonReport(JsonFormatFile);
+
+
+
 
             // TODO: 01.04.2021 и тут мы точно знаем что он будет 25 потому что порабола y = x^2
             //  именно это и длает полином, по двум точкам он формирует линйную функцию, y = ax + с

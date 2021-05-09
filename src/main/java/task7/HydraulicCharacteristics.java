@@ -10,6 +10,9 @@ public class HydraulicCharacteristics {
         this.pressure = pressure;
     }
 
+    public HydraulicCharacteristics() {
+    }
+
     public float getCapacity() {
         return capacity;
     }

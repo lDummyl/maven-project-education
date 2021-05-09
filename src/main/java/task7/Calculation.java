@@ -1,12 +1,18 @@
 package task7;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import task6.Interpolator;
 import task6.Point;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class Calculation {
     List<CirculatingPump> listOfPumps = new ArrayList<>();
+    ObjectMapper objectMapper = new ObjectMapper();
+
 
     {
         listOfPumps.add(new CirculatingPump("solar 15-80", new ArrayList<>
@@ -47,7 +53,7 @@ public class Calculation {
                         new HydraulicCharacteristics(5.25f, 7.0f))), 7433.72));
     }
 
-    public List<CirculatingPump> getSorted(List<CirculatingPump> list) {
+    private List<CirculatingPump> getSorted(List<CirculatingPump> list) {
         list.sort(Comparator.comparing(pump -> pump.price));
         return list;
     }
@@ -72,4 +78,36 @@ public class Calculation {
         }
         return null;
     }
-}
+
+    public void getJsonFormatFile (File file) throws IOException {
+        List<HydraulicCharacteristics> hydraulicCharacteristicsList = new ArrayList<>();
+        for (CirculatingPump listOfPump : listOfPumps) {
+            List <HydraulicCharacteristics> list = listOfPump.characteristics;
+            hydraulicCharacteristicsList.addAll(list);
+        }
+        objectMapper.writeValue(file, hydraulicCharacteristicsList);
+    }
+
+    public void getJsonReport (File file) throws IOException {
+        List <HydraulicCharacteristics> characteristics = objectMapper.readValue (file, new TypeReference<List<HydraulicCharacteristics>>(){});
+        List <CirculatingPump> list = new ArrayList();
+        for (CirculatingPump pump : listOfPumps) {
+            List <HydraulicCharacteristics> pumpHydraulicCharacteristics = pump.characteristics;
+            for (HydraulicCharacteristics characteristic : characteristics) {
+                for (HydraulicCharacteristics pumpHydraulicCharacteristic : pumpHydraulicCharacteristics) {
+                    if (characteristic.capacity == pumpHydraulicCharacteristic.capacity &&
+                            characteristic.pressure == pumpHydraulicCharacteristic.pressure) {
+                        list.add(pump);
+                    }
+                }
+            }
+        }
+        System.out.println(list);
+
+
+        }
+
+    }
+
+
+
