@@ -8,7 +8,6 @@ package task6;
  */
 
 import task7.Calculation;
-import task7.HydraulicCharacteristics;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,10 +20,9 @@ public class Main {
             lagrangeInterpolator.setPoints(Arrays.asList(new Point(1,1),new Point(2,4), new Point(3,9)));
             float y = lagrangeInterpolator.getY(5);
             Calculation calculation = new Calculation();
-            System.out.println(calculation.getSuitablePump(calculation.getX()));
-            File JsonFormatFile = new File("C:\\Users\\Krugl\\IdeaProjects\\maven-project-education\\circulatingPump.json");
-//            calculation.getJsonFormatFile(JsonFormatFile, calculation.getSuitablePump(calculation.getX()));
-//            calculation.getJsonReport(JsonFormatFile);
+            File jsonFormatFile = new File("C:\\Users\\Krugl\\IdeaProjects\\maven-project-education\\circulatingPump.json");
+            calculation.getJsonFormatFile(jsonFormatFile, calculation.getListOfSuitablePump(calculation.getX()));
+            calculation.getJsonReport(jsonFormatFile);
 
 
 

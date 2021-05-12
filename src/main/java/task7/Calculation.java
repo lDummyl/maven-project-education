@@ -63,10 +63,10 @@ public class Calculation {
     public List<Float> getX() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         List<Float> x = new ArrayList<>();
-        while (true) {
-            if (!reader.readLine().isEmpty()) {
-                x.add(Float.parseFloat(reader.readLine()));
-            } else break;
+        String s = reader.readLine();
+        while (!s.isEmpty()) {
+            x.add(Float.parseFloat(s));
+            s = reader.readLine();
         }
         return x;
     }
@@ -92,26 +92,10 @@ public class Calculation {
         return null;
     }
 
-    public List<CirculatingPump> getSuitablePump(List<Float> x) {
-        List<CirculatingPump> list = getSorted(listOfPumps);
-        Interpolator interpolator = new Interpolator();
-        List<Point> points = new ArrayList<>();
+    public List<CirculatingPump> getListOfSuitablePump(List<Float> x) {
         List<CirculatingPump> suitablePumps = new ArrayList<>();
-        for (CirculatingPump pump : list) {
-            List<HydraulicCharacteristics> characteristics = pump.characteristics;
-            for (HydraulicCharacteristics characteristic : characteristics) {
-                points.add(new Point(characteristic.getCapacity(), characteristic.getPressure()));
-            }
-            interpolator.setPoints(points);
-            for (Float floatX : x) {
-                float y = interpolator.getY(floatX);
-            for (CirculatingPump circulatingPump : list) {
-                for (int j = 0; j < characteristics.size() - 1; j++) {
-                        if (y < circulatingPump.characteristics.get(j).getPressure())
-                            suitablePumps.add(circulatingPump);
-                    }
-                }
-            }
+        for (Float aFloat : x) {
+            suitablePumps.add(getSuitablePump(aFloat));
         }
         return suitablePumps;
     }
@@ -125,7 +109,7 @@ public class Calculation {
         objectMapper.writeValue(file, hydraulicCharacteristicsList);
     }
 
-    public void getJsonReport(File file) throws IOException {
+    public List <CirculatingPump> getJsonReport(File file) throws IOException {
         List<HydraulicCharacteristics> characteristics = objectMapper.readValue(file, new TypeReference<List<HydraulicCharacteristics>>() {
         });
         List<CirculatingPump> list = new ArrayList();
@@ -140,6 +124,7 @@ public class Calculation {
                 }
             }
         }
+        return list;
     }
 
 }
