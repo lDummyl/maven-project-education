@@ -21,6 +21,7 @@ public class Main {
             float y = lagrangeInterpolator.getY(5);
             Calculation calculation = new Calculation();
             File jsonFormatFile = new File("C:\\Users\\Krugl\\IdeaProjects\\maven-project-education\\circulatingPump.json");
+            System.out.println(calculation.getListOfSuitablePump(calculation.getX()));
             calculation.getJsonFormatFile(jsonFormatFile, calculation.getListOfSuitablePump(calculation.getX()));
             calculation.getJsonReport(jsonFormatFile);
 
