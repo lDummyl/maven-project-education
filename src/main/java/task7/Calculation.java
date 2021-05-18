@@ -1,20 +1,12 @@
 package task7;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import task6.Interpolator;
 import task6.Point;
-
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 
 public class Calculation {
     List<CirculatingPump> listOfPumps = new ArrayList<>();
-    ObjectMapper objectMapper = new ObjectMapper();
-
 
     {
         listOfPumps.add(new CirculatingPump("solar 15-80", new ArrayList<>
@@ -54,21 +46,31 @@ public class Calculation {
                         new HydraulicCharacteristics(3.6f, 6.1f),
                         new HydraulicCharacteristics(5.25f, 7.0f))), 7433.72));
     }
+    List <Object> listOfErrValues = new ArrayList<>();
 
     private List<CirculatingPump> getSorted(List<CirculatingPump> list) {
         list.sort(Comparator.comparing(pump -> pump.price));
         return list;
     }
 
-    public List<Float> getX() throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        List<Float> x = new ArrayList<>();
-        String s = reader.readLine();
-        while (!s.isEmpty()) {
-            x.add(Float.parseFloat(s));
-            s = reader.readLine();
+    public List <Float> getX () throws IOException {
+        List <String> list = new Reader().readFromConsole();
+        List <Float> listOfX = new ArrayList<>();
+        for (String o : list) {
+            try {
+                o = o.replace(",", ".");
+                Float x = Float.parseFloat(o);
+                if (x >= 20) {
+                    listOfErrValues.add(x);
+                } else {
+                    listOfX.add(x);
+                }
+            }
+            catch (NumberFormatException exception){
+                listOfErrValues.add(exception);
+            }
         }
-        return x;
+        return listOfX;
     }
 
     public CirculatingPump getSuitablePump(float x) {
@@ -98,33 +100,6 @@ public class Calculation {
             suitablePumps.add(getSuitablePump(aFloat));
         }
         return suitablePumps;
-    }
-
-    public void getJsonFormatFile(File file, List<CirculatingPump> pumps) throws IOException {
-        List<HydraulicCharacteristics> hydraulicCharacteristicsList = new ArrayList<>();
-        for (CirculatingPump pump : pumps) {
-            List<HydraulicCharacteristics> list = pump.characteristics;
-            hydraulicCharacteristicsList.addAll(list);
-        }
-        objectMapper.writeValue(file, hydraulicCharacteristicsList);
-    }
-
-    public List <CirculatingPump> getJsonReport(File file) throws IOException {
-        List<HydraulicCharacteristics> characteristics = objectMapper.readValue(file, new TypeReference<List<HydraulicCharacteristics>>() {
-        });
-        List<CirculatingPump> list = new ArrayList();
-        for (CirculatingPump pump : listOfPumps) {
-            List<HydraulicCharacteristics> pumpHydraulicCharacteristics = pump.characteristics;
-            for (HydraulicCharacteristics characteristic : characteristics) {
-                for (HydraulicCharacteristics pumpHydraulicCharacteristic : pumpHydraulicCharacteristics) {
-                    if (characteristic.capacity == pumpHydraulicCharacteristic.capacity &&
-                            characteristic.pressure == pumpHydraulicCharacteristic.pressure) {
-                        list.add(pump);
-                    }
-                }
-            }
-        }
-        return list;
     }
 
 }
