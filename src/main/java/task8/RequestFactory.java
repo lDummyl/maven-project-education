@@ -23,12 +23,12 @@ public class RequestFactory {
         return requestsList;
     }
 
-    public void getRequestListInJSON (File file, List list) throws IOException {
+    public void getRequestListInJSON (File file, List <Request> list) throws IOException {
         objectMapper.writeValue(file, list);
     }
 
     private HydraulicCharacteristics getHydraulicCharacteristics() {
-        float maxPressure = 10.0f;
+        float maxPressure = 30.0f;
         float maxCapacity = 15.0f;
         float pressure = new Random().nextFloat() * maxPressure;
         float capacity = new Random().nextFloat() * maxCapacity;

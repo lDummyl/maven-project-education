@@ -29,7 +29,7 @@ public class Sales {
         List<CirculatingPump> list1 = calculation.listOfPumps;
         for (CirculatingPump pump : list1) {
             double price = getMiddleSum(list);
-            if (price < pump.price)
+            if (price < pump.getPrice())
                 return pump;
         }
         return null;

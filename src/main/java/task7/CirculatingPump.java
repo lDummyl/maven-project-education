@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class CirculatingPump {
-    public String vendorCode;
-    public Double price;
-    public List <HydraulicCharacteristics> characteristics;
+    String vendorCode;
+    Double price;
+    List <HydraulicCharacteristics> characteristics;
 
     public CirculatingPump(String vendorCode, List <HydraulicCharacteristics> characteristics, Double price) {
         this.vendorCode = vendorCode;
@@ -25,6 +25,14 @@ public class CirculatingPump {
 
     public Double getPrice() {
         return price;
+    }
+
+    public String getVendorCode() {
+        return vendorCode;
+    }
+
+    public List<HydraulicCharacteristics> getCharacteristics() {
+        return characteristics;
     }
 
     @Override

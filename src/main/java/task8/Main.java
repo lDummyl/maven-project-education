@@ -1,6 +1,10 @@
 package task8;
 
 
+import task7.CirculatingPump;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /*
@@ -14,10 +18,16 @@ import java.util.List;
  */
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		RequestFactory requestFactory = new RequestFactory();
+		File file = new File("C:\\Users\\Krugl\\IdeaProjects\\maven-project-education\\requests.json");
+		File file2 = new File("C:\\Users\\Krugl\\IdeaProjects\\maven-project-education\\suitablePumps.json");
+		ProcessingRequest processingRequest = new ProcessingRequest();
 		List list = requestFactory.getRequestsList(20);
-		list.stream().forEach(System.out::println);
+		requestFactory.getRequestListInJSON(file, list);
+		List list2 = processingRequest.readJsonFile(file);
+		List pumps = processingRequest.getPumps(list2);
+		processingRequest.writeToJsonFileSuitablePumps(file2, pumps);
 
 	}
 
