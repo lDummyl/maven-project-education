@@ -1,6 +1,7 @@
 package task7;
 
 import org.junit.Test;
+import task8.Sales;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class Calculation {
-    List<CirculatingPump> listOfPumps = new ArrayList<>();
+   public List<CirculatingPump> listOfPumps = new ArrayList<>();
 
     {
         listOfPumps.add(new CirculatingPump("solar 15-80", new ArrayList<>
@@ -46,7 +46,7 @@ public class Calculation {
                         new HydraulicCharacteristics(3.6f, 6.1f),
                         new HydraulicCharacteristics(5.25f, 7.0f))), 7433.72));
     }
-    List <Object> listOfErrValues = new ArrayList<>();
+    public List <Object> listOfErrValues = new ArrayList<>();
 
     private List<CirculatingPump> getSorted(List<CirculatingPump> list) {
         list.sort(Comparator.comparing(pump -> pump.price));

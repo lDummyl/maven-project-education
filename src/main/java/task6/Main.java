@@ -9,7 +9,7 @@ package task6;
 
 import task7.Calculation;
 import task7.CirculatingPump;
-import task7.Sales;
+import task8.Sales;
 import task7.Writer;
 
 import java.io.File;
@@ -20,18 +20,18 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) throws IOException {
         {
-            LagrangeInterpolator lagrangeInterpolator = new LagrangeInterpolator();
-            lagrangeInterpolator.setPoints(Arrays.asList(new Point(1,1),new Point(2,4), new Point(3,9)));
-            float y = lagrangeInterpolator.getY(5);
-            Calculation calculation = new Calculation();
-            Writer writer = new Writer();
-            Sales sales = new Sales();
-            File jsonFormatFile = new File("C:\\Users\\Krugl\\IdeaProjects\\maven-project-education\\circulatingPump.json");
-            writer.getJsonFormatFile(jsonFormatFile, calculation.getListOfSuitablePump(calculation.getX()));
-            List <CirculatingPump> list = writer.getJsonReport(jsonFormatFile);
-            list.forEach(System.out::println);
-            System.out.println(sales.getMiddleSum(list));
-            System.out.println(sales.getTotalSum(list));
+//            LagrangeInterpolator lagrangeInterpolator = new LagrangeInterpolator();
+//            lagrangeInterpolator.setPoints(Arrays.asList(new Point(1,1),new Point(2,4), new Point(3,9)));
+//            float y = lagrangeInterpolator.getY(5);
+//            Calculation calculation = new Calculation();
+//            Writer writer = new Writer();
+//            Sales sales = new Sales();
+//            File jsonFormatFile = new File("C:\\Users\\Krugl\\IdeaProjects\\maven-project-education\\circulatingPump.json");
+//            writer.getJsonFormatFile(jsonFormatFile, calculation.getListOfSuitablePump(calculation.getX()));
+//            List <CirculatingPump> list = writer.getJsonReport(jsonFormatFile);
+//            list.forEach(System.out::println);
+//            System.out.println(sales.getMiddleSum(list));
+//            System.out.println(sales.getTotalSum(list));
 
 
             // TODO: 01.04.2021 и тут мы точно знаем что он будет 25 потому что порабола y = x^2
@@ -54,7 +54,7 @@ public class Main {
             //  собственно значения a, b, c из ф-ции y = ax2 + bx + c, потом подставлял и решал через дискриминант
             //  в данной реализации можно просто хранить точки в вычилсять каждый раз через интерполятор.
             //
-            System.out.println("y = " + y);
+//            System.out.println("y = " + y);
 
         }
     }

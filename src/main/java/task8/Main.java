@@ -1,6 +1,8 @@
 package task8;
 
 
+import java.util.List;
+
 /*
 	Реализовать пакетный подбор насосов
 	создать генератор Josn, который содержит пары расход/напор
@@ -13,6 +15,9 @@ package task8;
 public class Main {
 
 	public static void main(String[] args) {
+		RequestFactory requestFactory = new RequestFactory();
+		List list = requestFactory.getRequestsList(20);
+		list.stream().forEach(System.out::println);
 
 	}
 

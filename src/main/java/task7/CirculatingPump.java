@@ -1,13 +1,12 @@
 package task7;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
 public class CirculatingPump {
-    String vendorCode;
-    Double price;
-    List <HydraulicCharacteristics> characteristics;
+    public String vendorCode;
+    public Double price;
+    public List <HydraulicCharacteristics> characteristics;
 
     public CirculatingPump(String vendorCode, List <HydraulicCharacteristics> characteristics, Double price) {
         this.vendorCode = vendorCode;

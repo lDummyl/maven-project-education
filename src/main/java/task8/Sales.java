@@ -1,6 +1,7 @@
-package task7;
+package task8;
+import task7.Calculation;
+import task7.CirculatingPump;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class Sales {
     }
 
     // по поводу этого метода совсем не уверена. Нужно добавлять по 1 насосу на каждую ошибку?
-    public List <CirculatingPump> addAlternativePumps(List<CirculatingPump> list) throws IOException {
+    public List <CirculatingPump> addAlternativePumps(List<CirculatingPump> list) {
         List <Object> listOfErrValues = calculation.listOfErrValues;
         List<CirculatingPump> additionalPumps = new ArrayList<>();
         if (!listOfErrValues.isEmpty()) {
