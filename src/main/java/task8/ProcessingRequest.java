@@ -19,9 +19,13 @@ public class ProcessingRequest {
 
     public List <CirculatingPump> getPumps (List <Request> list){
         Calculation calculation = new Calculation();
+        Sales sales = new Sales();
         List <Float> listOfX = new ArrayList<>();
         for (Request request : list) {
-            listOfX.add(request.getCharacteristics().getPressure());
+            if (request.getCharacteristics() != null) {
+                listOfX.add(request.getCharacteristics().getPressure());
+            }
+
         }
         return calculation.getListOfSuitablePump(listOfX);
     }

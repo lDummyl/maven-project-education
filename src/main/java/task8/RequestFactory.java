@@ -15,10 +15,16 @@ public class RequestFactory {
 
     public List <Request> getRequestsList (int qty){
         List <Request> requestsList = new ArrayList<>();
+        Random random = new Random(100);
         while (qty > 0)
         {
-            requestsList.add(new Request(getDate(), getHydraulicCharacteristics()));
-            qty--;
+            if (random.nextInt() > 10) {
+                requestsList.add(new Request(getDate(), getHydraulicCharacteristics()));
+                qty--;
+            }
+            else {
+                requestsList.add(new Request(getDate()));
+            }
         }
         return requestsList;
     }

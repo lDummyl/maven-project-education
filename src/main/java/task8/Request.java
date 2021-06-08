@@ -20,6 +20,10 @@ public class Request {
     LocalDate date;
     HydraulicCharacteristics characteristics;
 
+    public Request(LocalDate date) {
+        this.date = date;
+    }
+
     public LocalDate getDate() {
         return date;
     }
