@@ -17,20 +17,32 @@ public class ProcessingRequest {
         return mapper.readValue(file, new TypeReference<List<Request>>(){});
     }
 
-    public List <CirculatingPump> getPumps (List <Request> list){
+    public List <Offer> getOffers (List <Request> list){
+        List <CirculatingPump> pumps = new ArrayList<>();
         Calculation calculation = new Calculation();
         Sales sales = new Sales();
-        List <Float> listOfX = new ArrayList<>();
+        List <Offer> offers = new ArrayList<>();
+        List <Request> list2 = new ArrayList<>();
         for (Request request : list) {
             if (request.getCharacteristics() != null) {
-                listOfX.add(request.getCharacteristics().getPressure());
+               CirculatingPump pump = calculation.getSuitablePump(request.getCharacteristics().getPressure());
+               pumps.add(pump);
+                Offer offer = new Offer(request.date, pump);
+                offers.add(offer);
             }
-
+            else {
+                list2.add(request);
+            }
         }
-        return calculation.getListOfSuitablePump(listOfX);
+        for (Request request : list2) {
+                    CirculatingPump alternativePump = sales.getAlternativePump(pumps);
+                    Offer offer = new Offer(request.date, alternativePump, "Альтернативный насос");
+                    offers.add(offer);
+                }
+        return offers;
     }
 
-    public void writeToJsonFileSuitablePumps (File file, List <CirculatingPump> pumps) throws IOException {
-        mapper.writeValue(file, pumps);
+    public void writeToJsonFileOffers (File file, List <Offer> offers) throws IOException {
+        mapper.writeValue(file, offers);
     }
 }

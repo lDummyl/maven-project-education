@@ -8,6 +8,9 @@ public class CirculatingPump {
     Double price;
     List <HydraulicCharacteristics> characteristics;
 
+    public CirculatingPump() {
+    }
+
     public CirculatingPump(String vendorCode, List <HydraulicCharacteristics> characteristics, Double price) {
         this.vendorCode = vendorCode;
         this.characteristics = characteristics;
@@ -25,10 +28,6 @@ public class CirculatingPump {
 
     public Double getPrice() {
         return price;
-    }
-
-    public String getVendorCode() {
-        return vendorCode;
     }
 
     public List<HydraulicCharacteristics> getCharacteristics() {

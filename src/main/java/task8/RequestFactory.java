@@ -18,13 +18,13 @@ public class RequestFactory {
         Random random = new Random(100);
         while (qty > 0)
         {
-            if (random.nextInt() > 10) {
+            if (random.nextInt() < 90) {
                 requestsList.add(new Request(getDate(), getHydraulicCharacteristics()));
-                qty--;
             }
             else {
                 requestsList.add(new Request(getDate()));
             }
+            qty--;
         }
         return requestsList;
     }
