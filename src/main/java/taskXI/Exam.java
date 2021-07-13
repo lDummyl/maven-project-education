@@ -9,6 +9,6 @@ package taskXI;
 
 */
 
-
 public class Exam {
+
 }
