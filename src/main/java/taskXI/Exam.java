@@ -9,6 +9,11 @@ package taskXI;
 
 */
 
-public class Exam {
+import java.util.List;
 
+public class Exam {
+    public static void main(String[] args) {
+        UserLogsProcessing userLogsProcessing = new UserLogsProcessing();
+        userLogsProcessing.createUserLogs();
+    }
 }

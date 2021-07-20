@@ -6,6 +6,9 @@ public class UserLogs {
     String url;
     int qtySecondsUserSpend;
 
+    public UserLogs() {
+    }
+
     public UserLogs(long unixTime, String userID, String url, int qtySecondsUserSpend) {
         this.unixTime = unixTime;
         this.userID = userID;

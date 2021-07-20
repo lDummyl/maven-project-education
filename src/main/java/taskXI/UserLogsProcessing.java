@@ -1,21 +1,26 @@
 package taskXI;
 
+import java.io.File;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class UserLogsProcessing implements Parser{
-    @Override
-    public UserLogs createUserLogs() {
+public class UserLogsProcessing implements LogsFinder, StAXParserInputFiles {
+
+    public void createUserLogs() {
         //обработка логов потоками, try-catch блок в случае прерывания (чтобы хотя бы часть объектов была создана
         //и попала в исходящий файл-отчет
-        return Parser.super.createUserLogs();
+        List<File> list = findLogs("C:\\java\\logs");
+        for (File file : list) {
+            StAXParserInputFiles.super.createUserLogs(file);
+        }
+
     }
 
-    List <UserLogs> getLogsList(){
+    List<UserLogs> getLogsList() {
         List<UserLogs> list = new ArrayList<>();
-        list.add(createUserLogs());
+        //  list.add(createUserLogs());
         return list;
     }
 
@@ -30,11 +35,11 @@ public class UserLogsProcessing implements Parser{
         return getStartDate(userLogs).plusSeconds(userLogs.getQtySecondsUserSpend());
     }
 
-    public Map<Instant,OutgoingFile> getFileForOut (List <UserLogs> list)
-    {
+    public Map<Instant, OutgoingFile> getFileForOut(List<UserLogs> list) {
         //пока не разобралась что именно использовать для работы с временем
         return null;
     }
+
     @Override
     public void writeToFile() {
 
