@@ -14,19 +14,22 @@ import java.util.List;
 public interface StAXParserInputFiles {
 
 
-    default List <UserLogs> createUserLogs(File file) {
+    default List<UserLogs> createUserLogs(File file) {
         //извлечение данных из файлов xml с использованием xsd (посредством xerces)
-        List <UserLogs> list = new ArrayList<>();
+        List<UserLogs> list = new ArrayList<>();
+        boolean log = false;
         boolean timestamp = false;
         boolean userID = false;
         boolean url = false;
         boolean seconds = false;
+
         XMLInputFactory factory = XMLInputFactory.newInstance();
         try {
-
             XMLEventReader eventReader =
                     factory.createXMLEventReader(new FileReader(file));
             while (eventReader.hasNext()) {
+                UserLogs userLogs = new UserLogs();
+
 
                 XMLEvent event = eventReader.nextEvent();
                 switch (event.getEventType()) {
@@ -34,6 +37,7 @@ public interface StAXParserInputFiles {
                         StartElement startElement = event.asStartElement();
                         String qName = startElement.getName().getLocalPart();
                         if (qName.equalsIgnoreCase("log")) {
+                            log = true;
                         } else if (qName.equalsIgnoreCase("timestamp")) {
                             timestamp = true;
                         } else if (qName.equalsIgnoreCase("userID")) {
@@ -44,30 +48,22 @@ public interface StAXParserInputFiles {
                             seconds = true;
                         }
                         break;
-
                     case XMLStreamConstants.CHARACTERS:
                         Characters characters = event.asCharacters();
-                        UserLogs userLogs = new UserLogs();
-                        if (timestamp) {
-                            if (characters.getData() != null) {
+                        if (log) {
+                            if (timestamp) {
                                 userLogs.setUnixTime(Long.parseLong(characters.getData()));
                                 timestamp = false;
                             }
-                        }
-                        if (userID) {
-                            if (characters.getData() != null) {
+                            if (userID) {
                                 userLogs.setUserID(characters.getData());
                                 userID = false;
                             }
-                        }
-                        if (url) {
-                            if (characters.getData() != null) {
+                            if (url) {
                                 userLogs.setUrl(characters.getData());
                                 url = false;
                             }
-                        }
-                        if (seconds) {
-                            if (characters.getData() != null) {
+                            if (seconds) {
                                 userLogs.setQtySecondsUserSpend(Integer.parseInt(characters.getData()));
                                 seconds = false;
                             }
@@ -77,15 +73,11 @@ public interface StAXParserInputFiles {
                     case XMLStreamConstants.END_ELEMENT:
                         EndElement endElement = event.asEndElement();
                         if (endElement.getName().getLocalPart().equalsIgnoreCase("log")) {
+
                         }
-
                         break;
-
                 }
-
             }
-
-
 
         } catch (XMLStreamException | FileNotFoundException e) {
             e.printStackTrace();
