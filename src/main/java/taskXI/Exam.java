@@ -9,7 +9,6 @@ package taskXI;
 
 */
 
-import java.util.List;
 
 public class Exam {
     public static void main(String[] args) {

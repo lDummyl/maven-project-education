@@ -13,14 +13,14 @@ public class UserLogsProcessing implements LogsFinder, StAXParserInputFiles {
         //и попала в исходящий файл-отчет
         List<File> list = findLogs("C:\\java\\logs");
         for (File file : list) {
-            StAXParserInputFiles.super.createUserLogs(file);
+            System.out.println(StAXParserInputFiles.super.createUserLogs(file));
         }
 
     }
 
     List<UserLogs> getLogsList() {
         List<UserLogs> list = new ArrayList<>();
-        //  list.add(createUserLogs());
+        //list.add(createUserLogs());
         return list;
     }
 

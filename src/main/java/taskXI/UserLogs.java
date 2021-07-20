@@ -47,4 +47,15 @@ public class UserLogs {
     public void setQtySecondsUserSpend(int qtySecondsUserSpend) {
         this.qtySecondsUserSpend = qtySecondsUserSpend;
     }
+
+    @Override
+    public String toString() {
+        return "UserLogs{" +
+                "unixTime=" + unixTime +
+                ", userID='" + userID + '\'' +
+                ", url='" + url + '\'' +
+                ", qtySecondsUserSpend=" + qtySecondsUserSpend +
+                '}';
+    }
 }
+
