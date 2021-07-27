@@ -30,8 +30,8 @@ public class UserLogsProcessing implements LogsFinder, StAXParserInputFiles {
         return LocalDateTime.ofInstant(Instant.ofEpochSecond(userLogs.unixTime).plusSeconds(userLogs.getQtySecondsUserSpend()), ZoneOffset.UTC);
     }
 
-    public Map<LocalDate, List<OutgoingFile>> getFileForOut(List<UserLogs> list) {
-        HashMap<LocalDate, List<OutgoingFile>> map = new HashMap<>();
+    public Map<OutgoingFile, LocalDate> getFileForOut(List<UserLogs> list) {
+        HashMap<OutgoingFile, LocalDate> map = new HashMap<>();
         List <OutgoingFile> outgoingFiles = new ArrayList<>();
         for (UserLogs userLogs : list) {
             LocalDateTime startDateTime = getStartDateTime(userLogs);
@@ -40,17 +40,14 @@ public class UserLogsProcessing implements LogsFinder, StAXParserInputFiles {
             LocalDate endDate = endDateTime.toLocalDate();
             LocalTime endTimeOfSession = endDateTime.toLocalTime();
             if (startDate.equals(endDate)) {
-                outgoingFiles.add(new OutgoingFile(userLogs.getUserID(), userLogs.getUrl(), userLogs.getQtySecondsUserSpend()));
-                map.put(startDate,outgoingFiles);
+                map.put(new OutgoingFile(userLogs.getUserID(), userLogs.getUrl(), userLogs.getQtySecondsUserSpend()), startDate);
             } else
             {
                 LocalTime midnight = LocalTime.MIDNIGHT;
                 long secondsAfterMidnight = Duration.between(midnight, endTimeOfSession).toSeconds();
-                outgoingFiles.add(new OutgoingFile(userLogs.getUserID(), userLogs.getUrl(), secondsAfterMidnight));
-                map.put(endDate, outgoingFiles);
+                map.put(new OutgoingFile(userLogs.getUserID(), userLogs.getUrl(), secondsAfterMidnight),endDate);
                 long secondsBeforeMidnight = userLogs.getQtySecondsUserSpend() - secondsAfterMidnight;
-                outgoingFiles.add(new OutgoingFile(userLogs.getUserID(), userLogs.getUrl(), secondsBeforeMidnight));
-                map.put(startDate, outgoingFiles);
+                map.put(new OutgoingFile(userLogs.getUserID(), userLogs.getUrl(), secondsBeforeMidnight), startDate);
             }
         }
         return map;

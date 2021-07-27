@@ -18,8 +18,8 @@ public class Exam {
     public static void main(String[] args) {
         UserLogsProcessing userLogsProcessing = new UserLogsProcessing();
         userLogsProcessing.createUserLogsList();
-        Map<LocalDate, List<OutgoingFile>> map = userLogsProcessing.getFileForOut(userLogsProcessing.createUserLogsList());
-        for (Map.Entry<LocalDate, List<OutgoingFile>> entry : map.entrySet()) {
+        Map<OutgoingFile, LocalDate> map = userLogsProcessing.getFileForOut(userLogsProcessing.createUserLogsList());
+        for (Map.Entry<OutgoingFile, LocalDate> entry : map.entrySet()) {
             System.out.println("entry = " + entry);
         }
     }
