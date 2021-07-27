@@ -10,9 +10,17 @@ package taskXI;
 */
 
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+
 public class Exam {
     public static void main(String[] args) {
         UserLogsProcessing userLogsProcessing = new UserLogsProcessing();
-        userLogsProcessing.createUserLogs();
+        userLogsProcessing.createUserLogsList();
+        Map<LocalDate, List<OutgoingFile>> map = userLogsProcessing.getFileForOut(userLogsProcessing.createUserLogsList());
+        for (Map.Entry<LocalDate, List<OutgoingFile>> entry : map.entrySet()) {
+            System.out.println("entry = " + entry);
+        }
     }
 }

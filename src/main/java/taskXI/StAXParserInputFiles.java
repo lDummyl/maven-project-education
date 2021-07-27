@@ -58,9 +58,7 @@ public interface StAXParserInputFiles {
                 }
             }
 
-        } catch (XMLStreamException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
+        } catch (XMLStreamException | FileNotFoundException e) {
             e.printStackTrace();
         }
         return list;

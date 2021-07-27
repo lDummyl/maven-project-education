@@ -4,12 +4,12 @@ public class UserLogs {
     long unixTime;
     String userID;
     String url;
-    int qtySecondsUserSpend;
+    long qtySecondsUserSpend;
 
     public UserLogs() {
     }
 
-    public UserLogs(long unixTime, String userID, String url, int qtySecondsUserSpend) {
+    public UserLogs(long unixTime, String userID, String url, long qtySecondsUserSpend) {
         this.unixTime = unixTime;
         this.userID = userID;
         this.url = url;
@@ -40,7 +40,7 @@ public class UserLogs {
         this.url = url;
     }
 
-    public int getQtySecondsUserSpend() {
+    public long getQtySecondsUserSpend() {
         return qtySecondsUserSpend;
     }
 
