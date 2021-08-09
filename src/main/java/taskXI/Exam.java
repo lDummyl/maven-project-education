@@ -17,10 +17,9 @@ import java.util.Map;
 public class Exam {
     public static void main(String[] args) {
         UserLogsProcessing userLogsProcessing = new UserLogsProcessing();
-        userLogsProcessing.createUserLogsList();
-        Map<OutgoingFile, LocalDate> map = userLogsProcessing.getFileForOut(userLogsProcessing.createUserLogsList());
-        for (Map.Entry<OutgoingFile, LocalDate> entry : map.entrySet()) {
-            System.out.println("entry = " + entry);
-        }
+        Map <LocalDate, List<OutgoingFile>> map = userLogsProcessing.getMapForWriteToFile();
+        userLogsProcessing.writeToFile(map);
+
     }
 }
+

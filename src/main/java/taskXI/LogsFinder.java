@@ -16,9 +16,5 @@ public interface LogsFinder {
 
 
 
-    void writeToFile();
-    //xsd схема для выгрузки и запись в формат xml
-
-
 }
 
