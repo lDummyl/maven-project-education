@@ -25,6 +25,10 @@ public class OutgoingFile {
         this.average = average;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
     @Override
     public String toString() {
         return "OutgoingFile{" +
