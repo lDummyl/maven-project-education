@@ -1,39 +1,46 @@
 package multithreading;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Main {
     static int i;
+    synchronized void increment(){
+        // так сделать можно, или это некорректно?
+        i = -2;
+        for (int j = 0; j < 1000; j++) {
+            i++;
+        }
+        System.out.println(Thread.currentThread().getName());
+    }
+
 
     public static void main(String[] args) throws InterruptedException {
         Job job = new Job();
-        Job job2 = new Job();
-        Thread thread = new Thread(job);
-        Thread thread2 = new Thread(job2);
-        System.out.println(LocalDateTime.now());
-        thread.start();
-        thread2.start();
-        thread.join();
+        ArrayList<Thread> threads = new ArrayList<>();
+        for (int j = 1; j < 9; j++) {
+            String name = "thread" + j;
+            Thread thread = new Thread(job);
+            thread.setName(name);
+            threads.add(thread);
+        }
+        threads.get(0).start();
+        threads.get(1).start();
+        threads.get(2).start();
+        threads.get(3).start();
+        threads.get(4).start();
+        threads.get(5).start();
+        threads.get(6).start();
+        threads.get(7).start();
         System.out.println(i);
         System.out.println(Thread.currentThread().getName());
-        System.out.println(LocalDateTime.now());
-
     }
+
     static class Job implements Runnable {
+        Main main = new Main();
 
         @Override
         public void run() {
-
-            System.out.println(Thread.currentThread().getName());
-            try {
-                Thread.sleep(5000);
-                for (int j = 0; j < 10000000; j++) {
-                    i++;
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
+            main.increment();
         }
     }
 }
