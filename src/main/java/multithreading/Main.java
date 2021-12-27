@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 public class Main {
     static int i;
+
     synchronized void increment(){
         // так сделать можно, или это некорректно?
-        i = -2;
+        // TODO: 12/27/2021 нет конечно. Ну это самая классическая ошибка,
+        //  ты всю работу которая должна быть асинхронной делаешь в синхронном блоке. Так что у тебя получается валидный ответ но ты не получешь преимущества по скорости расчета никогда
         for (int j = 0; j < 1000; j++) {
             i++;
         }
@@ -31,6 +33,9 @@ public class Main {
         threads.get(5).start();
         threads.get(6).start();
         threads.get(7).start();
+        // TODO: 12/27/2021 а если будет 100 потоков будет 100 строк?
+
+        // TODO: 12/27/2021 и потом куда пропали join?
         System.out.println(i);
         System.out.println(Thread.currentThread().getName());
     }
